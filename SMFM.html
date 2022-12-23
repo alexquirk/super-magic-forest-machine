@@ -68,30 +68,43 @@
                 break;
 
         // TRAVEL
+            // GOING UP
             case inp("walk")||inp('go')||inp('travel')   &&    (inp('north')||inp('up')||inp('straight')||inp('forward'))    :
                 switch (roomNum) {
                     case 1:
                         roomNum = 2;
+                        document.getElementById("map").src="./roomimages/smfmroom2.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
                         break;
                 };
                 break;
 
         // ROOM 1
-            case roomNum === 1 &&    (inp('open')||inp('try')||inp('use'))    &&    (inp('door')||inp('handle'))     :
+            case roomNum === 1 &&    (inp('open')||inp('try')||inp('use'))    &&    (inp('door')||inp('handle')||inp("knob"))     :
                 output.innerHTML = "The door is locked.";
                 break;
             case roomNum === 1 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "In front of you, a <span>door frame</span> stands in the middle of a forest clearing scattered with stones and flowers. To the <span>north</span> and <span>east</span> the forest grows dark and dense. Behind you to the <span>south</span>, you can hear the distant sound of running water. To the <span>west</span> you can see a rocky outcropping.";
                 break;
             case roomNum === 1 &&    (inp('inspect')||inp('look')||inp('search'))    &&    (inp('door')||inp('frame'))     :
-                output.innerHTML = "The <span>door</span> and it's <span>frame</span> are made of a hearty oak wood. It's worn, but sturdy, and something tells you it's been hear a long time.";
+                output.innerHTML = "The <span>door</span> and it's <span>frame</span> are made of a hearty oak wood. It's worn, but sturdy. Something tells you it's been hear a long time.";
                 break;
             case roomNum === 1 &&    (inp('look')||inp('inspect'))   &&    (inp('trees'))     :
-                output.innerHTML = "The trees sway gently in the breeze. It's rather peaceful here!";
+                output.innerHTML = "The trees sway gently in the breeze. It's rather peaceful here.";
                 break;
             case roomNum === 1 &&    (inp('pick')||inp('take')||inp('gather'))   &&    (inp('flower'))     :
                 output.innerHTML = 'You pick one of the blue flowers and put it in your pocket. Nice!';
                 haveFlower = true;
+                break;
+            case roomNum === 1 &&    inp('unlock')   &&    (inp('door')||inp('handle'))   &&  doorUnlocked === false  :
+                output.innerHTML = "You don't have the <span>key</span>. Maybe it's nearby?";
+                break;
+            case roomNum === 1 &&    (inp('look')||inp('inspect'))   &&    (inp('lock')||inp('handle')||inp('knob'))     :
+                output.innerHTML = "The door's gnob and lock are simple and a bit rusty, but strong. You try to push it open, but it won't budge.";
+                break;
+            case roomNum === 1 &&    inp('knock') || inp('nok'):
+                output.innerHTML = "You knock on the door, but nothing happens.";
                 break;
 
         // DEFAULT
