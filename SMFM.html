@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Magic Forest Machine</title>
     <link rel="stylesheet" href="SMFMstyles.CSS">
+    <style> @import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&display=swap'); </style>
 </head>
 <body>
 
@@ -19,11 +20,17 @@
     <div class="borders"></div>
     <img id="map" src="smfmroom1.png" alt="room 1">
     <div class="outputarea">
-        <div id="output"></div>
+        <div id="output">You open your eyes and find yourself in a forest clearing. 
+            In front of you stands a wooden <span>door frame</span>.
+            <br><br>
+            You try to remember how you got here, but your mind is fuzzy. "Maybe I overslept," you think to yourself.
+            <br><br>
+            Try <span>looking around</span>.
+        </div>
     </div>
     <div class="inputarea">
         <input type="text" id="userinput" maxlength="25">
-        <input type="button" id="enterbutton" value="Enter">
+        <input type="button" id="enterbutton" value="ENTER">
     </div>
     <div class="borders"></div>
 </article>
@@ -33,21 +40,54 @@
 
 <!-- SCRIPT -->
 <script>
-    const userinput = document.getElementById('userinput');
-    const output = document.getElementById('output');
-    const enterbutton = document.getElementById('enterbutton');
 
-    function processinput() {
-        if (userinput.value === 'help') {
-            output.innerHTML = 'Try typing \"look around\"'
-        } else {
-            output.innerHTML = userinput.value;
-        }
+//DECLARE VARIABLES
+    const userInput = document.getElementById('userinput');
+    const output = document.getElementById('output');
+    const enterButton = document.getElementById('enterbutton');
+    const roomNum = 1;
+    const doorUnlocked = false;
+
+// USER INPUT
+    const inp = (arg) => {
+        return userInput.value.includes(arg);
+    }
+    const processinput = () => {
+
+    // GLOBAL
+        if (inp('help') || inp('hint')){
+            output.innerHTML = "Try <span>looking around</span>, <span>walking</span> in a direction, or <span>inspecting</span> objects.<br><br>You can also <span>take</span> objects, <span>use</span> objects, or <span>check pockets</span> to see what objects you have with you."
+        } else if (inp('sleep') || inp('nap')){
+            output.innerHTML = "You're not really tired."
+
+    // LOOK AROUND
+        } else if (inp('look') && inp('around')) {
+            if (roomNum === 1) {
+                output.innerHTML = "The <span>door frame</span> stands in the middle of a forest clearing. To the <span>north</span> and <span>east</span> the forest grows dark and dense. Behind you, to the <span>south</span>, you can hear the distant sound of running water."
+            } 
+        
+
+        
+    // ROOM 1
+        } else if (roomNum === 1) {
+            
+            if ( (inp('open') || inp('try') || inp('use') ) && ( inp('door') || inp('handle') ) ){
+                output.innerHTML = 'The door is locked!'
+            }
+            
+
+
+    
+        
+    // DEFAULT CASE
+
+        } else { output.innerHTML = 'Nothing happened.'};
+        
+        userInput.value = "";
     }
 
-    // PRESSING ENTER 
-
-    enterbutton.addEventListener('click', processinput)
+// PRESSING ENTER 
+    enterButton.addEventListener('click', processinput)
 
     // from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_trigger_button_enter
     var input = document.getElementById("userinput");

@@ -1,7 +1,7 @@
 body {
     background-color: black;
-    font-family:'Courier New', Courier, monospace;
-
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 16px;
 }
 
 #themachine {
@@ -10,7 +10,6 @@ body {
                     "a b c" 
                     "a d c" ;
     align-items: center;
-    /* margin-top: 20vh; */
 }
  
 #map {
@@ -32,7 +31,14 @@ body {
     color: white;
     grid-area: b;
     padding: 5px;
+    width: 80vw;
+    max-width: 700px;
+    justify-self: center;
 } 
+
+#output > span {
+    color: rgb(255, 152, 152);
+}
 
 .inputarea {
     grid-area: d;
@@ -61,6 +67,7 @@ input:focus, textarea {
 
 #enterbutton {
     max-width: 80px;
+    padding-left: 5px;
 }
 
 @media (max-width:397px){
@@ -70,6 +77,6 @@ input:focus, textarea {
     }
 
     #map {
-        border-top: 0px;
+        margin-top: 0px;
     }
 }
