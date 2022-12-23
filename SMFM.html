@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- HEAD-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Magic Forest Machine</title>
+    <link rel="stylesheet" href="SMFMstyles.CSS">
+</head>
+<body>
+
+
+<!-- THE MACHINE -->
+
+<article id="themachine">
+
+    <div class="borders"></div>
+    <img id="map" src="smfmroom1.png" alt="room 1">
+    <div class="outputarea">
+        <div id="output"></div>
+    </div>
+    <div class="inputarea">
+        <input type="text" id="userinput" maxlength="25">
+        <input type="button" id="enterbutton" value="Enter">
+    </div>
+    <div class="borders"></div>
+</article>
+
+</body>
+
+
+<!-- SCRIPT -->
+<script>
+    const userinput = document.getElementById('userinput');
+    const output = document.getElementById('output');
+    const enterbutton = document.getElementById('enterbutton');
+
+    function processinput() {
+        if (userinput.value === 'help') {
+            output.innerHTML = 'Try typing \"look around\"'
+        } else {
+            output.innerHTML = userinput.value;
+        }
+    }
+
+    // PRESSING ENTER 
+
+    enterbutton.addEventListener('click', processinput)
+
+    // from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_trigger_button_enter
+    var input = document.getElementById("userinput");
+    input.addEventListener("keypress",
+    function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("enterbutton").click();
+        }
+  });
+
+</script>
+
+
+
+</html>

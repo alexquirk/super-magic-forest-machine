@@ -1,0 +1,75 @@
+body {
+    background-color: black;
+    font-family:'Courier New', Courier, monospace;
+
+}
+
+#themachine {
+    display: grid;
+    grid-template:  "a e c"
+                    "a b c" 
+                    "a d c" ;
+    align-items: center;
+    /* margin-top: 20vh; */
+}
+ 
+#map {
+    grid-area: e;
+    justify-self: center;
+    border-color: grey;
+    border-style: solid double;
+    border-width: 1px 5px;
+    margin-bottom: 10px;
+    margin-top: 4vh;
+    width: 80vw;
+    min-width: 310px;
+    max-width: 450px;
+}
+
+.outputarea {
+    border: 1px solid grey;
+    height: 250px;
+    color: white;
+    grid-area: b;
+    padding: 5px;
+} 
+
+.inputarea {
+    grid-area: d;
+    justify-self: center;
+    margin-top: 10px;
+}
+
+input, textarea {
+    font-family:inherit;
+    font-size: inherit;
+    background-color: black;
+    color: white;
+    border: solid grey 1px;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+
+input:focus, textarea { 
+    outline: none;
+    /* outline: rgb(75, 75, 75) solid px; */
+}  
+
+#userinput {
+    width: 300px;
+}
+
+#enterbutton {
+    max-width: 80px;
+}
+
+@media (max-width:397px){
+    .inputarea {
+        display: inline-grid;
+        justify-items: center;
+    }
+
+    #map {
+        border-top: 0px;
+    }
+}
