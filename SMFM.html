@@ -18,12 +18,12 @@
 <article id="themachine">
 
     <div class="borders"></div>
-    <img id="map" src="smfmroom1.png" alt="room 1">
+    <img id="map" src="./roomimages/smfmroom1.png" alt="room 1">
     <div class="outputarea">
         <div id="output">You open your eyes and find yourself in a forest clearing. 
             In front of you stands a wooden <span>door frame</span>.
             <br><br>
-            You try to remember how you got here, but your mind is fuzzy. "Maybe I overslept," you think to yourself.
+            You try to remember how you got here, but your mind is fuzzy. "Guess I fell asleep," you think to yourself.
             <br><br>
             Try <span>looking around</span>.
         </div>
@@ -45,49 +45,66 @@
     const userInput = document.getElementById('userinput');
     const output = document.getElementById('output');
     const enterButton = document.getElementById('enterbutton');
-    const roomNum = 1;
-    const doorUnlocked = false;
+    let roomNum = 1;
+    let doorUnlocked = false;
+    let haveFlower = false;
 
 // USER INPUT
     const inp = (arg) => {
-        return userInput.value.includes(arg);
+        return userInput.value.toLowerCase().includes(arg);
     }
     const processinput = () => {
-
-    // GLOBAL
-        if (inp('help') || inp('hint')){
-            output.innerHTML = "Try <span>looking around</span>, <span>walking</span> in a direction, or <span>inspecting</span> objects.<br><br>You can also <span>take</span> objects, <span>use</span> objects, or <span>check pockets</span> to see what objects you have with you."
-        } else if (inp('sleep') || inp('nap')){
-            output.innerHTML = "You're not really tired."
-
-    // LOOK AROUND
-        } else if (inp('look') && inp('around')) {
-            if (roomNum === 1) {
-                output.innerHTML = "The <span>door frame</span> stands in the middle of a forest clearing. To the <span>north</span> and <span>east</span> the forest grows dark and dense. Behind you, to the <span>south</span>, you can hear the distant sound of running water."
-            } 
-        
-
-        
-    // ROOM 1
-        } else if (roomNum === 1) {
-            
-            if ( (inp('open') || inp('try') || inp('use') ) && ( inp('door') || inp('handle') ) ){
-                output.innerHTML = 'The door is locked!'
-            }
-            
-
-
+        switch (true) {
     
-        
-    // DEFAULT CASE
+        // GLOBAL
+            case inp("hint") || inp("help"):
+                output.innerHTML = "Try <span>looking around</span>, <span>walking</span> in a direction, or <span>inspecting</span> objects.<br><br>You can also <span>take</span> objects, <span>use</span> objects, or <span>check pockets</span> to see what objects you have with you.";
+                break;
+            case inp("nap") || inp("sleep"):
+                output.innerHTML = "You're not really tired.";
+                break; 
+            case inp('hello') || inp('hi'):
+                output.innerHTML = "Hi!!";
+                break;
 
-        } else { output.innerHTML = 'Nothing happened.'};
-        
+        // TRAVEL
+            case inp("walk")||inp('go')||inp('travel')   &&    (inp('north')||inp('up')||inp('straight')||inp('forward'))    :
+                switch (roomNum) {
+                    case 1:
+                        roomNum = 2;
+                        break;
+                };
+                break;
+
+        // ROOM 1
+            case roomNum === 1 &&    (inp('open')||inp('try')||inp('use'))    &&    (inp('door')||inp('handle'))     :
+                output.innerHTML = "The door is locked.";
+                break;
+            case roomNum === 1 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
+                output.innerHTML = "In front of you, a <span>door frame</span> stands in the middle of a forest clearing scattered with stones and flowers. To the <span>north</span> and <span>east</span> the forest grows dark and dense. Behind you to the <span>south</span>, you can hear the distant sound of running water. To the <span>west</span> you can see a rocky outcropping.";
+                break;
+            case roomNum === 1 &&    (inp('inspect')||inp('look')||inp('search'))    &&    (inp('door')||inp('frame'))     :
+                output.innerHTML = "The <span>door</span> and it's <span>frame</span> are made of a hearty oak wood. It's worn, but sturdy, and something tells you it's been hear a long time.";
+                break;
+            case roomNum === 1 &&    (inp('look')||inp('inspect'))   &&    (inp('trees'))     :
+                output.innerHTML = "The trees sway gently in the breeze. It's rather peaceful here!";
+                break;
+            case roomNum === 1 &&    (inp('pick')||inp('take')||inp('gather'))   &&    (inp('flower'))     :
+                output.innerHTML = 'You pick one of the blue flowers and put it in your pocket. Nice!';
+                haveFlower = true;
+                break;
+
+        // DEFAULT
+            default:
+                output.innerHTML = "Nothing happened.";
+                break;
+        };
+        // CLEAR INPUT FORM
         userInput.value = "";
     }
 
 // PRESSING ENTER 
-    enterButton.addEventListener('click', processinput)
+    enterButton.addEventListener('click', processinput);
 
     // from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_trigger_button_enter
     var input = document.getElementById("userinput");
@@ -97,7 +114,7 @@
             event.preventDefault();
             document.getElementById("enterbutton").click();
         }
-  });
+    });
 
 </script>
 
