@@ -64,10 +64,16 @@
             case inp("nap") || inp("sleep"):
                 output.innerHTML = "You're not really tired.";
                 break; 
+            case inp('chill') || (inp('not') && inp('much')):
+                output.innerHTML = "cool cool";
+                break;
             case inp('hello') || inp('hi'):
                 output.innerHTML = "Hi :)";
                 break;
-
+            case inp('what') && inp('up'):
+                output.innerHTML = "Nothing much, hbu";
+                break;
+            
         // TRAVEL
 
             // GOING EAST
@@ -143,7 +149,7 @@
                 output.innerHTML = "The forest is a bit darker here. There is a <span>stump</span> in the middle of the clearing. The forest is too dense to travel any further east from here.";
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search'))    &&    (inp('stump'))     :
-                output.innerHTML = "Looks like a good place to sit and rest. I wonder how long ago the tree was cut down?";
+                output.innerHTML = "Looks like a good place to sit and rest. You wonder how long ago the tree was cut down, but you're stumped.";
                 break;
             case roomNum === 3 &&    (inp('sit')||inp('rest'))     :
                 output.innerHTML = "You sit down on the stump to rest for a minute. It's comfier than you would have thought.";
@@ -164,7 +170,7 @@
             case (inp('look')||inp('inspect')||inp('search'))   &&    (inp('tree'))     :
                 output.innerHTML = "You search around the trees, but don't find anything.";
                 break;
-            case inp('climb')  &&    inp('trees')     :
+            case inp('climb')  &&    inp('tree')     :
                 output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch and look out over the forest. To the <span>south</span> you can see a river, or maybe a lake, and some hills to the <span>west</span>.<br><br>You enjoy the view for a minute, then climb down.";
                 break;
 
@@ -185,21 +191,35 @@
                 output.innerHTML = "Naaah, you won't need that.";
                 break;
             case (inp('search')||inp('inspect')||inp('look'))   &&    (inp('rock')||inp('stone'))    :
-                output.innerHTML = "You look at the rocks. They look rather rocky.";
+                output.innerHTML = "You look at the rocks. They look rocky.";
+                break;
+            case inp('eat')  &&    inp('rocks')    :
+                output.innerHTML = "...";
                 break;
 
             // INTERACT WITH GRASS
             case (inp('pick')||inp('take')||inp('gather'))   &&    inp('grass')    :
                 output.innerHTML = "Naaah, you won't need that.";
                 break;
-            case (inp('search')||inp('inspect'))   &&    inp('grass')    :
+            case (inp('search')||inp('inspect')||inp('look'))   &&    inp('grass')    :
                 output.innerHTML = "You search the grass, but don't find anything other than some very confused bugs.";
                 break;
             case inp('touch')  &&    inp('grass')    :
-                output.innerHTML = "You touch the grass. Feels great, not gonna lie.";
+                output.innerHTML = "You touch the grass. Feels good, not gonna lie.";
                 break;
-            case inp('lie')  &&    inp('grass')    :
+            case (inp('lie')||inp('lay'))  &&    inp('grass')    :
                 output.innerHTML = "You lie down on the grass and watch the clouds float gently above you. It's comfy, but after a while starts to get a bit itchy. Makes you wish you'd brought a blanket.";
+                break;
+            case inp('smoke')  &&    inp('grass')    :
+                output.innerHTML = "-_-";
+                break;
+            case inp('eat')  &&    inp('grass')    :
+                output.innerHTML = "...why??";
+                break;
+
+            // DIG
+            case inp('dig'):
+            output.innerHTML = "You don't have anything to dig with, and you're not sure what you're looking for anyway.";
                 break;
 
         // DEFAULT
