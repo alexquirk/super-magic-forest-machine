@@ -48,6 +48,7 @@
     let roomNum = 1;
     let doorUnlocked = false;
     let haveFlower = false;
+    let boxOpen = false;
 
 // USER INPUT
     const inp = (arg) => {
@@ -64,14 +65,27 @@
                 output.innerHTML = "You're not really tired.";
                 break; 
             case inp('hello') || inp('hi'):
-                output.innerHTML = "Hi!!";
+                output.innerHTML = "Hi :)";
                 break;
 
         // TRAVEL
-            // GOING UP
-            case inp("walk")||inp('go')||inp('travel')   &&    (inp('north')||inp('up')||inp('straight')||inp('forward'))    :
+
+            // GOING EAST
+            case (inp("walk")||inp('go')||inp('travel'))   &&    (inp('east')||inp('right'))  :
                 switch (roomNum) {
                     case 1:
+                        roomNum = 3;
+                        document.getElementById("map").src="./roomimages/smfmroom3.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                };
+                break;
+
+            // GOING UP
+            case (inp("walk")||inp('go')||inp('travel'))   &&    (inp('north')||inp('up')||inp('straight')||inp('forward'))   :
+                switch (roomNum) {
+                    case 3:
                         roomNum = 2;
                         document.getElementById("map").src="./roomimages/smfmroom2.png";
                         userInput.value = "";
@@ -80,7 +94,31 @@
                 };
                 break;
 
-        // ROOM 1
+            // GOING WEST
+            case (inp("walk")||inp('go')||inp('travel'))   &&    (inp('west')||inp('left'))   :
+                switch (roomNum) {
+                    case 3:
+                        roomNum = 1;
+                        document.getElementById("map").src="./roomimages/smfmroom1.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                };
+                break;
+
+            // GOING SOUTH
+            case (inp("walk")||inp('go')||inp('travel'))   &&    (inp('south')||inp('down'))   :
+                switch (roomNum) {
+                    case 2:
+                        roomNum = 3;
+                        document.getElementById("map").src="./roomimages/smfmroom3.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                };
+                break;
+
+            // ROOM 1
             case roomNum === 1 &&    (inp('open')||inp('try')||inp('use'))    &&    (inp('door')||inp('handle')||inp("knob"))     :
                 output.innerHTML = "The door is locked.";
                 break;
@@ -90,21 +128,78 @@
             case roomNum === 1 &&    (inp('inspect')||inp('look')||inp('search'))    &&    (inp('door')||inp('frame'))     :
                 output.innerHTML = "The <span>door</span> and it's <span>frame</span> are made of a hearty oak wood. It's worn, but sturdy. Something tells you it's been hear a long time.";
                 break;
-            case roomNum === 1 &&    (inp('look')||inp('inspect'))   &&    (inp('trees'))     :
-                output.innerHTML = "The trees sway gently in the breeze. It's rather peaceful here.";
-                break;
-            case roomNum === 1 &&    (inp('pick')||inp('take')||inp('gather'))   &&    (inp('flower'))     :
-                output.innerHTML = 'You pick one of the blue flowers and put it in your pocket. Nice!';
-                haveFlower = true;
-                break;
             case roomNum === 1 &&    inp('unlock')   &&    (inp('door')||inp('handle'))   &&  doorUnlocked === false  :
                 output.innerHTML = "You don't have the <span>key</span>. Maybe it's nearby?";
                 break;
-            case roomNum === 1 &&    (inp('look')||inp('inspect'))   &&    (inp('lock')||inp('handle')||inp('knob'))     :
+            case roomNum === 1 &&    (inp('look')||inp('inspect')||inp('try'))   &&    (inp('lock')||inp('handle')||inp('knob'))     :
                 output.innerHTML = "The door's gnob and lock are simple and a bit rusty, but strong. You try to push it open, but it won't budge.";
                 break;
             case roomNum === 1 &&    inp('knock') || inp('nok'):
                 output.innerHTML = "You knock on the door, but nothing happens.";
+                break;
+
+            // ROOM 3
+            case roomNum === 3 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
+                output.innerHTML = "The forest is a bit darker here. There is a <span>stump</span> in the middle of the clearing. The forest is too dense to travel any further east from here.";
+                break;
+            case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search'))    &&    (inp('stump'))     :
+                output.innerHTML = "Looks like a good place to sit and rest. I wonder how long ago the tree was cut down?";
+                break;
+            case roomNum === 3 &&    (inp('sit')||inp('rest'))     :
+                output.innerHTML = "You sit down on the stump to rest for a minute. It's comfier than you would have thought.";
+                break;
+
+            // ROOM 2
+            case roomNum === 2 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
+                output.innerHTML = "The forest is much denser and darker here, the the air is filled with <span>fireflies</span> that bath the woods in a warm light.";
+                break;
+            case roomNum === 2 &&    (inp('inspect')||inp('look')||inp('search'))    &&    (inp('fire'))     :
+                output.innerHTML = "You've never seen <span>fireflies</span> this bright before! They illuminate the whole forest.";
+                break;
+            case (inp('catch')||inp('take')||inp('gather')||inp('grab'))   &&    inp('fire')    :
+                output.innerHTML = 'After a couple attempts, you catch a <span>firefly</span> in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"If only I had somewhere to keep it," you think.';
+                break;
+
+            // INTERACT WITH TREES
+            case (inp('look')||inp('inspect')||inp('search'))   &&    (inp('tree'))     :
+                output.innerHTML = "You search around the trees, but don't find anything.";
+                break;
+            case inp('climb')  &&    inp('trees')     :
+                output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch and look out over the forest. To the <span>south</span> you can see a river, or maybe a lake, and some hills to the <span>west</span>.<br><br>You enjoy the view for a minute, then climb down.";
+                break;
+
+            // GET FLOWER
+            case (roomNum === 1 || roomNum === 3)   &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('flower'))     :
+                output.innerHTML = "You look at the flowers. Nice :)";
+                break;
+            case (roomNum === 1 || roomNum === 3)   &&    (inp('pick')||inp('take')||inp('gather'))   &&    (inp('flower'))  && haveFlower === false   :
+                output.innerHTML = 'You pick one of the blue flowers and carefully put it in your pocket.';
+                haveFlower = true;
+                break;
+            case (roomNum === 1 || roomNum === 3)   &&    (inp('pick')||inp('take')||inp('gather'))   &&    (inp('flower'))  && haveFlower === true   :
+                output.innerHTML = 'You already have a flower in your pocket!';
+                break;
+
+            // INTERACT WITH ROCKS
+            case (inp('pick')||inp('take')||inp('gather'))   &&    (inp('rock')||inp('stone'))    :
+                output.innerHTML = "Naaah, you won't need that.";
+                break;
+            case (inp('search')||inp('inspect')||inp('look'))   &&    (inp('rock')||inp('stone'))    :
+                output.innerHTML = "You look at the rocks. They look rather rocky.";
+                break;
+
+            // INTERACT WITH GRASS
+            case (inp('pick')||inp('take')||inp('gather'))   &&    inp('grass')    :
+                output.innerHTML = "Naaah, you won't need that.";
+                break;
+            case (inp('search')||inp('inspect'))   &&    inp('grass')    :
+                output.innerHTML = "You search the grass, but don't find anything other than some very confused bugs.";
+                break;
+            case inp('touch')  &&    inp('grass')    :
+                output.innerHTML = "You touch the grass. Feels great, not gonna lie.";
+                break;
+            case inp('lie')  &&    inp('grass')    :
+                output.innerHTML = "You lie down on the grass and watch the clouds float gently above you. It's comfy, but after a while starts to get a bit itchy. Makes you wish you'd brought a blanket.";
                 break;
 
         // DEFAULT
@@ -128,6 +223,8 @@
             document.getElementById("enterbutton").click();
         }
     });
+
+// MAP IMAGE TRANSITIONS
 
 </script>
 
