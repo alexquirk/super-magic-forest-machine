@@ -73,6 +73,12 @@
             case inp('what') && inp('up'):
                 output.innerHTML = "Nothing much, hbu";
                 break;
+            case inp('reset'):
+                roomNum = 1;
+                document.getElementById("map").src="./roomimages/smfmroom1.png";
+                userInput.value = "";
+                output.innerHTML = "";
+                break;
             
         // TRAVEL
 
@@ -88,6 +94,12 @@
                     case 4:
                         roomNum = 2;
                         document.getElementById("map").src="./roomimages/smfmroom2.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 5:
+                        roomNum = 6;
+                        document.getElementById("map").src="./roomimages/smfmroom6.png";
                         userInput.value = "";
                         output.innerHTML = "";
                         break;
@@ -115,6 +127,12 @@
                         userInput.value = "";
                         output.innerHTML = "";
                         break;
+                    case 6:
+                        roomNum = 3;
+                        document.getElementById("map").src="./roomimages/smfmroom3.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
                 };
                 break;
 
@@ -130,6 +148,12 @@
                     case 2:
                         roomNum = 4;
                         document.getElementById("map").src="./roomimages/smfmroom4.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 6:
+                        roomNum = 5;
+                        document.getElementById("map").src="./roomimages/smfmroom5.png";
                         userInput.value = "";
                         output.innerHTML = "";
                         break;
@@ -157,7 +181,27 @@
                         userInput.value = "";
                         output.innerHTML = "";
                         break;
+                    case 3:
+                        roomNum = 6;
+                        document.getElementById("map").src="./roomimages/smfmroom6.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 5:
+                        userInput.value = "";
+                        output.innerHTML = "You can't go any farther south - you've never been that great of a swimmer.";
+                        break;
+                    case 6:
+                        userInput.value = "";
+                        output.innerHTML = "You can't go any farther south - you've never been that great of a swimmer.";
+                        break;
                 };
+                break;
+
+            // DEFAULT TRAVEL
+            case (inp("walk")||inp('go')||inp('travel')):
+                userInput.value = "";
+                output.innerHTML = "Go where?";
                 break;
 
             // ROOM 1
@@ -179,6 +223,9 @@
             case roomNum === 1 &&    inp('knock') || inp('nok'):
                 output.innerHTML = "You knock on the door, but nothing happens.";
                 break;
+            case roomNum === 1 &&    inp('who') || inp('there'):
+                output.innerHTML = "Lol you thought.";
+                break;
 
             // ROOM 3
             case roomNum === 3 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
@@ -193,7 +240,7 @@
 
             // ROOM 2
             case roomNum === 2 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "The forest is much denser and darker here, the the air is filled with <span>fireflies</span> that bath the woods in a warm light.";
+                output.innerHTML = "The forest is much denser and darker here, the the air is filled with <span>fireflies</span> that bathe the woods in a warm light.";
                 break;
             case roomNum === 2 &&    (inp('inspect')||inp('look')||inp('search'))    &&    (inp('fire'))     :
                 output.innerHTML = "You've never seen <span>fireflies</span> this bright before! They illuminate the whole forest.";
@@ -212,14 +259,19 @@
                 output.innerHTML = "What a lovely lake! If only you'd brough a beach umbrella.";
                 break;
 
+            // ROOM 6
+            case roomNum === 6 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
+                output.innerHTML = "What a lovely lake! If only you'd brough a beach umbrella.";
+                break;
+
             // INTERACT WITH WATER
-            case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank'))     :
+            case (roomNum === 5 || roomNum === 6) &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank'))     :
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.";
                 break;
-            case roomNum === 5 &&    (inp('swim')||inp('dive')||inp('jump'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank'))     :
+            case (roomNum === 5 || roomNum === 6) &&    (inp('swim')||inp('dive')||inp('jump'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank'))     :
                 output.innerHTML = "You didn't bring a swim suit! The water seems cold anyway.";
                 break;
-            case roomNum === 5 &&    (inp('catch')||inp('grab')||inp('take')||inp('lure'))   &&    (inp('fish'))     :
+            case (roomNum === 5 || roomNum === 6) &&    (inp('catch')||inp('grab')||inp('take')||inp('lure'))   &&    (inp('fish'))     :
                 output.innerHTML = "You try to catch a fish, but they are way too fast! They probably prefer the water anyway.";
                 break;
             
