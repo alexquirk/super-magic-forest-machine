@@ -202,6 +202,27 @@
                 output.innerHTML = 'After a couple attempts, you catch a <span>firefly</span> in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"If only I had somewhere to keep it," you think.';
                 break;
 
+            // ROOM 4
+            case roomNum === 4 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
+                output.innerHTML = "The forest isdarker here. A big tree stands in the middle of the clearing.";
+                break;
+
+            // ROOM 5
+            case roomNum === 5 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
+                output.innerHTML = "What a lovely lake! If only you'd brough a beach umbrella.";
+                break;
+
+            // INTERACT WITH WATER
+            case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank'))     :
+                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.";
+                break;
+            case roomNum === 5 &&    (inp('swim')||inp('dive')||inp('jump'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank'))     :
+                output.innerHTML = "You didn't bring a swim suit! The water seems cold anyway.";
+                break;
+            case roomNum === 5 &&    (inp('catch')||inp('grab')||inp('take')||inp('lure'))   &&    (inp('fish'))     :
+                output.innerHTML = "You try to catch a fish, but they are way too fast! They probably prefer the water anyway.";
+                break;
+            
             // INTERACT WITH TREES
             case (inp('look')||inp('inspect')||inp('search'))   &&    (inp('tree'))     :
                 output.innerHTML = "You search around the trees, but don't find anything.";
