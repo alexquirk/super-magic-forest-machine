@@ -63,6 +63,7 @@
     let haveFireflies = false;
     let firefliesReleased = false;
     let electroVineTaken = false;
+    let catDiscovered = false;
 
 // ROOM SWITCHING FUNCTIONS
 
@@ -85,6 +86,10 @@
     const room9Switch = () => {
         if (ghostGivenMug === false) {return document.getElementById("map").src="./roomimages/smfmroom9a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom9b.png"};
+    }; 
+    const room6Switch = () => {
+        if (ropeTaken === false) {return document.getElementById("map").src="./roomimages/smfmroom6a.png"}
+        else {return document.getElementById("map").src="./roomimages/smfmroom6b.png"};
     }; 
 
 // USER INPUT
@@ -117,8 +122,6 @@
                 output.innerHTML = "";
                 break;
             
-
-
         // TRAVEL
 
             // GOING EAST
@@ -138,7 +141,7 @@
                         break;
                     case 5:
                         roomNum = 6;
-                        document.getElementById("map").src="./roomimages/smfmroom6a.png";
+                        room6Switch();
                         userInput.value = "";
                         output.innerHTML = "";
                         break;
@@ -310,7 +313,7 @@
                         break;
                     case 3:
                         roomNum = 6;
-                        document.getElementById("map").src="./roomimages/smfmroom6a.png";
+                        room6Switch();
                         userInput.value = "";
                         output.innerHTML = "";
                         break;
@@ -395,7 +398,7 @@
             case roomNum === 2 &&    (inp('inspect')||inp('look')||inp('search'))    &&    (inp('fire'))     :
                 output.innerHTML = "You've never seen <span>fireflies</span> this bright before! They illuminate the whole forest.";
                 break;
-            case (inp('catch')||inp('take')||inp('gather')||inp('grab'))   &&    inp('fire')    :
+            case (inp('catch')||inp('take')||inp('gather')||inp('grab'))   &&    inp('firefl')    :
                 output.innerHTML = 'After a couple attempts, you catch a <span>firefly</span> in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"If only I had somewhere to keep it," you think.';
                 break;
 
@@ -410,8 +413,29 @@
                 break;
 
             // ROOM 6
-            case roomNum === 6 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "What a lovely lake! If only you'd brough a beach umbrella.";
+            case roomNum === 6 &&  ropeTaken === false &&  (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
+                output.innerHTML = "You're standing on the shore of a lovely lake. There is a boat tied to a mooring nearby, but it doesn't exactly look seaworthy.";
+                break;
+            case roomNum === 6 &&   ropeTaken === false &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('boat')||inp('moor'))     :
+                output.innerHTML = "The boat is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through, and the paddles are nowhere to be seen. It's tied to the shore with a thick <span>rope</span>.";
+                break;
+            case roomNum === 6 &&   ropeTaken === false &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('rope'))     :
+                output.innerHTML = "The <span>rope</span> seems to be the only thing about the boat that is still in decent condition.";
+                break;
+            case roomNum === 6 &&  (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
+                output.innerHTML = "You're standing on the shore of a lovely lake. The boat is still siting half-sunk near the shore.";
+                break;
+            case roomNum === 6 &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('boat')||inp('moor'))     :
+                output.innerHTML = "The boat is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through, and the paddles are nowhere to be seen.";
+                break;
+            case roomNum === 6 &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('rope'))     :
+                output.innerHTML = "The <span>rope</span> is gone. You took it, remember?";
+                break;
+            case roomNum === 6 &&    (inp('take')||inp('grab')||inp('pocket'))   &&    (inp('rope'))     :
+                output.innerHTML = "You untie the <span>rope</span> and put it in your pocket.";
+                haveRope = true;
+                ropeTaken = true;
+                room6Switch();
                 break;
 
             // INTERACT WITH WATER
@@ -426,14 +450,27 @@
                 break;
             
             // INTERACT WITH TREES
+            case ((roomNum === 7 || roomNum === 8 || roomNum === 13))  &&    (inp('tree'))     :
+                output.innerHTML = "There aren't any trees around here.";
+                break;
+            case inp('climb')  &&    inp('tree')  && (roomNum === 9)  :
+                output.innerHTML = "These trees look much too and the branches too weak to climb.";
+                break;
+            case (roomNum === 9)  &&    (inp('tree'))   &&   (inp('look')||inp('inspect')||inp(''))  :
+                output.innerHTML = "The trees here look ancient. You get the feeling this is a very old part of the forest.";
+                break;
             case ((roomNum !== 4) || marbleDown === true) &&   (inp('look')||inp('inspect')||inp('search'))   &&    (inp('tree'))     :
                 output.innerHTML = "You search around the trees, but don't find anything.";
                 break;
             case (roomNum === 4)  &&  marbleDown === false  && (inp('look')||inp('inspect')||inp('search'))   &&    (inp('tree'))     :
                 output.innerHTML = "There's a <span>cat</span> in the tree! ...it doesn't seem to want to come down.";
+                catDiscovered = true;
+                break;
+            case inp('climb')  &&    inp('tree')  && (roomNum === 4)  && marbleDown === false && catDiscovered === true:
+                output.innerHTML = "You start to climb the tree, but the <span>cat</span> hisses and swipes a paw at you. Rude!";
                 break;
             case inp('climb')  &&    inp('tree')  && (roomNum === 4)  && marbleDown === false :
-                output.innerHTML = "You start to climb the tree, but the <span>cat</span> hisses at you. Rude!";
+                output.innerHTML = "You start to climb the tree... but there's a <span>cat</span> in the tree! It hisses and swipes a paw at you. Rude!";
                 break;
             case inp('climb')  &&    inp('tree')    :
                 output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch and look out over the forest. To the <span>south</span> you can see a river, or maybe a lake, and some hills to the <span>west</span>.<br><br>You enjoy the view for a minute, then climb down.";
@@ -447,12 +484,12 @@
                 output.innerHTML = 'You pick one of the blue flowers and carefully put it in your pocket.';
                 haveFlower = true;
                 break;
-            case (roomNum === 1 || roomNum === 3 || roomNum === 5)   &&    (inp('pick')||inp('take')||inp('gather'))   &&    (inp('flower'))  && haveFlower === true   :
+            case (roomNum === 1 || roomNum === 3 || roomNum === 5)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket'))   &&    (inp('flower'))  && haveFlower === true   :
                 output.innerHTML = 'You already have a flower in your pocket!';
                 break;
 
             // INTERACT WITH ROCKS
-            case (inp('pick')||inp('take')||inp('gather'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
+            case (inp('pick')||inp('take')||inp('gather')||inp('pocket'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "Naaah, you won't need that.";
                 break;
             case inp('under')   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
@@ -466,7 +503,7 @@
                 break;
 
             // INTERACT WITH GRASS
-            case (inp('pick')||inp('take')||inp('gather'))   &&    inp('grass')    :
+            case (inp('pick')||inp('take')||inp('gather')||inp('pocket'))   &&    inp('grass')    :
                 output.innerHTML = "You probably won't need that.";
                 break;
             case (inp('search')||inp('inspect')||inp('look'))   &&    inp('grass')    :
