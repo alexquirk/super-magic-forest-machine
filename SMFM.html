@@ -48,7 +48,44 @@
     let roomNum = 1;
     let doorUnlocked = false;
     let haveFlower = false;
-    let boxOpen = false;
+    let boxUnlocked = false;
+    let marbleDown = false;
+    let ropeTaken = false;
+    let haveRope = false;
+    let ropeSet = false;
+    let haveBox = false;
+    let haveBoxKey = false;
+    let mugTaken = false;
+    let haveMug = false;
+    let ghostGivenMug = false;
+    let robotAwake = false;
+    let haveCrystal = false;
+    let haveFireflies = false;
+    let firefliesReleased = false;
+    let electroVineTaken = false;
+
+// ROOM SWITCHING FUNCTIONS
+
+    const room4Switch = () => {
+        if (marbleDown === false) {return document.getElementById("map").src="./roomimages/smfmroom4a.png"}
+        else {return document.getElementById("map").src="./roomimages/smfmroom4b.png"};
+    };
+    const room10Switch = () => {
+        if (ropeSet === false) {return document.getElementById("map").src="./roomimages/smfmroom10a.png"}
+        else {return document.getElementById("map").src="./roomimages/smfmroom10b.png"};
+    }; 
+    const room12Switch = () => {
+        if (robotAwake === false) {return document.getElementById("map").src="./roomimages/smfmroom12a.png"}
+        else {return document.getElementById("map").src="./roomimages/smfmroom12b.png"};
+    }; 
+    const room7Switch = () => {
+        if (firefliesReleased === false) {return document.getElementById("map").src="./roomimages/smfmroom7a.png"}
+        else {return document.getElementById("map").src="./roomimages/smfmroom7b.png"};
+    }; 
+    const room9Switch = () => {
+        if (ghostGivenMug === false) {return document.getElementById("map").src="./roomimages/smfmroom9a.png"}
+        else {return document.getElementById("map").src="./roomimages/smfmroom9b.png"};
+    }; 
 
 // USER INPUT
     const inp = (arg) => {
@@ -80,6 +117,8 @@
                 output.innerHTML = "";
                 break;
             
+
+
         // TRAVEL
 
             // GOING EAST
@@ -99,9 +138,38 @@
                         break;
                     case 5:
                         roomNum = 6;
-                        document.getElementById("map").src="./roomimages/smfmroom6.png";
+                        document.getElementById("map").src="./roomimages/smfmroom6a.png";
                         userInput.value = "";
                         output.innerHTML = "";
+                        break;
+                    case 11:
+                        roomNum = 4;
+                        room4Switch();
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 10:
+                        roomNum = 1;
+                        document.getElementById("map").src="./roomimages/smfmroom1.png"
+                        output.innerHTML = "";
+                        break;
+                    case 2:
+                        roomNum = 9;
+                        room9Switch();
+                        output.innerHTML = "";
+                        break;
+                    case 12:
+                        roomNum = 5;
+                        room4Switch();
+                        document.getElementById("map").src="./roomimages/smfmroom5.png"
+                        output.innerHTML = "";
+                        break;
+                    case 7:
+                        if (firefliesReleased === false) {
+                            output.innerHTML = "It's too dark to go anywhere!"
+                        } else {
+                            output.innerHTML = "There's nowhere to go that way."
+                        };
                         break;
                 };
                 break;
@@ -123,13 +191,38 @@
                         break;
                     case 1:
                         roomNum = 4;
-                        document.getElementById("map").src="./roomimages/smfmroom4.png";
+                        room4Switch();
                         userInput.value = "";
                         output.innerHTML = "";
                         break;
                     case 6:
                         roomNum = 3;
                         document.getElementById("map").src="./roomimages/smfmroom3.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 12:
+                        roomNum = 10;
+                        room10Switch();
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 10:
+                        roomNum = 11;
+                        document.getElementById("map").src="./roomimages/smfmroom11.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 7:
+                        if (firefliesReleased === false) {
+                            output.innerHTML = "It's too dark to go anywhere!"
+                        } else {
+                            output.innerHTML = "There's nowhere to go that way."
+                        };
+                        break;
+                    case 11:
+                        roomNum = 7;
+                        room7Switch();
                         userInput.value = "";
                         output.innerHTML = "";
                         break;
@@ -147,7 +240,7 @@
                         break;
                     case 2:
                         roomNum = 4;
-                        document.getElementById("map").src="./roomimages/smfmroom4.png";
+                        room4Switch();
                         userInput.value = "";
                         output.innerHTML = "";
                         break;
@@ -157,6 +250,40 @@
                         userInput.value = "";
                         output.innerHTML = "";
                         break;
+                    case 9:
+                        roomNum = 2;
+                        document.getElementById("map").src="./roomimages/smfmroom2.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 4:
+                        roomNum = 11;
+                        document.getElementById("map").src="./roomimages/smfmroom11.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 1:
+                        roomNum = 10;
+                        room10Switch();
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 5:
+                        roomNum = 12;
+                        room12Switch();
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 7:
+                        if (firefliesReleased === false) {
+                            output.innerHTML = "It's too dark to go anywhere!"
+                        } else {
+                            roomNum = 8;
+                            output.innerHTML = ""
+                        }
+                        userInput.value = "";
+                        break;
+
                 };
                 break;
 
@@ -183,7 +310,7 @@
                         break;
                     case 3:
                         roomNum = 6;
-                        document.getElementById("map").src="./roomimages/smfmroom6.png";
+                        document.getElementById("map").src="./roomimages/smfmroom6a.png";
                         userInput.value = "";
                         output.innerHTML = "";
                         break;
@@ -195,13 +322,36 @@
                         userInput.value = "";
                         output.innerHTML = "You can't go any farther south - you've never been that great of a swimmer.";
                         break;
+                    case 12:
+                        userInput.value = "";
+                        output.innerHTML = "You can't go any farther south - you've never been that great of a swimmer.";
+                        break;
+                    case 7:
+                        roomNum = 11;
+                        document.getElementById("map").src="./roomimages/smfmroom11.png";
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 11:
+                        roomNum = 10;
+                        room10Switch();
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    case 10:
+                        roomNum = 12;
+                        room12Switch();
+                        userInput.value = "";
+                        output.innerHTML = "";
+                        break;
+                    
                 };
                 break;
 
             // DEFAULT TRAVEL
             case (inp("walk")||inp('go')||inp('travel')):
                 userInput.value = "";
-                output.innerHTML = "Go where?";
+                output.innerHTML = "Where do you want to go?";
                 break;
 
             // ROOM 1
@@ -276,10 +426,16 @@
                 break;
             
             // INTERACT WITH TREES
-            case (inp('look')||inp('inspect')||inp('search'))   &&    (inp('tree'))     :
+            case ((roomNum !== 4) || marbleDown === true) &&   (inp('look')||inp('inspect')||inp('search'))   &&    (inp('tree'))     :
                 output.innerHTML = "You search around the trees, but don't find anything.";
                 break;
-            case inp('climb')  &&    inp('tree')     :
+            case (roomNum === 4)  &&  marbleDown === false  && (inp('look')||inp('inspect')||inp('search'))   &&    (inp('tree'))     :
+                output.innerHTML = "There's a <span>cat</span> in the tree! ...it doesn't seem to want to come down.";
+                break;
+            case inp('climb')  &&    inp('tree')  && (roomNum === 4)  && marbleDown === false :
+                output.innerHTML = "You start to climb the tree, but the <span>cat</span> hisses at you. Rude!";
+                break;
+            case inp('climb')  &&    inp('tree')    :
                 output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch and look out over the forest. To the <span>south</span> you can see a river, or maybe a lake, and some hills to the <span>west</span>.<br><br>You enjoy the view for a minute, then climb down.";
                 break;
 
