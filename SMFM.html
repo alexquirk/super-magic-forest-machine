@@ -87,6 +87,7 @@
     let firefliesReleased = false;
     let electroVineTaken = false;
     let haveRibbon = false;
+    let haveMushy = false;
 
     const inventory = [];
 
@@ -109,11 +110,50 @@
         };
         // document.getElementById("map").classList.toggle('blur');
     };
+    // Displaying Images
     const displayInventory = () => {
         if (haveFlower === true) {
                 document.getElementById("inventory6").src="./inventoryimages/flower.png";
                 checkingInventory =true;
-        }
+        };
+        if (haveRibbon === true) {
+                document.getElementById("inventory2").src="./inventoryimages/ribbon.png";
+                checkingInventory =true;
+        };
+        if (haveBoxKey === true) {
+                document.getElementById("inventory4").src="./inventoryimages/key.png";
+                checkingInventory =true;
+        };
+        if (haveCrystal === true) {
+                document.getElementById("inventory5").src="./inventoryimages/crystal.png";
+                checkingInventory =true;
+        };
+        if (haveFireflies === true && haveRope === true) {
+            document.getElementById("inventory1").src="./inventoryimages/boxglowrope.png";
+            checkingInventory =true;
+        } else if (haveFireflies === true && haveRope === false) {
+            document.getElementById("inventory1").src="./inventoryimages/boxglow.png";
+            checkingInventory =true;
+        } else if (boxUnlocked === true && haveRope === true) {
+            document.getElementById("inventory1").src="./inventoryimages/boxopenrope.png";
+            checkingInventory =true;
+        } else if (boxUnlocked === true && haveRope === false) {
+            document.getElementById("inventory1").src="./inventoryimages/boxopen.png";
+            checkingInventory =true;
+        } else if (haveBox === true && haveRope === true) {
+            document.getElementById("inventory1").src="./inventoryimages/boxrope.png";
+            checkingInventory =true;
+        } else if (haveBox === true) {
+            document.getElementById("inventory1").src="./inventoryimages/box.png";
+            checkingInventory =true;
+        };
+        if (haveMug === true) {
+            document.getElementById("inventory3").src="./inventoryimages/mug.png";
+            checkingInventory =true;
+        } else if (haveMushy === true) {
+            document.getElementById("inventory3").src="./inventoryimages/mushy.png";
+            checkingInventory =true;
+        };
     };
 
 
@@ -723,6 +763,13 @@
                 break;
 
             // RELEASE FIREFLIES
+            
+            case roomNum === 2 && haveFireflies=== true && (inp('release')||inp('open'))   &&    (inp('box')||inp('chest')||inp('fireflies'))  :
+                output.innerHTML = 'You release the <span>fireflies</span> into the air. They linger for a moment before rejoining their friends.';
+                haveFireflies = false;
+                removeItem("a <span>box of fireflies</span>");
+                inventory.push("a <span>wooden box</span>");
+                break;
             case roomNum !== 7 && haveFireflies=== true && (inp('release')||inp('open'))   &&    (inp('box')||inp('chest')||inp('fireflies'))  :
                 output.innerHTML = 'You release the <span>fireflies</span> into the air. They linger for a moment, glimmering quietly, before floating up and away.<br><br>"Maybe they\'re going back to join their friends", you think.';
                 haveFireflies = false;
