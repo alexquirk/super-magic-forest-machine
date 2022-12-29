@@ -6,30 +6,70 @@ body {
 
 #themachine {
     display: grid;
-    grid-template:  " e "
-                    " b " 
-                    " d " ;
+    grid-template-rows: 3;
+    grid-template-columns: 1;
     align-items: center;
 }
  
-#map {
-    grid-area: e;
+.viewer {
     justify-self: center;
-    border-color: grey;
-    border-style: solid double;
+    justify-content: center;
+    
     border-width: 1px 5px;
     margin-bottom: 10px;
     margin-top: 3vh;
+}
+
+#map, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6 {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
     width: 80vw;
     min-width: 310px;
     max-width: 500px;
+
 }
+
+#map {
+    z-index: 0;
+    border-color: grey;
+    border-style: solid double;
+    /* transition: filter .2s linear; */
+}
+
+/* .blur { 
+    filter: blur(30px); 
+} */
+
+#inventory1 {
+    z-index: 1;
+}
+
+#inventory2 {
+    z-index: 2;
+}
+
+#inventory3 {
+    z-index: 3;
+}
+
+#inventory4 {
+    z-index: 4;
+}
+
+#inventory5 {
+    z-index: 5;
+}
+
+#inventory6 {
+    z-index: 6;
+}
+
+
 
 .outputarea {
     border: 1px solid grey;
     height: 250px;
     color: white;
-    grid-area: b;
     padding: 5px;
     width: 80vw;
     max-width: 700px;
@@ -41,7 +81,6 @@ body {
 }
 
 .inputarea {
-    grid-area: d;
     justify-self: center;
     margin-top: 10px;
 }
