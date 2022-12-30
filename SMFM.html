@@ -97,7 +97,7 @@
     let haveRibbon = false;
     let foundBook = false;
     let haveMushy = false;
-    let currentPage = 1;
+    let currentPage = 0;
 
     const inventory = [];
 
@@ -175,20 +175,29 @@
     };
 
 // BOOK BUTTONS
-    //change button according to design value
+    //page texts
+    const journalText = ['Day 1:', 
+                         'Day 2:', 
+                         'Day 3:',
+                         'Day 4:',
+                        ];
+
+    //change button according to input value
     const showBookButton = (buttonText) => {
         d1.value = buttonText;
         d1.style.display = "block"; 
     };
 
-    let bookText;
-
+    //display journal texts according to position in array
     const showBookText = () => {
-        bookText = currentPage;
-        output.innerHTML = bookText;
+        output.innerHTML = journalText[currentPage];
         currentPage = currentPage + 1;
+        if (currentPage === 5) {
+            d1.value = "Done";
+        };
     };
 
+    //hit button to show book text
     d1.addEventListener('click', showBookText);
 
 // ROOM SWITCHING FUNCTIONS
