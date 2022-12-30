@@ -86,7 +86,6 @@ body {
 }
 
 .dialoguearea > input {
-    display: none;
     font-family:inherit;
     font-size: inherit;
     background-color: black;
@@ -95,6 +94,14 @@ body {
     padding: 1px 5px 5px;
     margin-top: 10px;
   }
+
+#dialogue1 {
+    display: none;
+}
+
+#dialogue2 {
+    display: none;
+}
 
 /* INPUT AREA */
 

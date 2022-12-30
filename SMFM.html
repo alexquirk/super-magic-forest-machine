@@ -37,8 +37,8 @@
             Try <span>looking around</span>.
         </div>
         <div class="dialoguearea">
-            <input type="button" id="dialogue" class="dialogue-1" value="Option 1">
-            <input type="button" id="dialogue" class="dialogue-2" value="Option 2">
+            <input type="button" id="dialogue1" class="dialogue" value="Option 1">
+            <input type="button" id="dialogue2" class="dialogue" value="Option 2">
         </div>
     </div>
 
@@ -60,7 +60,9 @@
     const userInput = document.getElementById('userinput');
     const output = document.getElementById('output');
     const enterButton = document.getElementById('enterbutton');
-    
+    const d1 = document.getElementById("dialogue1")
+    const d2 = document.getElementById("dialogue2")
+
     const removeItem = (item) => {
         for ( var i = 0; i < inventory.length; i++) { 
             if (inventory[i] === (item)) { 
@@ -93,7 +95,9 @@
     let firefliesReleased = false;
     let electroVineTaken = false;
     let haveRibbon = false;
+    let foundBook = false;
     let haveMushy = false;
+    let currentPage = 1;
 
     const inventory = [];
 
@@ -170,6 +174,22 @@
             }
     };
 
+// BOOK BUTTONS
+    //change button according to design value
+    const showBookButton = (buttonText) => {
+        d1.value = buttonText;
+        d1.style.display = "block"; 
+    };
+
+    let bookText;
+
+    const showBookText = () => {
+        bookText = currentPage;
+        output.innerHTML = bookText;
+        currentPage = currentPage + 1;
+    };
+
+    d1.addEventListener('click', showBookText);
 
 // ROOM SWITCHING FUNCTIONS
 
@@ -211,6 +231,10 @@
         document.getElementById('map').classList.remove('blur');
         document.getElementById("inventory1").src="";document.getElementById("inventory2").src="";document.getElementById("inventory3").src="";document.getElementById("inventory4").src="";document.getElementById("inventory5").src="";document.getElementById("inventory6").src="";document.getElementById("inventory7").src="";
         
+        //clear buttons
+        d1.style.display = "none";
+        d2.style.display = "none";
+
         // GET INPUT
         switch (true) {
     
@@ -579,8 +603,25 @@
             case roomNum === 3 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "The forest is a bit darker here. There is a <span>stump</span> in the middle of the clearing. The forest is too dense to travel any further east from here.";
                 break;
-            case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('stump'))     :
+            case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('stump'))   && foundBook === true  :
                 output.innerHTML = "Looks like a good place to sit and rest. You wonder how long ago the tree was cut down, but you're stumped.";
+                break;
+            case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('book')||inp('journal')||inp('diary'))   && foundBook === true  :
+                output.innerHTML = "The <span>journal's</span> leather cover is worn, and the pages looks like they've gotten wet a few times.<br><br>The pages inside are hand-written in ink, and dated like a journal. There's not title, and no author.";
+                showBookButton("Read Journal?");
+                break;
+            case roomNum === 3 &&    inp('read')    &&    (inp('book')||inp('journal')||inp('diary'))   :
+                output.innerHTML = "You pick up the <span>journal</span>."
+                showBookButton("Read Journal?");
+                break;
+            case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('book')||inp('journal')||inp('diary'))   && foundBook === false  :
+                output.innerHTML = "There's a <span>book</span> on the ground in front of the stump. It looks like somebody must have used this spot as a place to read or write.";
+                showBookButton("Read Journal?");
+                foundBook = true;
+                break;
+            case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    inp('stump')   && foundBook === false  :
+                output.innerHTML = "There's a <span>book</span> on the ground in front of the stump. It looks like somebody must have used this spot as a place to read or write.";
+                foundBook = true;
                 break;
             case roomNum === 3 &&    (inp('sit')||inp('rest'))     :
                 output.innerHTML = "You sit down on the stump to rest for a minute. It's comfier than you would have thought.";
@@ -593,19 +634,19 @@
             case roomNum === 2 &&    (inp('inspect')||inp('look')||inp('search'))    &&    (inp('fire'))     :
                 output.innerHTML = "You've never seen <span>fireflies</span> this bright before! They illuminate the whole forest.";
                 break;
-            case roomNum ===2 && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
+            case roomNum === 2 && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
                 output.innerHTML = 'You catch a <span>firefly</span>, and very carefully put it in the <span>box</span> and close the lid.<br><br>You catch another, and another... and pretty soon the <span>box</span> is full of <span>fireflies</span>!';
                 removeItem("a <span>wooden box</span>");
                 inventory.push("a <span>box of fireflies</span>");
                 haveFireflies = true;
                 break;
-            case roomNum ===2 && (inp('box')||inp('chest')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  haveFireflies === true :
+            case roomNum === 2 && (inp('box')||inp('chest')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  haveFireflies === true :
                 output.innerHTML = 'The <span>box</span> is already full of <span>fireflies</span>!';
                 break;
-            case roomNum ===2 && (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === false  :
+            case roomNum === 2 && (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === false  :
                 output.innerHTML = 'After a couple attempts, you catch a <span>firefly</span> in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"If only I had somewhere to keep it," you think.';
                 break;
-            case roomNum ===2&& (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === true  :
+            case roomNum === 2 && (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === true  :
                 output.innerHTML = 'After a couple attempts, you catch a <span>firefly</span> in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"I bet I could keep some of them in this <span>box</span> if I get it open," you think.';
                 break;
 
@@ -985,8 +1026,6 @@
             document.getElementById("enterbutton").click();
         }
     });
-
-// MAP IMAGE TRANSITIONS
 
 </script>
 
