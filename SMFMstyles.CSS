@@ -20,7 +20,7 @@ body {
     margin-top: 3vh;
 }
 
-#map, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6 {
+#map, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7 {
     grid-row: 1 / 2;
     grid-column: 1 / 2;
     width: 80vw;
@@ -33,12 +33,11 @@ body {
     z-index: 0;
     border-color: grey;
     border-style: solid double;
-    /* transition: filter .2s linear; */
 }
 
-/* .blur { 
-    filter: blur(30px); 
-} */
+.blur { 
+    filter: blur(40px) opacity(.8); 
+}
 
 #inventory1 {
     z-index: 1;
@@ -61,6 +60,10 @@ body {
 }
 
 #inventory6 {
+    z-index: 6;
+}
+
+#inventory7 {
     z-index: 6;
 }
 
