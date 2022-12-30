@@ -10,11 +10,12 @@ body {
     grid-template-columns: 1;
     align-items: center;
 }
- 
+
+/* VIEWER AREA */
+
 .viewer {
     justify-self: center;
-    justify-content: center;
-    
+    justify-content: center;   
     border-width: 1px 5px;
     margin-bottom: 10px;
     margin-top: 3vh;
@@ -67,7 +68,7 @@ body {
     z-index: 6;
 }
 
-
+/* OUTPUT TEXT AREA */
 
 .outputarea {
     border: 1px solid grey;
@@ -77,18 +78,32 @@ body {
     width: 80vw;
     max-width: 700px;
     justify-self: center;
+    overflow: scroll;
 } 
 
 #output > span {
     color: rgb(255, 152, 152);
 }
 
+.dialoguearea > input {
+    display: none;
+    font-family:inherit;
+    font-size: inherit;
+    background-color: black;
+    color: white;
+    border: solid grey 1px;
+    padding: 1px 5px 5px;
+    margin-top: 10px;
+  }
+
+/* INPUT AREA */
+
 .inputarea {
     justify-self: center;
     margin-top: 10px;
 }
 
-input, textarea {
+.inputarea > input {
     font-family:inherit;
     font-size: inherit;
     background-color: black;
