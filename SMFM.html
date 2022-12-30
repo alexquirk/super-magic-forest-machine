@@ -589,19 +589,19 @@
             case roomNum === 2 &&    (inp('inspect')||inp('look')||inp('search'))    &&    (inp('fire'))     :
                 output.innerHTML = "You've never seen <span>fireflies</span> this bright before! They illuminate the whole forest.";
                 break;
-            case (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
+            case roomNum ===2 && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
                 output.innerHTML = 'You catch a <span>firefly</span>, and very carefully put it in the <span>box</span> and close the lid.<br><br>You catch another, and another... and pretty soon the <span>box</span> is full of <span>fireflies</span>!';
                 removeItem("a <span>wooden box</span>");
                 inventory.push("a <span>box of fireflies</span>");
                 haveFireflies = true;
                 break;
-            case (inp('box')||inp('chest')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  haveFireflies === true :
+            case roomNum ===2 && (inp('box')||inp('chest')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  haveFireflies === true :
                 output.innerHTML = 'The <span>box</span> is already full of <span>fireflies</span>!';
                 break;
-            case (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === false  :
+            case roomNum ===2 && (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === false  :
                 output.innerHTML = 'After a couple attempts, you catch a <span>firefly</span> in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"If only I had somewhere to keep it," you think.';
                 break;
-            case (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === true  :
+            case roomNum ===2&& (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === true  :
                 output.innerHTML = 'After a couple attempts, you catch a <span>firefly</span> in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"I bet I could keep some of them in this <span>box</span> if I get it open," you think.';
                 break;
 
@@ -679,6 +679,29 @@
             case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check'))   &&    (inp('cave')||inp('around')) && firefliesReleased === false :
                 output.innerHTML = "You feel your way around the <span>cave</span>. The ground is rocky and the walls smooth. It's much too dark to see anything...<br><br>You smash your shins against something hard a few times before abandoning your search.";
                 break;
+            case roomNum === 7 &&  (inp('look'))   &&    (inp('cave')||inp('around')) && firefliesReleased === true :
+                output.innerHTML = "The cave is full of glowing <span>crystals</span>! The light from the <span>fireflies</span> catches every surface and facet of the magnificent gems.";
+                break;
+            case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check'))   &&    (inp('cave')||inp('around')) && firefliesReleased === true :
+                output.innerHTML = "The cave is full of magnificent glowing <span>crystals</span> protruding from the walls and littering the ground.";
+                break;
+            case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check')||inp('look'))   &&    (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
+                output.innerHTML = "There are abudnances of <span>crystals</span> in every corner of the cave.";
+                break;
+            case roomNum === 7 &&  inp('stala') && firefliesReleased === true :
+                output.innerHTML = "The cave is full of dripping stalactites and stalagmites. You used to have a hard time telling them apart, until you learned this helpful mnemonic device:<br><br>'Satactites' hang TIGHT from the ceiling, but be careful of stalagmites: you MIGHT trip over them!";
+                break;
+            case roomNum === 7 &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
+                output.innerHTML = "You pick up a small piece of <span>crystal</span> off the ground. It's surprisingly warm in your hand, and seems to magnify the light from the <span>fireflies</span>.<br><br>You put the <span>crystal</span>in your pocket.";
+                inventory.push("a strange crystal");
+                haveCrystal = true;
+                break;
+            case roomNum === 7 && firefliesReleased===true && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
+                output.innerHTML = 'You catch a <span>firefly</span>, and very carefully put it in the <span>box</span> and close the lid.<br><br>You catch another, and another... and pretty soon the <span>box</span> is full of <span>fireflies</span>!';
+                removeItem("a <span>wooden box</span>");
+                inventory.push("a <span>box of fireflies</span>");
+                haveFireflies = true;
+                break;
 
             // ROOM 10
             case roomNum === 10 &&  (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
@@ -701,8 +724,11 @@
                 haveFlower = false;
                 removeItem("a <span>blue flower</span>");
                 break;
-            case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('flower') &&    (inp('well'))  && haveFlower === false   :
+            case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('flower')  && haveFlower === false   :
                 output.innerHTML = "You don't have a <span>flower</span> to drop!";
+                break;
+            case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('crystal') &&    (inp('well'))  && haveCrystal === true   :
+                output.innerHTML = "The <span>well</span> seems pretty deep, and that seems like a bit of a waste... Maybe try dropping something else instead?";
                 break;
             case roomNum === 10 &&  (inp('jump')||inp('fall'))   &&    (inp('well'))     :
                 output.innerHTML = "For a moment you imagine jumping into the <span>well</span>... What's that old phrase? \"L'appel du vide...\"<br><br>You decide to keep your feet on the ground.";
@@ -740,7 +766,7 @@
             case roomNum === 11 &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('cave')) :
                 output.innerHTML = "The <span>cave</span> is so dark you can hardly see past the threshold...";
                 break;
-            case roomNum === 11 &&  (inp('go')||inp('enter')||inp('explore'))   &&    (inp('cave')||inp('cavern')||inp('rocks')) :
+            case roomNum === 11 &&  (inp('go')||inp('enter')||inp('explore'))   &&    (inp('cave')||inp('rocks')) :
                 roomNum = 7;
                 room7Switch();
                 userInput.value = "";
