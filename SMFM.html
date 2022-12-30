@@ -633,6 +633,12 @@
                 break;
 
             // ROOM 6
+            case roomNum === 6 &&  (inp('fix')||inp('repair')||inp('mend')||inp('patch'))   &&    (inp('boat'))     :
+                output.innerHTML = "The <span>boat</span> seems way too buested up to fix with what's available.";
+                break;
+            case roomNum === 6 &&  (inp('get')||inp('in')||inp('take')||inp('ride'))   &&    (inp('boat'))     :
+                output.innerHTML = "The <span>boat</span> is in too poor condition to take anywhere.<br><br>It looks like there's <span>something</span> in the bottom of it though...";
+                break;
             case roomNum === 6 &&  ropeTaken === false &&  (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "You're standing on the shore of a lovely lake. There is a boat tied to a mooring nearby, but it doesn't exactly look seaworthy.";
                 break;
