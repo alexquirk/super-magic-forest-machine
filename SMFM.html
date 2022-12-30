@@ -98,6 +98,7 @@
     let foundBook = false;
     let haveMushy = false;
     let currentPage = 0;
+    let reading = false;
 
     const inventory = [];
 
@@ -192,9 +193,16 @@
     const showBookText = () => {
         output.innerHTML = journalText[currentPage];
         currentPage = currentPage + 1;
-        if (currentPage === 5) {
+        reading = true;
+        d1.value = 'Keep Reading';
+        if (currentPage === 4) {
             d1.value = "Done";
-        };
+        } else if (currentPage > 4) {
+            currentPage = 0;
+            d1.style.display = "none";
+            reading = false;
+            output.innerHTML = "";
+        }
     };
 
     //hit button to show book text
@@ -618,18 +626,25 @@
             case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('book')||inp('journal')||inp('diary'))   && foundBook === true  :
                 output.innerHTML = "The <span>journal's</span> leather cover is worn, and the pages looks like they've gotten wet a few times.<br><br>The pages inside are hand-written in ink, and dated like a journal. There's not title, and no author.";
                 showBookButton("Read Journal?");
+                reading = true;
                 break;
             case roomNum === 3 &&    inp('read')    &&    (inp('book')||inp('journal')||inp('diary'))   :
                 output.innerHTML = "You pick up the <span>journal</span>."
                 showBookButton("Read Journal?");
+                reading = true;
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('book')||inp('journal')||inp('diary'))   && foundBook === false  :
                 output.innerHTML = "There's a <span>book</span> on the ground in front of the stump. It looks like somebody must have used this spot as a place to read or write.";
                 showBookButton("Read Journal?");
+                reading = true;
                 foundBook = true;
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    inp('stump')   && foundBook === false  :
                 output.innerHTML = "There's a <span>book</span> on the ground in front of the stump. It looks like somebody must have used this spot as a place to read or write.";
+                foundBook = true;
+                break;
+            case roomNum === 3 &&    (inp('take')||inp('grab')||inp('pocket'))    &&    (inp('book')||inp('journal')||inp('diary'))   :
+                output.innerHTML = "The <span>book</span> seems rather personal. You decide to leave it here in case somebody comes back for it.";
                 foundBook = true;
                 break;
             case roomNum === 3 &&    (inp('sit')||inp('rest'))     :
@@ -1021,10 +1036,20 @@
         };
         // CLEAR INPUT FORM
         userInput.value = "";
+        currentPage = 0;
     }
 
 // PRESSING ENTER 
-    enterButton.addEventListener('click', processInput);
+    const pressEnter = () => {
+        let fem = document.getElementById('userinput').value;
+        if (reading === true && fem =="") {
+            showBookText();
+        } else {
+            processInput();
+        }
+    }
+
+    enterButton.addEventListener('click', pressEnter);
 
     // from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_trigger_button_enter
     var input = document.getElementById("userinput");
