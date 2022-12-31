@@ -99,6 +99,7 @@
     let haveMushy = false;
     let currentPage = 0;
     let reading = false;
+    let readingAsk = false;
 
     const inventory = [];
 
@@ -191,17 +192,20 @@
 
     //display journal texts according to position in array
     const showBookText = () => {
-        output.innerHTML = journalText[currentPage];
-        currentPage = currentPage + 1;
-        reading = true;
-        d1.value = 'Keep Reading';
-        if (currentPage === 4) {
-            d1.value = "Done";
-        } else if (currentPage > 4) {
-            currentPage = 0;
-            d1.style.display = "none";
-            reading = false;
-            output.innerHTML = "";
+        if (reading === true || readingAsk === true) {
+            output.innerHTML = journalText[currentPage];
+            currentPage = currentPage + 1;
+            reading = true;
+            readingAsk = false;
+            d1.value = 'Keep Reading';
+            if (currentPage === 4) {
+                d1.value = "Done";
+            } else if (currentPage > 4) {
+                currentPage = 0;
+                d1.style.display = "none";
+                output.innerHTML = "";
+                reading = false;
+            }
         }
     };
 
@@ -248,6 +252,9 @@
         document.getElementById('map').classList.remove('blur');
         document.getElementById("inventory1").src="";document.getElementById("inventory2").src="";document.getElementById("inventory3").src="";document.getElementById("inventory4").src="";document.getElementById("inventory5").src="";document.getElementById("inventory6").src="";document.getElementById("inventory7").src="";
         
+        // not being asked
+        readingAsk = false;
+
         //clear buttons
         d1.style.display = "none";
         d2.style.display = "none";
@@ -626,17 +633,17 @@
             case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('book')||inp('journal')||inp('diary'))   && foundBook === true  :
                 output.innerHTML = "The <span>journal's</span> leather cover is worn, and the pages looks like they've gotten wet a few times.<br><br>The pages inside are hand-written in ink, and dated like a journal. There's not title, and no author.";
                 showBookButton("Read Journal?");
-                reading = true;
+                readingAsk = true;
                 break;
             case roomNum === 3 &&    inp('read')    &&    (inp('book')||inp('journal')||inp('diary'))   :
                 output.innerHTML = "You pick up the <span>journal</span>."
                 showBookButton("Read Journal?");
-                reading = true;
+                readingAsk = true;
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('book')||inp('journal')||inp('diary'))   && foundBook === false  :
                 output.innerHTML = "There's a <span>book</span> on the ground in front of the stump. It looks like somebody must have used this spot as a place to read or write.";
                 showBookButton("Read Journal?");
-                reading = true;
+                readingAsk = true;
                 foundBook = true;
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    inp('stump')   && foundBook === false  :
@@ -1042,10 +1049,11 @@
 // PRESSING ENTER 
     const pressEnter = () => {
         let fem = document.getElementById('userinput').value;
-        if (reading === true && fem =="") {
+        if ((reading === true || readingAsk === true) && fem =="") {
             showBookText();
         } else {
             processInput();
+            reading = false;
         }
     }
 
