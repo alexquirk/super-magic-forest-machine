@@ -26,6 +26,7 @@
         <img class="viewer" id= "inventory5">
         <img class="viewer" id= "inventory6">
         <img class="viewer" id= "inventory7">
+        <img class="viewer" id= "book">
 
     <!-- OUTPUT AREA -->
     <div class="outputarea">
@@ -194,17 +195,20 @@
     const showBookText = () => {
         if (reading === true || readingAsk === true) {
             output.innerHTML = journalText[currentPage];
+            document.getElementById("book").src="./inventoryimages/book.png";
             currentPage = currentPage + 1;
             reading = true;
             readingAsk = false;
             d1.value = 'Keep Reading';
             if (currentPage === 4) {
                 d1.value = "Done";
-            } else if (currentPage > 4) {
+            } 
+            else if (currentPage >= 5 ) {
+                output.innerHTML = "";
                 currentPage = 0;
                 d1.style.display = "none";
-                output.innerHTML = "";
                 reading = false;
+                document.getElementById("book").src="";
             }
         }
     };
@@ -257,6 +261,7 @@
 
         //clear buttons
         d1.style.display = "none";
+        document.getElementById("book").src=""
         d2.style.display = "none";
 
         // GET INPUT
@@ -284,7 +289,7 @@
                 userInput.value = "";
                 output.innerHTML = "";
                 break;
-
+                   
         // CHECK INVENTORY
             case ((inp("check")||inp('look')||inp('inspect'))   &&    inp('pocket')) || inp('inventory')  :
                 userInput.value = "";
@@ -625,7 +630,7 @@
 
             // ROOM 3
             case roomNum === 3 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "The forest is a bit darker here. There is a <span>stump</span> in the middle of the clearing. The forest is too dense to travel any further east from here.";
+                output.innerHTML = "The forest is a bit darker here. There is a <span>stump</span> in the middle of the clearing with an old discarded <span>notebook</span> alongside. The forest is too dense to travel any further east from here.";
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('stump'))   && foundBook === true  :
                 output.innerHTML = "Looks like a good place to sit and rest. You wonder how long ago the tree was cut down, but you're stumped.";
@@ -652,6 +657,7 @@
                 break;
             case roomNum === 3 &&    (inp('take')||inp('grab')||inp('pocket'))    &&    (inp('book')||inp('journal')||inp('diary'))   :
                 output.innerHTML = "The <span>book</span> seems rather personal. You decide to leave it here in case somebody comes back for it.";
+                showBookButton("Read Journal?");
                 foundBook = true;
                 break;
             case roomNum === 3 &&    (inp('sit')||inp('rest'))     :
@@ -1028,7 +1034,7 @@
                 output.innerHTML = checkInventory();
                 displayInventory();
                 break;
-            
+
             // CLEARING INVENTORY
             case inp('') && checkingInventory === true:
                 checkingInventory = false;
@@ -1041,6 +1047,7 @@
                 checkingInventory = false;
                 break;
         };
+
         // CLEAR INPUT FORM
         userInput.value = "";
         currentPage = 0;
@@ -1049,12 +1056,14 @@
 // PRESSING ENTER 
     const pressEnter = () => {
         let fem = document.getElementById('userinput').value;
-        if ((reading === true || readingAsk === true) && fem =="") {
+        if ((reading === true || readingAsk === true) && (fem ==""||inp("read"))) {
             showBookText();
+            //document.getElementById("book").src="./inventoryimages/book.png";
         } else {
             processInput();
             reading = false;
-        }
+            document.getElementById("book").src="";
+        };
     }
 
     enterButton.addEventListener('click', pressEnter);
