@@ -40,6 +40,10 @@ body {
     filter: blur(40px) opacity(.8); 
 }
 
+.blurless { 
+    filter: blur(20px); 
+}
+
 #inventory1 {
     z-index: 1;
 }

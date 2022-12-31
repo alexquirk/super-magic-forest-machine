@@ -200,8 +200,10 @@
             reading = true;
             readingAsk = false;
             d1.value = 'Keep Reading';
+            document.getElementById('map').classList.add('blurless');
             if (currentPage === 4) {
                 d1.value = "Done";
+                userInput.value = "";
             } 
             else if (currentPage >= 5 ) {
                 output.innerHTML = "";
@@ -209,6 +211,7 @@
                 d1.style.display = "none";
                 reading = false;
                 document.getElementById("book").src="";
+                document.getElementById('map').classList.remove('blurless');
             }
         }
     };
@@ -261,7 +264,8 @@
 
         //clear buttons
         d1.style.display = "none";
-        document.getElementById("book").src=""
+        document.getElementById("book").src="";
+        document.getElementById('map').classList.remove('blurless');
         d2.style.display = "none";
 
         // GET INPUT
@@ -588,6 +592,7 @@
             // SPECIAL CARE FOR ROOM 13
             case roomNum === 13 && inp("go")   &&    inp('up') :
                 roomNum = 10;
+                userInput.value = "";
                 room10Switch();
                 break;
             case roomNum === 13 && (inp("walk")||inp('go')||inp('travel'))   &&    (inp('up')||inp('forward')||inp('straight')||inp('north'))   :
@@ -658,6 +663,7 @@
             case roomNum === 3 &&    (inp('take')||inp('grab')||inp('pocket'))    &&    (inp('book')||inp('journal')||inp('diary'))   :
                 output.innerHTML = "The <span>book</span> seems rather personal. You decide to leave it here in case somebody comes back for it.";
                 showBookButton("Read Journal?");
+                readingAsk = true;
                 foundBook = true;
                 break;
             case roomNum === 3 &&    (inp('sit')||inp('rest'))     :
@@ -924,6 +930,9 @@
                 break;
             
             // INTERACT WITH TREES / CAT
+            case (inp('take')||inp('grab')||inp('pocket'))  && inp('tree')   :
+                output.innerHTML = "Your pockets aren't that big.";
+                break;
             case ((roomNum === 7 || roomNum === 8 || roomNum === 13))  &&    (inp('tree'))     :
                 output.innerHTML = "There aren't any trees around here.";
                 break;
@@ -1005,7 +1014,7 @@
 
             // INTERACT WITH GRASS
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get'))   &&    inp('grass')    :
-                output.innerHTML = "You probably won't need that.";
+                output.innerHTML = "There's plenty of that around. You probably won't need it.";
                 break;
             case (inp('search')||inp('inspect')||inp('look')||inp('check'))   &&    inp('grass')    :
                 output.innerHTML = "You search the grass, but don't find anything.";
@@ -1063,6 +1072,7 @@
             processInput();
             reading = false;
             document.getElementById("book").src="";
+            document.getElementById('map').classList.remove('blurless');
         };
     }
 
