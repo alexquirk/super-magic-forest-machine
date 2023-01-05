@@ -18,15 +18,21 @@
 <article id="themachine">
     
     <!-- VIEWER -->
-        <img class="viewer" id= "map" src="./roomimages/smfmroom1.png" alt="map">
-        <img class="viewer" id= "inventory1">
-        <img class="viewer" id= "inventory2">
-        <img class="viewer" id= "inventory3">
-        <img class="viewer" id= "inventory4">
-        <img class="viewer" id= "inventory5">
-        <img class="viewer" id= "inventory6">
-        <img class="viewer" id= "inventory7">
-        <img class="viewer" id= "book">
+    <div class="viewbox">
+        <img class="border1" src="./roomimages/border 1.png">
+        <div class="viewer">
+            <img id= "map" src="./roomimages/smfmroom1.png" alt="map">
+            <img id= "inventory1">
+            <img id= "inventory2">
+            <img id= "inventory3">
+            <img id= "inventory4">
+            <img id= "inventory5">
+            <img id= "inventory6">
+            <img id= "inventory7">
+            <img id= "book">
+        </div>
+        <img class="border2" src="./roomimages/border 2.png">
+    </div>
 
     <!-- OUTPUT AREA -->
     <div class="outputarea">
@@ -42,14 +48,16 @@
             <input type="button" id="dialogue2" class="dialogue" value="Option 2">
         </div>
     </div>
+    
+</article>
 
-    <!-- INPUT AREA -->
-    <div class="inputarea">
+ <!-- INPUT AREA -->
+<div class="inputarea">
+    <div class="inputcenter">
         <input type="text" id="userinput" maxlength="25">
         <input type="button" id="enterbutton" value="ENTER">
     </div>
-    <div class="borders"></div>
-</article>
+</div>
 
 </body>
 
@@ -179,10 +187,12 @@
 
 // BOOK BUTTONS
     //page texts
-    const journalText = ['Day 1:', 
-                         'Day 2:', 
-                         'Day 3:',
-                         'Day 4:',
+    const journalText = ['The <span>journal</span> begins:<br><br><span class="journal">Day 1<br><br>There\'s something strange about this place... at first I thought it was just me, but now I\'m certain. Every time I travel deeper into the woods, I somehow end up right back where I started.</span>', 
+                         '<span class="journal">Day 3<br><br></span>', 
+                         '<span class="journal">Day 7<br><br></span>',
+                         '<span class="journal">Day 13<br><br></span>',
+                         '<span class="journal">Day 21<br><br></span>',
+                         '<span class="journal">Day ??<br><br></span>',
                         ];
 
     //change button according to input value
@@ -201,11 +211,11 @@
             readingAsk = false;
             d1.value = 'Keep Reading';
             document.getElementById('map').classList.add('blurless');
-            if (currentPage === 4) {
+            if (currentPage === 6) {
                 d1.value = "Done";
                 userInput.value = "";
             } 
-            else if (currentPage >= 5 ) {
+            else if (currentPage >= 7 ) {
                 output.innerHTML = "";
                 currentPage = 0;
                 d1.style.display = "none";

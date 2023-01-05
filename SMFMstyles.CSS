@@ -1,40 +1,72 @@
 body {
     background-color: black;
     font-family: 'DotGothic16', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
+    overflow: scroll;
 }
 
 #themachine {
-    display: grid;
-    grid-template-rows: 3;
-    grid-template-columns: 1;
-    align-items: center;
+    justify-items: center;
+    align-items: end;
+    max-width: 700px;
+    min-width: 320px;
+    height: calc(95vh - 90px);
+    min-height: 400px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px green dashed;
 }
 
 /* VIEWER AREA */
 
+.viewbox {
+    display: flex;
+    border: 1px pink dashed;
+    aspect-ratio: 7/4;
+    justify-content: center;
+    max-width: 600px;
+    height: auto;
+    margin: 10px auto 10px;
+    align-self: start;
+    max-height: 45%;
+}
+
+.border1 {
+    height: 100%;
+    justify-self: right;
+    margin: 0px;
+}
+
+.border2 {
+    height: 100%;
+    justify-self: left;
+    margin: 0px;
+}
+
 .viewer {
-    justify-self: center;
-    justify-content: center;   
-    border-width: 1px 5px;
-    margin-bottom: 10px;
-    margin-top: 3vh;
+    aspect-ratio: 3/2;
+    border: 1px solid white;
+    display: grid;
+    grid-template-rows: 1;
+    grid-template-columns: 1;
 }
 
 #map, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #book {
-    grid-row: 1 / 2;
-    grid-column: 1 / 2;
-    width: 80vw;
-    min-width: 310px;
-    max-width: 500px;
-
+    max-height: 100%;
+    max-width: 100%;
+    grid-row: 1;
+    grid-column: 1;
 }
 
-#map {
+/* #map {
     z-index: 0;
-    border-color: grey;
-    border-style: solid double;
+    transition: 0.1s all ease-in-out;
 }
+
+#map:hover {
+    transform: scale(1.6);
+} */
+
 
 .blur { 
     filter: blur(40px) opacity(.8); 
@@ -79,18 +111,22 @@ body {
 /* OUTPUT TEXT AREA */
 
 .outputarea {
-    border: 1px solid grey;
-    height: 250px;
+    border: 1px solid white;
+    position: relative;
+    width: 95%;
+    height: 45%;
     color: white;
     padding: 5px;
-    width: 80vw;
-    max-width: 700px;
-    justify-self: center;
     overflow: scroll;
+    margin: 0px auto;
 } 
 
 #output > span {
     color: rgb(255, 152, 152);
+}
+
+#output > .journal {
+    color: rgb(201, 255, 212);
 }
 
 .dialoguearea > input {
@@ -98,9 +134,9 @@ body {
     font-size: inherit;
     background-color: black;
     color: white;
-    border: solid grey 1px;
+    border: solid white 1px;
     padding: 1px 5px 5px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
   }
 
 #dialogue1 {
@@ -114,41 +150,60 @@ body {
 /* INPUT AREA */
 
 .inputarea {
-    justify-self: center;
-    margin-top: 10px;
+    display: grid;
+    height: 30px;
+    justify-content: center;
+    border: 1px solid pink;
+    margin: 10px auto 0px;
+    justify-items: center;
 }
 
-.inputarea > input {
-    font-family:inherit;
+.inputcenter > input {
+    font-family: inherit;
     font-size: inherit;
     background-color: black;
     color: white;
-    border: solid grey 1px;
-    padding: 5px;
+    border: solid white 1px;
     margin-bottom: 10px;
   }
 
 input:focus, textarea { 
-    outline: none;
-    /* outline: rgb(75, 75, 75) solid px; */
+    outline: 1px solid gray;
+    justify-self: center;
 }  
 
+.inputcenter {
+    height: 15px;
+    display: grid;
+    grid-template-areas: "x y";
+    justify-items: center;
+}
+
 #userinput {
-    width: 300px;
+    width: 340px;
+    grid-area: x;
+    margin-right: 10px;
 }
 
 #enterbutton {
-    max-width: 80px;
+    width: 100px;
     padding-left: 5px;
+    grid-area: y;
 }
 
-@media (max-width:397px){
+@media only screen and (max-width: 482px) {
+    .inputcenter { 
+        grid-template-areas: "x" 
+                             "y";
+    }
+    #userinput {
+        margin: 0px 3px 10px;
+    }
+
     .inputarea {
-        display: inline-grid;
-        justify-items: center;
+       height: 70px;
     }
 
-    #map {
-        margin-top: 0px;
-    }
-}
+  }
+
+  
