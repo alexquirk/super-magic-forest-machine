@@ -1,1 +1,0 @@
-# alexquirk.github.io

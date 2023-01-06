@@ -40,12 +40,6 @@ h1 {
     max-height: 55%;
 }
 
-.border1, .border2 {
-    /* height: 100%; */
-    /* justify-self: left; */
-    /* margin-right: 10px; */
-}
-
 .viewer {
     aspect-ratio: 3/2;
     max-width: 500px;
@@ -185,9 +179,4 @@ input:focus, textarea {
     padding: 5px;
     margin-left: 10px;
 }
-
-@media only screen and (max-width: 482px) {
-
-  }
-
   
