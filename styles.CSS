@@ -5,15 +5,6 @@ body {
     overflow: scroll;
 }
 
-h1 {
-    display: none;
-    color: white;
-    font-size: inherit;
-    text-align: center;
-    margin: auto;
-    padding: 0px;
-}
-
 #themachine {
     justify-items: center;
     display: flex;   
@@ -21,7 +12,7 @@ h1 {
     max-width: 700px;
     min-width: 320px;
     height: 95vh;
-    min-height: 400px;
+    /* min-height: 400px; */
     margin-right: auto;
     margin-left: auto;
     /* border: 1px green dashed; */
@@ -110,6 +101,7 @@ h1 {
 .outputarea {
     border: 1px solid white;
     position: relative;
+    max-height: 65%;
     width: 93%;
     height: 35%;
     color: white;
@@ -150,8 +142,8 @@ h1 {
 .inputarea {
     display: flex;
     /* border: 1px solid pink; */
-    padding: 10px 10px 0px;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .inputarea > input {
@@ -160,22 +152,29 @@ h1 {
     background-color: black;
     color: white;
     border: solid white 1px;
-    margin-bottom: 10px;
+    margin-top: 10px;
   }
 
 input:focus, textarea { 
     outline: 2px solid gray;
     /* justify-self: center; */
+    -webkit-border-radius: 0px;
+    border-radius: 0;
 }  
 
 #userinput {
-    width: 340px;
+    width: 280px;
+    min-width: 200px;
     padding: 5px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
 }
 
 #enterbutton {
     width: 100px;
     padding: 5px;
     margin-left: 10px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
 }
   
