@@ -11,8 +11,8 @@ body {
     flex-flow:column nowrap;
     max-width: 700px;
     min-width: 320px;
-    max-height: 95vh;  
-    height: -webkit-fill-available;
+    height: 95vh;  
+    min-height: -webkit-fill-available;
     margin-right: auto;
     margin-left: auto;
     /* border: 1px green dashed; */
