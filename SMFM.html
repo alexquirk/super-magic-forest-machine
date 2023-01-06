@@ -16,7 +16,7 @@
 <!-- THE MACHINE -->
 
 <article id="themachine">
-    
+    <h1> ~ Super Magic Forest Machine ~ </h1>
     <!-- VIEWER -->
     <div class="viewbox">
         <img class="border1" src="./roomimages/border 1.png">
@@ -740,7 +740,7 @@
                 output.innerHTML = "You're standing on the shore of a lovely lake. There is a boat tied to a mooring nearby, but it doesn't exactly look seaworthy.";
                 break;
             case roomNum === 6 &&   ropeTaken === false &&   haveBox === false  &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('boat')||inp('moor'))     :
-                output.innerHTML = "The boat is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through, and the paddles are nowhere to be seen. It's tied to the shore with a thick <span>rope</span>.<br><br>You look into the bottom of the boat and find an old wooden box with a <span>lock</span> on it.<br><br>You put the <span>box</span> in your pocket.";
+                output.innerHTML = "The boat is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through, and the paddles are nowhere to be seen. It's tied to the shore with a thick <span>rope</span>.<br><br>You look into the bottom of the boat and find an <span>locked wooden box</span>.<br><br>You put the <span>box</span> in your pocket.";
                 haveBox = true;
                 inventory.push("a <span>wooden box</span>");
                 break;
