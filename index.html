@@ -109,6 +109,7 @@
     let reading = false;
     let readingAsk = false;
 
+    const roomVisited = ["", true, false, false, false, false, false, false, false, false, false, false, false, false];
     const inventory = [];
 
 // INVENTORY
@@ -186,12 +187,12 @@
 
 // BOOK BUTTONS
     //page texts
-    const journalText = ['The <span>journal</span> begins:<br><br><span class="journal">Day 1<br><br>There\'s something strange about this place... at first I thought it was just me, but now I\'m certain. Every time I travel deeper into the woods, I somehow end up right back where I started.</span>', 
-                         '<span class="journal">Day 3<br><br></span>', 
-                         '<span class="journal">Day 7<br><br></span>',
-                         '<span class="journal">Day 13<br><br></span>',
-                         '<span class="journal">Day 21<br><br></span>',
-                         '<span class="journal">Day ??<br><br></span>',
+    const journalText = ['The <span>journal</span> begins:<br><br><span class="journal"> Day 12<br><br>After almost a week of wandering, I\'ve finally caught a break. I found a boat on the shore of a lake (the first water I\'ve seen), and though it\'s in a state of disrepair, I think I might be able to get it seaworthy again.<br><br> My food is running low, and no sign of rescue yet. Maybe that\'s for the best...', 
+                         '<span class="journal">                                         Day 13<br><br>There\'s something strange about this place... at first I thought it was just me, but now I\'m certain. Every time I travel deeper into the woods, I somehow end up right back where I started.</span>', 
+                         '<span class="journal">                                         Day 7<br><br></span>',
+                         '<span class="journal">                                         Day 13<br><br></span>',
+                         '<span class="journal">                                         Day 21<br><br></span>',
+                         '<span class="journal">                                         Day ??<br><br></span>',
                         ];
 
     //change button according to input value
@@ -230,31 +231,146 @@
 
 // ROOM SWITCHING FUNCTIONS
 
+    const room1Switch = () => {
+        output.innerHTML = "";
+        return document.getElementById("map").src="./roomimages/smfmroom1.png";
+    };
+    const room2Switch = () => {
+        if (roomVisited[2] === false) {
+            output.innerHTML = "The forest grows ever darker. Large leafy branches block out almost at the light from the sun.<br><br>In the middle of the clearing, the <span>glowing light</span> of countless fireflies illuminate the forest.";
+        } else {
+            output.innerHTML = "";
+        };
+        roomVisited[2] = true;
+        return document.getElementById("map").src="./roomimages/smfmroom2.png";
+    };
+    const room3Switch = () => {
+        if (roomVisited[3] === false) { 
+            if (roomNum === 1) {
+                output.innerHTML = "The trees grow more dense as you travel <span>east</span> through the forest, cutting out the light from the sun.<br><br>You arrive in another clearing, where an old <span>stump</span> makes the place where a large tree used to stand.";
+            } else {
+                output.innerHTML = "The trees grow more dense as you make your way through the forest, cutting out the light from the sun.<br><br>You arrive in another clearing, where an old <span>stump</span> makes the place where a large tree used to stand.";
+            }
+        } else {
+            output.innerHTML = "";
+        };
+        roomVisited[3] = true;
+        return document.getElementById("map").src="./roomimages/smfmroom3.png";
+    };
     const room4Switch = () => {
+        if (roomVisited[4] === false) { 
+            if (roomNum === 1) {
+                output.innerHTML = "You travel <span>north</span> until you arrive at a clearing with a huge <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
+            } else {
+                output.innerHTML = "You arrive at a clearing with a huge <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
+            }
+        } else {
+            output.innerHTML = "";
+        };
+        roomVisited[4] = true;
         if (marbleDown === false) {return document.getElementById("map").src="./roomimages/smfmroom4a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom4b.png"};
     };
-    const room10Switch = () => {
-        if (ropeSet === false) {return document.getElementById("map").src="./roomimages/smfmroom10a.png"}
-        else {return document.getElementById("map").src="./roomimages/smfmroom10b.png"};
-    }; 
-    const room12Switch = () => {
-        if (robotAwake === false) {return document.getElementById("map").src="./roomimages/smfmroom12a.png"}
-        else {return document.getElementById("map").src="./roomimages/smfmroom12b.png"};
-    }; 
-    const room7Switch = () => {
-        if (firefliesReleased === false) {return document.getElementById("map").src="./roomimages/smfmroom7a.png"}
-        else {return document.getElementById("map").src="./roomimages/smfmroom7b.png"};
-    }; 
-    const room9Switch = () => {
-        if (ghostGivenMug === false) {return document.getElementById("map").src="./roomimages/smfmroom9a.png"}
-        else {return document.getElementById("map").src="./roomimages/smfmroom9b.png"};
-    }; 
+    const room5Switch = () => {
+        if (roomVisited[5] === false) { 
+            if (roomNum === 1) {
+                output.innerHTML = "You travel <span>south</span> until you arrive at at rocky <span>lake shore</span>. Sunlight glistens on the calm surface.";
+            } else {
+                output.innerHTML = "You arrive at at rocky <span>lake shore</span>. Sunlight glistens on the calm surface.";
+            }
+        } else {
+            output.innerHTML = "";
+        };
+        roomVisited[5] = true;
+        return document.getElementById("map").src="./roomimages/smfmroom5.png";
+    };
     const room6Switch = () => {
+        if (roomVisited[6] === false) {
+            if (roomNum === 5) {
+                output.innerHTML = "You travel <span>east</span> along the <span>lake shore</span> until you arrive at a wooded point, where a half-sunk <span>boat</span> is tied to a mooring.";
+            } else {
+                output.innerHTML = "You travel <span>south</span> through the forest until you arrive at a wooded <span>shoreline</span>, where a half-sunk <span>boat</span> is tied to a mooring.";
+            }
+        } else {
+            output.innerHTML = "";
+        };
+        roomVisited[6] = true;
         if (ropeTaken === false) {return document.getElementById("map").src="./roomimages/smfmroom6a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom6b.png"};
     }; 
+    const room7Switch = () => {
+        if (roomVisited[7] === false && firefliesReleased === false) {
+            output.innerHTML = "You make your way inside the <span>cave</span>. The light slowly fades behind you until you find yourself in almost complete <span>darkness</span>.<br><br>Soon you can barely see your hands in front of you.";
+        } else {
+            output.innerHTML = "";
+        };
+        roomVisited[7] = true;
+        if (firefliesReleased === false) {return document.getElementById("map").src="./roomimages/smfmroom7a.png"}
+        else {return document.getElementById("map").src="./roomimages/smfmroom7b.png"};
+    }; 
+    const room8Switch = () => {
+        if (roomVisited[8] === false) {
+            output.innerHTML = "This is the room 8 intro text";
+        } else {
+            output.innerHTML = "";
+        };
+        roomVisited[8] = true;
+        return document.getElementById("map").src="./roomimages/smfmroom8.png";
+    };
+    const room9Switch = () => {
+        if (roomVisited[9] === false) {
+            output.innerHTML = "This is the room 9 intro text";
+        } else {
+            output.innerHTML = "";
+        };
+        roomVisited[9] = true;
+        if (ghostGivenMug === false) {return document.getElementById("map").src="./roomimages/smfmroom9a.png"}
+        else {return document.getElementById("map").src="./roomimages/smfmroom9b.png"};
+    }; 
+    const room10Switch = () => {
+        if (roomVisited[10] === false) { 
+            if (roomNum === 1) {
+                output.innerHTML = "You travel <span>west</span>, making your way along a wooded trail until you arrive at a <span>stone well</span>.<br><br>You wonder who made this <span>well</span>, and how long ago.";
+            } else {
+                output.innerHTML = "You travel along a wooded trail until you arrive at a <span>stone well</span>.<br><br>You wonder who made this <span>well</span>, and how long ago.";
+            }
+        } else {
+            output.innerHTML = "";
+        };
+        roomVisited[10] = true;
+        if (ropeSet === false) {return document.getElementById("map").src="./roomimages/smfmroom10a.png"}
+        else {return document.getElementById("map").src="./roomimages/smfmroom10b.png"};
+    }; 
+    const room11Switch = () => {
+        if (roomVisited[11] === false) {
+            output.innerHTML = "You arrive at the mouth of a large <span>cave<span>.";
+        } else {
+            output.innerHTML = "";
+        };
+        roomVisited[11] = true;
+        return document.getElementById("map").src="./roomimages/smfmroom11.png";
+    };
+    const room12Switch = () => {
+        if (roomVisited[12] === false) {
+            if (roomNum === 5) {
+                output.innerHTML = "You travel <span>west</span> along the lakeshore until you arrive at a wooden fence, beyond which the forest grows dense and dark.<br><br>Under a tree near the shore, a <span>strange figure</span> is lying the in the shade, as if resting.";
+            } else {
+                output.innerHTML = "You travel <span>south</span> west until you arrive at a <span>lake shore</span>. To the <span>west</span>, a wooden fence marks a border, beyond which the forest grows dense and dark.<br><br>Under a tree near the shore, a <span>strange figure</span> is lying the in the shade, as if resting.";
+            }
+        } else {
+            output.innerHTML = "";
+        };
+        roomVisited[12] = true;
+        if (robotAwake === false) {return document.getElementById("map").src="./roomimages/smfmroom12a.png"}
+        else {return document.getElementById("map").src="./roomimages/smfmroom12b.png"};
+    }; 
     const room13Switch = () => {
+        if (roomVisited[13] === false) {
+            output.innerHTML = "This is the room 13 intro text";
+        } else {
+            output.innerHTML = "";
+        };
+        roomVisited[13] = true;
         if (mugTaken === false) {return document.getElementById("map").src="./roomimages/smfmroom13a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom13b.png"};
     }; 
@@ -282,7 +398,7 @@
     
         // GLOBAL
             case inp("hint") || inp("help"):
-                output.innerHTML = "There is something strange about this place...<br><br>Try <span>looking around</span>, <span>walking</span> in a direction, or <span>inspecting</span> things.<br><br>You can also <span>take</span> useful objects, <span>use</span> objects, or check your <span>pockets</span> to see what objects you have with you.";
+                output.innerHTML = "There is something strange about this place...<br><br>Try <span>looking around</span>, <span>walking</span> in a direction, or <span>looking</span> at things.<br><br>You can also <span>take</span> useful objects, <span>use</span> objects, or check your <span>pockets</span> to see what objects you have with you.";
                 break;
             case inp("nap") || inp("sleep"):
                 output.innerHTML = "You're not really tired.";
@@ -296,12 +412,25 @@
             case inp('what') && inp('up'):
                 output.innerHTML = "Nothing much, hbu";
                 break;
+            case inp('marco') :
+                output.innerHTML = "Polo!";
+                break;
             case inp('reset'):
                 roomNum = 1;
-                document.getElementById("map").src="./roomimages/smfmroom1.png";
+                room1Switch();
                 userInput.value = "";
                 output.innerHTML = "";
                 break;
+            case inp("poop") :
+                output.innerHTML = "...c'mon...";
+                break;
+            case inp("peepee") :
+                output.innerHTML = "...seriously...?";
+                break;
+            case inp('how') && inp('going') :
+                output.innerHTML = "Pretty good! Playing a game with a cool person.";
+                break;
+
                    
         // CHECK INVENTORY
             case ((inp("check")||inp('look')||inp('inspect'))   &&    inp('pocket')) || inp('inventory')  :
@@ -320,26 +449,23 @@
                         output.innerHTML = "The forest is too dark and dense to go any further east.";
                         break;
                     case 1:
-                        roomNum = 3;
-                        document.getElementById("map").src="./roomimages/smfmroom3.png";
+                        room3Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 3;
                         break;
                     case 13:
                         userInput.value = "";
                         output.innerHTML = "There's nowhere to go!";
                         break;
                     case 4:
-                        roomNum = 2;
-                        document.getElementById("map").src="./roomimages/smfmroom2.png";
+                        room2Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 2;
                         break;
                     case 5:
-                        roomNum = 6;
                         room6Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 6;
                         break;
                     case 3:
                         userInput.value = "";
@@ -350,30 +476,30 @@
                         output.innerHTML = "The forest is too dense to go any further east.";
                         break;
                     case 11:
-                        roomNum = 4;
                         room4Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 4;
+                        break;
+                    case 8:
+                        room7Switch();
+                        userInput.value = "";
+                        roomNum = 7;
                         break;
                     case 10:
+                        room1Switch();
                         roomNum = 1;
-                        document.getElementById("map").src="./roomimages/smfmroom1.png"
-                        output.innerHTML = "";
                         break;
                     case 2:
-                        roomNum = 9;
                         room9Switch();
-                        output.innerHTML = "";
+                        roomNum = 9;
                         break;
                     case 12:
+                        room5Switch();
                         roomNum = 5;
-                        room4Switch();
-                        document.getElementById("map").src="./roomimages/smfmroom5.png"
-                        output.innerHTML = "";
                         break;
                     case 7:
                         if (firefliesReleased === false) {
-                            output.innerHTML = "It's too dark to go anywhere!"
+                            output.innerHTML = "If you go any further you will lose yourself in the <span>darkness</span>."
                         } else {
                             output.innerHTML = "There's nowhere to go that way."
                         };
@@ -385,16 +511,14 @@
             case roomNum !== 13 && (inp("walk")||inp('go')||inp('travel'))   &&    (inp('north')||inp('up')||inp('straight')||inp('forward'))   :
                 switch (roomNum) {
                     case 3:
-                        roomNum = 2;
-                        document.getElementById("map").src="./roomimages/smfmroom2.png";
+                        room2Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 2;
                         break;
                     case 5:
-                        roomNum = 1;
-                        document.getElementById("map").src="./roomimages/smfmroom1.png";
+                        room1Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 1;
                         break;
                     case 4:
                         userInput.value = "";
@@ -409,41 +533,36 @@
                         output.innerHTML = "The forest is too dark and dense to go any further north.";
                         break;
                     case 1:
-                        roomNum = 4;
                         room4Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 4;
                         break;
                     case 6:
-                        roomNum = 3;
-                        document.getElementById("map").src="./roomimages/smfmroom3.png";
+                        room3Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 3;
                         break;
                     case 12:
-                        roomNum = 10;
                         room10Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 10;
                         break;
                     case 10:
-                        roomNum = 11;
-                        document.getElementById("map").src="./roomimages/smfmroom11.png";
+                        room11Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 11;
                         break;
                     case 7:
                         if (firefliesReleased === false) {
-                            output.innerHTML = "It's too dark to go anywhere!"
+                            output.innerHTML = "If you go any further you will lose yourself in the <span>darkness</span>."
                         } else {
                             output.innerHTML = "There's nowhere to go that way."
                         };
                         break;
                     case 11:
-                        roomNum = 7;
                         room7Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 7;
                         break;
                 };
                 break;
@@ -468,54 +587,46 @@
                         output.innerHTML = "The forest is too dense to go any further west, and there is a fence in the way.";
                         break;
                     case 3:
-                        roomNum = 1;
-                        document.getElementById("map").src="./roomimages/smfmroom1.png";
+                        room1Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 1;
                         break;
                     case 2:
-                        roomNum = 4;
                         room4Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 4;
                         break;
                     case 6:
-                        roomNum = 5;
-                        document.getElementById("map").src="./roomimages/smfmroom5.png";
+                        room5Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 5;
                         break;
                     case 9:
-                        roomNum = 2;
-                        document.getElementById("map").src="./roomimages/smfmroom2.png";
+                        room2Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 2;
                         break;
                     case 4:
-                        roomNum = 11;
-                        document.getElementById("map").src="./roomimages/smfmroom11.png";
+                        room11Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 11;
                         break;
                     case 1:
-                        roomNum = 10;
                         room10Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 10;
                         break;
                     case 5:
-                        roomNum = 12;
                         room12Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 12;
                         break;
                     case 7:
                         if (firefliesReleased === false) {
-                            output.innerHTML = "It's too dark to go anywhere!"
+                            output.innerHTML = "If you go any further you will lose yourself in the <span>darkness</span>."
                         } else {
+                            room8Switch();
                             roomNum = 8;
-                            document.getElementById("map").src="./roomimages/smfmroom8.png"
-                            output.innerHTML = ""
                         }
                         userInput.value = "";
                         break;
@@ -531,32 +642,28 @@
                         output.innerHTML = "The forest is too dark and dense to go any further south.";
                         break;
                     case 2:
-                        roomNum = 3;
-                        document.getElementById("map").src="./roomimages/smfmroom3.png";
+                        room3Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 3;
                         break;
                     case 1:
-                        roomNum = 5;
-                        document.getElementById("map").src="./roomimages/smfmroom5.png";
+                        room5Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 5;
                         break;
                     case 4:
-                        roomNum = 1;
-                        document.getElementById("map").src="./roomimages/smfmroom1.png";
+                        room1Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 1;
                         break;
                     case 3:
-                        roomNum = 6;
                         room6Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 6;
                         break;
                     case 5:
                         userInput.value = "";
-                        output.innerHTML = "You can't go any farther south - the opposite shore is too far to swim.";
+                        output.innerHTML = "You can't go any farther south - the water seems to go on forever.";
                         break;
                     case 13:
                         userInput.value = "";
@@ -564,23 +671,21 @@
                         break;
                     case 6:
                         userInput.value = "";
-                        output.innerHTML = "You can't go any farther south - the opposite shore is too far to swim.";
+                        output.innerHTML = "You can't go any farther south - the water seems to go on forever.";
                         break;
                     case 12:
                         userInput.value = "";
-                        output.innerHTML = "You can't go any farther south - the opposite shore is too far to swim.";
+                        output.innerHTML = "You can't go any farther south - the water seems to go on forever.";
                         break;
                     case 7:
-                        roomNum = 11;
-                        document.getElementById("map").src="./roomimages/smfmroom11.png";
+                        room11Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 11;
                         break;
                     case 11:
-                        roomNum = 10;
                         room10Switch();
                         userInput.value = "";
-                        output.innerHTML = "";
+                        roomNum = 10;
                         break;
                 };
                 break;
@@ -588,21 +693,20 @@
             // SPECIAL CASE FOR ROOM 10 BECAUSE OF GOING "DOWN" THE WELL
             case roomNum === 10 && inp("go")   &&    inp('down')  && ropeSet === true  :
                 output.innerHTML = "You test the rope, and then carefully lower yourself into the <span>well</span>...";
-                roomNum = 13;
                 room13Switch();
+                roomNum = 13;
                 break;
             case roomNum === 10 && (inp("walk")||inp('go')||inp('travel'))   &&    (inp('south')||inp('down'))   :
-                roomNum = 12;
                 room12Switch();
                 userInput.value = "";
-                output.innerHTML = "";
+                roomNum = 12;
                 break;
 
             // SPECIAL CARE FOR ROOM 13
             case roomNum === 13 && inp("go")   &&    inp('up') :
-                roomNum = 10;
                 userInput.value = "";
                 room10Switch();
+                roomNum = 10;
                 break;
             case roomNum === 13 && (inp("walk")||inp('go')||inp('travel'))   &&    (inp('up')||inp('forward')||inp('straight')||inp('north'))   :
                 userInput.value = "";
@@ -626,7 +730,7 @@
             case roomNum === 1 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('door')||inp('frame'))     :
                 output.innerHTML = "The <span>door</span> is made of a dark wood. It's worn, but sturdy. Something tells you it's been hear a long time.";
                 break;
-            case roomNum === 1 &&    inp('unlock')   &&    (inp('door')||inp('handle'))   &&  doorUnlocked === false  && haveBoxKey === true :
+            case roomNum === 1 &&    (inp('unlock')||inp('key'))   &&    (inp('door')||inp('handle'))   &&  doorUnlocked === false  && haveBoxKey === true :
                 output.innerHTML = "You try to unlock the <span>door</span> with the <span>key</span> you found down by the lake... but it doesn't fit the lock!<br><br>Now that you look closer, the <span>key</span> is shiny silver, but the lock on the <span>door</span> is a dull iron.<br><br>Maybe this <span>key</span> fits something else?";
                 break;
             case roomNum === 1 &&    inp('unlock')   &&    (inp('door')||inp('handle'))   &&  doorUnlocked === false  :
@@ -635,11 +739,14 @@
             case roomNum === 1 &&    (inp('look')||inp('inspect')||inp('try'))   &&    (inp('lock')||inp('handle')||inp('knob'))     :
                 output.innerHTML = "The door's gnob and lock are simple and a bit rusty, but strong. You try to push it open, but it won't budge.";
                 break;
-            case roomNum === 1 &&    inp('knock') || inp('nok'):
+            case roomNum === 1 &&    inp('knock') :
                 output.innerHTML = "You knock on the door, but nothing happens.";
                 break;
-            case roomNum === 1 &&    inp('who') || inp('there'):
+            case roomNum === 1 &&    (inp('who') && inp('there')) || inp('nok'):
                 output.innerHTML = "Lol you thought.";
+                break;
+            case roomNum === 1 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "The ground is covered in grass, with scattered <span>rocks</span> and <span>flowers</span>.";
                 break;
 
             // ROOM 3
@@ -678,6 +785,9 @@
             case roomNum === 3 &&    (inp('sit')||inp('rest'))     :
                 output.innerHTML = "You sit down on the stump to rest for a minute. It's comfier than you would have thought.";
                 break;
+            case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "The ground is covered in grass, with scattered rocks and flowers.<br><br>There is a <span>old book</span> on the ground near the stump.";
+                break;
 
             // ROOM 2
             case roomNum === 2 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
@@ -701,32 +811,41 @@
             case roomNum === 2 && (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === true  :
                 output.innerHTML = 'After a couple attempts, you catch a <span>firefly</span> in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"I bet I could keep some of them in this <span>box</span> if I get it open," you think.';
                 break;
+            case roomNum === 2 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
+                break;
 
             // ROOM 4
             case roomNum === 4 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "The forest is darker here. A big tree stands in the middle of the clearing.";
                 break;
             case roomNum === 4 &&    inp('play')   &&    inp('cat')   && marbleReunited === false && haveRibbon === false:
-                output.innerHTML = "You try to get the attention of the <span>cat</span>, but it doesn't seem that interested in you.<br><br>Maybe if you had something to play with...";
+                output.innerHTML = "You try to get the attention of the <span>cat</span>, but it doesn't seem that interested in you.<br><br>Maybe if you had <span>something</span> to play with...";
                 break;
             case roomNum === 4 &&  catDiscovered === true  &&  marbleReunited === false  &&  inp('talk')   &&    inp('cat'):
-            output.innerHTML = "The <span>cat</span> doesn't really seem interested in talking.";
+                output.innerHTML = "The <span>cat</span> doesn't really seem interested in talking.";
+                break;
+            case roomNum === 4 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
                 break;
 
             // ROOM 5
             case roomNum === 5 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "The lake is rather lovely and the shore littered with rocks. If only you'd brought a beach umbrella!";
+                output.innerHTML = "The lakeshore littered with <span>rocks</span>. The water disappears into fog on the horizon.";
                 break;
             case roomNum === 5 &&    inp('look')   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')) && haveBoxKey === false    :
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy <span>something</span> shining under the water near the rocks.";
                 break;
             case roomNum === 5 &&  haveBoxKey === false &&  (inp('search')||inp('inspect')||inp('look')||inp('check'))   &&    (inp('water')||inp('rock')||inp('stone')||inp('pebble')||inp("shore"))    :
-                output.innerHTML = "You search the rocks by the shore... and find a <span>key</span>! Nice!!<br><br>You put the <span>key</span> in you pocket.";
+                output.innerHTML = "You search the rocks by the shore... and find a <span>key</span>!<br><br>You put the <span>key</span> in you pocket.";
                 haveBoxKey = true;
                 inventory.push("a <span>silver key</span>");
                 break;
             case roomNum === 5 &&    inp('look')   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank'))     :
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.";
+                break;
+            case roomNum === 5 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "The ground is covered in grass, with scattered <span>rocks</span> and <span>flowers</span>.";
                 break;
 
             // ROOM 6
@@ -737,10 +856,10 @@
                 output.innerHTML = "The <span>boat</span> is in too poor condition to take anywhere.<br><br>It looks like there's <span>something</span> in the bottom of it though...";
                 break;
             case roomNum === 6 &&  ropeTaken === false &&  (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "You're standing on the shore of a lovely lake. There is a boat tied to a mooring nearby, but it doesn't exactly look seaworthy.";
+                output.innerHTML = "You're standing on the shore of a lake. There is a <span>boat</span> tied to a mooring nearby, but it doesn't exactly look seaworthy.";
                 break;
             case roomNum === 6 &&   ropeTaken === false &&   haveBox === false  &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('boat')||inp('moor'))     :
-                output.innerHTML = "The boat is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through, and the paddles are nowhere to be seen. It's tied to the shore with a thick <span>rope</span>.<br><br>You look into the bottom of the boat and find an <span>locked wooden box</span>.<br><br>You put the <span>box</span> in your pocket.";
+                output.innerHTML = "The <span>boat</span> is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through, and the paddles are nowhere to be seen. It's tied to the shore with a thick <span>rope</span>.<br><br>You look into the bottom of the boat and find an <span>locked wooden box</span>.<br><br>You put the <span>box</span> in your pocket.";
                 haveBox = true;
                 inventory.push("a <span>wooden box</span>");
                 break;
@@ -768,25 +887,31 @@
                 output.innerHTML = "You already took the <span>rope.</span>";
                 break;    
             case roomNum === 6 &&    (inp('take')||inp('grab')||inp('pocket')||inp('untie')||inp('remove')||inp('get'))   &&    (inp('rope'))     :
-                output.innerHTML = "You untie the <span>rope</span> and put it in your pocket.";
                 haveRope = true;
                 ropeTaken = true;
                 inventory.push("a <span>rope</span>")
                 room6Switch();
+                output.innerHTML = "You untie the <span>rope</span> and put it in your pocket.";
+                break;
+            case roomNum === 6 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "The ground is covered in grass with scattered rocks and such. A <span>rope</span> ties the boat to the shore.";
+                break;
+            case roomNum === 6 &&  (inp('use') && inp('rope')):
+                output.innerHTML = "The <span>rope</span> rope is tied to the <span>boat</span>. You don't see much use for it here, but maybe you can use it elsewhere.";
                 break;
 
             // ROOM 7
             case roomNum === 7 &&  (inp('look'))   &&    (inp('cave')||inp('around')) && firefliesReleased === false :
                 output.innerHTML = "The air feels different here... but it's too dark to see anything...";
                 break;
-            case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check'))   &&    (inp('cave')||inp('around')) && firefliesReleased === false :
+            case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check')||inp('look'))   &&    (inp('cave')||inp('around')) && firefliesReleased === false :
                 output.innerHTML = "You feel your way around the <span>cave</span>. The ground is rocky and the walls smooth. It's much too dark to see anything...<br><br>You smash your shins against something hard a few times before abandoning your search.";
                 break;
             case roomNum === 7 &&  (inp('look'))   &&    (inp('cave')||inp('around')) && firefliesReleased === true :
-                output.innerHTML = "The cave is full of glowing <span>crystals</span>! The light from the <span>fireflies</span> catches every surface and facet of the magnificent gems.";
+                output.innerHTML = "The cave is full of glowing <span>crystals</span>! The light from the <span>fireflies</span> catches every surface and facet of the magnificent gems.<br><br>There is another passageway leading <span>west</span>";
                 break;
             case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check'))   &&    (inp('cave')||inp('around')) && firefliesReleased === true :
-                output.innerHTML = "The cave is full of magnificent glowing <span>crystals</span> protruding from the walls and littering the ground.";
+                output.innerHTML = "The cave is full of magnificent glowing <span>crystals</span> protruding from the walls and littering the ground.<br><br>There is another passageway leading <span>west</span>";
                 break;
             case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check')||inp('look'))   &&    (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
                 output.innerHTML = "There are abudnances of <span>crystals</span> in every corner of the cave.";
@@ -804,6 +929,18 @@
                 removeItem("a <span>wooden box</span>");
                 inventory.push("a <span>box of fireflies</span>");
                 haveFireflies = true;
+                break;
+            case roomNum === 7 &&  firefliesReleased===true &&  (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "The cave floor is a rough stone, and covered in stalagmites and <span>crystals</span>";
+                break;
+            case roomNum === 7 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "It's too dark to see anything.";
+                break;
+            case roomNum === 7 &&  (inp('exit')||inp('leave'))   &&    (inp('cave')) :
+                roomNum = 11;
+                room11Switch();
+                userInput.value = "";
+                output.innerHTML = "";
                 break;
 
             // ROOM 10
@@ -836,7 +973,15 @@
             case roomNum === 10 &&  (inp('jump')||inp('fall'))   &&    (inp('well'))     :
                 output.innerHTML = "For a moment you imagine jumping into the <span>well</span>... What's that old phrase? \"L'appel du vide...\"<br><br>You decide to keep your feet on the ground.";
                 break;
-            case roomNum === 10 &&  inp('climb') &&   (inp('well')||inp('down'))  && ropeSet === false :
+            case roomNum === 10 &&  inp('use') &&   inp('well')  && ropeSet === false :
+                output.innerHTML = "The <span>well</span> doesn't have a bucket or rope to fetch water.";
+                break;
+            case roomNum === 10 &&  (inp('climb')||inp('use')) && (inp('down')||inp('well')||inp('rope'))  && ropeSet === true :
+                output.innerHTML = "You test the rope, and then carefully lower yourself into the <span>well</span>...";
+                roomNum = 13;
+                room13Switch();
+                break;
+            case roomNum === 10 &&  (inp('climb')||inp('use')) &&   (inp('well')||inp('down')||inp('rope'))  && ropeSet === false :
                 output.innerHTML = "You consider trying to climb down the <span>well</span>, but the walls are slippery and you're not sure if you'd be able to get back up again...";
                 break;
             case roomNum === 10 &&  (inp('use')||inp('tie')||inp('attach')||inp('set')||inp('throw')||inp('drop')||inp('toss'))   &&    (inp('rope'))   &&  haveRope === true  :
@@ -845,11 +990,6 @@
                 removeItem("a <span>rope</span>");
                 room10Switch();
                 output.innerHTML = "You tie the <span>rope</span> to the top of the <span>well</span>. It seems pretty secure... fingers crossed!";
-                break;
-            case roomNum === 10 &&  (inp('climb')||inp('down')) &&   inp('well')  && ropeSet === true :
-                output.innerHTML = "You test the rope, and then carefully lower yourself into the <span>well</span>...";
-                roomNum = 13;
-                room13Switch();
                 break;
             case roomNum === 10 &&  ropeSet === true &&  (inp('take')||inp('grab')||inp('pocket')||inp('untie')||inp('remove')||inp('get'))   &&    (inp('rope'))     :
                 output.innerHTML = "You untie the <span>rope</span> and put it in your pocket.";
@@ -860,6 +1000,9 @@
                 break;
             case roomNum === 10 && inp('wish') :
                 output.innerHTML = "You make a wish.... but it's secret!";
+                break;
+            case roomNum === 10 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
                 break;
             
             // ROOM 11
@@ -875,31 +1018,34 @@
                 userInput.value = "";
                 output.innerHTML = "";
                 break;
+            case roomNum === 11 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
+                break;
 
             // ROOM 13
-            case roomNum === 13 &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('well')||inp('around'))  && mugTaken === false  :
+            case roomNum === 13 &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('well')||inp('around')||inp('ground')||inp('floor')||inp('dirt'))  && mugTaken === false  :
                 output.innerHTML = "It's dark... there's just enough light to see around you. The ground is dry and littered with rocks and grass and... what's this? A <span>mug</span>?";
                 break;
-            case roomNum === 13 &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('well')||inp('around'))  && mugTaken === true  :
+            case roomNum === 13 &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('well')||inp('around')||inp('ground')||inp('floor')||inp('dirt'))  && mugTaken === true  :
                 output.innerHTML = "It's dark... there's just enough light to see around you. The ground is dry and littered with rocks and grass. You can see the spot in the ground where the <span>mug</span> used to be.";
                 break;
             case roomNum === 13 &&  (inp('look')||inp('inspect'))   &&    (inp('mug'))  && mugTaken === false   :
                 output.innerHTML = "The <span>mug</span> is lying in the darkness of the well. It looks like there is a desert scene painted on it... Somebody must have dropped it down here.";
                 break;
             case roomNum === 13 &&  (inp('take')||inp('grab')||inp('pocket')||inp('get'))   &&    (inp('mug'))  && mugTaken === false   :
-                output.innerHTML = "You put the <span>mug</span> in your pocket.";
                 haveMug =true;
                 mugTaken = true;
                 inventory.push("an <span>old mug</span>");
                 room13Switch();
+                output.innerHTML = "You put the <span>mug</span> in your pocket.";
                 break;
             case roomNum === 13 &&  (inp('take')||inp('grab')||inp('pocket')||inp('get'))   &&    (inp('mug'))  && mugTaken === true   :
                 output.innerHTML = "You already took the <span>mug</span>.";
                 break;
-            case roomNum === 13 &&  (inp('climb')|| (inp('go') && inp('up')) ):
-                output.innerHTML = "You climb back out of the well and into the sunlight.";
-                roomNum = 10;
+            case roomNum === 13 &&  (inp('climb')||inp('go')) && (inp('up')||inp('rope')) :
                 room10Switch();
+                roomNum = 10;
+                output.innerHTML = "You climb back out of the well and into the sunlight.";
                 break;
 
             // RELEASE FIREFLIES
@@ -916,12 +1062,12 @@
                 inventory.push("a <span>wooden box</span>");
                 break;
             case roomNum === 7 && haveFireflies=== true && (inp('release')||inp('open'))   &&    (inp('box')||inp('chest')||inp('fireflies'))  :
-                output.innerHTML = 'You open the <span>box</span>, and the <span>fireflies</span> fill the cave with a brilliant light!';
                 firefliesReleased = true;
                 haveFireflies = false;
                 removeItem("a <span>box of fireflies</span>");
                 inventory.push("a <span>wooden box</span>");
                 room7Switch();
+                output.innerHTML = 'You open the <span>box</span>, and the <span>fireflies</span> fill the cave with a brilliant light!';
                 break;
 
             // INTERACT WITH WATER
@@ -945,16 +1091,16 @@
             case ((roomNum === 7 || roomNum === 8 || roomNum === 13))  &&    (inp('tree'))     :
                 output.innerHTML = "There aren't any trees around here.";
                 break;
-            case inp('climb')  &&    inp('tree')  && (roomNum === 9)  :
+            case inp('climb')  &&    (inp('tree')||inp('branch'))  && (roomNum === 9)  :
                 output.innerHTML = "These trees look much too and the branches too weak to climb.";
                 break;
-            case (roomNum === 9)  &&    (inp('tree'))   &&   (inp('look')||inp('inspect')||inp(''))  :
+            case (roomNum === 9)  &&    (inp('tree')||inp('branch'))   &&   (inp('look')||inp('inspect')||inp(''))  :
                 output.innerHTML = "The trees here look ancient. You get the feeling this is a very old part of the forest.";
                 break;
-            case ((roomNum !== 4) || marbleDown === true) &&   (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('tree'))     :
+            case ((roomNum !== 4) || marbleDown === true) &&   (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('tree')||inp('branch'))     :
                 output.innerHTML = "You search around the trees, but don't find anything.";
                 break;
-            case (roomNum === 4)  &&  marbleDown === false  && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('tree'))     :
+            case (roomNum === 4)  &&  marbleDown === false  && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('tree')||inp('branch'))     :
                 output.innerHTML = "You look up into the tree... There's a <span>cat</span> up there! ...it doesn't seem to want to come down.";
                 catDiscovered = true;
                 break;
@@ -965,14 +1111,17 @@
                 output.innerHTML = "You start to climb the tree... but there's a <span>cat</span> in the tree! It hisses and swipes a paw at you. Rude!";
                 catDiscovered = true;
                 break;
-            case inp('climb')  &&    inp('tree')    :
+            case inp('climb')  &&    (inp('tree')||inp('branch'))   :
                 output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch and look out over the forest. There's a lake to the <span>south</span> you can see a river, or maybe a lake, and some stony outcroppings to the <span>north west</span>. Beyond that the forest extends far into the distance.<br><br>You enjoy the view for a minute, then climb down.";
                 break;
             case roomNum === 4 &&  catDiscovered === true &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
                 output.innerHTML = "You throw a <span>rock</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.";
                 break;
-            case roomNum === 4 &&  catDiscovered === true &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('stick')) && inp('cat')   :
+            case roomNum === 4 &&  catDiscovered === true &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('stick')) && inp('branch')   :
                 output.innerHTML = "You throw a <span>stick</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.";
+                break;
+            case roomNum !== 8 && roomNum !== 7 && roomNum !== 13 &&  inp('rope')   &&  inp('tree') && haveRope === true :
+                output.innerHTML = "The <span>trees</span> look easy enough to climb without the <span>rope</span>, so you don't see much use in that.";
                 break;
 
             // UNLOCK THE BOX
