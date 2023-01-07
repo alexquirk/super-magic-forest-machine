@@ -123,8 +123,12 @@ body {
     z-index: 7;
 }
 
-#book {
+#compassbox {
     z-index: 8;
+}
+
+#book {
+    z-index: 9;
 }
 
 /* OUTPUT TEXT AREA */

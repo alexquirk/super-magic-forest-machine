@@ -251,54 +251,50 @@ const makeFadeAway = () => {
 // ROOM SWITCHING FUNCTIONS
 
     const room1Switch = () => {
-        output.innerHTML = "";
+        output.innerHTML = "The <span>wooden door</span> stands in the middle of the clearing.";
         return document.getElementById("map").src="./roomimages/smfmroom1.png";
     };
     const room2Switch = () => {
         if (roomVisited[2] === false) {
-            output.innerHTML = "The forest grows ever darker. Large leafy branches block out almost at the light from the sun.<br><br>In the middle of the clearing, the <span>glowing light</span> of countless fireflies illuminate the forest.";
+            output.innerHTML = "The forest grows darker. Large leafy branches block out almost at the light from the sun.<br><br>In the middle of the clearing, the <span>glowing light</span> of countless fireflies illuminate the forest.";
         } else {
-            output.innerHTML = "";
+            output.innerHTML = "The forest is dark, but the air is filled with <span>fireflies</span>.";
         };
         roomVisited[2] = true;
         return document.getElementById("map").src="./roomimages/smfmroom2.png";
     };
     const room3Switch = () => {
         if (roomVisited[3] === false) { 
-            if (roomNum === 1) {
-                output.innerHTML = "The trees grow more dense as you travel <span>east</span> through the forest, cutting out the light from the sun.<br><br>You arrive in another clearing, where an old <span>stump</span> makes the place where a large tree used to stand.";
+            if (roomNum === 1 || roomNum === 6) {
+                output.innerHTML = "The trees grow more dense as you travel through the forest.<br><br>You arrive at a shady knoll, where an old <span>stump</span> makes the place where a large tree used to stand.";
             } else {
-                output.innerHTML = "The trees grow more dense as you make your way through the forest, cutting out the light from the sun.<br><br>You arrive in another clearing, where an old <span>stump</span> makes the place where a large tree used to stand.";
+                output.innerHTML = "You make your way <span>south</span> through the forest.<br><br>You arrive at a shady knoll, where an old <span>stump</span> marks the place where a large tree used to stand.";
             }
         } else {
-            output.innerHTML = "";
+            output.innerHTML = "An old <span>tree stump<span> sits in the center of a shady knoll.";
         };
         roomVisited[3] = true;
         return document.getElementById("map").src="./roomimages/smfmroom3.png";
     };
     const room4Switch = () => {
-        if (roomVisited[4] === false) { 
-            if (roomNum === 1) {
-                output.innerHTML = "You travel <span>north</span> until you arrive at a clearing with a huge <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
-            } else {
-                output.innerHTML = "You arrive at a clearing with a huge <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
-            }
+        if (roomNum === 1 && marbleDown === false) {
+            output.innerHTML = "You travel <span>north</span> until you arrive at a small clearing with a huge <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
+        } else if (marbleDown === false) {
+            output.innerHTML = "You arrive at a small clearing with a huge <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
         } else {
-            output.innerHTML = "";
+            output.innerHTML = "This is the tree the <span>cat</span> was in.";
         };
         roomVisited[4] = true;
         if (marbleDown === false) {return document.getElementById("map").src="./roomimages/smfmroom4a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom4b.png"};
     };
-    const room5Switch = () => {
-        if (roomVisited[5] === false) { 
-            if (roomNum === 1) {
-                output.innerHTML = "You travel <span>south</span> until you arrive at at rocky <span>lake shore</span>. Sunlight glistens on the calm surface.";
-            } else {
-                output.innerHTML = "You arrive at at rocky <span>lake shore</span>. Sunlight glistens on the calm surface.";
-            }
+    const room5Switch = () => { 
+        if (roomNum === 1) {
+            output.innerHTML = "You travel <span>south</span> until you arrive at at rocky <span>lake shore</span>. Sunlight glistens on the calm surface.";
+        } else if (roomNum === 12) {
+            output.innerHTML = "You travel <span>east</span> until you arrive at at rocky <span>lake shore</span>. Sunlight glistens on the calm surface.";
         } else {
-            output.innerHTML = "";
+            output.innerHTML = "You travel <span>west</span> until you arrive at at rocky <span>lake shore</span>. Sunlight glistens on the calm surface.";
         };
         roomVisited[5] = true;
         return document.getElementById("map").src="./roomimages/smfmroom5.png";
@@ -318,10 +314,10 @@ const makeFadeAway = () => {
         else {return document.getElementById("map").src="./roomimages/smfmroom6b.png"};
     }; 
     const room7Switch = () => {
-        if (roomVisited[7] === false && firefliesReleased === false) {
+        if (firefliesReleased === false) {
             output.innerHTML = "You make your way inside the <span>cave</span>. The light slowly fades behind you until you find yourself in almost complete <span>darkness</span>.<br><br>Soon you can barely see your hands in front of you.";
         } else {
-            output.innerHTML = "";
+            output.innerHTML = "The <span>cave</span> is filled with the light of countless <span>fireflies</span>. The strange <span>crystals</span> glow faintly.";
         };
         roomVisited[7] = true;
         if (firefliesReleased === false) {return document.getElementById("map").src="./roomimages/smfmroom7a.png"}
@@ -850,7 +846,7 @@ const makeFadeAway = () => {
 
             // ROOM 5
             case roomNum === 5 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "The lakeshore littered with <span>rocks</span>. The water disappears into fog on the horizon.";
+                output.innerHTML = "The lakeshore littered with <span>rocks</span>. The lake is wide, and disappears into fog on the horizon.";
                 break;
             case roomNum === 5 &&    inp('look')   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')) && haveBoxKey === false    :
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy <span>something</span> shining under the water near the rocks.";
@@ -1144,7 +1140,7 @@ const makeFadeAway = () => {
                 break;
 
             // UNLOCK THE BOX
-            case (inp('unlock')||inp('open')||inp('key'))   &&    (inp('box')||inp('chest'))    :
+            case (inp('unlock')||inp('open')||inp('key'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveBoxKey === true && boxUnlocked === false   :
                 output.innerHTML = "You try to open the <span>box</span> with the <span>key</span>...<br><br>...And it works! The <span>box</span> opens with a satisfying click.<br><br>Inside the box you find a <span>red ribbon</span>. You put the <span>ribbon</span> in your pocket.";
                 boxUnlocked = true;
                 haveRibbon = true;
