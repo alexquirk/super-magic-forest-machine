@@ -15,6 +15,8 @@
 
 <!-- THE MACHINE -->
 
+<img id="titlecard" src="./extraimages/titlecard.png" onclick="makeFadeAway()">
+
 <article id="themachine">
     
     <!-- VIEWER -->
@@ -63,6 +65,18 @@
 
 <!-- SCRIPT -->
 <script>
+
+// PRESS ANY KEY TO CONTINUE
+document.onkeydown = e =>{ 
+    document.getElementById('titlecard').classList.add('fadeout');
+    let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
+    setTimeout(makeGoAway, 1000);
+};
+const makeFadeAway = () => {
+    document.getElementById('titlecard').classList.add('fadeout');
+    let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
+    setTimeout(makeGoAway, 1000);
+}
 
 //DECLARE VARIABLES
     const userInput = document.getElementById('userinput');
