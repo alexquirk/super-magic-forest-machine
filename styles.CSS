@@ -223,7 +223,7 @@ input:focus, textarea {
 }
   
 
-@media only screen and (max-width: 418px) {
+@media only screen and (orientation: portrait) {
     #themachine {
         height: -webkit-fill-available;
     }
