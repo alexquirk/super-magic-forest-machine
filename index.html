@@ -37,17 +37,20 @@
     </div>
 
     <!-- OUTPUT AREA -->
-    <div class="outputarea">
+    <div id="outputarea">
         <div id="output">You open your eyes and find yourself in a forest clearing. 
             In front of you stands a wooden <span>door</span>.
             <br><br>
             You try to remember how you got here, but your mind is fuzzy. "Guess I fell asleep," you think to yourself.
             <br><br>
             Try <span>looking around</span>.
+            <br><br>
+            You can type <span>help</span> at any time to get a hint, or <span>reset</span> to return to the beginning.
         </div>
         <div class="dialoguearea">
             <input type="button" id="dialogue1" class="dialogue" value="Option 1">
             <input type="button" id="dialogue2" class="dialogue" value="Option 2">
+        </div>
         </div>
     </div>
     
@@ -67,6 +70,7 @@
 <script>
 
 // PRESS ANY KEY TO CONTINUE
+
 document.onkeydown = e =>{ 
     document.getElementById('titlecard').classList.add('fadeout');
     let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
@@ -77,6 +81,7 @@ const makeFadeAway = () => {
     let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
     setTimeout(makeGoAway, 1000);
 }
+
 
 //DECLARE VARIABLES
     const userInput = document.getElementById('userinput');
@@ -739,7 +744,7 @@ const makeFadeAway = () => {
                 output.innerHTML = "The <span>door</span> is locked.";
                 break;
             case roomNum === 1 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "In front of you, a <span>door frame</span> stands in the middle of a forest clearing scattered with stones and flowers. To the <span>north</span> and <span>east</span> the forest grows dark and dense. To the <span>south</span>, you can hear the distant sound of running water. To the <span>northwest</span> you can see a rocky outcropping above the trees.";
+                output.innerHTML = "The <span>door frame</span> is standing in a grassy clearing surrounded by trees and scattered stones and flowers.<br><br>To the <span>north</span> and <span>east</span> the forest grows dark and dense. To the <span>south</span>, you can hear the distant sound of water. To the <span>northwest</span> you can see a rocky outcropping above the trees.";
                 break;
             case roomNum === 1 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('door')||inp('frame'))     :
                 output.innerHTML = "The <span>door</span> is made of a dark wood. It's worn, but sturdy. Something tells you it's been hear a long time.";
@@ -1259,6 +1264,9 @@ const makeFadeAway = () => {
             document.getElementById("enterbutton").click();
         }
     });
+
+
+
 
 </script>
 

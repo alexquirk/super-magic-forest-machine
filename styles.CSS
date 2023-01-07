@@ -129,7 +129,7 @@ body {
 
 /* OUTPUT TEXT AREA */
 
-.outputarea {
+#outputarea {
     border: 1px solid white;
     position: relative;
     max-height: 600px;
@@ -137,10 +137,14 @@ body {
     height: 35%;
     color: white;
     padding: 3px 5px 3px;
-    overflow: scroll;
     margin: 0px auto;
     flex-grow: 5;
+    overflow: scroll;
 } 
+
+#output {
+    padding-bottom: 5px;
+}
 
 #output > span {
     color: rgb(255, 152, 152);
@@ -157,7 +161,7 @@ body {
     color: white;
     border: solid white 1px;
     padding: 1px 5px 5px;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 
 #dialogue1 {
