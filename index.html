@@ -17,11 +17,11 @@
 
 <img id="titlecard" src="./extraimages/titlecard.png" onclick="makeFadeAway()">
 
-<article id="cutsceneviewer">
+<div id="cutsceneviewer">
     <video id="cutscene" autoplay="autoplay" muted>
         <source src="./cutscenes/ghostcutscene.mp4" type="video/mp4">
     </video>
-</article>
+</div>
 
 <article id="themachine">
     
@@ -1045,7 +1045,6 @@ const makeFadeAway = () => {
                 roomNum = 7;
                 room7Switch();
                 userInput.value = "";
-                output.innerHTML = "";
                 break;
             case roomNum === 11 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
