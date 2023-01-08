@@ -38,6 +38,9 @@
             <img id= "inventory6">
             <img id= "inventory7">
             <img id= "book">
+            <div id= "maptiles">
+                <img class="roomtile" id="room1tile" src="./maptiles/room1tile.png"><img class="roomtile" id="room2tile"><img class="roomtile" id="room3tile"><img class="roomtile" id="room4tile"><img class="roomtile" id="room5tile"><img class="roomtile" id="room6tile"><img class="roomtile" id="room7tile"><img class="roomtile" id="room8tile"><img class="roomtile" id="room9tile"><img class="roomtile" id="room10tile"><img class="roomtile" id="room11tile"><img class="roomtile" id="room12tile">
+            </div>   
         </div>
         <img class="border2" src="./roomimages/border 2.png">
     </div>
@@ -134,6 +137,7 @@ const makeFadeAway = () => {
     let reading = false;
     let readingAsk = false;
     let ghostDiscovered = false;
+    let checkingMap = false;
 
     const roomVisited = ["", true, false, false, false, false, false, false, false, false, false, false, false, false];
     const inventory = [];
@@ -278,6 +282,7 @@ const hideGhostCutscene = () => {
             output.innerHTML = "The forest is dark, but the air is filled with <span>fireflies</span>.";
         };
         roomVisited[2] = true;
+        document.getElementById("room2tile").src="./maptiles/room2tile.png";
         return document.getElementById("map").src="./roomimages/smfmroom2.png";
     };
     const room3Switch = () => {
@@ -291,6 +296,7 @@ const hideGhostCutscene = () => {
             output.innerHTML = "An old <span>tree stump<span> sits in the center of a shady knoll.";
         };
         roomVisited[3] = true;
+        document.getElementById("room3tile").src="./maptiles/room3tile.png";
         return document.getElementById("map").src="./roomimages/smfmroom3.png";
     };
     const room4Switch = () => {
@@ -304,6 +310,7 @@ const hideGhostCutscene = () => {
             output.innerHTML = "This is the tree the <span>cat</span> was in.";
         };
         roomVisited[4] = true;
+        document.getElementById("room4tile").src="./maptiles/room4tile.png";
         if (marbleDown === false) {return document.getElementById("map").src="./roomimages/smfmroom4a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom4b.png"};
     };
@@ -316,6 +323,7 @@ const hideGhostCutscene = () => {
             output.innerHTML = "You travel <span>west</span> until you arrive at at rocky <span>lake shore</span>. Sunlight glistens on the calm surface.";
         };
         roomVisited[5] = true;
+        document.getElementById("room5tile").src="./maptiles/room5tile.png";
         return document.getElementById("map").src="./roomimages/smfmroom5.png";
     };
     const room6Switch = () => {
@@ -327,6 +335,7 @@ const hideGhostCutscene = () => {
                 output.innerHTML = "You arrive at the wooden point where the half-sunk <span>boat</span> sits in the water.";
         };
         roomVisited[6] = true;
+        document.getElementById("room6tile").src="./maptiles/room6tile.png";
         if (ropeTaken === false) {return document.getElementById("map").src="./roomimages/smfmroom6a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom6b.png"};
     }; 
@@ -337,8 +346,13 @@ const hideGhostCutscene = () => {
             output.innerHTML = "The <span>cave</span> is filled with the light of countless <span>fireflies</span>. The strange <span>crystals</span> glow faintly.";
         };
         roomVisited[7] = true;
-        if (firefliesReleased === false) {return document.getElementById("map").src="./roomimages/smfmroom7a.png"}
-        else {return document.getElementById("map").src="./roomimages/smfmroom7b.png"};
+        if (firefliesReleased === false) {
+            document.getElementById("room7tile").src="./maptiles/room7tiledark.png";
+            return document.getElementById("map").src="./roomimages/smfmroom7a.png"
+        }
+        else {
+            document.getElementById("room7tile").src="./maptiles/room7tile.png";
+            return document.getElementById("map").src="./roomimages/smfmroom7b.png"};
     }; 
     const room8Switch = () => {
         if (roomVisited[8] === false) {
@@ -347,6 +361,7 @@ const hideGhostCutscene = () => {
             output.innerHTML = "You arrive at large grotto, where single beam of light from far above illuminates an island in the center of an underground lake.";
         };
         roomVisited[8] = true;
+        document.getElementById("room8tile").src="./maptiles/room8tile.png";
         return document.getElementById("map").src="./roomimages/smfmroom8.png";
     };
     const room9Switch = () => {
@@ -356,6 +371,7 @@ const hideGhostCutscene = () => {
             output.innerHTML = "A narrow path leads you <span>east</span> through the forest.<br><br>You arrive at a murky hollow and a circle of <span>mushrooms</span>.";
         };
         roomVisited[9] = true;
+        document.getElementById("room9tile").src="./maptiles/room9tile.png";
         if (ghostGivenMug === true || ghostDiscovered === false ) {return document.getElementById("map").src="./roomimages/smfmroom9b.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom9a.png"};
     }; 
@@ -377,6 +393,7 @@ const hideGhostCutscene = () => {
             }
         };
         roomVisited[10] = true;
+        document.getElementById("room10tile").src="./maptiles/room10tile.png";
         if (ropeSet === false) {return document.getElementById("map").src="./roomimages/smfmroom10a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom10b.png"};
     }; 
@@ -387,6 +404,7 @@ const hideGhostCutscene = () => {
             output.innerHTML = "You travel back to the mouth of the large <span>cave</span>";
         };
         roomVisited[11] = true;
+        document.getElementById("room11tile").src="./maptiles/room11tile.png";
         return document.getElementById("map").src="./roomimages/smfmroom11.png";
     };
     const room12Switch = () => {
@@ -405,6 +423,7 @@ const hideGhostCutscene = () => {
             }
         };
         roomVisited[12] = true;
+        document.getElementById("room12tile").src="./maptiles/room12tile.png";
         if (robotAwake === false) {return document.getElementById("map").src="./roomimages/smfmroom12a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom12b.png"};
     }; 
@@ -415,15 +434,24 @@ const hideGhostCutscene = () => {
         else {return document.getElementById("map").src="./roomimages/smfmroom13b.png"};
     }; 
 
+// VIEWING THE MAP
+    const checkMap = () => {
+        if (checkingMap === true)
+        {document.getElementById('maptiles').style.display = "block";}
+    };
+
 // USER INPUT
     const inp = (arg) => {
         return userInput.value.toLowerCase().includes(arg);
-    }
+    };
     const processInput = () => {
         //clear inventory
         document.getElementById('map').classList.remove('blur');
         document.getElementById("inventory1").src="";document.getElementById("inventory2").src="";document.getElementById("inventory3").src="";document.getElementById("inventory4").src="";document.getElementById("inventory5").src="";document.getElementById("inventory6").src="";document.getElementById("inventory7").src="";
-        
+
+        //clear map
+        document.getElementById('maptiles').style.display = "none";
+
         // not being asked
         readingAsk = false;
 
@@ -438,7 +466,7 @@ const hideGhostCutscene = () => {
     
         // GLOBAL
             case inp("hint") || inp("help"):
-                output.innerHTML = "There is something strange about this place...<br><br>Try <span>looking around</span>, <span>walking</span> in a direction, or <span>looking</span> at things.<br><br>You can also <span>take</span> useful objects, <span>use</span> objects, or check your <span>pockets</span> to see what objects you have with you.";
+                output.innerHTML = "There is something strange about this place...<br><br>Try <span>looking around</span>, <span>walking</span> in a direction, or <span>looking</span> at things.<br><br>You can also <span>take</span> useful objects, <span>use</span> objects, check your <span>pockets</span> to see what objects you have with you, or check your <span>map</span>.";
                 break;
             case inp("nap") || inp("sleep"):
                 output.innerHTML = "You're not really tired.";
@@ -446,7 +474,7 @@ const hideGhostCutscene = () => {
             case inp('chill') || (inp('not') && inp('much')):
                 output.innerHTML = "cool cool";
                 break;
-            case inp('hello') || inp('hi'):
+            case inp('hello'):
                 output.innerHTML = "Hi :)";
                 break;
             case inp('what') && inp('up'):
@@ -470,8 +498,15 @@ const hideGhostCutscene = () => {
             case inp('how') && inp('going') :
                 output.innerHTML = "Pretty good! Playing a game with a cool person.";
                 break;
+            
+            // MAP CHECKING
+            case inp('map') :
+                checkingMap = true;
+                output.innerHTML = "You open your <span>map</span>."
+                userInput.value = "";
+                checkMap();
+                break;
 
-                   
         // CHECK INVENTORY
             case ((inp("check")||inp('look')||inp('inspect'))   &&    inp('pocket')) || inp('inventory')  :
                 userInput.value = "";
@@ -980,7 +1015,6 @@ const hideGhostCutscene = () => {
                 roomNum = 11;
                 room11Switch();
                 userInput.value = "";
-                output.innerHTML = "";
                 break;
 
             // ROOM 9
@@ -988,6 +1022,15 @@ const hideGhostCutscene = () => {
                 ghostDiscovered = true;
                 playGhostCutscene();
                 setTimeout(function () {hideGhostCutscene()}, 5000);
+                break;
+            case roomNum === 9 &&  (inp('talk')||inp('chat')||inp('ask')||inp('question'))  &&    (inp('ghost')||inp('figure')) && ghostDiscovered === true && mugTaken === false  :
+                output.innerHTML = 'A voice whispers...<br><br><span class="journal">"Moon... cactus...</span>"<br><br>What does that mean?';
+                break;
+            case roomNum === 9 &&  (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))  && (ghostDiscovered === false || mugTaken===true)   :
+                output.innerHTML = "This must be the oldest part of the forest. The trees here look like they haven't seen sunlight in years.<br><br>There is a circle of <span>mushrooms</span> in the middle of the hollow.";
+                break;
+            case roomNum === 9 &&  (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))   :
+                output.innerHTML = "There is a <span>ghostly figure</span> hovering in a circle of mushrooms<br><br>This must be the oldest part of the forest. The trees here look like they haven't seen sunlight in years.";
                 break;
             
             // ROOM 10
@@ -1110,6 +1153,7 @@ const hideGhostCutscene = () => {
             case roomNum === 7 && haveFireflies=== true && (inp('release')||inp('open'))   &&    (inp('box')||inp('chest')||inp('fireflies'))  :
                 firefliesReleased = true;
                 haveFireflies = false;
+                document.getElementById("map").src="./roomimages/smfmroom7a.png";
                 removeItem("a <span>box of fireflies</span>");
                 inventory.push("a <span>wooden box</span>");
                 room7Switch();
@@ -1254,10 +1298,18 @@ const hideGhostCutscene = () => {
                 output.innerHTML = "";
                 break;
 
+            // CLEARING MAP
+            case inp('') && checkingMap === true:
+                output.innerHTML = "";
+                checkingMap = false;
+                break;
+
+            
         // DEFAULT
             default:
                 output.innerHTML = "Nothing happened.";
                 checkingInventory = false;
+                checkingMap = false;
                 break;
         };
 

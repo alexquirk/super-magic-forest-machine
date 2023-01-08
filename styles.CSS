@@ -97,7 +97,7 @@ body {
     overflow: hidden;
 }
 
-#map, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #book {
+#map, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #book, #maptiles {
     max-height: 100%;
     max-width: 100%;
     grid-row: 1;
@@ -156,6 +156,79 @@ body {
 
 #book {
     z-index: 9;
+}
+
+#maptiles {
+    z-index: 10;
+    display: none;
+    background-image: url(./maptiles/mapbackground.png);
+    background-size: contain;
+    position: relative;
+}
+
+.roomtile {
+    width: 15%;
+    position: absolute;
+}
+
+#room1tile {
+    left: 42.6%;
+    top: 53%;
+}
+
+#room2tile {
+    top: 32%;
+    left: 55.3%;
+}
+
+#room3tile {
+    left: 55.3%;
+    top: 53%;
+}
+
+#room4tile {
+    left: 42.6%;
+    top: 32%;
+}
+
+#room5tile {
+    left: 42.6%;
+    top: 73%;
+}
+
+#room6tile {
+    left: 55.3%;
+    top: 73%;
+}
+
+#room7tile {
+    left: 29.8%;
+    top: 13%;
+}
+
+#room8tile {
+    left: 16.9%;
+    top: 13%;
+}
+
+#room9tile {
+    left: 68%;
+    top: 32%;
+}
+
+#room10tile {
+    left: 29.8%;
+    top: 53%;
+}
+
+#room11tile {
+    left: 29.8%;
+    top: 32%;
+}
+
+#room12tile {
+    left: 29.8%;
+    top: 69.35%;
 }
 
 /* OUTPUT TEXT AREA */
