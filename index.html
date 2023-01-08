@@ -54,7 +54,7 @@
             <br><br>
             Try <span>looking around</span>.
             <br><br>
-            You can type <span>help</span> at any time to get a hint, or <span>reset</span> to return to the beginning.
+            You can type <span>help</span> at any time to get a hint.
         </div>
         <div class="dialoguearea">
             <input type="button" id="dialogue1" class="dialogue" value="Option 1">
@@ -466,7 +466,7 @@ const hideGhostCutscene = () => {
     
         // GLOBAL
             case inp("hint") || inp("help"):
-                output.innerHTML = "There is something strange about this place...<br><br>Try <span>looking around</span>, <span>walking</span> in a direction, or <span>looking</span> at things.<br><br>You can also <span>take</span> useful objects, <span>use</span> objects, check your <span>pockets</span> to see what objects you have with you, or check your <span>map</span>.";
+                output.innerHTML = "There is something strange about this place...<br><br>Try <span>looking around</span>, <span>walking</span> in a direction, or <span>inspecting</span> things.<br><br>You can also <span>take</span> useful objects, <span>use</span> objects, or check your <span>pockets</span> to see what objects you have with you.<br><br> You can also check your <span>map</span> to see where you've been.";
                 break;
             case inp("nap") || inp("sleep"):
                 output.innerHTML = "You're not really tired.";
