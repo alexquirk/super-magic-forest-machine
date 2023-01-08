@@ -19,7 +19,7 @@
 
 <div id="cutsceneviewer">
     <video id="cutscene" autoplay="autoplay" muted>
-        <source src="./cutscenes/ghostcutscene.mp4" type="video/mp4">
+        <source src="" type="video/mp4">
     </video>
 </div>
 
@@ -133,12 +133,12 @@ const makeFadeAway = () => {
     let currentPage = 0;
     let reading = false;
     let readingAsk = false;
+    let ghostDiscovered = false;
 
     const roomVisited = ["", true, false, false, false, false, false, false, false, false, false, false, false, false];
     const inventory = [];
 
 // INVENTORY
-
     const checkInventory = () => {
         if (inventory.length === 0) {
             return "You don't have anything in your <span>pockets</span> yet.<br><br>Maybe there is something useful nearby you can <span>take</span> with you?"
@@ -254,8 +254,19 @@ const makeFadeAway = () => {
     //hit button to show book text
     d1.addEventListener('click', showBookText);
 
-// ROOM SWITCHING FUNCTIONS
 
+// CUTSCENES
+const playGhostCutscene = () => {
+    document.getElementById('cutsceneviewer').style.display = "block";
+    document.getElementById("cutscene").src="./cutscenes/ghostcutscene.mp4";
+}
+const hideGhostCutscene = () => {
+    document.getElementById('cutsceneviewer').style.display = "none";
+    room9Switch();
+    output.innerHTML = "A <span>ghost</span> appeared!!";
+};
+
+// ROOM SWITCHING FUNCTIONS
     const room1Switch = () => {
         output.innerHTML = "The <span>wooden door</span> stands in the middle of the clearing.";
         return document.getElementById("map").src="./roomimages/smfmroom1.png";
@@ -272,9 +283,9 @@ const makeFadeAway = () => {
     const room3Switch = () => {
         if (roomVisited[3] === false) { 
             if (roomNum === 1 || roomNum === 6) {
-                output.innerHTML = "The trees grow more dense as you travel through the forest.<br><br>You arrive at a shady knoll, where an old <span>stump</span> makes the place where a large tree used to stand.";
+                output.innerHTML = "The trees grow more dense as you travel through the forest.<br><br>You arrive at a shady knoll with an old <span>stump</span> in the middle.";
             } else {
-                output.innerHTML = "You make your way <span>south</span> through the forest.<br><br>You arrive at a shady knoll, where an old <span>stump</span> marks the place where a large tree used to stand.";
+                output.innerHTML = "You make your way <span>south</span> through the forest.<br><br>You arrive at a shady knoll with an old <span>stump</span> in the middle.";
             }
         } else {
             output.innerHTML = "An old <span>tree stump<span> sits in the center of a shady knoll.";
@@ -345,8 +356,8 @@ const makeFadeAway = () => {
             output.innerHTML = "A narrow path leads you <span>east</span> through the forest.<br><br>You arrive at a murky hollow and a circle of <span>mushrooms</span>.";
         };
         roomVisited[9] = true;
-        if (ghostGivenMug === false) {return document.getElementById("map").src="./roomimages/smfmroom9a.png"}
-        else {return document.getElementById("map").src="./roomimages/smfmroom9b.png"};
+        if (ghostGivenMug === true || ghostDiscovered === false ) {return document.getElementById("map").src="./roomimages/smfmroom9b.png"}
+        else {return document.getElementById("map").src="./roomimages/smfmroom9a.png"};
     }; 
     const room10Switch = () => {
         if (roomVisited[10] === false) { 
@@ -972,6 +983,13 @@ const makeFadeAway = () => {
                 output.innerHTML = "";
                 break;
 
+            // ROOM 9
+            case roomNum === 9 &&  (inp('look')||inp('inspect')||inp('search')||inp('check')||inp('take')||inp('grab')||inp('pocket')||inp('eat'))   &&    (inp('mushroom')||inp('circle')) && ghostDiscovered === false    :
+                ghostDiscovered = true;
+                playGhostCutscene();
+                setTimeout(function () {hideGhostCutscene()}, 5000);
+                break;
+            
             // ROOM 10
             case roomNum === 10 &&  (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "There's a stone <span>well</span> in the middle of the clearing.";

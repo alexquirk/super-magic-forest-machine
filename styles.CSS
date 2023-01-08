@@ -14,11 +14,11 @@ body {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);  
-    width: 100vw;
+    /* width: 100vw; */
     max-width: 700px;
-    min-width: 500px;
+    min-width: 320px;
     /* height: 95vh;   */
-    height: -webkit-fill-available;
+    /* height: -webkit-fill-available; */
     object-fit: fill;
 }
 
@@ -35,17 +35,18 @@ body {
 /* CUTSCENE VIEWER */
 
 #cutsceneviewer {
+    display: none;
     position: absolute;
     z-index: 99;
-    position: absolute;
     left: 50%;
     transform: translateX(-50%);  
-    width: 100vw;
+    width: 100%;
     max-width: 700px;
-    min-width: 500px;
-    /* height: 95vh;   */
-    height: -webkit-fill-available;
+    min-width: 320px;
+    height: 95vh;  
+    /* height: -webkit-fill-available; */
     overflow: hidden;
+    border: 1px solid white;
 }
 
 #cutscene {
@@ -247,7 +248,15 @@ input:focus, textarea {
   
 
 @media only screen and (orientation: portrait) {
+    #titlecard {
+        height: -webkit-fill-available;
+    }
+
     #themachine {
+        height: -webkit-fill-available;
+    }
+
+    #cutsceneviewer {
         height: -webkit-fill-available;
     }
 }
