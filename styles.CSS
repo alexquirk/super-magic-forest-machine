@@ -32,6 +32,29 @@ body {
     100% { opacity: 0; }
   }
 
+/* CUTSCENE VIEWER */
+
+#cutsceneviewer {
+    position: absolute;
+    z-index: 99;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);  
+    width: 100vw;
+    max-width: 700px;
+    min-width: 500px;
+    /* height: 95vh;   */
+    height: -webkit-fill-available;
+    overflow: hidden;
+}
+
+#cutscene {
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);  
+}
+
 /* MAIN GAME BODY */
 
 #themachine {
