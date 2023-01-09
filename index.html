@@ -279,7 +279,7 @@ const playMarbleCutscene = () => {
     currentCutscene.addEventListener('ended', function() {
         document.getElementById('cutsceneviewer').style.display = "none";
         room4Switch();
-        output.innerHTML = "You wave the <span>ribbon</span> around a bit, and suddenly the <span>cat</span> perks up and leaps from the tree.";
+        output.innerHTML = "You wave the <span>ribbon</span> around a bit, and suddenly the <span>cat</span> perks up and leaps from the tree!";
         document.getElementById("cutscene").src="";
     })
 };
@@ -1471,6 +1471,7 @@ const playMarbleCutscene = () => {
         if (event.key === "Enter") {
             event.preventDefault();
             document.getElementById("enterbutton").click();
+            document.getElementById("enterbutton").focus();
         }
     });
 
