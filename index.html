@@ -265,9 +265,22 @@ const playGhostCutscene = () => {
     document.getElementById("cutscene").src="./cutscenes/ghostcutscene.mp4";
     let currentCutscene = document.getElementById("cutscene");
     currentCutscene.addEventListener('ended', function() {
-        currentCutscene.style.display = "none";
+        document.getElementById('cutsceneviewer').style.display = "none";
         room9Switch();
         output.innerHTML = "A <span>ghost</span> appeared!!";
+        document.getElementById("cutscene").src="";
+    })
+};
+
+const playMarbleCutscene = () => {
+    document.getElementById('cutsceneviewer').style.display = "flex";
+    document.getElementById("cutscene").src="./cutscenes/marblecutscene.mp4";
+    let currentCutscene = document.getElementById("cutscene");
+    currentCutscene.addEventListener('ended', function() {
+        document.getElementById('cutsceneviewer').style.display = "none";
+        room4Switch();
+        output.innerHTML = "You wave the <span>ribbon</span> around a bit, and suddenly the <span>cat</span> perks up and leaps from the tree.";
+        document.getElementById("cutscene").src="";
     })
 };
 
@@ -278,7 +291,7 @@ const playGhostCutscene = () => {
     };
     const room2Switch = () => {
         if (roomVisited[2] === false) {
-            output.innerHTML = "The forest grows darker. Large leafy branches block out almost at the light from the sun.<br><br>In the middle of the clearing, the <span>glowing light</span> of countless fireflies illuminate the forest.";
+            output.innerHTML = "The forest grows darker. Large leafy branches block out almost at the light from the fading sun.<br><br>In the middle of the clearing, the <span>glowing light</span> of countless fireflies illuminate the forest.";
         } else {
             output.innerHTML = "The forest is dark, but the air is filled with <span>fireflies</span>.";
         };
@@ -308,7 +321,7 @@ const playGhostCutscene = () => {
         } else if (marbleDown === false) {
             output.innerHTML = "You arrive at a glade with a large <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
         } else if (marbleDown === true) {
-            output.innerHTML = "This is the tree the <span>cat</span> was in.";
+            output.innerHTML = "You arrive at a glade with a large <span>tree</span> in the middle. This is where the <span>cat</span> was.";
         };
         roomVisited[4] = true;
         document.getElementById("room4tile").src="./maptiles/room4tile.png";
@@ -317,11 +330,11 @@ const playGhostCutscene = () => {
     };
     const room5Switch = () => { 
         if (roomNum === 1) {
-            output.innerHTML = "You travel <span>south</span> until you arrive at at rocky <span>lake shore</span>. Sunlight glistens on the calm surface.";
+            output.innerHTML = "You travel <span>south</span> until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
         } else if (roomNum === 12) {
-            output.innerHTML = "You travel <span>east</span> until you arrive at at rocky <span>lake shore</span>. Sunlight glistens on the calm surface.";
+            output.innerHTML = "You travel <span>east</span> until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
         } else {
-            output.innerHTML = "You travel <span>west</span> until you arrive at at rocky <span>lake shore</span>. Sunlight glistens on the calm surface.";
+            output.innerHTML = "You travel <span>west</span> until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
         };
         roomVisited[5] = true;
         document.getElementById("room5tile").src="./maptiles/room5tile.png";
@@ -498,6 +511,18 @@ const playGhostCutscene = () => {
                 break;
             case inp('how') && inp('going') :
                 output.innerHTML = "Pretty good! Playing a game with a cool person.";
+                break;
+            case inp('look') && inp('moon') && roomNum !== 7 && roomNum !== 8 && roomNum !== 13:
+                output.innerHTML = "The moon is just beginning to rise over the forest.";
+                break;
+            case inp('look') && inp('moon') :
+                output.innerHTML = "You can't see the moon from here.";
+                break;
+            case inp('look') && inp('sun') && roomNum !== 7 && roomNum !== 8 && roomNum !== 13:
+                output.innerHTML = "The sun is beginning to set over the forest.";
+                break;
+            case inp('look') && inp('sun') :
+                output.innerHTML = "You can't see the sun from here.";
                 break;
             
             // MAP CHECKING
@@ -801,7 +826,7 @@ const playGhostCutscene = () => {
                 output.innerHTML = "The <span>door</span> is locked.";
                 break;
             case roomNum === 1 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "The <span>door frame</span> is standing in a grassy clearing surrounded by trees and scattered <span>rocks</span> and <span>flowers</span>.<br><br>To the <span>north</span> and <span>east</span> the forest grows dark and dense. To the <span>south</span>, you can hear the distant sound of water. To the <span>northwest</span> you can see a rocky outcropping above the trees.";
+                output.innerHTML = "It is twilight. The <span>door frame</span> is standing in a grassy clearing surrounded by trees and scattered <span>rocks</span> and <span>flowers</span>.<br><br>To the <span>north</span> and <span>east</span> the forest grows dark and dense. To the <span>south</span>, you can hear the distant sound of water. To the <span>northwest</span> you can see a rocky outcropping above the trees.";
                 break;
             case roomNum === 1 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('door')||inp('frame'))     :
                 output.innerHTML = "The <span>door</span> is made of a dark wood, and it's <span>handle</span> and <span>lock</span> are iron. It's worn, but sturdy. Something tells you it's been hear a long time.";
@@ -895,20 +920,43 @@ const playGhostCutscene = () => {
                 break;
 
             // ROOM 4
-            case roomNum === 4 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
+            case roomNum === 4 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))  && catDiscovered === false   :
+                output.innerHTML = "A big tree stands in the middle of the glade.<br><br><span>Something</span> is rustling around up in the tree's branches...";
+                break;
+            case roomNum === 4 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))  && marbleDown === false   :
+                output.innerHTML = "A big tree with a <span>cat</span> in it standing the middle of the glade.";
+                break;
+            case roomNum === 4 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))   :
                 output.innerHTML = "A big tree stands in the middle of the glade.";
                 break;
-            case roomNum === 4 &&    inp('play')   &&    inp('cat')   && marbleReunited === false && haveRibbon === false:
-                output.innerHTML = "You try to get the attention of the <span>cat</span>, but it doesn't seem that interested in you.<br><br>Maybe if you had <span>something</span> to play with...";
+            case roomNum === 4 &&    (inp('play')||inp('cat')) && inp('ribbon') && marbleDown === false && haveRibbon === true :
+                catDiscovered = true;
+                marbleDown = true;
+                haveRibbon = false;
+                playMarbleCutscene();
                 break;
-            case roomNum === 4 &&  catDiscovered === true  &&  marbleReunited === false  &&  inp('talk')   &&    inp('cat'):
+            case roomNum === 4 &&    (inp('play')||inp('cat') )  &&    inp('flower')   && marbleDown === false && haveFlower === true :
+                catDiscovered = true;
+                output.innerHTML = "You use the <span>flower</span> to try to get the <span>cat's</span> attention. It seems vaguely interested for a moment, but quickly loses interest.<br><br>Maybe you can find something it likes more to play with.";
+                break;
+            case roomNum === 4 &&    inp('play')   &&    inp('cat')   && marbleDown === false  && haveRibbon === true :
+                catDiscovered = true;
+                output.innerHTML = "You try to get the attention of the <span>cat</span>, but it doesn't seem that interested in you.<br><br>Maybe you have <span>something</span> in your pockets it would like to play with...?";
+                break;
+            case roomNum === 4 &&    inp('play')   &&    inp('cat')   && marbleDown === false  :
+                catDiscovered = true;
+                output.innerHTML = "You try to get the attention of the <span>cat</span>, but it doesn't seem that interested in you.<br><br>Maybe you can find <span>something</span> to play with...";
+                break;
+            case roomNum === 4 &&   marbleDown === false  &&  inp('talk')   &&    inp('cat'):
+            catDiscovered = true;
                 output.innerHTML = "The <span>cat</span> doesn't really seem interested in talking.";
                 break;
             case roomNum === 4 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
                 break;
-            case roomNum === 4 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && inp('cat') && catDiscovered === true && marbleDown === false  :
-                output.innerHTML = "The <span>cat</span> eyes you casually. It's relaxing on one of the tallest branches of the tree, and seems perfectly content where it is.";
+            case roomNum === 4 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && inp('cat')  && marbleDown === false  :
+            catDiscovered = true;
+                output.innerHTML = "The <span>cat</span> eyes you casually. It's relaxing on one of the tallest branches of the tree. It seems perfectly content where it is.";
                 break;
             case (roomNum === 4)  &&  marbleDown === false  && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('tree')||inp('branch'))     :
                 output.innerHTML = "You look up into the tree... There's a <span>cat</span> up there! ...it doesn't seem to want to come down.";
@@ -921,11 +969,17 @@ const playGhostCutscene = () => {
                 output.innerHTML = "You start to climb the tree... but there's a <span>cat</span> in the tree! It hisses and swipes a paw at you. Rude!";
                 catDiscovered = true;
                 break;
-            case roomNum === 4 &&  catDiscovered === true &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
+            case roomNum === 4  && marbleDown === false &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
+                catDiscovered = true;
                 output.innerHTML = "You throw a <span>rock</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.";
                 break;
-            case roomNum === 4 &&  catDiscovered === true &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('stick')) && inp('branch')   :
+            case roomNum === 4  && marbleDown === false &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('stick')) && inp('branch')   :
+                catDiscovered = true;
                 output.innerHTML = "You throw a <span>stick</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.";
+                break;
+            case roomNum === 4  && marbleDown === false &&  (inp('pull')||inp('grab')||inp('hit')||inp('ask')||inp('lure')||inp('tease')) && inp('cat')   :
+                catDiscovered = true;
+                output.innerHTML = "It doesn't seem like the <span>cat</span> is not interested in cooperating.";
                 break;
 
             // ROOM 5
@@ -1046,8 +1100,17 @@ const playGhostCutscene = () => {
                 ghostDiscovered = true;
                 playGhostCutscene();
                 break;
+            case roomNum === 9 &&  (inp('search')||inp('take')||inp('grab')||inp('pocket')||inp('eat'))   &&    (inp('mushroom')||inp('circle')) && ghostDiscovered === true  && ghostGivenMug === false   :
+                output.innerHTML = 'You take a step towards the mushrooms, but the <span>ghostly figure</span> gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br><span class="journal">"Moon... cactus...</span>"<br><br>What could that mean?';
+                break;
+            case roomNum === 9 &&  (inp('look')||inp('inspect')||inp('check'))   &&    (inp('mushroom')||inp('circle')) && ghostDiscovered === true  :
+                output.innerHTML = 'The <span>mushrooms</span> are red with white spots. You can\'t decide whether they look delicious, or deadly.';
+                break;
             case roomNum === 9 &&  (inp('talk')||inp('chat')||inp('ask')||inp('question'))  &&    (inp('ghost')||inp('figure')) && ghostDiscovered === true && mugTaken === false  :
-                output.innerHTML = 'A voice whispers...<br><br><span class="journal">"Moon... cactus...</span>"<br><br>What does that mean?';
+                output.innerHTML = 'A voice whispers...<br><br><span class="journal">"Moon... cactus...</span>"<br><br>What could that mean?';
+                break;
+            case roomNum === 9 &&  (inp('touch')||inp('hit')||inp('push')||inp('move'))  &&    (inp('ghost')||inp('figure')) && ghostDiscovered === true && mugTaken === false  :
+                output.innerHTML = 'There\'s no way you\'re getting close enough to the <span>ghost</span> to do that.';
                 break;
             case roomNum === 9 &&  (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))  && (ghostDiscovered === false || mugTaken===true)   :
                 output.innerHTML = "This must be the oldest part of the forest. The trees here look like they haven't seen sunlight in years.<br><br>There is a circle of <span>mushrooms</span> in the middle of the hollow.";
@@ -1161,7 +1224,7 @@ const playGhostCutscene = () => {
             case roomNum === 13 &&  (inp('climb')||inp('go')) && (inp('up')||inp('rope')) :
                 room10Switch();
                 roomNum = 10;
-                output.innerHTML = "You climb back out of the well and into the sunlight.";
+                output.innerHTML = "You climb back out of the well.";
                 break;
 
             // RELEASE FIREFLIES
@@ -1288,6 +1351,17 @@ const playGhostCutscene = () => {
             // STICKS
             case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && inp('stick') && (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')) :
                 output.innerHTML = "There are plenty of sticks around, so there's no need to take one with you.";
+                break;
+
+            // BUSHES
+            case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && inp('bush') && (inp('search')||inp('inspect')||inp('look')||inp('check')) :
+                output.innerHTML = "You search the bushes, but don't find anything.";
+                break;
+            case  inp('bush') && (inp('search')||inp('inspect')||inp('look')||inp('check')) :
+                output.innerHTML = "There aren't any bushes around here.";
+                break;
+            case  inp('aim') && inp("for") && inp('bush') :
+                output.innerHTML = "You thinkin what I'm thinkin?";
                 break;
 
             // DIG
