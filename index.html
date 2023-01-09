@@ -1471,21 +1471,32 @@ const playMarbleCutscene = () => {
         if (event.key === "Enter") {
             event.preventDefault();
             document.getElementById("enterbutton").click();
-            hideKeyboard(input);
+            // hideKeyboard(input);
+            hideMobileKeyboardOnReturn(input);
         }
     });
 
-    // weird hacky keyboard closing thing via https://stackoverflow.com/questions/8335834/how-can-i-hide-the-android-keyboard-using-javascript
-    function hideKeyboard(element) {
-        element.setAttr('readonly', 'readonly'); // Force keyboard to hide on input field.
-        element.setAttr('disabled', 'true'); // Force keyboard to hide on textarea field.
-        setTimeout(function() {
-            element.blur();  //actually close the keyboard
-            // Remove readonly attribute after keyboard is hidden.
-            element.removeAttr('readonly');
-            element.removeAttr('disabled');
-        }, 10);
-}
+        // another weird hacky keyboard hide via https://andy-carter.com/blog/how-to-close-the-mobile-keyboard-on-return
+        const hideMobileKeyboardOnReturn = (element) => {
+            element.addEventListener('keyup', (keyboardEvent) => {
+                const key = keyboardEvent.code || keyboardEvent.keyCode;
+                if (key === 'Enter' || key === 13) {
+                    element.blur();
+                }
+             });
+        };
+
+//     // weird hacky keyboard closing thing via https://stackoverflow.com/questions/8335834/how-can-i-hide-the-android-keyboard-using-javascript
+//     function hideKeyboard(element) {
+//         element.setAttr('readonly', 'readonly'); // Force keyboard to hide on input field.
+//         element.setAttr('disabled', 'true'); // Force keyboard to hide on textarea field.
+//         setTimeout(function() {
+//             element.blur();  //actually close the keyboard
+//             // Remove readonly attribute after keyboard is hidden.
+//             element.removeAttr('readonly');
+//             element.removeAttr('disabled');
+//         }, 10);
+// }
 
 </script>
 
