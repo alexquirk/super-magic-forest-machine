@@ -39,7 +39,7 @@
             <img id= "inventory7">
             <img id= "book">
             <div id= "maptiles">
-                <img class="roomtile" id="room1tile" src="./maptiles/room1tile.png"><img class="roomtile" id="room2tile"><img class="roomtile" id="room3tile"><img class="roomtile" id="room4tile"><img class="roomtile" id="room5tile"><img class="roomtile" id="room6tile"><img class="roomtile" id="room7tile"><img class="roomtile" id="room8tile"><img class="roomtile" id="room9tile"><img class="roomtile" id="room10tile"><img class="roomtile" id="room11tile"><img class="roomtile" id="room12tile">
+                <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" src="./maptiles/room1tile.png"><img class="roomtile" id="room2tile"><img class="roomtile" id="room3tile"><img class="roomtile" id="room4tile"><img class="roomtile" id="room5tile"><img class="roomtile" id="room6tile"><img class="roomtile" id="room7tile"><img class="roomtile" id="room8tile"><img class="roomtile" id="room9tile"><img class="roomtile" id="room10tile"><img class="roomtile" id="room11tile"><img class="roomtile" id="room12tile">
             </div>   
         </div>
         <img class="border2" src="./roomimages/border 2.png">
@@ -94,10 +94,12 @@ const makeFadeAway = () => {
 
 //DECLARE VARIABLES
     const userInput = document.getElementById('userinput');
+    const outputarea = document.getElementById('outputarea');
     const output = document.getElementById('output');
     const enterButton = document.getElementById('enterbutton');
-    const d1 = document.getElementById("dialogue1")
-    const d2 = document.getElementById("dialogue2")
+    const mapArrow = document.getElementById('maparrow');
+    const d1 = document.getElementById("dialogue1");
+    const d2 = document.getElementById("dialogue2");
 
     const removeItem = (item) => {
         for ( var i = 0; i < inventory.length; i++) { 
@@ -165,63 +167,64 @@ const makeFadeAway = () => {
             if (inventory.length > 0) {document.getElementById('map').classList.add('blur')};
             if (haveFlower === true) {
                     document.getElementById("inventory6").src="./inventoryimages/flower.png";
-                    checkingInventory =true;
+                    checkingInventory = true;
             };
             if (haveRibbon === true) {
                     document.getElementById("inventory2").src="./inventoryimages/ribbon.png";
-                    checkingInventory =true;
+                    checkingInventory = true;
             };
             if (haveBoxKey === true) {
                     document.getElementById("inventory4").src="./inventoryimages/key.png";
-                    checkingInventory =true;
+                    checkingInventory = true;
             };
             if (haveCrystal === true) {
                     document.getElementById("inventory5").src="./inventoryimages/crystal.png";
-                    checkingInventory =true;
+                    checkingInventory = true;
             };
             if (haveRock === true) {
                     document.getElementById("inventory7").src="./inventoryimages/rock.png";
-                    checkingInventory =true;
+                    checkingInventory = true;
             };
             if (haveFireflies === true && haveRope === true) {
                 document.getElementById("inventory1").src="./inventoryimages/boxglowrope.png";
-                checkingInventory =true;
+                checkingInventory = true;
             } else if (haveFireflies === true && haveRope === false) {
                 document.getElementById("inventory1").src="./inventoryimages/boxglow.png";
-                checkingInventory =true;
+                checkingInventory = true;
             } else if (boxUnlocked === true && haveRope === true) {
                 document.getElementById("inventory1").src="./inventoryimages/boxopenrope.png";
-                checkingInventory =true;
+                checkingInventory = true;
             } else if (boxUnlocked === true && haveRope === false) {
                 document.getElementById("inventory1").src="./inventoryimages/boxopen.png";
-                checkingInventory =true;
+                checkingInventory = true;
             } else if (haveBox === true && haveRope === true) {
                 document.getElementById("inventory1").src="./inventoryimages/boxrope.png";
-                checkingInventory =true;
+                checkingInventory = true;
             } else if (haveBox === true) {
                 document.getElementById("inventory1").src="./inventoryimages/box.png";
-                checkingInventory =true;
+                checkingInventory = true;
             } else if (haveRope === true) {
                 document.getElementById("inventory1").src="./inventoryimages/rope.png";
-                checkingInventory =true;
+                checkingInventory = true;
             };
             if (haveMug === true) {
                 document.getElementById("inventory3").src="./inventoryimages/mug.png";
-                checkingInventory =true;
+                checkingInventory = true;
             } else if (haveMushy === true) {
                 document.getElementById("inventory3").src="./inventoryimages/mushy.png";
-                checkingInventory =true;
+                checkingInventory = true;
             }
     };
 
 // BOOK BUTTONS
     //page texts
-    const journalText = ['The <span>journal</span> begins:<br><br><span class="journal"> Day 12<br><br>After almost a week of wandering, I\'ve finally caught a break. I found a boat on the shore of a lake (the first water I\'ve seen), and though it\'s in a state of disrepair, I think I might be able to get it seaworthy again.<br><br> My food is running low, and no sign of rescue yet. Maybe that\'s for the best...', 
-                         '<span class="journal">                                         Day 13<br><br>There\'s something strange about this place... at first I thought it was just me, but now I\'m certain. Every time I travel deeper into the woods, I somehow end up right back where I started.</span>', 
-                         '<span class="journal">                                         Day 7<br><br></span>',
-                         '<span class="journal">                                         Day 13<br><br></span>',
-                         '<span class="journal">                                         Day 21<br><br></span>',
-                         '<span class="journal">                                         Day ??<br><br></span>',
+    const journalText = ["The <span>journal</span> begins:<br><br><span class='journal'>          Day 14<br><br>Still no sign of it. <br><br>Our readings indicated that it should be near, but as soon as we got close, all our instruments went haywire. We'll have to continue our search manually until the equipment is repaired.</span>",
+                         "<span class='journal'>                                                  Day 15<br><br>A preliminary search of the area was conducted without result. The forest is dense and difficult to travel through. <br><br>Equipment problems persist - possible satellite failure or solar activity. We are forced to leave the proximity zone to contact HQ, which slows progress considerably.</span>", 
+                         "<span class='journal'>                                                  Day 19<br><br>That silly young intern keeps wandering off. Kids these days! No discipline.<br><br>A preliminary search of the area was completed. without result. There is something odd about this place. I can’t put my finger on it. I will attempt an explanation my next report.</span>",
+                         "<span class='journal'>                                                  Day 23<br><br>I’m beginning to wonder if we’re going to find it here after all. We have search every corner of the proximity zone, and still no sign of it. <br><br>Maybe HQ made a mistake. That seems unlikely… good luck trying to explain that to the board. The wild variety is said to be 10.8 to 11.3 times stronger than the domesticated variety, with a potential yield to match. Failure is not an option.</span>",
+                         "<span class='journal'>                                                  Day 28<br><br>There is a scientific explanation for everything.<br><br>On day 13 we found a cave at to the northwest end of the proximity zone. As soon as we enter, all our flashlights fizzled out, leaving us in total darkness and with no choice but to feel our way back to the entrance.<br><br>If I believed in luck, I would say we are having the worst.<br><br>The cave doesn’t seem like a likely place to find it anyway, since all research indicates that it prefers bright sunlight. The search continues.</span>",
+                         "<span class='journal'>                                                  Day 56<br><br>What does it mean to be lost? What does it mean to ‘be’ at all? This place makes me feel… Nevermind. The board will launch and inquiry, and everything will be explained in due time. <br><br>The intern has wandered off again. So sentimental… I caught them drinking out of the lake. Can you imagine… We brought ample hydration packets, even the FlavorMax variety, yet they prefer to drink dirty lake water…</span>",
+                         "<span class='journal'>                                                  Day ??<br><br>The days… the weeks… I’ve almost entirely lost track of time.<br><br>HQ has recalled us. The intern disappeared a few nights ago and hasn’t returned. We searched for hours. Oh well. They probably prefer it here anyway. </span>" 
                         ];
 
     //change button according to input value
@@ -240,11 +243,11 @@ const makeFadeAway = () => {
             readingAsk = false;
             d1.value = 'Keep Reading';
             document.getElementById('map').classList.add('blurless');
-            if (currentPage === 6) {
+            if (currentPage === 7) {
                 d1.value = "Done";
                 userInput.value = "";
             } 
-            else if (currentPage >= 7 ) {
+            else if (currentPage >= 8 ) {
                 output.innerHTML = "";
                 currentPage = 0;
                 d1.style.display = "none";
@@ -252,7 +255,8 @@ const makeFadeAway = () => {
                 document.getElementById("book").src="";
                 document.getElementById('map').classList.remove('blurless');
             }
-        }
+        };
+        outputarea.scroll(0,0);
     };
 
     //hit button to show book text
@@ -286,6 +290,8 @@ const playMarbleCutscene = () => {
 
 // ROOM SWITCHING FUNCTIONS
     const room1Switch = () => {
+        mapArrow.style.top = "53%";
+        mapArrow.style.left = "42.6%";
         output.innerHTML = "The <span>wooden door</span> stands in the middle of the clearing.";
         return document.getElementById("map").src="./roomimages/smfmroom1.png";
     };
@@ -296,6 +302,8 @@ const playMarbleCutscene = () => {
             output.innerHTML = "The forest is dark, but the air is filled with <span>fireflies</span>.";
         };
         roomVisited[2] = true;
+        mapArrow.style.top = "32%";
+        mapArrow.style.left = "55.3%";
         document.getElementById("room2tile").src="./maptiles/room2tile.png";
         return document.getElementById("map").src="./roomimages/smfmroom2.png";
     };
@@ -307,9 +315,11 @@ const playMarbleCutscene = () => {
                 output.innerHTML = "You make your way <span>south</span> through the forest.<br><br>You arrive at a shady knoll with an old <span>stump</span> in the middle.";
             }
         } else {
-            output.innerHTML = "An old <span>tree stump<span> sits in the center of a shady knoll.";
+            output.innerHTML = "An old <span>tree stump</span> sits in the center of a shady knoll.";
         };
         roomVisited[3] = true;
+        mapArrow.style.top = "53%";
+        mapArrow.style.left = "55.3%";
         document.getElementById("room3tile").src="./maptiles/room3tile.png";
         return document.getElementById("map").src="./roomimages/smfmroom3.png";
     };
@@ -324,6 +334,8 @@ const playMarbleCutscene = () => {
             output.innerHTML = "You arrive at a glade with a large <span>tree</span> in the middle. This is where the <span>cat</span> was.";
         };
         roomVisited[4] = true;
+        mapArrow.style.top = "32%";
+        mapArrow.style.left = "42.6%";
         document.getElementById("room4tile").src="./maptiles/room4tile.png";
         if (marbleDown === false) {return document.getElementById("map").src="./roomimages/smfmroom4a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom4b.png"};
@@ -337,6 +349,8 @@ const playMarbleCutscene = () => {
             output.innerHTML = "You travel <span>west</span> until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
         };
         roomVisited[5] = true;
+        mapArrow.style.top = "73%";
+        mapArrow.style.left = "42.6%";
         document.getElementById("room5tile").src="./maptiles/room5tile.png";
         return document.getElementById("map").src="./roomimages/smfmroom5.png";
     };
@@ -349,6 +363,8 @@ const playMarbleCutscene = () => {
                 output.innerHTML = "You arrive at the wooden point where the half-sunk <span>boat</span> sits in the water.";
         };
         roomVisited[6] = true;
+        mapArrow.style.top = "73%";
+        mapArrow.style.left = "55.3%";
         document.getElementById("room6tile").src="./maptiles/room6tile.png";
         if (ropeTaken === false) {return document.getElementById("map").src="./roomimages/smfmroom6a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom6b.png"};
@@ -360,6 +376,8 @@ const playMarbleCutscene = () => {
             output.innerHTML = "The <span>cave</span> is filled with the light of countless <span>fireflies</span>. The strange <span>crystals</span> glow faintly.";
         };
         roomVisited[7] = true;
+        mapArrow.style.top = "13%";
+        mapArrow.style.left = "29.8%";
         if (firefliesReleased === false) {
             document.getElementById("room7tile").src="./maptiles/room7tiledark.png";
             return document.getElementById("map").src="./roomimages/smfmroom7a.png"
@@ -375,6 +393,8 @@ const playMarbleCutscene = () => {
             output.innerHTML = "You arrive at large grotto, where single beam of light from far above illuminates an island in the center of an underground lake.";
         };
         roomVisited[8] = true;
+        mapArrow.style.top = "13%";
+        mapArrow.style.left = "16.9%";
         document.getElementById("room8tile").src="./maptiles/room8tile.png";
         return document.getElementById("map").src="./roomimages/smfmroom8.png";
     };
@@ -385,6 +405,8 @@ const playMarbleCutscene = () => {
             output.innerHTML = "A narrow path leads you <span>east</span> through the forest.<br><br>You arrive at a murky hollow and a circle of <span>mushrooms</span>.";
         };
         roomVisited[9] = true;
+        mapArrow.style.top = "32%";
+        mapArrow.style.left = "68%";
         document.getElementById("room9tile").src="./maptiles/room9tile.png";
         if (ghostGivenMug === true || ghostDiscovered === false ) {return document.getElementById("map").src="./roomimages/smfmroom9b.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom9a.png"};
@@ -393,9 +415,11 @@ const playMarbleCutscene = () => {
         if (roomVisited[10] === false) { 
             if (roomNum === 1) {
                 output.innerHTML = "You travel <span>west</span>, making your way along a wooded trail until you arrive at a <span>stone well</span>.<br><br>You wonder who made this <span>well</span>, and how long ago.";
+            } else if (roomNum === 13) {
+                output.innerHTML = "You climb back out of the well."
             } else {
                 output.innerHTML = "You arrive at a <span>stone well</span>.<br><br>You wonder who made this <span>well</span>, and how long ago.";
-            }
+            };
         } 
         else {
             if (roomNum === 1) {
@@ -407,6 +431,8 @@ const playMarbleCutscene = () => {
             }
         };
         roomVisited[10] = true;
+        mapArrow.style.top = "53%";
+        mapArrow.style.left = "29.8%";
         document.getElementById("room10tile").src="./maptiles/room10tile.png";
         if (ropeSet === false) {return document.getElementById("map").src="./roomimages/smfmroom10a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom10b.png"};
@@ -418,6 +444,8 @@ const playMarbleCutscene = () => {
             output.innerHTML = "You travel back to the mouth of the large <span>cave</span>";
         };
         roomVisited[11] = true;
+        mapArrow.style.top = "32%";
+        mapArrow.style.left = "29.8%";
         document.getElementById("room11tile").src="./maptiles/room11tile.png";
         return document.getElementById("map").src="./roomimages/smfmroom11.png";
     };
@@ -437,6 +465,8 @@ const playMarbleCutscene = () => {
             }
         };
         roomVisited[12] = true;
+        mapArrow.style.top = "69.35%";
+        mapArrow.style.left = "29.8%";
         document.getElementById("room12tile").src="./maptiles/room12tile.png";
         if (robotAwake === false) {return document.getElementById("map").src="./roomimages/smfmroom12a.png"}
         else {return document.getElementById("map").src="./roomimages/smfmroom12b.png"};
@@ -525,13 +555,13 @@ const playMarbleCutscene = () => {
                 output.innerHTML = "You can't see the sun from here.";
                 break;
             
-            // MAP CHECKING
-            case inp('map') :
-                checkingMap = true;
-                output.innerHTML = "You open your <span>map</span>."
-                userInput.value = "";
-                checkMap();
-                break;
+        // MAP CHECKING
+        case inp('map') :
+            checkingMap = true;
+            output.innerHTML = "You open your <span>map</span>."
+            userInput.value = "";
+            checkMap();
+            break;
 
         // CHECK INVENTORY
             case ((inp("check")||inp('look')||inp('inspect'))   &&    inp('pocket')) || inp('inventory')  :
@@ -920,52 +950,67 @@ const playMarbleCutscene = () => {
                 break;
 
             // ROOM 4
-            case roomNum === 4 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))  && catDiscovered === false   :
+            case roomNum === 4   && catDiscovered === false   &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around')) :
                 output.innerHTML = "A big tree stands in the middle of the glade.<br><br><span>Something</span> is rustling around up in the tree's branches...";
                 break;
-            case roomNum === 4 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))  && marbleDown === false   :
+            case roomNum === 4    && marbleDown === false   &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))  :
                 output.innerHTML = "A big tree with a <span>cat</span> in it standing the middle of the glade.";
+                break;
+            case roomNum === 4 &&   marbleReunited === false &&   (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))   :
+                output.innerHTML = "The black and white <span>cat</span> is playing with the <span>ribbon</span> under the big tree.";
                 break;
             case roomNum === 4 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))   :
                 output.innerHTML = "A big tree stands in the middle of the glade.";
                 break;
-            case roomNum === 4 &&    (inp('play')||inp('cat')) && inp('ribbon') && marbleDown === false && haveRibbon === true :
+            case roomNum === 4  &&   (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
+                break;
+            case roomNum === 4  && marbleDown === false && haveRibbon === true &&    (inp('play')||inp('cat')) && inp('ribbon') :
                 catDiscovered = true;
                 marbleDown = true;
                 haveRibbon = false;
+                removeItem()
                 playMarbleCutscene();
                 break;
-            case roomNum === 4 &&    (inp('play')||inp('cat') )  &&    inp('flower')   && marbleDown === false && haveFlower === true :
+            case roomNum === 4  && marbleDown === true && marbleReunited === false &&    (inp('play')||inp('cat')) && inp('ribbon') :
+                output.innerHTML = "You grab the <span>ribbon</span> and wave it around for the <span>cat</span>. Is there anything better than this?";
+                break;
+            case roomNum === 4  && marbleDown === false && haveFlower === true  &&    (inp('play')||inp('cat') )  &&    inp('flower')   :
                 catDiscovered = true;
                 output.innerHTML = "You use the <span>flower</span> to try to get the <span>cat's</span> attention. It seems vaguely interested for a moment, but quickly loses interest.<br><br>Maybe you can find something it likes more to play with.";
                 break;
-            case roomNum === 4 &&    inp('play')   &&    inp('cat')   && marbleDown === false  && haveRibbon === true :
+            case roomNum === 4   && marbleDown === false  && haveRibbon === true   &&    inp('play')   &&    inp('cat')    :
                 catDiscovered = true;
                 output.innerHTML = "You try to get the attention of the <span>cat</span>, but it doesn't seem that interested in you.<br><br>Maybe you have <span>something</span> in your pockets it would like to play with...?";
                 break;
-            case roomNum === 4 &&    inp('play')   &&    inp('cat')   && marbleDown === false  :
+            case roomNum === 4    && marbleDown === false   &&    inp('play')   &&    inp('cat')  :
                 catDiscovered = true;
                 output.innerHTML = "You try to get the attention of the <span>cat</span>, but it doesn't seem that interested in you.<br><br>Maybe you can find <span>something</span> to play with...";
                 break;
-            case roomNum === 4 &&   marbleDown === false  &&  inp('talk')   &&    inp('cat'):
-            catDiscovered = true;
+            case roomNum === 4    && marbleDown === false && haveRope === true  &&    inp('rope')   &&    inp('cat')  :
+                catDiscovered = true;
+                output.innerHTML = "You toss the <span>rope</span> over a branch, but the <span>cat</span> doesn't seem interested.";
+                break;
+            case roomNum === 4 &&   marbleDown === false  && marbleReunited === false && inp('talk')   &&    inp('cat'):
+                catDiscovered = true;
                 output.innerHTML = "The <span>cat</span> doesn't really seem interested in talking.";
                 break;
-            case roomNum === 4 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
-                output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
-                break;
-            case roomNum === 4 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && inp('cat')  && marbleDown === false  :
-            catDiscovered = true;
+            case roomNum === 4   &&  marbleDown === false  && marbleReunited === false &&  (inp('inspect')||inp('look')||inp('search')||inp('check'))  && inp('cat')  :
+                catDiscovered = true;
                 output.innerHTML = "The <span>cat</span> eyes you casually. It's relaxing on one of the tallest branches of the tree. It seems perfectly content where it is.";
                 break;
-            case (roomNum === 4)  &&  marbleDown === false  && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('tree')||inp('branch'))     :
+            case roomNum === 4   &&  marbleDown === true  && marbleReunited === false &&  (inp('inspect')||inp('look')||inp('search')||inp('check'))  && inp('cat')  :
+                catDiscovered = true;
+                output.innerHTML = "The black and white <span>cat</span> is preocuppied with the <span>red ribbon</span>.";
+                break;
+            case roomNum === 4  &&  marbleDown === false  && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('tree')||inp('branch'))     :
                 output.innerHTML = "You look up into the tree... There's a <span>cat</span> up there! ...it doesn't seem to want to come down.";
                 catDiscovered = true;
                 break;
-            case inp('climb')  &&    inp('tree')  && (roomNum === 4)  && marbleDown === false && catDiscovered === true:
+            case roomNum === 4  && marbleDown === false   && catDiscovered === true   && inp('climb')  &&    inp('tree') :
                 output.innerHTML = "You start to climb the tree, but the <span>cat</span> hisses and swipes a paw at you. Rude!";
                 break;
-            case inp('climb')  &&    inp('tree')  && (roomNum === 4)  && marbleDown === false :
+            case roomNum === 4  && marbleDown === false  &&  inp('climb')  &&    inp('tree')  :
                 output.innerHTML = "You start to climb the tree... but there's a <span>cat</span> in the tree! It hisses and swipes a paw at you. Rude!";
                 catDiscovered = true;
                 break;
@@ -977,14 +1022,21 @@ const playMarbleCutscene = () => {
                 catDiscovered = true;
                 output.innerHTML = "You throw a <span>stick</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.";
                 break;
-            case roomNum === 4  && marbleDown === false &&  (inp('pull')||inp('grab')||inp('hit')||inp('ask')||inp('lure')||inp('tease')) && inp('cat')   :
+            case roomNum === 4  && marbleDown === false &&  (inp('pull')||inp('grab')||inp('hit')||inp('ask')||inp('lure')||inp('tease')||inp('take')) && inp('cat')   :
                 catDiscovered = true;
-                output.innerHTML = "It doesn't seem like the <span>cat</span> is not interested in cooperating.";
+                output.innerHTML = "The <span>cat</span> doesn't seem interested in cooperating.";
+                break;
+            case roomNum === 4  && marbleDown === false &&  inp('psp')   :
+                catDiscovered = true;
+                output.innerHTML = "The <span>cat</span> eyes you curiously.";
+                break;
+            case roomNum === 4  && marbleReunited === false &&  inp('psp')   :
+                output.innerHTML = "Meow!!";
                 break;
 
             // ROOM 5
             case roomNum === 5 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "The lakeshore littered with <span>rocks</span>. The lake is wide, and disappears into fog on the horizon.";
+                output.innerHTML = "The lakeshore is scattered with large <span>rocks</span>. The lake is wide, and disappears into fog on the horizon.";
                 break;
             case roomNum === 5 &&    inp('look')   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')) && haveBoxKey === false    :
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy <span>something</span> shining under the water near the rocks.";
@@ -1072,10 +1124,13 @@ const playMarbleCutscene = () => {
             case roomNum === 7 &&  inp('stala') && firefliesReleased === true :
                 output.innerHTML = "The cave is full of dripping stalactites and stalagmites. You used to have a hard time telling them apart, until you learned this helpful mnemonic device:<br><br>'Satactites' hang TIGHT from the ceiling, but be careful of stalagmites: you MIGHT trip over them!";
                 break;
-            case roomNum === 7 &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
+            case (roomNum === 7 || roomNum === 8) &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
                 output.innerHTML = "You pick up a small piece of <span>crystal</span> off the ground. It's surprisingly warm in your hand, and seems to magnify the light from the <span>fireflies</span>.<br><br>You put the <span>crystal</span>in your <span>pocket</span>.";
                 inventory.push("a strange crystal");
                 haveCrystal = true;
+                break;
+            case (roomNum === 7 || roomNum === 8) &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true  && haveCrystal === true  :
+                output.innerHTML = "You already have a <span>crystal</span> in your <span>pocket</span>.";
                 break;
             case roomNum === 7 && firefliesReleased===true && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
                 output.innerHTML = 'You catch a <span>firefly</span>, and very carefully put it in the <span>box</span> and close the lid.<br><br>You catch another, and another... and pretty soon the <span>box</span> is full of <span>fireflies</span>!';
@@ -1096,23 +1151,29 @@ const playMarbleCutscene = () => {
                 break;
 
             // ROOM 9
-            case roomNum === 9 &&  (inp('look')||inp('inspect')||inp('search')||inp('check')||inp('take')||inp('grab')||inp('pocket')||inp('eat'))   &&    (inp('mushroom')||inp('circle')) && ghostDiscovered === false    :
+            case roomNum === 9 && ghostDiscovered === false   &&  (inp('look')||inp('inspect')||inp('search')||inp('check')||inp('take')||inp('grab')||inp('pocket')||inp('eat'))   &&    (inp('mushroom')||inp('circle'))  :
                 ghostDiscovered = true;
                 playGhostCutscene();
                 break;
-            case roomNum === 9 &&  (inp('search')||inp('take')||inp('grab')||inp('pocket')||inp('eat'))   &&    (inp('mushroom')||inp('circle')) && ghostDiscovered === true  && ghostGivenMug === false   :
+            case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false  &&  (inp('search')||inp('take')||inp('grab')||inp('pocket')||inp('eat'))   &&    (inp('mushroom')||inp('circle'))  :
                 output.innerHTML = 'You take a step towards the mushrooms, but the <span>ghostly figure</span> gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br><span class="journal">"Moon... cactus...</span>"<br><br>What could that mean?';
                 break;
-            case roomNum === 9 &&  (inp('look')||inp('inspect')||inp('check'))   &&    (inp('mushroom')||inp('circle')) && ghostDiscovered === true  :
+            case roomNum === 9 && ghostDiscovered === true  &&  (inp('look')||inp('inspect')||inp('check'))   &&    (inp('mushroom')||inp('circle')) :
                 output.innerHTML = 'The <span>mushrooms</span> are red with white spots. You can\'t decide whether they look delicious, or deadly.';
                 break;
-            case roomNum === 9 &&  (inp('talk')||inp('chat')||inp('ask')||inp('question'))  &&    (inp('ghost')||inp('figure')) && ghostDiscovered === true && mugTaken === false  :
+            case roomNum === 9 && ghostDiscovered === true && mugTaken === false  &&  (inp('talk')||inp('chat')||inp('ask')||inp('question'))  &&    (inp('ghost')||inp('figure')) :
                 output.innerHTML = 'A voice whispers...<br><br><span class="journal">"Moon... cactus...</span>"<br><br>What could that mean?';
                 break;
-            case roomNum === 9 &&  (inp('touch')||inp('hit')||inp('push')||inp('move'))  &&    (inp('ghost')||inp('figure')) && ghostDiscovered === true && mugTaken === false  :
-                output.innerHTML = 'There\'s no way you\'re getting close enough to the <span>ghost</span> to do that.';
+            case roomNum === 9 && ghostDiscovered === true && mugTaken === false  &&  (inp('flirt')||inp('compliment')||inp('flatter'))  &&    (inp('ghost')||inp('figure')) :
+                output.innerHTML = 'You sly dog.<br><br>The <span>ghost</span> seems to blush... or maybe it\'s just a trick of the light.';
                 break;
-            case roomNum === 9 &&  (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))  && (ghostDiscovered === false || mugTaken===true)   :
+            case roomNum === 9 && ghostDiscovered === true && mugTaken === false  &&  (inp('boo')  ||  ((inp('scare')||inp('frighten')||inp('shoo'))  &&    (inp('ghost')||inp('figure')))) :
+                output.innerHTML = 'The <span>ghost</span> doesn\'t seem scared of you...';
+                break;
+            case roomNum === 9 && ghostDiscovered === true && mugTaken === false &&  (inp('touch')||inp('hit')||inp('push')||inp('move')||inp('punch'))  &&    (inp('ghost')||inp('figure'))  :
+                output.innerHTML = 'The <span>ghost</span> doesn\'t look solid, and besdies, it\'s kind of freaking you out... there\'s no way you\'re getting close enough to do that.';
+                break;
+            case roomNum === 9  && (ghostDiscovered === false || mugTaken===true)  &&  (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))  :
                 output.innerHTML = "This must be the oldest part of the forest. The trees here look like they haven't seen sunlight in years.<br><br>There is a circle of <span>mushrooms</span> in the middle of the hollow.";
                 break;
             case roomNum === 9 &&  (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))   :
@@ -1145,6 +1206,7 @@ const playMarbleCutscene = () => {
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('crystal') && haveCrystal === true   :
                 output.innerHTML = "You throw the <span>crystal</span> down the <span>well</span>. It hits the side and breaks apart before falling out of sight.";
+                removeItem("a strange crystal");
                 haveCrystal = false;
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('mug') && haveMug === true   :
@@ -1224,7 +1286,6 @@ const playMarbleCutscene = () => {
             case roomNum === 13 &&  (inp('climb')||inp('go')) && (inp('up')||inp('rope')) :
                 room10Switch();
                 roomNum = 10;
-                output.innerHTML = "You climb back out of the well.";
                 break;
 
             // RELEASE FIREFLIES
@@ -1264,7 +1325,7 @@ const playMarbleCutscene = () => {
                 output.innerHTML = "You throw a rock out across the water. It skips across the surface a few times before sinking with a 'plop', and you watch the ripples play off each other on the glassy surface.";
                 break;
             case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8) &&    (inp('drink')||inp('sip'))   &&    (inp('water')||inp('lake'))  && haveMug === true   :
-                output.innerHTML = "You fill the <span>mug</span> with water and take a sip. It tastes clean and refreshing.";
+                output.innerHTML = "You fill the <span>mug</span> with water from the lake and take a sip. It tastes clean and refreshing.";
                 break;
             case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8) &&    (inp('drink')||inp('sip'))   &&    (inp('water')||inp('lake'))  :
                 output.innerHTML = "You cup your hands into the lake and take a sip. The water is clean and refreshing.";
@@ -1286,11 +1347,13 @@ const playMarbleCutscene = () => {
             case ((roomNum !== 4) || marbleDown === true) &&   (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('tree')||inp('branch'))     :
                 output.innerHTML = "You search around the trees, but don't find anything.";
                 break;
-            case inp('climb')  &&    (inp('tree')||inp('branch'))   :
-                output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch and look out over the forest. There's a lake to the <span>south</span>, and some stony outcroppings to the <span>north west</span>. Beyond that the forest extends far into the distance.<br><br>You enjoy the view for a minute, then climb down.";
-                break;
             case roomNum !== 8 && roomNum !== 7 && roomNum !== 13 &&  inp('rope')   &&  inp('tree') && haveRope === true :
                 output.innerHTML = "The <span>trees</span> look easy enough to climb without the <span>rope</span>, so you don't see much use in that.";
+                break;
+
+            // CLIMB TREES
+            case inp('climb')  &&    (inp('tree')||inp('branch'))   :
+                output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch and look out over the forest. There's a lake to the <span>south</span>, and some stony outcroppings to the <span>north west</span>. Beyond that the forest extends far into the distance.<br><br>You enjoy the view for a minute, then climb down.";
                 break;
 
             // GET FLOWER
@@ -1303,7 +1366,7 @@ const playMarbleCutscene = () => {
                 inventory.push("a <span>blue flower</span>");
                 break;
             case (roomNum === 1 || roomNum === 3 || roomNum === 5)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))   &&    (inp('flower'))  && haveFlower === true   :
-                output.innerHTML = 'You already have a <span>flower</span> in your <span>pocket</span>.';
+                output.innerHTML = 'You already have a <span>flower</span> in your <span>pocket</span>!';
                 break;
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get'))   &&    (inp('flower')) :
                 output.innerHTML = "There aren't any flowers around here.";
@@ -1369,7 +1432,7 @@ const playMarbleCutscene = () => {
             output.innerHTML = "You don't have anything to dig with, and you're not sure what you'd be looking for anyway.";
                 break;
 
-            // UNLOCK / INTERACT THE BOX IN INVENTORY
+            // UNLOCK / INTERACT WITH THE BOX IN INVENTORY
             case (inp('unlock')||inp('open')||inp('key'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveBoxKey === true && boxUnlocked === false   :
                 output.innerHTML = "The <span>box</span> opens with a satisfying click.<br><br>Inside the <span>box</span> you find a <span>red ribbon</span>. You put the <span>ribbon</span> in your <span>pocket</span>.";
                 boxUnlocked = true;
@@ -1398,21 +1461,33 @@ const playMarbleCutscene = () => {
             // INTERACT WITH OTHER ITEMS IN INVENTORY
             case (inp('inspect')||inp('look')||inp('check'))   &&    inp('key')  && haveBoxKey === true  :
                 output.innerHTML = "The <span>key</span> is shiny silver and about the size of your pinky finger.";
+                if (checkingInventory === true) {
+                    displayInventory();
+                }
                 break;
             case (inp('inspect')||inp('look')||inp('check'))   &&    inp('ribbon')  && haveRibbon === true  :
                 output.innerHTML = "The <span>ribbon</span> is made of vibrant red silk and about two feet long. It may have been a hair tie at one point.";
+                if (checkingInventory === true) {
+                    displayInventory();
+                }
                 break;
             case inp('hair')  &&  inp('tie') && inp('ribbon')  && haveRibbon === true  :
                 output.innerHTML = "You tie the <span>ribbon</span> in you hair. Nice :)";
                 break;
             case (inp('inspect')||inp('look')||inp('check'))   &&    (inp('mug')||inp('cup'))  && haveMug === true  :
                 output.innerHTML = "The <span>mug</span> is dark blue and decorated with a picture of a cactus and crescent moon.";
+                if (checkingInventory === true) {
+                    displayInventory();
+                }
                 break;
             case (inp('inspect')||inp('look')||inp('check'))   &&    (inp('crystal')||inp('gem'))  && haveCrystal === true  :
                 output.innerHTML = "The piece of <span>crystal</span> is about the size of your hand and soft pink in color. It feels oddly warm.";
+                if (checkingInventory === true) {
+                    displayInventory();
+                }
                 break;
             case (inp('toss')||inp('throw')||inp('drop'))   &&  (   ((inp('mug') && haveMug === true ))   ||   ((inp('crystal') && haveCrystal === true ))   ||  ( (inp('mushroom') && haveMushy === true))   ||   (inp('ribbon')  && haveRibbon === true)     ||   ( inp('key') && haveBoxKey === true)     )  :
-                output.innerHTML = "You don't see much point in doing that.";
+                output.innerHTML = "I should probably keep this with me.";
                 break; 
 
             // EXTRA INPUT IF JUST "POCKETS"
@@ -1446,6 +1521,7 @@ const playMarbleCutscene = () => {
         // CLEAR INPUT FORM
         userInput.value = "";
         currentPage = 0;
+        outputarea.scroll(0,0);
     }
 
 // PRESSING ENTER 
@@ -1460,6 +1536,8 @@ const playMarbleCutscene = () => {
             document.getElementById("book").src="";
             document.getElementById('map').classList.remove('blurless');
         };
+        checkingInventory = false;
+        checkingMap = false;
     }
 
     enterButton.addEventListener('click', pressEnter);
@@ -1471,32 +1549,20 @@ const playMarbleCutscene = () => {
         if (event.key === "Enter") {
             event.preventDefault();
             document.getElementById("enterbutton").click();
-            // hideKeyboard(input);
-            hideMobileKeyboardOnReturn(input);
+            // outputarea.scroll(0,0);
+            // hideMobileKeyboardOnReturn(input);
         }
     });
 
-        // another weird hacky keyboard hide via https://andy-carter.com/blog/how-to-close-the-mobile-keyboard-on-return
-        const hideMobileKeyboardOnReturn = (element) => {
-            element.addEventListener('keyup', (keyboardEvent) => {
-                const key = keyboardEvent.code || keyboardEvent.keyCode;
-                if (key === 'Enter' || key === 13) {
-                    element.blur();
-                }
-             });
-        };
-
-//     // weird hacky keyboard closing thing via https://stackoverflow.com/questions/8335834/how-can-i-hide-the-android-keyboard-using-javascript
-//     function hideKeyboard(element) {
-//         element.setAttr('readonly', 'readonly'); // Force keyboard to hide on input field.
-//         element.setAttr('disabled', 'true'); // Force keyboard to hide on textarea field.
-//         setTimeout(function() {
-//             element.blur();  //actually close the keyboard
-//             // Remove readonly attribute after keyboard is hidden.
-//             element.removeAttr('readonly');
-//             element.removeAttr('disabled');
-//         }, 10);
-// }
+        // // hacky keyboard hide when soft keyboard "enter" is pressed, via https://andy-carter.com/blog/how-to-close-the-mobile-keyboard-on-return
+        // const hideMobileKeyboardOnReturn = (element) => {
+        //     element.addEventListener('keyup', (keyboardEvent) => {
+        //         const key = keyboardEvent.code || keyboardEvent.keyCode;
+        //         if (key === 'Enter' || key === 13) {
+        //             element.blur();
+        //         }
+        //      });
+        // };
 
 </script>
 
