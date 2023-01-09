@@ -1477,8 +1477,8 @@ const playMarbleCutscene = () => {
 
     // weird hacky keyboard closing thing via https://stackoverflow.com/questions/8335834/how-can-i-hide-the-android-keyboard-using-javascript
     function hideKeyboard(element) {
-        element.attr('readonly', 'readonly'); // Force keyboard to hide on input field.
-        element.attr('disabled', 'true'); // Force keyboard to hide on textarea field.
+        element.setAttr('readonly', 'readonly'); // Force keyboard to hide on input field.
+        element.setAttr('disabled', 'true'); // Force keyboard to hide on textarea field.
         setTimeout(function() {
             element.blur();  //actually close the keyboard
             // Remove readonly attribute after keyboard is hidden.
