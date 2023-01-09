@@ -171,6 +171,25 @@ body {
     position: absolute;
 }
 
+#maparrow{
+    left: 42.6%;
+    top: 53%;
+    z-index: 11;
+    opacity: 1;
+    animation: fadeInOut 2s linear infinite;
+}
+    
+@keyframes fadeInOut {
+    0%,100% { 
+        opacity: .5;
+        transform: translateY(-5px);
+    }
+    50% { 
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
 #room1tile {
     left: 42.6%;
     top: 53%;
