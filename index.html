@@ -263,11 +263,12 @@ const makeFadeAway = () => {
 const playGhostCutscene = () => {
     document.getElementById('cutsceneviewer').style.display = "flex";
     document.getElementById("cutscene").src="./cutscenes/ghostcutscene.mp4";
-}
-const hideGhostCutscene = () => {
-    document.getElementById('cutsceneviewer').style.display = "none";
-    room9Switch();
-    output.innerHTML = "A <span>ghost</span> appeared!!";
+    let currentCutscene = document.getElementById("cutscene");
+    currentCutscene.addEventListener('ended', function() {
+        currentCutscene.style.display = "none";
+        room9Switch();
+        output.innerHTML = "A <span>ghost</span> appeared!!";
+    })
 };
 
 // ROOM SWITCHING FUNCTIONS
@@ -301,11 +302,11 @@ const hideGhostCutscene = () => {
     };
     const room4Switch = () => {
         if (roomNum === 1 && marbleDown === false) {
-            output.innerHTML = "You travel <span>north</span> until you arrive at small glen with a huge <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
+            output.innerHTML = "You travel <span>north</span> until you arrive at glade with a large <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
         } else if (roomNum === 2 && marbleDown === false) {
-            output.innerHTML = "You travel <span>west</span> until you arrive at small glen with a huge <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
+            output.innerHTML = "You travel <span>west</span> until you arrive at glade with a large <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
         } else if (marbleDown === false) {
-            output.innerHTML = "You arrive at a small glen with a huge <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
+            output.innerHTML = "You arrive at a glade with a large <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
         } else if (marbleDown === true) {
             output.innerHTML = "This is the tree the <span>cat</span> was in.";
         };
@@ -800,7 +801,7 @@ const hideGhostCutscene = () => {
                 output.innerHTML = "The <span>door</span> is locked.";
                 break;
             case roomNum === 1 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "The <span>door frame</span> is standing in a grassy clearing surrounded by trees and scattered stones and flowers.<br><br>To the <span>north</span> and <span>east</span> the forest grows dark and dense. To the <span>south</span>, you can hear the distant sound of water. To the <span>northwest</span> you can see a rocky outcropping above the trees.";
+                output.innerHTML = "The <span>door frame</span> is standing in a grassy clearing surrounded by trees and scattered <span>rocks</span> and <span>flowers</span>.<br><br>To the <span>north</span> and <span>east</span> the forest grows dark and dense. To the <span>south</span>, you can hear the distant sound of water. To the <span>northwest</span> you can see a rocky outcropping above the trees.";
                 break;
             case roomNum === 1 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('door')||inp('frame'))     :
                 output.innerHTML = "The <span>door</span> is made of a dark wood, and it's <span>handle</span> and <span>lock</span> are iron. It's worn, but sturdy. Something tells you it's been hear a long time.";
@@ -880,6 +881,9 @@ const hideGhostCutscene = () => {
             case roomNum === 2 && (inp('box')||inp('chest')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  haveFireflies === true :
                 output.innerHTML = 'The <span>box</span> is already full of <span>fireflies</span>!';
                 break;
+            case (roomNum === 2 || (roomNum === 7 && firefliesReleased === true)) && (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire') && (inp('mug')||inp('cup')) && haveMug === true  :
+                output.innerHTML = 'You catch a <span>firefly</span> and put it in the <span>mug</span>, but as soon as you take your hand away it flies away.<br><br>Maybe there is something else nearby you can keep the <span>fireflies</span> in.';
+                break;
             case roomNum === 2 && (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === false  :
                 output.innerHTML = 'After a couple attempts, you catch a <span>firefly</span> in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"If only I had somewhere to keep it," you think.';
                 break;
@@ -892,7 +896,7 @@ const hideGhostCutscene = () => {
 
             // ROOM 4
             case roomNum === 4 &&    (inp('look')||inp('inspect'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "The forest is darker here. A big tree stands in the middle of the clearing.";
+                output.innerHTML = "A big tree stands in the middle of the glade.";
                 break;
             case roomNum === 4 &&    inp('play')   &&    inp('cat')   && marbleReunited === false && haveRibbon === false:
                 output.innerHTML = "You try to get the attention of the <span>cat</span>, but it doesn't seem that interested in you.<br><br>Maybe if you had <span>something</span> to play with...";
@@ -902,6 +906,26 @@ const hideGhostCutscene = () => {
                 break;
             case roomNum === 4 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
+                break;
+            case roomNum === 4 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && inp('cat') && catDiscovered === true && marbleDown === false  :
+                output.innerHTML = "The <span>cat</span> eyes you casually. It's relaxing on one of the tallest branches of the tree, and seems perfectly content where it is.";
+                break;
+            case (roomNum === 4)  &&  marbleDown === false  && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('tree')||inp('branch'))     :
+                output.innerHTML = "You look up into the tree... There's a <span>cat</span> up there! ...it doesn't seem to want to come down.";
+                catDiscovered = true;
+                break;
+            case inp('climb')  &&    inp('tree')  && (roomNum === 4)  && marbleDown === false && catDiscovered === true:
+                output.innerHTML = "You start to climb the tree, but the <span>cat</span> hisses and swipes a paw at you. Rude!";
+                break;
+            case inp('climb')  &&    inp('tree')  && (roomNum === 4)  && marbleDown === false :
+                output.innerHTML = "You start to climb the tree... but there's a <span>cat</span> in the tree! It hisses and swipes a paw at you. Rude!";
+                catDiscovered = true;
+                break;
+            case roomNum === 4 &&  catDiscovered === true &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
+                output.innerHTML = "You throw a <span>rock</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.";
+                break;
+            case roomNum === 4 &&  catDiscovered === true &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('stick')) && inp('branch')   :
+                output.innerHTML = "You throw a <span>stick</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.";
                 break;
 
             // ROOM 5
@@ -1021,7 +1045,6 @@ const hideGhostCutscene = () => {
             case roomNum === 9 &&  (inp('look')||inp('inspect')||inp('search')||inp('check')||inp('take')||inp('grab')||inp('pocket')||inp('eat'))   &&    (inp('mushroom')||inp('circle')) && ghostDiscovered === false    :
                 ghostDiscovered = true;
                 playGhostCutscene();
-                setTimeout(function () {hideGhostCutscene()}, 5000);
                 break;
             case roomNum === 9 &&  (inp('talk')||inp('chat')||inp('ask')||inp('question'))  &&    (inp('ghost')||inp('figure')) && ghostDiscovered === true && mugTaken === false  :
                 output.innerHTML = 'A voice whispers...<br><br><span class="journal">"Moon... cactus...</span>"<br><br>What does that mean?';
@@ -1057,8 +1080,12 @@ const hideGhostCutscene = () => {
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('flower')  && haveFlower === false   :
                 output.innerHTML = "You don't have a <span>flower</span> to drop!";
                 break;
-            case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('crystal') &&    (inp('well'))  && haveCrystal === true   :
-                output.innerHTML = "The <span>well</span> seems pretty deep, and that seems like a bit of a waste... Maybe try dropping something else instead?";
+            case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('crystal') && haveCrystal === true   :
+                output.innerHTML = "You throw the <span>crystal</span> down the <span>well</span>. It hits the side and breaks apart before falling out of sight.";
+                haveCrystal = false;
+                break;
+            case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('mug') && haveMug === true   :
+                output.innerHTML = "You just brought the <span>mug</span> up!";
                 break;
             case roomNum === 10 &&  (inp('jump')||inp('fall'))   &&    (inp('well'))     :
                 output.innerHTML = "For a moment you imagine jumping into the <span>well</span>... What's that old phrase? \"L'appel du vide...\"<br><br>You decide to keep your feet on the ground.";
@@ -1173,8 +1200,14 @@ const hideGhostCutscene = () => {
             case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('skip')||inp('throw')||inp('toss'))   &&    (inp('rock')||inp('pebble')||inp('stone'))     :
                 output.innerHTML = "You throw a rock out across the water. It skips across the surface a few times before sinking with a 'plop', and you watch the ripples play off each other on the glassy surface.";
                 break;
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8) &&    (inp('drink')||inp('sip'))   &&    (inp('water')||inp('lake'))  && haveMug === true   :
+                output.innerHTML = "You fill the <span>mug</span> with water and take a sip. It tastes clean and refreshing.";
+                break;
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8) &&    (inp('drink')||inp('sip'))   &&    (inp('water')||inp('lake'))  :
+                output.innerHTML = "You cup your hands into the lake and take a sip. The water is clean and refreshing.";
+                break;
             
-            // INTERACT WITH TREES / CAT
+            // INTERACT WITH TREES
             case (inp('take')||inp('grab')||inp('pocket'))  && inp('tree')   :
                 output.innerHTML = "Your <span>pockets</span> aren't that big!";
                 break;
@@ -1190,39 +1223,11 @@ const hideGhostCutscene = () => {
             case ((roomNum !== 4) || marbleDown === true) &&   (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('tree')||inp('branch'))     :
                 output.innerHTML = "You search around the trees, but don't find anything.";
                 break;
-            case (roomNum === 4)  &&  marbleDown === false  && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('tree')||inp('branch'))     :
-                output.innerHTML = "You look up into the tree... There's a <span>cat</span> up there! ...it doesn't seem to want to come down.";
-                catDiscovered = true;
-                break;
-            case inp('climb')  &&    inp('tree')  && (roomNum === 4)  && marbleDown === false && catDiscovered === true:
-                output.innerHTML = "You start to climb the tree, but the <span>cat</span> hisses and swipes a paw at you. Rude!";
-                break;
-            case inp('climb')  &&    inp('tree')  && (roomNum === 4)  && marbleDown === false :
-                output.innerHTML = "You start to climb the tree... but there's a <span>cat</span> in the tree! It hisses and swipes a paw at you. Rude!";
-                catDiscovered = true;
-                break;
             case inp('climb')  &&    (inp('tree')||inp('branch'))   :
                 output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch and look out over the forest. There's a lake to the <span>south</span>, and some stony outcroppings to the <span>north west</span>. Beyond that the forest extends far into the distance.<br><br>You enjoy the view for a minute, then climb down.";
                 break;
-            case roomNum === 4 &&  catDiscovered === true &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
-                output.innerHTML = "You throw a <span>rock</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.";
-                break;
-            case roomNum === 4 &&  catDiscovered === true &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('stick')) && inp('branch')   :
-                output.innerHTML = "You throw a <span>stick</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.";
-                break;
             case roomNum !== 8 && roomNum !== 7 && roomNum !== 13 &&  inp('rope')   &&  inp('tree') && haveRope === true :
                 output.innerHTML = "The <span>trees</span> look easy enough to climb without the <span>rope</span>, so you don't see much use in that.";
-                break;
-
-            // UNLOCK THE BOX
-            case (inp('unlock')||inp('open')||inp('key'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveBoxKey === true && boxUnlocked === false   :
-                output.innerHTML = "The <span>box</span> opens with a satisfying click.<br><br>Inside the <span>box</span> you find a <span>red ribbon</span>. You put the <span>ribbon</span> in your <span>pocket</span>.";
-                boxUnlocked = true;
-                haveRibbon = true;
-                inventory.push("a <span>red ribbon</span>");
-                if (checkingInventory === true) {
-                    displayInventory();
-                }
                 break;
 
             // GET FLOWER
@@ -1279,11 +1284,62 @@ const hideGhostCutscene = () => {
             case inp('eat')  &&    inp('grass')    :
                 output.innerHTML = "...why??";
                 break;
+            
+            // STICKS
+            case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && inp('stick') && (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')) :
+                output.innerHTML = "There are plenty of sticks around, so there's no need to take one with you.";
+                break;
 
             // DIG
             case inp('dig'):
             output.innerHTML = "You don't have anything to dig with, and you're not sure what you'd be looking for anyway.";
                 break;
+
+            // UNLOCK / INTERACT THE BOX IN INVENTORY
+            case (inp('unlock')||inp('open')||inp('key'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveBoxKey === true && boxUnlocked === false   :
+                output.innerHTML = "The <span>box</span> opens with a satisfying click.<br><br>Inside the <span>box</span> you find a <span>red ribbon</span>. You put the <span>ribbon</span> in your <span>pocket</span>.";
+                boxUnlocked = true;
+                haveRibbon = true;
+                inventory.push("a <span>red ribbon</span>");
+                if (checkingInventory === true) {
+                    displayInventory();
+                }
+                break;
+            case (inp('unlock')||inp('open')||inp('key'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveBoxKey === false  :
+                output.innerHTML = "The <span>box</span> is securely locked, and you don't have a <span>key</span>." ;
+                break;
+            case (inp('shake')||inp('rattle'))   &&    (inp('box')||inp('chest'))  && haveBox === true && boxUnlocked === false  :
+                output.innerHTML = "You shake the box <span>box</span>. There's <span>something</span> light and soft inside it." ;
+                break;
+            case (inp('look')||inp('inspect')||inp('check')||inp('search'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveFireflies === false  :
+                output.innerHTML = "The <span>box</span> is made of hard wood and reinforced with metal banding and a silver lock." ;
+                break;
+            case (inp('look')||inp('inspect')||inp('check')||inp('search'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveFireflies === true  :
+                output.innerHTML = "The <span>box</span> is made of hard wood and reinforced with metal banding and a silver lock. You can see the glow from the <span>fireflies</span> through the crack in the lid." ;
+                break;
+            case (inp('hit')||inp('break')||inp('smash')||inp('rock'))   &&    (inp('box')||inp('chest'))  && haveBox === true   :
+                output.innerHTML = "You hit the <span>box</span> a few times, but only succeed in denting the carved wood surface." ;
+                break;
+
+            // INTERACT WITH OTHER ITEMS IN INVENTORY
+            case (inp('inspect')||inp('look')||inp('check'))   &&    inp('key')  && haveBoxKey === true  :
+                output.innerHTML = "The <span>key</span> is shiny silver and about the size of your pinky finger.";
+                break;
+            case (inp('inspect')||inp('look')||inp('check'))   &&    inp('ribbon')  && haveRibbon === true  :
+                output.innerHTML = "The <span>ribbon</span> is made of vibrant red silk and about two feet long. It may have been a hair tie at one point.";
+                break;
+            case inp('hair')  &&  inp('tie') && inp('ribbon')  && haveRibbon === true  :
+                output.innerHTML = "You tie the <span>ribbon</span> in you hair. Nice :)";
+                break;
+            case (inp('inspect')||inp('look')||inp('check'))   &&    (inp('mug')||inp('cup'))  && haveMug === true  :
+                output.innerHTML = "The <span>mug</span> is dark blue and decorated with a picture of a cactus and crescent moon.";
+                break;
+            case (inp('inspect')||inp('look')||inp('check'))   &&    (inp('crystal')||inp('gem'))  && haveCrystal === true  :
+                output.innerHTML = "The piece of <span>crystal</span> is about the size of your hand and soft pink in color. It feels oddly warm.";
+                break;
+            case (inp('toss')||inp('throw')||inp('drop'))   &&  (   ((inp('mug') && haveMug === true ))   ||   ((inp('crystal') && haveCrystal === true ))   ||  ( (inp('mushroom') && haveMushy === true))   ||   (inp('ribbon')  && haveRibbon === true)     ||   ( inp('key') && haveBoxKey === true)     )  :
+                output.innerHTML = "You don't see much point in doing that.";
+                break; 
 
             // EXTRA INPUT IF JUST "POCKETS"
             case inp('pockets') :
