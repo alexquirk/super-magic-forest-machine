@@ -1166,7 +1166,7 @@ const checkMap = () => {
             case roomNum === 6 &&  (inp('fix')||inp('repair')||inp('mend')||inp('patch'))   &&    (inp('boat'))     :
                 output.innerHTML = "The <span>boat</span> seems way too buested up to fix with what's available.";
                 break;
-            case roomNum === 6 &&  (inp('get')||inp('in')||inp('take')||inp('ride'))   &&    (inp('boat'))     :
+            case roomNum === 6 &&  (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))     :
                 output.innerHTML = "The <span>boat</span> is in too poor condition to take anywhere. Besides, the paddles are nowhere to be seen<br><br>It looks like there's <span>something</span> in the bottom of it though...";
                 break;
             case roomNum === 6 &&  ropeTaken === false &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
