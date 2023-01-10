@@ -281,7 +281,7 @@ const playGhostCutscene = () => {
     currentCutscene.addEventListener('ended', function() {
         document.getElementById('cutsceneviewer').style.display = "none";
         room9Switch();
-        output.innerHTML = "A <span>ghost</span> appeared!!";
+        output.innerHTML = "You reach for the <span>mushrooms</span>...<br><br>but a <span>ghost</span> appears!!<br><br>It seems like it's guarding the mushrooms.";
         document.getElementById("cutscene").src="";
     })
 };
@@ -569,9 +569,6 @@ const checkMap = () => {
                 break; 
             case inp('chill') || (inp('not') && inp('much')):
                 output.innerHTML = "cool cool";
-                break;
-            case inp('hello'):
-                output.innerHTML = "Hi :)";
                 break;
             case inp('what') && inp('up'):
                 output.innerHTML = "Nothing much, hbu";
@@ -1218,6 +1215,9 @@ const checkMap = () => {
             case roomNum === 7 &&  (inp('look'))   &&    (inp('cave')||inp('around')) && firefliesReleased === false :
                 output.innerHTML = "The air feels different here... but it's too dark to see anything...";
                 break;
+            case roomNum === 7 &&  (inp('feel'))   &&    (inp('cave')||inp('around')||inp('wall')) && firefliesReleased === false :
+                output.innerHTML = "The walls of the <span>cave</span> are rough rock. You feel your way forward as far as you can, but the light starts to disappear behind so you turn around and head back.";
+                break;
             case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check')||inp('look'))   &&    (inp('cave')||inp('around')) && firefliesReleased === false :
                 output.innerHTML = "You feel your way around the <span>cave</span>. The ground is rocky and the walls smooth. It's much too dark to see anything...<br><br>You smash your shins against something hard a few times before abandoning your search.";
                 break;
@@ -1270,7 +1270,7 @@ const checkMap = () => {
             case roomNum === 9 && ghostDiscovered === true  &&  (inp('look')||inp('inspect')||inp('check'))   &&    (inp('mushroom')||inp('circle')) :
                 output.innerHTML = 'The <span>mushrooms</span> are red with white spots. You can\'t decide whether they look delicious, or deadly.';
                 break;
-            case roomNum === 9 && ghostDiscovered === true && mugTaken === false  &&  (inp('talk')||inp('chat')||inp('ask')||inp('question'))  &&    (inp('ghost')||inp('figure')) :
+            case roomNum === 9 && ghostDiscovered === true && mugTaken === false  &&  (inp('talk')||inp('chat')||inp('ask')||inp('question')||inp('hello')||inp('say')):
                 output.innerHTML = 'A voice whispers...<br><br><span class="journal">"Moon... cactus...</span>"<br><br>What could that mean?';
                 break;
             case roomNum === 9 && ghostDiscovered === true && mugTaken === false  &&  (inp('flirt')||inp('compliment')||inp('flatter'))  &&    (inp('ghost')||inp('figure')) :
@@ -1279,8 +1279,11 @@ const checkMap = () => {
             case roomNum === 9 && ghostDiscovered === true && mugTaken === false  &&  (inp('boo')  ||  ((inp('scare')||inp('frighten')||inp('shoo'))  &&    (inp('ghost')||inp('figure')))) :
                 output.innerHTML = 'The <span>ghost</span> doesn\'t seem scared of you...';
                 break;
-            case roomNum === 9 && ghostDiscovered === true && mugTaken === false &&  (inp('touch')||inp('hit')||inp('push')||inp('move')||inp('punch'))  &&    (inp('ghost')||inp('figure'))  :
-                output.innerHTML = 'The <span>ghost</span> doesn\'t look solid, and besdies, it\'s kind of freaking you out... there\'s no way you\'re getting close enough to do that.';
+            case roomNum === 9 && ghostDiscovered === true && mugTaken === false &&  (inp('hit')||inp('push')||inp('punch')||inp('beat')||inp('fight'))  &&    (inp('ghost')||inp('figure'))  :
+                output.innerHTML = 'It\'s a freaking<span>ghost</span> yo! It would probably whip your butt.<br><br>Besides, doesn\'t look solid';
+                break;
+            case roomNum === 9 && ghostDiscovered === true && mugTaken === false &&  (inp('touch')||inp('move'))  &&    (inp('ghost')||inp('figure'))  :
+                output.innerHTML = 'Thie <span>ghost</span> is totally freaking you out... there\'s no way you\'re getting close enought to do that.';
                 break;
             case roomNum === 9  && (ghostDiscovered === false || mugTaken===true)  &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))  :
                 output.innerHTML = "This must be the oldest part of the forest. The trees here look like they haven't seen sunlight in years.<br><br>There is a circle of <span>mushrooms</span> in the middle of the hollow.";
