@@ -106,8 +106,24 @@ body {
 }
 
 #map {
-    z-index: 0;
+    display: grid;
+}
+
+.room {
+    /* position: absolute */
+    position: relative;
+    grid-row: 1;
+    grid-column: 1;
+    width: 100%;
     /* transition: 0.1s all ease-in-out; */
+}
+
+#room1 {
+    z-index: 0;
+}
+
+#room2, #room3, #room4, #room5, #room6, #room7, #room8, #room9, #room10, #room11, #room12, #room13 {
+    z-index: -2;
 }
 
 /* #map:hover {
@@ -293,6 +309,10 @@ body {
 }
 
 #dialogue2 {
+    display: none;
+}
+
+#bookbutton {
     display: none;
 }
 
