@@ -1424,7 +1424,7 @@ const checkMap = () => {
             case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('shore'))     :
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.";
                 break;
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('swim')||inp('dive')||inp('jump'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank'))     :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('swim')||inp('dive')||inp('jump')||inp('cross')||inp('get'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank'))     :
                 output.innerHTML = "You didn't bring a swim suit! The water seems cold anyway.";
                 break;
             case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('catch')||inp('grab')||inp('take')||inp('lure')||inp('get'))   &&    (inp('fish'))     :
