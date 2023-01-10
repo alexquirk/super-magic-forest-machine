@@ -1318,10 +1318,16 @@ const checkMap = () => {
                 removeItem("a strange crystal");
                 haveCrystal = false;
                 break;
+            case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('box') && haveBox === true  && ropeTaken === true && haveBoxKey === false :
+                output.innerHTML = "Ok that's a good idea ngl. The box wouuld probably break when it hit the bottom. So +10 points for ingenuity.<br><br>But you're gonna need the box later ok? So you can't do that.<br><br>Try checking the <span>rocks</span> down by the lake, there's a <span>key</span> down there you can open the box with.";
+                break;
+            case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('box') && haveBox === true  :
+                output.innerHTML = "The box would probably break, which would be kind of a shame.";
+                break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('mug') && haveMug === true   :
                 output.innerHTML = "You just brought the <span>mug</span> up!";
                 break;
-            case roomNum === 10 &&  (inp('jump')||inp('fall'))   &&    (inp('well'))     :
+            case roomNum === 10 &&  (inp('jump')||inp('fall')||(inp('get')&&inp('well')))   &&    (inp('well'))     :
                 output.innerHTML = "For a moment you imagine jumping into the <span>well</span>... What's that old phrase? \"L'appel du vide...\"<br><br>You decide to keep your feet on the ground.";
                 break;
             case roomNum === 10 &&  inp('use') &&   inp('well')  && ropeSet === false :
