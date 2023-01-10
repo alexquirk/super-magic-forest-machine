@@ -316,12 +316,6 @@ const moveAllRoomsBack = () => {
     allRooms[roomNum-1].style.zIndex = "-2"; 
     }
 
-
-
-    // room1.style.zIndex = "-2"; room2.style.zIndex = "-2"; room3.style.zIndex = "-2"; room4.style.zIndex = "-2"; room5.style.zIndex = "-2"; room6.style.zIndex = "-2"; room7.style.zIndex = "-2"; room8.style.zIndex = "-2"; room9.style.zIndex = "-2"; room10.style.zIndex = "-2"; room11.style.zIndex = "-2"; room12.style.zIndex = "-2"; room13.style.zIndex = "-2";
-
-
-
 const room1Switch = () => {
         mapArrow.style.top = "53%";
         mapArrow.style.left = "42.6%";
@@ -533,6 +527,12 @@ const room1Switch = () => {
         room13.style.zIndex = "0";
     }; 
 
+// VIEWING THE MAP
+const checkMap = () => {
+    if (checkingMap === true)
+    {document.getElementById('maptiles').style.display = "block";}
+};
+
 // USER INPUT
     const inp = (arg) => {
         return userInput.value.toLowerCase().includes(arg);
@@ -604,15 +604,21 @@ const room1Switch = () => {
                 break;
             
         // HINT
-            case inp("hint") || inp("help") && firstHint === false :
+            case (inp("hint") || inp("help") || inp("clue")) && firstHint === false :
                 output.innerHTML = "There is something strange about this place...<br><br>Try <span>looking around</span>, <span>walking</span> in a direction, or <span>inspecting</span> things.<br><br>You can also <span>take</span> useful objects, <span>use</span> objects, or check your <span>pockets</span> to see what objects you have with you.<br><br> You can also check your <span>map</span> to see where you've been.";
                 firstHint = true;
                 break;
-            case inp("hint") || inp("help") && thingsTried < 5 && roomNum === 1 :
-                output.innerHTML = "There's a lot of forest to explore. Try <span>walking</span> in a direction to explore other areas. Trying putting something in your <span>pockets</span>.<br><br> You can also check your <span>map</span> to see where you've been.";
+            case (inp("hint") || inp("help") || inp("clue")) && inventory.length === 0 :
+                output.innerHTML = "The objects around you can be interacted with. Trying typing \"<span>pick up rock</span>\".<br><br>You can also type \"<span>check pockets</span>\" or \"<span>inventory</span>\" to see what items you have with you.";
                 break;
-            case inp("hint") || inp("help")  :
-                output.innerHTML = "There's a lot of forest to explore. Try <span>walking</span> in a direction to explore other areas. Trying putting something in your <span>pockets</span>.<br><br> You can also check your <span>map</span> to see where you've been.";
+            case (inp("hint") || inp("help") || inp("clue")) && roomVisited[4] === false && roomVisited[3] === false && roomVisited[10] === false  && roomVisited [5] === false:
+                output.innerHTML = "There's a lot of forest to explore! Try typing \"<span>walk south</span>\", or \"map\" to see where you are.";
+                break;
+            case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && roomNum !== 12 && roomNum !== 5 && roomNum !== 6:
+                output.innerHTML = "You can hear the sound of water to the <span>south</span>. That might be a good place to <span>look around</span>.";
+                break;
+            case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false :
+                output.innerHTML = "Try <span>searching</span> around the water to see what has washed up on the shore.";
                 break;
 
 
