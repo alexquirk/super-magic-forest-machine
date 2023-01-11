@@ -151,6 +151,7 @@ const makeFadeAway = () => {
     let treeClimbed = false;
     let caveInspected = false;
     let lakeDiscovered = false;
+    let boxSmashed = 0;
 
     const roomVisited = ["", true, false, false, false, false, false, false, false, false, false, false, false, false];
     const inventory = [];
@@ -411,10 +412,6 @@ const room1Switch = () => {
         document.getElementById("room4tile").src="./maptiles/room4tile.png";
     };
     const room5Switch = () => { 
-        if (lakeDiscovered === false) {
-            playBeachCutscene();
-            lakeDiscovered = true;
-        };
         if (roomNum === 1) {
             output.innerHTML = "You travel <span>south</span> until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
         } else if (roomNum === 12) {
@@ -430,10 +427,6 @@ const room1Switch = () => {
         document.getElementById("room5tile").src="./maptiles/room5tile.png";
     };
     const room6Switch = () => {
-        if (lakeDiscovered === false) {
-            playBeachCutscene();
-            lakeDiscovered = true;
-        };
         if (haveRope === false && ropeSet === false && roomNum === 5) {
                 output.innerHTML = "You travel <span>east</span> along the lake shore until you arrive at a wooded point, where a half-sunk <span>boat</span> is tied to a mooring.";
             } else if (haveRope === false && ropeSet === false && roomNum === 3) {
@@ -540,10 +533,6 @@ const room1Switch = () => {
         document.getElementById("room11tile").src="./maptiles/room11tile.png";
     };
     const room12Switch = () => {
-        if (lakeDiscovered === false) {
-            playBeachCutscene();
-            lakeDiscovered = true;
-        };
         if (robotAwake === false) {
             if (roomNum === 5) {
                 output.innerHTML = "You travel <span>west</span> along the lakeshore until you arrive at a wooden fence, beyond which the forest grows dense and dark.<br><br>Under a tree near the shore, a <span>strange figure</span> is lying the in the shade, as if resting.";
@@ -627,16 +616,13 @@ const checkMap = () => {
                 userInput.value = "";
                 output.innerHTML = "";
                 break;
-            case inp("poop") :
-                output.innerHTML = "...c'mon...";
-                break;
             case inp("fart") :
                 output.innerHTML = "Pfpffpf.";
                 break;
             case inp("peepee") :
                 output.innerHTML = "Poopoo.";
                 break;
-            case (inp("fuck")||inp("sex")||inp("shit")||inp("cunt")||inp("pussy")||inp("dick")||inp("penis"))||inp('cock')  :
+            case (inp('poop')||inp("fuck")||inp("sex")||inp("shit")||inp("cunt")||inp("pussy")||inp("dick")||inp("penis"))||inp('cock')  :
                 if (profanityCounter < 20) {
                     output.innerHTML = profanityResponse[profanityCounter];
                     profanityCounter++;
@@ -667,14 +653,14 @@ const checkMap = () => {
             
         // HINT
             case (inp("hint") || inp("help") || inp("clue")) && firstHint === false :
-                output.innerHTML = "There is something strange about this place...<br><br>Try typing \"<span>look around</span>\", \"<span>walk</span>\" in a direction, or \"<span>look</span>\" at something.<br><br>You can also <span>take</span> useful objects, or type \"<span>pockets</span>\" to see what objects you have with you.<br><br> You can type \"<span>map</span>\" to see where you've been.";
+                output.innerHTML = "There is something strange about this place...<br><br>Try typing <span>\"look around\"</span>, <span>\"walk\"</span> in a direction, or <span>\"look\"</span> at something.<br><br>You can also <span>take</span> useful objects, or type <span>\"pockets\"</span> to see what objects you have with you.<br><br> You can type <span>\"map\"</span> to see where you've been.";
                 firstHint = true;
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && inventory.length === 0 :
-                output.innerHTML = "The objects around you can be interacted with. Trying typing \"<span>pick up rock</span>\".<br><br>You can also type \"<span>check pockets</span>\" or \"<span>inventory</span>\" to see what items you have with you.";
+                output.innerHTML = "The objects around you can be interacted with. Trying typing <span>\"pick up rock\"</span>.<br><br>You can also type \"<span>check pockets</span>\" or \"<span>inventory</span>\" to see what items you have with you.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && roomVisited[4] === false && roomVisited[3] === false && roomVisited[10] === false  && roomVisited [5] === false:
-                output.innerHTML = "There's a lot of forest to explore! Try typing \"<span>walk east</span>\", or \"<span>map</span>\" to see where you are.";
+                output.innerHTML = "There's a lot of forest to explore! Try typing <span>\"walk east\"</span>, or <span>\"map<\"/span> to see where you are.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === false && roomNum !== 12 && roomNum !== 5 && roomNum !== 6:
                 output.innerHTML = "You can hear the sound of water to the <span>south</span>. That might be a good place to <span>look around</span>.";
@@ -683,7 +669,7 @@ const checkMap = () => {
                 output.innerHTML = "Try <span>searching</span> around the water to see what has washed up on the shore.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === true && haveBox === false && triedKeyOnDoor === false:
-                output.innerHTML = "You found a <span>! I wonder what it unlocks?";
+                output.innerHTML = "You found a <span>key</span>!<br><br>I bet it unlocks something nearby.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === true && haveBox === false && triedKeyOnDoor === true:
                 output.innerHTML = "Welp, looks like you have the wrong <span>key</span> for the <span>door</span>.<br><br>Maybe this <span>key</span> fits something else nearby.";
@@ -695,7 +681,7 @@ const checkMap = () => {
                 output.innerHTML = "Try checking your <span>inventory</span> to see if anything you have can be used together.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && haveFireflies === false & firefliesReleased === false:
-                output.innerHTML = "You used the key to open <span>box</span>! There wasn't much inside, just this <span>red ribbon</span>.<br><br>Maybe the <span>box</span> can be used from something else.";
+                output.innerHTML = "You used the key to open <span>box</span>! There wasn't much inside, just this <span>red ribbon</span>.<br><br>Maybe the <span>box</span> can be used for something else.";
                 break;
 
 
@@ -1084,6 +1070,7 @@ const checkMap = () => {
             case roomNum === 2 && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
                 output.innerHTML = 'You catch a <span>firefly</span>, and very carefully put it in the <span>box</span> and close the lid.<br><br>You catch another, and another... and pretty soon the <span>box</span> is full of <span>fireflies</span>!';
                 removeItem("a <span>wooden box</span>");
+                removeItem("a <span>smashed-up box</span>");
                 inventory.push("a <span>box of fireflies</span>");
                 haveFireflies = true;
                 break;
@@ -1180,6 +1167,10 @@ const checkMap = () => {
                 catDiscovered = true;
                 output.innerHTML = "The <span>cat</span> doesn't seem interested in cooperating.";
                 break;
+            case roomNum === 4  && marbleDown === false &&  (inp('fight')||inp('punch')) && inp('cat')   :
+                catDiscovered = true;
+                output.innerHTML = "The <span>cat</span> gives you a look, like \"Come at me, bro.\".";
+                break;
             case roomNum === 4  && marbleDown === false &&  inp('psp')   :
                 catDiscovered = true;
                 output.innerHTML = "The <span>cat</span> eyes you curiously.";
@@ -1190,9 +1181,17 @@ const checkMap = () => {
 
             // ROOM 5
             case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
+                if (lakeDiscovered === false) {
+                    playBeachCutscene();
+                    lakeDiscovered = true;
+                };
                 output.innerHTML = "The lakeshore is scattered with large <span>rocks</span> small pieces of driftwood that have washed in on the tide.<br><br>The lake is really wide... You can't see the other side.";
                 break;
-            case roomNum === 5 &&   (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')) && haveBoxKey === false    :
+            case roomNum === 5 &&   (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('beach')) && haveBoxKey === false    :
+                if (lakeDiscovered === false) {
+                    playBeachCutscene();
+                    lakeDiscovered = true;
+                };
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy <span>something</span> shining under the water near the rocks.";
                 break;
             case roomNum === 5 &&  haveBoxKey === false &&  (inp('search')||inp('inspect')||inp('look')||inp('check'))   &&    (inp('water')||inp('rock')||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
@@ -1205,58 +1204,94 @@ const checkMap = () => {
                 break;
 
             // ROOM 6
-            case roomNum === 6 &&  ropeTaken === false && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('shore'))     :
+                // B.S.
+            case roomNum === 6 &&  ropeTaken === false && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('shore')||inp('beach'))     :
+                if (lakeDiscovered === false) {
+                    playBeachCutscene();
+                    lakeDiscovered = true;
+                };
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>There is an old half-sunk <span>boat</span> tied up near the shore.";
                 break;
-            case roomNum === 6 &&  (inp('fix')||inp('repair')||inp('mend')||inp('patch'))   &&    (inp('boat'))     :
-                output.innerHTML = "The <span>boat</span> seems way too buested up to fix with what's available.";
+            case roomNum === 6 &&  ropeTaken === true && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('shore')||inp('beach'))     :
+                if (lakeDiscovered === false) {
+                    playBeachCutscene();
+                    lakeDiscovered = true;
+                };
+                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>There is an old half-sunk <span>boat</span> near the shore.";
                 break;
-            case roomNum === 6 &&  (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))     :
-                output.innerHTML = "The <span>boat</span> is in too poor condition to take anywhere. Besides, the paddles are nowhere to be seen<br><br>It looks like there's <span>something</span> in the bottom of it though...";
-                break;
-            case roomNum === 6 &&  ropeTaken === false &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
+            case roomNum === 6 &&  ropeTaken === false &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('forest')||inp('around'))     :
+                if (lakeDiscovered === false) {
+                    playBeachCutscene();
+                    lakeDiscovered = true;
+                };
                 output.innerHTML = "You're standing on the shore of a lake. There is a <span>boat</span> tied to a mooring nearby, but it doesn't exactly look seaworthy.";
                 break;
-            case roomNum === 6 &&   ropeTaken === false &&   haveBox === false  &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('boat')||inp('moor'))     :
-                output.innerHTML = "The <span>boat</span> is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through. It's tied to the shore with a thick <span>rope</span>.<br><br>You look into the bottom of the boat and find an <span>locked wooden box</span>.<br><br>You put the <span>box</span> in your <span>pocket</span>.";
+            case roomNum === 6 &&  ropeTaken === true &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('forest')||inp('around'))     :
+                if (lakeDiscovered === false) {
+                    playBeachCutscene();
+                    lakeDiscovered = true;
+                };
+                output.innerHTML = "You're standing on the shore of a lake. There is a <span>boat</span> nearby, but it doesn't exactly look seaworthy.";
+                break
+            case roomNum === 6 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "The ground is covered in grass with scattered rocks and such.";
+                break;
+            case roomNum === 6 &&  (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))     :
+                output.innerHTML = "The <span>boat</span> is full of holes and is mostly under water. Besides, the paddles are nowhere to be seen<br><br>It looks like there's <span>something</span> in the bottom of it though...";
+                break;
+            case roomNum === 6 &&  (inp('fix')||inp('repair')||inp('mend')||inp('patch'))   &&    (inp('boat'))     :
+                output.innerHTML = "The <span>boat</span> is way too buested up to fix. It's honestly hardly even a boat at this point.";
+                break;
+            // boat/box
+            case roomNum === 6 &&   haveBox === false  &&  (inp('inspect')||inp('search')||inp('check')||inp('what')||inp('bottom'))   &&    (inp('boat'))     :
+                output.innerHTML = "You look into the bottom of the <span>boat</span> and find a <span>locked wooden box</span>.<br><br>You put the <span>box</span> in your <span>pocket</span>.";
                 haveBox = true;
                 inventory.push("a <span>wooden box</span>");
                 break;
-            case roomNum === 6 &&   ropeTaken === false &&    (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('boat')||inp('moor'))     :
-                output.innerHTML = "The boat is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through, and the paddles are nowhere to be seen. It's tied to the shore with a thick <span>rope</span>.";
+            case roomNum === 6   && ropeTaken === false && haveBox === false && (inp('look')||inp('inspect'))  &&    (inp('boat')||inp('moor'))  :
+                output.innerHTML = "The <span>boat</span> is half-sunk, and the paddles are nowhere to be seen. The wood on the bottom is almost completely rotted through, but it looks like there might be <span>something</span> stuck in the bottom.<br><br>The <span>boat</span> is tied to the shore with a thick <span>rope</span>.";
                 break;
+            case roomNum === 6   && ropeTaken === false && haveBox === true && (inp('look')||inp('inspect'))  &&    (inp('boat')||inp('moor'))  :
+                output.innerHTML = "The <span>boat</span> is half-sunk, and the paddles are nowhere to be seen. The wood on the bottom is almost completely rotted through.<br><br>It's tied to the shore with a thick <span>rope</span>.";
+                break;
+            case roomNum === 6   && ropeTaken === true && haveBox === false && (inp('look')||inp('inspect'))  &&    (inp('boat')||inp('moor'))  :
+                output.innerHTML = "The <span>boat</span> is half-sunk, and the paddles are nowhere to be seen. The wood on the bottom is almost completely rotted through, but it looks like there might be <span>something</span> stuck in the bottom.";
+                break;
+            case roomNum === 6   && ropeTaken === true &&  (inp('look')||inp('inspect'))  &&    (inp('boat')||inp('moor'))  :
+                output.innerHTML = "The <span>boat</span> is half-sunk, and the wood on the bottom is almost completely rotted through. The paddles are nowhere to be seen.";
+                break;
+            case roomNum === 6  && haveBox === true  && ropeTaken === false && (inp('look')||inp('inspect')||inp('search')||inp('check')||inp('what'))   &&    (inp('boat')||inp('moor'))   :
+                output.innerHTML = "The <span>boat</span> is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through, and the paddles are nowhere to be seen.<br><br>It\'s tied to the shore with a thick <span>rope</span>.";
+                break;
+            case roomNum === 6  && haveBox === true  &&  (inp('look')||inp('inspect')||inp('search')||inp('check')||inp('what'))   &&    (inp('boat')||inp('moor'))   :
+                output.innerHTML = "The <span>boat</span> is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through, and the paddles are nowhere to be seen.";
+                break;
+            //rope
             case roomNum === 6 &&   ropeTaken === false &&    (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('rope'))     :
                 output.innerHTML = "The <span>rope</span> seems to be the only thing about the boat that is still in decent condition.";
                 break;
-            case roomNum === 6 &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "You're standing on the shore of a lovely lake. The boat is still siting half-sunk near the shore.";
-                break;
-            case roomNum === 6 &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('boat')||inp('moor'))  && haveBox === false   :
-                output.innerHTML = "The boat is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through.<br><br>You look into the bottom of the boat and find an old wooden <span>box</span> with a <span>silver lock</span>.<br><br>You put the <span>box</span> in your <span>pocket</span>.";
-                haveBox = true;
-                inventory.push("a <span>wooden box</span>");
-                break;
-            case roomNum === 6 &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('boat')||inp('moor'))  && haveBox === true   :
-                output.innerHTML = "The boat is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through, and the paddles are nowhere to be seen.";
-                break;
-            case roomNum === 6 &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('rope'))     :
-                output.innerHTML = "The <span>rope</span> is gone. You took it, remember?";
-                break;
-            case roomNum === 6 &&   ropeTaken === true && (inp('take')||inp('grab')||inp('pocket')||inp('get'))   &&    (inp('rope'))     :
-                output.innerHTML = "You already took the <span>rope.</span>";
-                break;    
-            case roomNum === 6 &&    (inp('take')||inp('grab')||inp('pocket')||inp('untie')||inp('remove')||inp('get'))   &&    (inp('rope'))     :
+            case roomNum === 6    && ropeTaken === false &&    (inp('take')||inp('grab')||inp('pocket')||inp('untie')||inp('remove')||inp('get'))   &&    (inp('rope'))  :
                 haveRope = true;
                 ropeTaken = true;
                 inventory.push("a <span>rope</span>")
                 room6Switch();
                 output.innerHTML = "You untie the <span>rope</span> and put it in your <span>pocket</span>.";
                 break;
-            case roomNum === 6 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
-                output.innerHTML = "The ground is covered in grass with scattered rocks and such. A <span>rope</span> ties the boat to the shore.";
+            case roomNum === 6 &&  (inp('use') && inp('rope')) && ropeTaken === false:
+                output.innerHTML = "The <span>rope</span> is tied to the sunken <span>boat</span>. Mmaybe you can use it to better use elsewhere.";
+                haveRope = true;
+                ropeTaken = true;
+                inventory.push("a <span>rope</span>")
+                room6Switch();
                 break;
+            case roomNum === 6 && ropeTaken === true && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('rope'))     :
+                output.innerHTML = "The <span>rope</span> is gone. You took it, remember?";
+                break;
+            case roomNum === 6 &&   ropeTaken === true && (inp('take')||inp('grab')||inp('pocket')||inp('get'))   &&    (inp('rope'))     :
+                output.innerHTML = "You already took the <span>rope.</span>";
+                break;    
             case roomNum === 6 &&  (inp('use') && inp('rope')):
-                output.innerHTML = "The <span>rope</span> rope is tied to the <span>boat</span>. You don't see much use for it here, but maybe you can use it elsewhere.";
+                output.innerHTML = "You don't see a way to make the <span>rope</span> useful here.";
                 break;
 
             // ROOM 7
@@ -1292,6 +1327,7 @@ const checkMap = () => {
             case roomNum === 7 && firefliesReleased===true && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
                 output.innerHTML = 'You catch a <span>firefly</span>, and very carefully put it in the <span>box</span> and close the lid.<br><br>You catch another, and another... and pretty soon the <span>box</span> is full of <span>fireflies</span>!';
                 removeItem("a <span>wooden box</span>");
+                removeItem("a <span>smashed-up box</span>");
                 inventory.push("a <span>box of fireflies</span>");
                 haveFireflies = true;
                 break;
@@ -1344,7 +1380,7 @@ const checkMap = () => {
             case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "There's a stone <span>well</span> in the middle of the clearing.";
                 break;
-            case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('well'))     :
+            case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('search')||inp('check')||inp('peer'))   &&    (inp('well'))     :
                 output.innerHTML = "The <span>well</span> looks out and out of use. You look around for a bucket, but don't find anything.<br><br>You peer down into it, but it's too deep to see the bottom.";
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('rock')    :
@@ -1448,6 +1484,16 @@ const checkMap = () => {
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
                 break;
 
+            // ROOM 12
+
+            case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
+                if (lakeDiscovered === false) {
+                    playBeachCutscene();
+                    lakeDiscovered = true;
+                };
+                output.innerHTML = "A <span>strange figure</span> is lying under a tree by the lake shore.";
+                break;
+
             // ROOM 13
             case roomNum === 13 &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('well')||inp('around')||inp('ground')||inp('floor')||inp('dirt'))  && mugTaken === false  :
                 output.innerHTML = "It's dark... there's just enough light to see around you. The ground is dry and littered with rocks and grass and... what's this? A <span>mug</span>?";
@@ -1500,7 +1546,7 @@ const checkMap = () => {
             case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('shore'))     :
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.";
                 break;
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('swim')||inp('dive')||inp('jump')||inp('cross')||inp('get'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank'))     :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('swim')||inp('dive')||inp('jump')||inp('cross')||inp('get'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('beach'))     :
                 output.innerHTML = "You didn't bring a swim suit! The water seems cold anyway.";
                 break;
             case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('catch')||inp('grab')||inp('take')||inp('lure')||inp('get'))   &&    (inp('fish'))     :
@@ -1649,8 +1695,28 @@ const checkMap = () => {
             case (inp('look')||inp('inspect')||inp('check')||inp('search'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveFireflies === true  :
                 output.innerHTML = "The <span>box</span> is made of hard wood and reinforced with metal banding and a silver lock. You can see the glow from the <span>fireflies</span> through the crack in the lid." ;
                 break;
-            case (inp('hit')||inp('break')||inp('smash')||inp('rock'))   &&    (inp('box')||inp('chest'))  && haveBox === true   :
-                output.innerHTML = "You hit the <span>box</span> a few times, but only succeed in denting the carved wood surface." ;
+            case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true && boxSmashed === 0 && boxUnlocked === false    :
+                output.innerHTML = "You hit the <span>box</span> with a rock... and it opens! ...just kidding.<br><br>This is a puzzle game. Not a smashing-stuff-with-rocks game. That almost never works." ;
+                boxSmashed++;
+                break;
+            case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true  && boxSmashed === 1 :
+                output.innerHTML = "Didn't I already tell you that wasn't going to work? You gotta find a smart way to open the box." ;
+                boxSmashed++;
+                break;
+            case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true  && boxSmashed === 2 :
+                output.innerHTML = "It's a nice box! Don't smash it! The key is literally in the next screen over. This is just rude." ;
+                boxSmashed++;
+                break;
+            case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true  && boxSmashed === 3 :
+                output.innerHTML = "Okay fine!!! You smash the box and it opens! Are you happy now??<br><br>There's a <span>red ribbon</span> inside. Good luck smashing that around you jerk." ;
+                boxUnlocked = true;
+                haveRibbon = true;
+                removeItem("a <span>wooden box</span");
+                inventory.push("a <span>smashed-up box</span>");
+                inventory.push("a <span>red ribbon</span>");
+                break;
+            case inp('smash') && inp('ribbon') && haveRibbon === true:
+                output.innerHTML = "Nothing happened.<br><br>Jerk."
                 break;
 
             // INTERACT WITH OTHER ITEMS IN INVENTORY
