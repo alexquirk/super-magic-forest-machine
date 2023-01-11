@@ -46,14 +46,14 @@ body {
     height: 95vh;  
     /* height: -webkit-fill-available; */
     overflow: hidden;
-    border: 5px solid black;
+    border: 1px solid black;
 }
 
 #cutscene {
     height: 100%;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);  
+    transform: translateX(-50%);
 }
 
 /* #cutsceneviewer::after {
@@ -346,7 +346,7 @@ input:focus, textarea {
 
 #userinput {
     width: 280px;
-    min-width: 180px;
+    min-width: 155px;
     padding: 5px;
     -webkit-appearance: none;
     appearance: auto;

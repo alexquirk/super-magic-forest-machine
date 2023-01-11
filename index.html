@@ -148,6 +148,9 @@ const makeFadeAway = () => {
     let firstHint = false;
     let triedKeyOnDoor = false;
     let profanityCounter = 0;
+    let treeClimbed = false;
+    let caveInspected = false;
+    let lakeDiscovered = false;
 
     const roomVisited = ["", true, false, false, false, false, false, false, false, false, false, false, false, false];
     const inventory = [];
@@ -298,6 +301,36 @@ const playMarbleCutscene = () => {
     })
 };
 
+const playTreeClimbCutscene = () => {
+    document.getElementById('cutsceneviewer').style.display = "flex";
+    document.getElementById("cutscene").src="./cutscenes/treeclimbcutscene.mp4";
+    let currentCutscene = document.getElementById("cutscene");
+    currentCutscene.addEventListener('ended', function() {
+        document.getElementById('cutsceneviewer').style.display = "none";
+        document.getElementById("cutscene").src="";
+    })
+};
+
+const playCaveCutscene = () => {
+    document.getElementById('cutsceneviewer').style.display = "flex";
+    document.getElementById("cutscene").src="./cutscenes/cavecutscene.mp4";
+    let currentCutscene = document.getElementById("cutscene");
+    currentCutscene.addEventListener('ended', function() {
+        document.getElementById('cutsceneviewer').style.display = "none";
+        document.getElementById("cutscene").src="";
+    })
+};
+
+const playBeachCutscene = () => {
+    document.getElementById('cutsceneviewer').style.display = "flex";
+    document.getElementById("cutscene").src="./cutscenes/beachcutscene.mp4";
+    let currentCutscene = document.getElementById("cutscene");
+    currentCutscene.addEventListener('ended', function() {
+        document.getElementById('cutsceneviewer').style.display = "none";
+        document.getElementById("cutscene").src="";
+    })
+};
+
 // ROOM SWITCHING FUNCTIONS
 
 const room1 = document.getElementById("room1");
@@ -378,6 +411,10 @@ const room1Switch = () => {
         document.getElementById("room4tile").src="./maptiles/room4tile.png";
     };
     const room5Switch = () => { 
+        if (lakeDiscovered === false) {
+            playBeachCutscene();
+            lakeDiscovered = true;
+        };
         if (roomNum === 1) {
             output.innerHTML = "You travel <span>south</span> until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
         } else if (roomNum === 12) {
@@ -393,6 +430,10 @@ const room1Switch = () => {
         document.getElementById("room5tile").src="./maptiles/room5tile.png";
     };
     const room6Switch = () => {
+        if (lakeDiscovered === false) {
+            playBeachCutscene();
+            lakeDiscovered = true;
+        };
         if (haveRope === false && ropeSet === false && roomNum === 5) {
                 output.innerHTML = "You travel <span>east</span> along the lake shore until you arrive at a wooded point, where a half-sunk <span>boat</span> is tied to a mooring.";
             } else if (haveRope === false && ropeSet === false && roomNum === 3) {
@@ -499,6 +540,10 @@ const room1Switch = () => {
         document.getElementById("room11tile").src="./maptiles/room11tile.png";
     };
     const room12Switch = () => {
+        if (lakeDiscovered === false) {
+            playBeachCutscene();
+            lakeDiscovered = true;
+        };
         if (robotAwake === false) {
             if (roomNum === 5) {
                 output.innerHTML = "You travel <span>west</span> along the lakeshore until you arrive at a wooden fence, beyond which the forest grows dense and dark.<br><br>Under a tree near the shore, a <span>strange figure</span> is lying the in the shade, as if resting.";
@@ -591,13 +636,16 @@ const checkMap = () => {
             case inp("peepee") :
                 output.innerHTML = "Poopoo.";
                 break;
-            case (inp("fuck")||inp("sex")||inp("shit")||inp("cunt")||inp("pussy")||inp("dick")||inp("penis")) && profanityCounter < 19 :
-                output.innerHTML = profanityResponse[profanityCounter];
-                profanityCounter++;
-                break;
-            case inp("fuck")||inp("sex")||inp("shit")||inp("cunt")||inp("pussy")||inp("dick")||inp("penis")  :
-                output.innerHTML = "";
-                break;
+            case (inp("fuck")||inp("sex")||inp("shit")||inp("cunt")||inp("pussy")||inp("dick")||inp("penis"))||inp('cock')  :
+                if (profanityCounter < 20) {
+                    output.innerHTML = profanityResponse[profanityCounter];
+                    profanityCounter++;
+                    break;
+                } else {
+                    output.innerHTML = "";
+                    profanityCounter++;
+                    break;
+                };
             case inp("boob")||inp("tits")||inp("titties")||inp("titty") :
                 output.innerHTML = "(.)(.)";
                 break;
@@ -1020,7 +1068,7 @@ const checkMap = () => {
                 foundBook = true;
                 break;
             case roomNum === 3 &&    (inp('sit')||inp('rest'))     :
-                output.innerHTML = "You sit down on the stump to rest for a minute. It's comfier than you would have thought.";
+                output.innerHTML = "You sit down on the stump to rest for a minute. It's comfier than you would have thought.<br><br>+30 points";
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass, with scattered rocks and flowers.<br><br>There is a <span>old book</span> on the ground near the stump.";
@@ -1122,11 +1170,11 @@ const checkMap = () => {
                 break;
             case roomNum === 4  && marbleDown === false &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
                 catDiscovered = true;
-                output.innerHTML = "You throw a <span>rock</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.";
+                output.innerHTML = "You throw a <span>rock</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.<br><br>-100 points";
                 break;
             case roomNum === 4  && marbleDown === false &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('stick')) && inp('branch')   :
                 catDiscovered = true;
-                output.innerHTML = "You throw a <span>stick</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.";
+                output.innerHTML = "You throw a <span>stick</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.<br><br>-100 points";
                 break;
             case roomNum === 4  && marbleDown === false &&  (inp('pull')||inp('grab')||inp('hit')||inp('ask')||inp('lure')||inp('tease')||inp('take')) && inp('cat')   :
                 catDiscovered = true;
@@ -1367,12 +1415,31 @@ const checkMap = () => {
             
             // ROOM 11
             case roomNum === 11 &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around')) :
+                if (caveInspected === false) {
+                    playCaveCutscene();
+                    caveInspected = true;
+                }
                 output.innerHTML = "There's a large entrance to a <span>cave</span> to the <span>north</span>. It looks pretty dark inside...";
                 break;
             case roomNum === 11 &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('cave')) :
+                if (caveInspected === false) {
+                    playCaveCutscene();
+                    caveInspected = true;
+                }
                 output.innerHTML = "The <span>cave</span> is so dark you can hardly see past the threshold...";
                 break;
+            case roomNum === 11 &&  (inp('around')||inp('behind'))   &&    (inp('cave')) :
+                if (caveInspected === false) {
+                    playCaveCutscene();
+                    caveInspected = true;
+                }
+                output.innerHTML = "Forest <span>forest</span> is too dark and dense to go go any further north...";
+                break;
             case roomNum === 11 &&  (inp('go')||inp('enter')||inp('explore'))   &&    (inp('cave')||inp('rocks')) :
+                if (caveInspected === false) {
+                    caveCutscene();
+                    caveInspected = true;
+                }
                 room7Switch();
                 roomNum = 7;
                 userInput.value = "";
@@ -1474,7 +1541,11 @@ const checkMap = () => {
 
             // CLIMB TREES
             case inp('climb')  &&    (inp('tree')||inp('branch'))   :
-                output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch and look out over the forest. There's a lake to the <span>south</span>, and some stony outcroppings to the <span>north west</span>. Beyond that the forest extends far into the distance.<br><br>You enjoy the view for a minute, then climb down.";
+                output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch and look out over the forest. There is a <span>lake</span> to the <span>south</span>, but besides that the trees stretch as far as the eye can see.<br><br>You enjoy the view for a minute, then climb down.";
+                if (treeClimbed === false) {
+                    playTreeClimbCutscene();
+                    treeClimbed = true;
+                };
                 break;
 
             // GET FLOWER
@@ -1491,6 +1562,9 @@ const checkMap = () => {
                 break;
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get'))   &&    (inp('flower')) :
                 output.innerHTML = "There aren't any flowers around here.";
+                break;
+            case inp('smell') &&    (inp('flower')) &&  (roomNum === 1 || roomNum === 3 || roomNum === 5)   :
+                output.innerHTML = "Lovely :)<br><br>+10 points";
                 break;
 
             // INTERACT WITH ROCKS
