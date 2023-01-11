@@ -56,7 +56,7 @@
             <br><br>
             Try <span>looking around</span>.
             <br><br>
-            You can type <span>help</span> at any time to get a hint.
+            You can type <span>"help"</span> at any time to get a hint.
         </div>
         <div class="dialoguearea">
             <input type="button" id="dialogue1" class="dialogue" value="Option 1">
@@ -152,6 +152,7 @@ const makeFadeAway = () => {
     let caveInspected = false;
     let lakeDiscovered = false;
     let boxSmashed = 0;
+    let firstCutscene = false;
 
     const roomVisited = ["", true, false, false, false, false, false, false, false, false, false, false, false, false];
     const inventory = [];
@@ -325,6 +326,16 @@ const playCaveCutscene = () => {
 const playBeachCutscene = () => {
     document.getElementById('cutsceneviewer').style.display = "flex";
     document.getElementById("cutscene").src="./cutscenes/beachcutscene.mp4";
+    let currentCutscene = document.getElementById("cutscene");
+    currentCutscene.addEventListener('ended', function() {
+        document.getElementById('cutsceneviewer').style.display = "none";
+        document.getElementById("cutscene").src="";
+    })
+};
+
+const playFirstCutscene = () => {
+    document.getElementById('cutsceneviewer').style.display = "flex";
+    document.getElementById("cutscene").src="./cutscenes/firstcutscene.mp4";
     let currentCutscene = document.getElementById("cutscene");
     currentCutscene.addEventListener('ended', function() {
         document.getElementById('cutsceneviewer').style.display = "none";
@@ -963,7 +974,7 @@ const checkMap = () => {
                 roomNum = 12;
                 break;
 
-            // SPECIAL CARE FOR ROOM 13
+            // SPECIAL CASE FOR ROOM 13
             case roomNum === 13 && inp("go")   &&    inp('up') :
                 userInput.value = "";
                 room10Switch();
@@ -986,7 +997,11 @@ const checkMap = () => {
                 output.innerHTML = "The <span>door</span> is locked.";
                 break;
             case roomNum === 1 &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "It is twilight. The <span>door frame</span> is standing in a grassy clearing surrounded by trees and scattered <span>rocks</span> and <span>flowers</span>.<br><br>To the <span>north</span> and <span>east</span> the forest grows dark and dense. To the <span>south</span>, you can hear the distant sound of water. To the <span>northwest</span> you can see a rocky outcropping above the trees.";
+                if (firstCutscene === false) {
+                    playFirstCutscene();
+                    firstCutscene = true;
+                }
+                output.innerHTML = "It is twilight. The <span>door frame</span> is standing in a grassy clearing surrounded by trees and scattered <span>rocks</span> and <span>flowers</span>.<br><br>To the <span>north</span> and <span>east</span> the forest grows dark and dense. To the <span>south</span>, you can hear the distant sound of water. To the <span>northwest</span> you can see a rocky outcropping.";
                 break;
             case roomNum === 1 &&    (inp('inspect')||inp('look')||inp('search')||inp('check')||inp('behind'))    &&    (inp('door')||inp('frame'))     :
                 output.innerHTML = "The <span>door</span> is made of a dark wood, and it's <span>handle</span> and <span>lock</span> are iron. It's worn, but sturdy. Something tells you it's been hear a long time.<br><br>There's not much else around. Try walking in a <span>direction</span>";
