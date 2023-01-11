@@ -153,6 +153,7 @@ const makeFadeAway = () => {
     let lakeDiscovered = false;
     let boxSmashed = 0;
     let firstCutscene = false;
+    let sassyHint = false;
 
     const roomVisited = ["", true, false, false, false, false, false, false, false, false, false, false, false, false];
     const inventory = [];
@@ -662,8 +663,8 @@ const checkMap = () => {
                 output.innerHTML = "You can't see the sky from here.";
                 break;
             
-        // HINT
-            case (inp("hint") || inp("help") || inp("clue")) && firstHint === false :
+        // GET HINT
+            case (inp("hint") || inp("help") || inp("clue")) && firstHint === false && boxSmashed < 3 :
                 output.innerHTML = "There is something strange about this place...<br><br>Try typing <span>\"look around\"</span>, <span>\"walk\"</span> in a direction, or <span>\"look\"</span> at something.<br><br>You can also <span>take</span> useful objects, or type <span>\"pockets\"</span> to see what objects you have with you.<br><br> You can type <span>\"map\"</span> to see where you've been.";
                 firstHint = true;
                 break;
@@ -673,28 +674,44 @@ const checkMap = () => {
             case (inp("hint") || inp("help") || inp("clue")) && roomVisited[4] === false && roomVisited[3] === false && roomVisited[10] === false  && roomVisited [5] === false:
                 output.innerHTML = "There's a lot of forest to explore! Try typing <span>\"walk east\"</span>, or <span>\"map<\"/span> to see where you are.";
                 break;
-            case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === false && roomNum !== 12 && roomNum !== 5 && roomNum !== 6:
+            case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === false &&  boxUnlocked === false && roomNum !== 12 && roomNum !== 5 && roomNum !== 6:
                 output.innerHTML = "You can hear the sound of water to the <span>south</span>. That might be a good place to <span>look around</span>.";
                 break;
-            case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === false :
+            case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === false &&  boxUnlocked === false :
                 output.innerHTML = "Try <span>searching</span> around the water to see what has washed up on the shore.";
                 break;
-            case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === true && haveBox === false && triedKeyOnDoor === false:
+            case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === true && haveBox === false && triedKeyOnDoor === false &&  boxUnlocked === false:
                 output.innerHTML = "You found a <span>key</span>!<br><br>I bet it unlocks something nearby.";
                 break;
-            case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === true && haveBox === false && triedKeyOnDoor === true:
+            case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === true && haveBox === false && triedKeyOnDoor === true &&  boxUnlocked === false:
                 output.innerHTML = "Welp, looks like you have the wrong <span>key</span> for the <span>door</span>.<br><br>Maybe this <span>key</span> fits something else nearby.";
                 break;
-            case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === true :
+            case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === true &&  boxUnlocked === false :
                 output.innerHTML = "You can hear something inside the <span>box</span> when you shake it. Maybe the <span>key</span> is nearby.<br><br>Try <span>searching</span> around the water some more. Maybe it washed up nearby.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === false :
                 output.innerHTML = "Try checking your <span>inventory</span> to see if anything you have can be used together.";
                 break;
-            case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && haveFireflies === false & firefliesReleased === false:
+            case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && boxSmashed < 3 && haveFireflies === false && firefliesReleased === false && thingsTried < 30:
                 output.innerHTML = "You used the key to open <span>box</span>! There wasn't much inside, just this <span>red ribbon</span>.<br><br>Maybe the <span>box</span> can be used for something else.";
                 break;
-
+            case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && haveFireflies === false && firefliesReleased === false && boxSmashed > 2 && (thingsTried < 10 || sassyHint === false):
+                output.innerHTML = "You really think I'm gonna give you a hint after you smashed open the <span>box</span> like that? HA.<br><br>This one's on you.";
+                sassyHint = true;
+                break;
+            case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && haveFireflies === false && firefliesReleased === false && boxSmashed > 2  && thingsTried < 30:
+                output.innerHTML = "I told you I wasn't gonna give you a hint.<br><br>Shouldn't've smashed the <span>box</span>";
+                break;
+            case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && haveFireflies === false && firefliesReleased === false && boxSmashed > 2  && thingsTried > 29:
+                output.innerHTML = "Ok fine. Here's a hint: something in your pockets can be used to help explore an <span>area</span>. That's all I'm gonna say.";
+                break;
+            case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && boxSmashed < 3 && haveFireflies === false && firefliesReleased === false && thingsTried > 29 && roomVisited[7] === false:
+                output.innerHTML = "Try exploring the map a bit more!";
+                break;
+            case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && boxSmashed < 3 && haveFireflies === false && firefliesReleased === false && thingsTried > 29:
+                output.innerHTML = "That <span>cave</span> is super dark. Maybe something in the environment can be used to light it up a bit.";
+                break;
+            
 
 
         // MAP CHECKING
@@ -1209,8 +1226,13 @@ const checkMap = () => {
                 };
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy <span>something</span> shining under the water near the rocks.";
                 break;
-            case roomNum === 5 &&  haveBoxKey === false &&  (inp('search')||inp('inspect')||inp('look')||inp('check'))   &&    (inp('water')||inp('rock')||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
+            case roomNum === 5 &&  haveBoxKey === false && boxSmashed < 3 && (inp('search')||inp('inspect')||inp('look')||inp('check'))   &&    (inp('water')||inp('rock')||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
                 output.innerHTML = "You find a <span>key</span> in the rocks by the shore! You put the <span>key</span> in your <span>pocket</span>.";
+                haveBoxKey = true;
+                inventory.push("a <span>silver key</span>");
+                break;
+            case roomNum === 5 &&  haveBoxKey === false &&  (inp('search')||inp('inspect')||inp('look')||inp('check'))   &&    (inp('water')||inp('rock')||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
+                output.innerHTML = "You find a <span>key</span> in the rocks by the shore! Too bad you already smashed the open <span>box</span>, so now it's worthless.<br><br>...Or is it...?<br><br>...It is.";
                 haveBoxKey = true;
                 inventory.push("a <span>silver key</span>");
                 break;
@@ -1693,12 +1715,13 @@ const checkMap = () => {
                 output.innerHTML = "The <span>box</span> opens with a satisfying click.<br><br>Inside the <span>box</span> you find a <span>red ribbon</span>. You put the <span>ribbon</span> in your <span>pocket</span>.";
                 boxUnlocked = true;
                 haveRibbon = true;
+                thingsTried = 0;
                 inventory.push("a <span>red ribbon</span>");
                 if (checkingInventory === true) {
                     displayInventory();
                 }
                 break;
-            case (inp('unlock')||inp('open')||inp('key'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveBoxKey === false  :
+            case (inp('unlock')||inp('open')||inp('key'))   &&  !(inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))  && (inp('box')||inp('chest'))  && haveBox === true && haveBoxKey === false  :
                 output.innerHTML = "The <span>box</span> is securely locked, and you don't have a <span>key</span>." ;
                 break;
             case (inp('shake')||inp('rattle'))   &&    (inp('box')||inp('chest'))  && haveBox === true && boxUnlocked === false  :
@@ -1711,20 +1734,21 @@ const checkMap = () => {
                 output.innerHTML = "The <span>box</span> is made of hard wood and reinforced with metal banding and a silver lock. You can see the glow from the <span>fireflies</span> through the crack in the lid." ;
                 break;
             case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true && boxSmashed === 0 && boxUnlocked === false    :
-                output.innerHTML = "You hit the <span>box</span> with a rock... and it opens! ...just kidding.<br><br>This is a puzzle game. Not a smashing-stuff-with-rocks game. That almost never works." ;
+                output.innerHTML = "You hit the <span>box</span> with a rock... and it opens! ...just kidding.<br><br>This is a puzzle game. Not a smashing-stuff-with-rocks game." ;
                 boxSmashed++;
                 break;
-            case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true  && boxSmashed === 1 :
-                output.innerHTML = "Didn't I already tell you that wasn't going to work? You gotta find a smart way to open the box." ;
+            case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true  && boxSmashed === 1 && boxUnlocked === false  :
+                output.innerHTML = "Didn't I already tell you that wasn't going to work? You gotta find a smart way to open the <span>box</span>." ;
                 boxSmashed++;
                 break;
-            case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true  && boxSmashed === 2 :
-                output.innerHTML = "It's a nice box! Don't smash it! The key is literally in the next screen over. This is just rude." ;
+            case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true  && boxSmashed === 2 && boxUnlocked === false :
+                output.innerHTML = "It's a nice <span>box</span>! Don't smash it! The <span>key</span> is literally in the next screen over. This is just rude." ;
                 boxSmashed++;
                 break;
             case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true  && boxSmashed === 3 :
-                output.innerHTML = "Okay fine!!! You smash the box and it opens! Are you happy now??<br><br>There's a <span>red ribbon</span> inside. Good luck smashing that around you jerk." ;
+                output.innerHTML = "Okay fine!!! You smash the <span>box</span> and it opens! Are you happy now??<br><br>There's a <span>red ribbon</span> inside. Good luck smashing that around you jerk." ;
                 boxUnlocked = true;
+                thingsTried = 0;
                 haveRibbon = true;
                 removeItem("a <span>wooden box</span");
                 inventory.push("a <span>smashed-up box</span>");
@@ -1795,7 +1819,7 @@ const checkMap = () => {
         };
 
         // INCREASE "THINGS TRIED"
-        thingsTried++;
+        thingsTried++; // resets when the box is unlocked
 
         // CLEAR INPUT FORM
         userInput.value = "";
