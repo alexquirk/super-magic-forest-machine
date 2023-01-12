@@ -42,7 +42,7 @@
             <img id= "inventory7" src="./inventoryimages/rock.png">
             <img id= "book">
             <div id= "maptiles">
-                <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" src="./maptiles/room1tile.png"><img class="roomtile" id="room2tile"><img class="roomtile" id="room3tile"><img class="roomtile" id="room4tile"><img class="roomtile" id="room5tile"><img class="roomtile" id="room6tile"><img class="roomtile" id="room7tile"><img class="roomtile" id="room8tile"><img class="roomtile" id="room9tile"><img class="roomtile" id="room10tile"><img class="roomtile" id="room11tile"><img class="roomtile" id="room12tile">
+                <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" src="./maptiles/room1tile.png" onclick="room1Switch()"><img class="roomtile" id="room2tile" onclick="room2Switch()"><img class="roomtile" id="room3tile" onclick="room3Switch()"><img class="roomtile" id="room4tile" onclick="room4Switch()"><img class="roomtile" id="room5tile" onclick="room5Switch()"><img class="roomtile" id="room6tile" onclick="room6Switch()"><img class="roomtile" id="room7tile" onclick="room7Switch()"><img class="roomtile" id="room8tile" onclick="room8Switch()"><img class="roomtile" id="room9tile" onclick="room9Switch()"><img class="roomtile" id="room10tile" onclick="room10Switch()"><img class="roomtile" id="room11tile" onclick="room11Switch()"><img class="roomtile" id="room12tile" onclick="room12Switch()">
             </div>   
         </div>
         <img class="border2" src="./roomimages/border 2.png">
@@ -399,6 +399,7 @@ const room1Switch = () => {
         output.innerHTML = "The <span>wooden door</span> stands in the middle of the clearing.";
         moveAllRoomsBack();
         room1.style.zIndex = "0";
+        roomNum = 1;
     };
     const room2Switch = () => {
         if (roomVisited[2] === false) {
@@ -412,6 +413,7 @@ const room1Switch = () => {
         moveAllRoomsBack();
         room2.style.zIndex = "0";
         document.getElementById("room2tile").src="./maptiles/room2tile.png";
+        roomNum = 2;
     };
     const room3Switch = () => {
         if (roomVisited[3] === false) { 
@@ -429,6 +431,7 @@ const room1Switch = () => {
         moveAllRoomsBack();
         room3.style.zIndex = "0";
         document.getElementById("room3tile").src="./maptiles/room3tile.png";
+        roomNum = 3;
     };
     const room4Switch = () => {
         if (roomNum === 1 && marbleDown === false) {
@@ -449,6 +452,7 @@ const room1Switch = () => {
         else {room4.src="./roomimages/smfmroom4c.png"};
         room4.style.zIndex = "0";
         document.getElementById("room4tile").src="./maptiles/room4tile.png";
+        roomNum = 4;
     };
     const room5Switch = () => { 
         if (roomNum === 1) {
@@ -464,6 +468,7 @@ const room1Switch = () => {
         moveAllRoomsBack();
         room5.style.zIndex = "0";
         document.getElementById("room5tile").src="./maptiles/room5tile.png";
+        roomNum = 5;
     };
     const room6Switch = () => {
         if (haveRope === false && ropeSet === false && roomNum === 5) {
@@ -481,6 +486,7 @@ const room1Switch = () => {
         else {room6.src="./roomimages/smfmroom6b.png"};
         room6.style.zIndex = "0";
         document.getElementById("room6tile").src="./maptiles/room6tile.png";
+        roomNum = 6;
     }; 
     const room7Switch = () => {
         if (firefliesReleased === false) {
@@ -501,6 +507,7 @@ const room1Switch = () => {
             document.getElementById("room7tile").src="./maptiles/room7tile.png";
         }
         room7.style.zIndex = "0";
+        roomNum = 7;
     }; 
     const room8Switch = () => {
         if (roomVisited[8] === false) {
@@ -514,6 +521,7 @@ const room1Switch = () => {
         moveAllRoomsBack();
         room8.style.zIndex = "0";
         document.getElementById("room8tile").src="./maptiles/room8tile.png";
+        roomNum = 8;
     };
     const room9Switch = () => {
         if (roomVisited[9] === false) {
@@ -529,6 +537,7 @@ const room1Switch = () => {
         else {room9.src="./roomimages/smfmroom9a.png"};
         room9.style.zIndex = "0";
         document.getElementById("room9tile").src="./maptiles/room9tile.png";
+        roomNum = 9;
     }; 
     const room10Switch = () => {
         if (roomVisited[10] === false) { 
@@ -557,6 +566,7 @@ const room1Switch = () => {
         else {room10.src="./roomimages/smfmroom10b.png"};
         room10.style.zIndex = "0";
         document.getElementById("room10tile").src="./maptiles/room10tile.png";
+        roomNum = 10;
     }; 
     const room11Switch = () => {
         if (roomVisited[11] === false) {
@@ -572,6 +582,7 @@ const room1Switch = () => {
         moveAllRoomsBack();
         room11.style.zIndex = "0";
         document.getElementById("room11tile").src="./maptiles/room11tile.png";
+        roomNum = 11;
     };
     const room12Switch = () => {
         if (robotAwake === false) {
@@ -596,6 +607,7 @@ const room1Switch = () => {
         else {room12.src="./roomimages/smfmroom12b.png"};
         room12.style.zIndex = "0";
         document.getElementById("room12tile").src="./maptiles/room12tile.png";
+        roomNum = 12;
     }; 
     const room13Switch = () => {
         output.innerHTML = "You carefully climb down the rope to the bottom of the <span>well</span>.";
@@ -604,6 +616,7 @@ const room1Switch = () => {
         if (mugTaken === false) {room13.src="./roomimages/smfmroom13a.png"}
         else {room13.src="./roomimages/smfmroom13b.png"};
         room13.style.zIndex = "0";
+        roomNum = 13;
     }; 
 
 // VIEWING THE MAP
@@ -1294,11 +1307,11 @@ const checkMap = () => {
                 break;
             case roomNum === 4  && marbleDown === false &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
                 catDiscovered = true;
-                output.innerHTML = "You throw a <span>rock</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.<br><br>-100 points";
+                output.innerHTML = "You throw a <span>rock</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.<br><br>-50 points";
                 break;
             case roomNum === 4  && marbleDown === false &&  (inp('throw')||inp('toss')||inp('hit'))   ||    (inp('stick')) && inp('branch')   :
                 catDiscovered = true;
-                output.innerHTML = "You throw a <span>stick</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.<br><br>-100 points";
+                output.innerHTML = "You throw a <span>stick</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.<br><br>-50 points";
                 break;
             case roomNum === 4  && marbleDown === false &&  (inp('pull')||inp('grab')||inp('hit')||inp('ask')||inp('lure')||inp('tease')||inp('take')) && inp('cat')   :
                 catDiscovered = true;
@@ -1358,7 +1371,7 @@ const checkMap = () => {
                 };
                 output.innerHTML = "The lakeshore is scattered with large <span>rocks</span> small pieces of driftwood that have washed in on the tide.<br><br>The lake is really wide... You can't see the other side.";
                 break;
-            case roomNum === 5 &&   (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('beach')) && haveBoxKey === false  && waterSearchedOnce === false   :
+            case roomNum === 5 &&   (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')) && haveBoxKey === false  && waterSearchedOnce === false   :
                 if (lakeDiscovered === false) {
                     playBeachCutscene();
                     lakeDiscovered = true;
@@ -1371,7 +1384,7 @@ const checkMap = () => {
                 haveBoxKey = true;
                 inventory.push("a <span>silver key</span>");
                 break;
-            case roomNum === 5 &&  haveBoxKey === false &&  (inp('search')||inp('inspect')||inp('look')||inp('check'))   &&    (inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('beach')||inp('water')||inp('rock')||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
+            case roomNum === 5 &&  haveBoxKey === false &&  (inp('search')||inp('inspect')||inp('look')||inp('check'))   &&    (inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')||inp('water')||inp('rock')||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
                 output.innerHTML = "You find a <span>key</span> in the rocks by the shore! Too bad you already smashed the open <span>box</span>, so now it's worthless.<br><br>...Or is it...?<br><br>...It is.";
                 haveBoxKey = true;
                 inventory.push("a <span>silver key</span>");
@@ -1382,14 +1395,14 @@ const checkMap = () => {
 
             // ROOM 6
                 // B.S.
-            case roomNum === 6 &&  ropeTaken === false && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('shore')||inp('beach'))     :
+            case roomNum === 6 &&  ropeTaken === false && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('shore')||inp('beach'))     :
                 if (lakeDiscovered === false) {
                     playBeachCutscene();
                     lakeDiscovered = true;
                 };
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>There is an old half-sunk <span>boat</span> tied up near the shore.";
                 break;
-            case roomNum === 6 &&  ropeTaken === true && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('shore')||inp('beach'))     :
+            case roomNum === 6 &&  ropeTaken === true && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('shore')||inp('beach'))     :
                 if (lakeDiscovered === false) {
                     playBeachCutscene();
                     lakeDiscovered = true;
@@ -1524,7 +1537,7 @@ const checkMap = () => {
             case roomNum === 7 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "It's too dark to see anything.";
                 break;
-            case roomNum === 7 &&  (inp('exit')||inp('leave'))   &&    (inp('cave')) :
+            case (roomNum === 7 || roomNum === 8) && (inp('exit')||inp('leave'))   &&    (inp('cave')) :
                 room11Switch();
                 roomNum = 11;
                 userInput.value = "";
@@ -1738,10 +1751,10 @@ const checkMap = () => {
                 break;
 
             // INTERACT WITH WATER
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('shore'))     :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('shore'))     :
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.";
                 break;
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('swim')||inp('dive')||inp('jump')||inp('cross')||inp('get'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('bank')||inp('beach'))     :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('swim')||inp('dive')||inp('jump')||inp('cross')||inp('get'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach'))     :
                 output.innerHTML = "You didn't bring a swim suit! The water seems cold anyway.";
                 break;
             case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('catch')||inp('grab')||inp('take')||inp('lure')||inp('get'))   &&    (inp('fish'))     :
@@ -2016,6 +2029,23 @@ const checkMap = () => {
             case (inp('inspect')||inp('look')||inp('check')||inp('search')||inp('find'))   :
                 output.innerHTML = "What do you want to look at?";
                 break;
+                
+            // TRAVEL TO LAKE
+            case roomNum !== 8 && roomNum !== 7 && roomNum !== 13  && (inp('travel')||inp('go')||inp('walk'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')) :
+                if (roomNum === 11 || roomNum === 10) {
+                    room12Switch();
+                    userInput.value = "";
+                    roomNum = 12;
+                } else if (roomNum === 1 || roomNum === 4) {
+                    room5Switch();
+                    userInput.value = "";
+                    roomNum = 5;
+                } else {
+                    room6Switch();
+                    userInput.value = "";
+                    roomNum = 6;
+                };
+                break;
 
             // DEFAULT "GO"
             case (inp("walk")||inp('go')||inp('travel')):
@@ -2047,10 +2077,10 @@ const checkMap = () => {
                 break;
 
             // DEFAULT "POSITIVITY"
-            case (inp('love')||inp('great')||inp('good')||inp('happy')||inp('fine')||inp('okay')||inp('not bad'))   :
+            case (inp('love')||inp('great')||inp('good')||inp('happy')||inp('fine')||inp('okay')||inp('not bad')||inp(':)'))   :
                 output.innerHTML = ":)";
                 break;
-                
+
             // DEFAULT QUESTION WORDS
             case inp('what') :
                 output.innerHTML = "Try interacting with some of the objects.";
