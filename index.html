@@ -33,13 +33,13 @@
             <div id= "map">
                 <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png">
             </div>            
-            <img id= "inventory1">
-            <img id= "inventory2">
-            <img id= "inventory3">
-            <img id= "inventory4">
-            <img id= "inventory5">
-            <img id= "inventory6">
-            <img id= "inventory7">
+            <img id= "inventory1" src="">
+            <img id= "inventory2" src="./inventoryimages/ribbon.png">
+            <img id= "inventory3" src="./inventoryimages/mug.png">
+            <img id= "inventory4" src="./inventoryimages/key.png">
+            <img id= "inventory5" src="./inventoryimages/crystal.png">
+            <img id= "inventory6" src="./inventoryimages/flower.png">
+            <img id= "inventory7" src="./inventoryimages/rock.png">
             <img id= "book">
             <div id= "maptiles">
                 <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" src="./maptiles/room1tile.png"><img class="roomtile" id="room2tile"><img class="roomtile" id="room3tile"><img class="roomtile" id="room4tile"><img class="roomtile" id="room5tile"><img class="roomtile" id="room6tile"><img class="roomtile" id="room7tile"><img class="roomtile" id="room8tile"><img class="roomtile" id="room9tile"><img class="roomtile" id="room10tile"><img class="roomtile" id="room11tile"><img class="roomtile" id="room12tile">
@@ -185,55 +185,58 @@ const makeFadeAway = () => {
         // document.getElementById("map").classList.toggle('blur');
     };
     // Displaying Inventory Images
+    
+    const switchChestRopeImage = () => {
+        if (haveFireflies === true && haveRope === true) {
+                document.getElementById("inventory1").src="./inventoryimages/boxglowrope.png";
+            } else if (haveFireflies === true && haveRope === false) {
+                document.getElementById("inventory1").src="./inventoryimages/boxglow.png";
+            } else if (boxUnlocked === true && haveRope === true) {
+                document.getElementById("inventory1").src="./inventoryimages/boxopenrope.png";
+            } else if (boxUnlocked === true && haveRope === false) {
+                document.getElementById("inventory1").src="./inventoryimages/boxopen.png";
+            } else if (haveBox === true && haveRope === true) {
+                document.getElementById("inventory1").src="./inventoryimages/boxrope.png";
+           } else if (haveBox === true) {
+                document.getElementById("inventory1").src="./inventoryimages/box.png";
+            } else if (haveRope === true) {
+                document.getElementById("inventory1").src="./inventoryimages/rope.png";
+            };
+    }
+
     const displayInventory = () => {
             if (inventory.length > 0) {document.getElementById('map').classList.add('blur')};
             if (haveFlower === true) {
-                    document.getElementById("inventory6").src="./inventoryimages/flower.png";
+                    document.getElementById("inventory6").style.zIndex = "6";
                     checkingInventory = true;
             };
             if (haveRibbon === true) {
-                    document.getElementById("inventory2").src="./inventoryimages/ribbon.png";
+                    document.getElementById("inventory2").style.zIndex = "2";
                     checkingInventory = true;
             };
             if (haveBoxKey === true) {
-                    document.getElementById("inventory4").src="./inventoryimages/key.png";
+                    document.getElementById("inventory4").style.zIndex = "4";
                     checkingInventory = true;
             };
             if (haveCrystal === true) {
-                    document.getElementById("inventory5").src="./inventoryimages/crystal.png";
+                    document.getElementById("inventory5").style.zIndex = "5";
                     checkingInventory = true;
             };
             if (haveRock === true) {
-                    document.getElementById("inventory7").src="./inventoryimages/rock.png";
+                    document.getElementById("inventory7").style.zIndex = "7";
                     checkingInventory = true;
             };
-            if (haveFireflies === true && haveRope === true) {
-                document.getElementById("inventory1").src="./inventoryimages/boxglowrope.png";
-                checkingInventory = true;
-            } else if (haveFireflies === true && haveRope === false) {
-                document.getElementById("inventory1").src="./inventoryimages/boxglow.png";
-                checkingInventory = true;
-            } else if (boxUnlocked === true && haveRope === true) {
-                document.getElementById("inventory1").src="./inventoryimages/boxopenrope.png";
-                checkingInventory = true;
-            } else if (boxUnlocked === true && haveRope === false) {
-                document.getElementById("inventory1").src="./inventoryimages/boxopen.png";
-                checkingInventory = true;
-            } else if (haveBox === true && haveRope === true) {
-                document.getElementById("inventory1").src="./inventoryimages/boxrope.png";
-                checkingInventory = true;
-            } else if (haveBox === true) {
-                document.getElementById("inventory1").src="./inventoryimages/box.png";
-                checkingInventory = true;
-            } else if (haveRope === true) {
-                document.getElementById("inventory1").src="./inventoryimages/rope.png";
-                checkingInventory = true;
+            if (haveBox === true || haveRope === true) {
+                    document.getElementById("inventory1").style.zIndex = "1";
+                    checkingInventory = true;
             };
             if (haveMug === true) {
                 document.getElementById("inventory3").src="./inventoryimages/mug.png";
+                document.getElementById("inventory3").style.zIndex = "3";
                 checkingInventory = true;
             } else if (haveMushy === true) {
                 document.getElementById("inventory3").src="./inventoryimages/mushy.png";
+                document.getElementById("inventory3").style.zIndex = "3";
                 checkingInventory = true;
             }
     };
@@ -618,7 +621,7 @@ const checkMap = () => {
     const processInput = () => {
         //clear inventory
         document.getElementById('map').classList.remove('blur');
-        document.getElementById("inventory1").src="";document.getElementById("inventory2").src="";document.getElementById("inventory3").src="";document.getElementById("inventory4").src="";document.getElementById("inventory5").src="";document.getElementById("inventory6").src="";document.getElementById("inventory7").src="";
+        document.getElementById("inventory1").style.zIndex = "-2";document.getElementById("inventory2").style.zIndex = "-2";document.getElementById("inventory3").style.zIndex = "-2";document.getElementById("inventory4").style.zIndex = "-2";document.getElementById("inventory5").style.zIndex = "-2";document.getElementById("inventory6").style.zIndex = "-2";document.getElementById("inventory7").style.zIndex = "-2";
 
         //clear map
         document.getElementById('maptiles').style.display = "none";
@@ -1417,6 +1420,7 @@ const checkMap = () => {
             case roomNum === 6 &&   haveBox === false  &&  (inp('inspect')||inp('search')||inp('check')||inp('what')||inp('bottom'))   &&    (inp('boat'))     :
                 output.innerHTML = "You look into the bottom of the <span>boat</span> and find a <span>locked wooden box</span>.<br><br>You put the <span>box</span> in your <span>pocket</span>.<br><br>Type \"<span>pockets</span>\" to see what you have with you.";
                 haveBox = true;
+                switchChestRopeImage();
                 inventory.push("a <span>wooden box</span>");
                 break;
             case roomNum === 6   && ropeTaken === false && haveBox === false && (inp('look')||inp('inspect'))  &&    (inp('boat')||inp('moor'))  :
@@ -1446,12 +1450,14 @@ const checkMap = () => {
                 ropeTaken = true;
                 inventory.push("a <span>rope</span>")
                 room6Switch();
+                switchChestRopeImage();
                 output.innerHTML = "You untie the <span>rope</span> and put it in your <span>pocket</span>.<br><br>Type \"<span>pockets</span>\" to see what you have with you.";
                 break;
             case roomNum === 6 &&  (inp('use') && inp('rope')) && ropeTaken === false:
                 haveRope = true;
                 ropeTaken = true;
                 inventory.push("a <span>rope</span>")
+                switchChestRopeImage();
                 room6Switch();
                 output.innerHTML = "The <span>rope</span> is tied to the sunken <span>boat</span>. Mmaybe you can use it to better use elsewhere.";
                 break;
@@ -1564,6 +1570,7 @@ const checkMap = () => {
                 haveRope = false;
                 removeItem("a <span>rope</span>");
                 room10Switch();
+                switchChestRopeImage();
                 output.innerHTML = "You tie the <span>rope</span> to the top of the <span>well</span>. It seems pretty secure... fingers crossed!";
                 break;
             case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
@@ -1623,6 +1630,7 @@ const checkMap = () => {
                 ropeSet = false;
                 inventory.push("a <span>rope</span>");
                 room10Switch();
+                switchChestRopeImage();
                 break;
             case roomNum === 10 && inp('wish') :
                 output.innerHTML = "You make a wish.... but it's secret!";
@@ -1801,7 +1809,7 @@ const checkMap = () => {
             case inp('smell') &&    (inp('flower')) &&  (roomNum === 1 || roomNum === 3 || roomNum === 5)   :
                 output.innerHTML = "Lovely :)<br><br>+10 points";
                 break;
-            case (roomNum === 1 || roomNum === 3 || roomNum === 5)   &&    (inp('flower')||haveFlower === true)  :
+            case ((roomNum === 1 || roomNum === 3 || roomNum === 5) ||  haveFlower === true) &&    inp('flower')  :
                 output.innerHTML = "Lovely :)";
                 break;
 
@@ -1822,6 +1830,10 @@ const checkMap = () => {
                 break;
             case inp('eat')  &&    (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "...";
+                break;
+            case (inp('rock')||inp('stone')||inp('pebble')) && inp('throw')    :
+                output.innerHTML = "You wind up and throw the rock as far as you can.";
+                haveRock = false;
                 break;
             case (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "What about the rocks?";
@@ -2059,8 +2071,6 @@ const checkMap = () => {
         // DEFAULT
             default:
                 output.innerHTML = "Nothing happened.";
-                checkingInventory = false;
-                checkingMap = false;
                 break;
         };
 

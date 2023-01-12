@@ -108,11 +108,9 @@ body {
 #blackbackground {
     background: black;
     z-index: -1;
-    width: 100%;
-    height: 100%;
 }
 
-#map, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #book, #maptiles {
+#map, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #book, #maptiles, #blackbackground {
     max-height: 100%;
     max-width: 100%;
     grid-row: 1;
@@ -153,32 +151,9 @@ body {
     filter: blur(20px); 
 }
 
-#inventory1 {
-    z-index: 1;
-}
-
-#inventory2 {
-    z-index: 2;
-}
-
-#inventory3 {
-    z-index: 3;
-}
-
-#inventory4 {
-    z-index: 4;
-}
-
-#inventory5 {
-    z-index: 5;
-}
-
-#inventory6 {
-    z-index: 6;
-}
-
-#inventory7 {
-    z-index: 7;
+#inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7 {
+    position: relative;
+    z-index: -2;
 }
 
 #compassbox {
