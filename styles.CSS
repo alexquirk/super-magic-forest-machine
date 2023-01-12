@@ -72,7 +72,7 @@ body {
 
 #themachine {
     justify-items: center;
-    display: flex;   
+    display: none;   
     flex-flow:column nowrap;
     max-width: 700px;
     min-width: 320px;

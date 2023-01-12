@@ -30,7 +30,7 @@
         <img class="border1" src="./roomimages/border 1.png">
         <div class="viewer">
             <div id= "map">
-                <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9a.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png">
+                <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png">
             </div>            
             <img id= "inventory1">
             <img id= "inventory2">
@@ -83,16 +83,20 @@
 
 // PRESS ANY KEY TO CONTINUE
 
-document.onkeydown = e =>{ 
+const theMachine = document.getElementById('themachine')
+
+document.onkeydown = e => { 
+    theMachine.style.display = "flex";
     document.getElementById('titlecard').classList.add('fadeout');
     let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
     setTimeout(makeGoAway, 1000);
 };
 const makeFadeAway = () => {
+    theMachine.style.display = "flex";
     document.getElementById('titlecard').classList.add('fadeout');
     let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
     setTimeout(makeGoAway, 1000);
-}
+};
 
 
 //DECLARE VARIABLES
@@ -154,6 +158,7 @@ const makeFadeAway = () => {
     let boxSmashed = 0;
     let firstCutscene = false;
     let sassyHint = false;
+    let firefliesSeen = false;
 
     const roomVisited = ["", true, false, false, false, false, false, false, false, false, false, false, false, false];
     const inventory = [];
@@ -287,7 +292,7 @@ const playGhostCutscene = () => {
     currentCutscene.addEventListener('ended', function() {
         document.getElementById('cutsceneviewer').style.display = "none";
         room9Switch();
-        output.innerHTML = "You reach for the <span>mushrooms</span>...<br><br>but a <span>ghost</span> appears!!<br><br>It seems like it's guarding the mushrooms.";
+        output.innerHTML = "You reach for a <span>mushroom</span>...<br><br>but a <span>ghost</span> appears!!<br><br>It seems like it's guarding the mushrooms.";
         document.getElementById("cutscene").src="";
     })
 };
@@ -324,6 +329,16 @@ const playCaveCutscene = () => {
     })
 };
 
+const playCaveCutscene2 = () => {
+    document.getElementById('cutsceneviewer').style.display = "flex";
+    document.getElementById("cutscene").src="./cutscenes/cavecutscene2.mp4";
+    let currentCutscene = document.getElementById("cutscene");
+    currentCutscene.addEventListener('ended', function() {
+        document.getElementById('cutsceneviewer').style.display = "none";
+        document.getElementById("cutscene").src="";
+    })
+};
+
 const playBeachCutscene = () => {
     document.getElementById('cutsceneviewer').style.display = "flex";
     document.getElementById("cutscene").src="./cutscenes/beachcutscene.mp4";
@@ -337,6 +352,16 @@ const playBeachCutscene = () => {
 const playFirstCutscene = () => {
     document.getElementById('cutsceneviewer').style.display = "flex";
     document.getElementById("cutscene").src="./cutscenes/firstcutscene.mp4";
+    let currentCutscene = document.getElementById("cutscene");
+    currentCutscene.addEventListener('ended', function() {
+        document.getElementById('cutsceneviewer').style.display = "none";
+        document.getElementById("cutscene").src="";
+    })
+};
+
+const playFireflyCutscene = () => {
+    document.getElementById('cutsceneviewer').style.display = "flex";
+    document.getElementById("cutscene").src="./cutscenes/fireflycutscene.mp4";
     let currentCutscene = document.getElementById("cutscene");
     currentCutscene.addEventListener('ended', function() {
         document.getElementById('cutsceneviewer').style.display = "none";
@@ -534,8 +559,10 @@ const room1Switch = () => {
     const room11Switch = () => {
         if (roomVisited[11] === false) {
             output.innerHTML = "You arrive at the mouth of a large <span>cave<span>.";
+        } else if (roomNum === 7) {
+            output.innerHTML = "You follow the light back to the entrance of the <span>cave<span>."
         } else {
-            output.innerHTML = "You travel back to the mouth of the large <span>cave</span>";
+            output.innerHTML = "You arrive at the mouth of the large <span>cave</span>.";
         };
         roomVisited[11] = true;
         mapArrow.style.top = "32%";
@@ -732,7 +759,7 @@ const checkMap = () => {
         // TRAVEL
 
             // GOING EAST
-            case (inp("walk")||inp('go')||inp('travel'))   &&    (inp('east')||inp('right'))  :
+            case ((inp("walk")||inp('go')||inp('travel'))   &&    inp('right'))  || inp('east') :
                 switch (roomNum) {
                     case 9:
                         userInput.value = "";
@@ -798,7 +825,7 @@ const checkMap = () => {
                 break;
 
             // GOING NORTH
-            case roomNum !== 13 && (inp("walk")||inp('go')||inp('travel'))   &&    (inp('north')||inp('up')||inp('straight')||inp('forward'))   :
+            case roomNum !== 13 && ((inp("walk")||inp('go')||inp('travel'))   &&    inp('up')||inp('straight')||inp('forward'))  || inp('north')  :
                 switch (roomNum) {
                     case 3:
                         room2Switch();
@@ -858,7 +885,7 @@ const checkMap = () => {
                 break;
 
             // GOING WEST
-            case (inp("walk")||inp('go')||inp('travel'))   &&    (inp('west')||inp('left'))   :
+            case ((inp("walk")||inp('go')||inp('travel'))   &&    inp('left'))  || inp('west')  :
                 switch (roomNum) {
                     case 11:
                         userInput.value = "";
@@ -924,7 +951,7 @@ const checkMap = () => {
                 break;
 
             // GOING SOUTH
-            case roomNum !== 10 && (inp("walk")||inp('go')||inp('travel'))   &&    (inp('south')||inp('down'))   :
+            case roomNum !== 10 && ((inp("walk")||inp('go')||inp('travel'))   &&    (inp('down'))) || inp('south')  :
                 switch (roomNum) {
                     case 9:
                         userInput.value = "";
@@ -985,7 +1012,7 @@ const checkMap = () => {
                 room13Switch();
                 roomNum = 13;
                 break;
-            case roomNum === 10 && (inp("walk")||inp('go')||inp('travel'))   &&    (inp('south')||inp('down'))   :
+            case roomNum === 10 && ((inp("walk")||inp('go')||inp('travel'))   &&    (inp('down')))  || inp('south')  :
                 room12Switch();
                 userInput.value = "";
                 roomNum = 12;
@@ -1095,9 +1122,17 @@ const checkMap = () => {
             // ROOM 2
             case roomNum === 2 &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "The forest is much denser and darker here, the the air is filled with <span>fireflies</span> that bathe the woods in a warm light.";
+                if (firefliesSeen === false) {
+                    playFireflyCutscene();
+                    firefliesSeen = true;
+                }
                 break;
             case roomNum === 2 &&    (inp('inspect')||inp('look')||inp('search'))    &&    (inp('fire'))     :
                 output.innerHTML = "You've never seen <span>fireflies</span> this bright before! They illuminate the whole forest.";
+                if (firefliesSeen === false) {
+                    playFireflyCutscene();
+                    firefliesSeen = true;
+                }
                 break;
             case roomNum === 2 && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
                 output.innerHTML = 'You catch a <span>firefly</span>, and very carefully put it in the <span>box</span> and close the lid.<br><br>You catch another, and another... and pretty soon the <span>box</span> is full of <span>fireflies</span>!';
@@ -1315,11 +1350,11 @@ const checkMap = () => {
                 output.innerHTML = "You untie the <span>rope</span> and put it in your <span>pocket</span>.";
                 break;
             case roomNum === 6 &&  (inp('use') && inp('rope')) && ropeTaken === false:
-                output.innerHTML = "The <span>rope</span> is tied to the sunken <span>boat</span>. Mmaybe you can use it to better use elsewhere.";
                 haveRope = true;
                 ropeTaken = true;
                 inventory.push("a <span>rope</span>")
                 room6Switch();
+                output.innerHTML = "The <span>rope</span> is tied to the sunken <span>boat</span>. Mmaybe you can use it to better use elsewhere.";
                 break;
             case roomNum === 6 && ropeTaken === true && (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('rope'))     :
                 output.innerHTML = "The <span>rope</span> is gone. You took it, remember?";
@@ -1337,6 +1372,12 @@ const checkMap = () => {
                 break;
             case roomNum === 7 &&  (inp('feel'))   &&    (inp('cave')||inp('around')||inp('wall')) && firefliesReleased === false :
                 output.innerHTML = "The walls of the <span>cave</span> are rough rock. You feel your way forward as far as you can, but the light starts to disappear behind so you turn around and head back.";
+                break;
+            case roomNum === 7 && (inp('rope'))  && firefliesReleased === false && haveRope === true :
+                output.innerHTML = "You tie one end of the <span>rope</span> to a rock near the <span>cave</span> entrance and hold the other end as you walk into the darkness.<br><br>With your hands out in front of you, you slowly feel your way through through the maze of rock. Some of the walls around you feel rough and stoney, while others feel smooth and glassy.<br><br>Eventually you reach the end of the <span>rope</span> and are forced to turn back.";
+                break;
+            case roomNum === 7 && (inp('rope'))  && firefliesReleased === true && haveRope === true :
+                output.innerHTML = "You check around the cave, but it doesn't seem like the <span>rope</span> will be much help right now.";
                 break;
             case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check')||inp('look'))   &&    (inp('cave')||inp('around')) && firefliesReleased === false :
                 output.innerHTML = "You feel your way around the <span>cave</span>. The ground is rocky and the walls smooth. It's much too dark to see anything...<br><br>You smash your shins against something hard a few times before abandoning your search.";
@@ -1414,6 +1455,13 @@ const checkMap = () => {
                 break;
             
             // ROOM 10
+            case roomNum === 10 &&  (inp('use')||inp('tie')||inp('attach')||inp('set')||inp('throw')||inp('drop')||inp('toss'))   &&    (inp('rope'))   &&  haveRope === true  :
+                ropeSet = true;
+                haveRope = false;
+                removeItem("a <span>rope</span>");
+                room10Switch();
+                output.innerHTML = "You tie the <span>rope</span> to the top of the <span>well</span>. It seems pretty secure... fingers crossed!";
+                break;
             case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "There's a stone <span>well</span> in the middle of the clearing.";
                 break;
@@ -1465,13 +1513,6 @@ const checkMap = () => {
             case roomNum === 10 &&  (inp('climb')||inp('use')) &&   (inp('well')||inp('down')||inp('rope'))  && ropeSet === false :
                 output.innerHTML = "You consider trying to climb down the <span>well</span>, but the walls are slippery and you're not sure if you'd be able to get back up again...";
                 break;
-            case roomNum === 10 &&  (inp('use')||inp('tie')||inp('attach')||inp('set')||inp('throw')||inp('drop')||inp('toss'))   &&    (inp('rope'))   &&  haveRope === true  :
-                ropeSet = true;
-                haveRope = false;
-                removeItem("a <span>rope</span>");
-                room10Switch();
-                output.innerHTML = "You tie the <span>rope</span> to the top of the <span>well</span>. It seems pretty secure... fingers crossed!";
-                break;
             case roomNum === 10 &&  ropeSet === true &&  (inp('take')||inp('grab')||inp('pocket')||inp('untie')||inp('remove')||inp('get'))   &&    (inp('rope'))     :
                 output.innerHTML = "You untie the <span>rope</span> and put it in your <span>pocket</span>.";
                 haveRope = true;
@@ -1506,13 +1547,9 @@ const checkMap = () => {
                     playCaveCutscene();
                     caveInspected = true;
                 }
-                output.innerHTML = "Forest <span>forest</span> is too dark and dense to go go any further north...";
+                output.innerHTML = "The only way <span>north</span> is through the <span>cave</span>...";
                 break;
             case roomNum === 11 &&  (inp('go')||inp('enter')||inp('explore'))   &&    (inp('cave')||inp('rocks')) :
-                if (caveInspected === false) {
-                    caveCutscene();
-                    caveInspected = true;
-                }
                 room7Switch();
                 roomNum = 7;
                 userInput.value = "";
@@ -1551,7 +1588,7 @@ const checkMap = () => {
             case roomNum === 13 &&  (inp('take')||inp('grab')||inp('pocket')||inp('get'))   &&    (inp('mug'))  && mugTaken === true   :
                 output.innerHTML = "You already took the <span>mug</span>.";
                 break;
-            case roomNum === 13 &&  (inp('climb')||inp('go')) && (inp('up')||inp('rope')) :
+            case roomNum === 13 &&  (inp('climb')||inp('go')||inp('use')) && (inp('up')||inp('rope')) :
                 room10Switch();
                 roomNum = 10;
                 break;
@@ -1572,6 +1609,7 @@ const checkMap = () => {
             case roomNum === 7 && haveFireflies=== true && (inp('release')||inp('open'))   &&    (inp('box')||inp('chest')||inp('fireflies'))  :
                 firefliesReleased = true;
                 haveFireflies = false;
+                playCaveCutscene2();
                 document.getElementById("room7").src="./roomimages/smfmroom7a.png";
                 removeItem("a <span>box of fireflies</span>");
                 inventory.push("a <span>wooden box</span>");
