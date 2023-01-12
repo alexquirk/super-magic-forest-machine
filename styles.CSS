@@ -316,7 +316,7 @@ body {
     display: flex;
     /* border: 1px solid pink; */
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     padding: 0px 8px;
     margin-bottom: 5px;
 }
@@ -341,6 +341,7 @@ input:focus, textarea {
 
 #userinput {
     width: 280px;
+    flex-grow: 10;
     min-width: 180px;
     padding: 5px;
     -webkit-appearance: none;
