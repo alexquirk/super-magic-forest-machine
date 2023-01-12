@@ -340,11 +340,10 @@ input:focus, textarea {
 }  
 
 #userinput {
-    /* width: 280px; */
-    min-width: 230px;
+    width: 280px;
+    min-width: 180px;
+    padding: 5px;
     -webkit-appearance: none;
-    /* width: 280px; */
-    /* min-width: 230px; */
     appearance: auto;
     -webkit-border-radius: 0px;
     border-radius: 0px;
