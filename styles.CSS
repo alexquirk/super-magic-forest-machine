@@ -340,7 +340,7 @@ input:focus, textarea {
 }  
 
 #userinput {
-    /* width: 280px; */
+    width: 280px;
     min-width: 155px;
     /* flex-grow: 10; */
     /* width: 280px; */
