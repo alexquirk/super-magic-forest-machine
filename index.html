@@ -763,7 +763,7 @@ const checkMap = () => {
         // TRAVEL
 
             // GOING EAST
-            case ((inp("walk")||inp('go')||inp('travel'))   &&    inp('right'))  || inp('east') :
+            case ((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    inp('right'))  || inp('east') :
                 switch (roomNum) {
                     case 9:
                         userInput.value = "";
@@ -829,7 +829,7 @@ const checkMap = () => {
                 break;
 
             // GOING NORTH
-            case roomNum !== 13 && ((inp("walk")||inp('go')||inp('travel'))   &&    inp('up')||inp('straight')||inp('forward'))  || inp('north')  :
+            case roomNum !== 13 && ((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    inp('up')||inp('straight')||inp('forward'))  || inp('north')  :
                 switch (roomNum) {
                     case 3:
                         room2Switch();
@@ -889,7 +889,7 @@ const checkMap = () => {
                 break;
 
             // GOING WEST
-            case ((inp("walk")||inp('go')||inp('travel'))   &&    inp('left'))  || inp('west')  :
+            case ((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    inp('left'))  || inp('west')  :
                 switch (roomNum) {
                     case 11:
                         userInput.value = "";
@@ -955,7 +955,7 @@ const checkMap = () => {
                 break;
 
             // GOING SOUTH
-            case roomNum !== 10 && ((inp("walk")||inp('go')||inp('travel'))   &&    (inp('down'))) || inp('south')  :
+            case roomNum !== 10 && (((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    (inp('down'))) || inp('south'))  :
                 switch (roomNum) {
                     case 9:
                         userInput.value = "";
@@ -1016,7 +1016,7 @@ const checkMap = () => {
                 room13Switch();
                 roomNum = 13;
                 break;
-            case roomNum === 10 && ((inp("walk")||inp('go')||inp('travel'))   &&    (inp('down')))  || inp('south')  :
+            case roomNum === 10 && ((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    (inp('down')))  || inp('south')  :
                 room12Switch();
                 userInput.value = "";
                 roomNum = 12;
