@@ -650,8 +650,8 @@ const checkMap = () => {
             case inp('what') && inp('up'):
                 output.innerHTML = "Nothing much, hbu";
                 break;
-            case inp('marco') :
-                output.innerHTML = "Polo!";
+            case inp('how') && inp('are') && inp('you') :
+                output.innerHTML = "I'm good! How are you?";
                 break;
             case inp('reset'):
                 room1Switch();
@@ -659,13 +659,19 @@ const checkMap = () => {
                 userInput.value = "";
                 output.innerHTML = "";
                 break;
+            case inp('marco') :
+                output.innerHTML = "Polo!";
+                break;
             case inp("fart") :
                 output.innerHTML = "Pfpffpf.";
                 break;
             case inp("peepee") :
                 output.innerHTML = "Poopoo.";
                 break;
-            case (inp('poop')||inp("fuck")||inp("sex")||inp("shit")||inp("cunt")||inp("pussy")||inp("dick")||inp("penis"))||inp('cock')||inp('boner')||inp('crap')||inp('wank')||inp("piss")||inp('shart')||inp('balls')||inp('vagina')||inp('gooch')||inp('retard')||inp('asshole')||inp('ass hole')||inp('bitch')||inp('you die')  :
+            case inp("sexy") :
+                output.innerHTML = ";)";
+                break;
+            case (inp('poop')||inp("fuck")||inp("sex")||inp("shit")||inp("cunt")||inp("pussy")||inp("dick")||inp("penis"))||inp('cock')||inp('boner')||inp('crap')||inp('wank')||inp("piss")||inp('shart')||inp('balls')||inp('vagina')||inp('gooch')||inp('retard')||inp('asshole')||inp('ass hole')||inp('bitch')||inp('you die')||inp('hate')  :
                 if (profanityCounter < 20) {
                     output.innerHTML = profanityResponse[profanityCounter];
                     profanityCounter++;
@@ -675,11 +681,14 @@ const checkMap = () => {
                     profanityCounter++;
                     break;
                 };
-            case (inp("this is")||inp('game')) && inp('stupid') :
+            case (inp("this is")||inp('game')) && (inp('stupid')||inp('dumb')) :
                 output.innerHTML = "No u.";
                 break;
-            case (inp("this is")||inp('game')) && inp('dumb') :
-                output.innerHTML = "No u.";
+            case (inp("this is")||inp('game')) && (inp('stupid')||inp('terrible')||inp('lame')) :
+                output.innerHTML = "Whatever.";
+                break;
+            case (inp("this")||inp('game')) && (inp('suck')||inp('blow')) :
+                output.innerHTML = "lol u wish.";
                 break;
             case (inp("this is")||inp('game')) && inp('retard') :
                 output.innerHTML = "Ok that's just mean.";
@@ -690,16 +699,16 @@ const checkMap = () => {
             case inp('how') && inp('going') :
                 output.innerHTML = "Pretty good! Playing a game with a cool person.";
                 break;
-            case inp('look') && inp('moon') && roomNum !== 7 && roomNum !== 8 && roomNum !== 13:
+            case inp('moon') && roomNum !== 7 && roomNum !== 8 && roomNum !== 13:
                 output.innerHTML = "The moon is just beginning to rise over the forest.";
                 break;
-            case inp('look') && inp('moon') :
+            case inp('moon') :
                 output.innerHTML = "You can't see the moon from here.";
                 break;
-            case inp('look') && (inp('sun') || inp('sky')) && roomNum !== 7 && roomNum !== 8 && roomNum !== 13:
+            case inp('sun') || inp('sky') && roomNum !== 7 && roomNum !== 8 && roomNum !== 13:
                 output.innerHTML = "The sun is beginning to set over the forest.";
                 break;
-            case inp('look') && (inp('sun') || inp('sky')) :
+            case inp('sun') || inp('sky') :
                 output.innerHTML = "You can't see the sky from here.";
                 break;
             
@@ -1049,22 +1058,22 @@ const checkMap = () => {
             
             // ROOM 1
                 // look around
-            case roomNum === 1 &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
+            case roomNum === 1 &&  ( ( (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around')) )  ||  (inp('what')&&inp('place'))  ):
                 if (firstCutscene === false) {
                     playFirstCutscene();
                     firstCutscene = true;
                 }
-                output.innerHTML = "It's twilight. The <span>strange door</span> is standing in a grassy clearing surrounded by trees and scattered <span>rocks</span> and <span>flowers</span>.<br><br>To the <span>north</span> and <span>east</span> the forest grows dark and dense. To the <span>south</span>, you can hear the distant sound of water. To the <span>northwest</span> you can see a rocky outcropping.<br><br>Type \"<span>hint</span>\" if you get stuck.";
+                output.innerHTML = "It's twilight. The <span>strange door</span> is standing in a grassy clearing surrounded by <span>trees</span> and scattered <span>rocks</span> and <span>flowers</span>.<br><br>To the <span>north</span> and <span>east</span> the forest grows dark and dense. To the <span>south</span>, you can hear the distant sound of water. To the <span>northwest</span> you can see a rocky outcropping.<br><br>Type \"<span>hint</span>\" if you get stuck.";
                 break;
             case roomNum === 1 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass, with scattered <span>rocks</span> and <span>flowers</span>.";
                 break;
                 // try to open door
             case roomNum === 1 && doorUnlocked === false && haveBoxKey === false &&    (inp('open')||inp('try')||inp('use'))    &&    (inp('door')||inp('handle')||inp("knob"))  :
-                output.innerHTML = "The <span>strange door</span> is locked.";
+                output.innerHTML = "The <span>door</span> is locked.";
                 break;
             case roomNum === 1   &&  doorUnlocked === false  && haveBoxKey === true && triedKeyOnDoor === false&&    (inp('unlock')||inp('key')||inp('open')||inp('try')||inp('use'))   &&    (inp('door')||inp('handle')||inp('knob'))  :
-                output.innerHTML = "You try to unlock the <span>door</span> with the <span>key</span> you found down by the lake... but it doesn't fit the lock.<br><br>Darn it! You thought for sure that was going to work.<br><br>Now that you look closer, the <span>key</span> is shiny silver, but the lock on the <span>door</span> is a dull iron.<br><br>Maybe this <span>key</span> fits something else.";
+                output.innerHTML = "You try to unlock the <span>door</span> with the <span>key</span> you found down by the lake... but it doesn't fit the lock.<br><br>Darn it! Guess it isn't going to be that easy.<br><br>Maybe this <span>key</span> fits something else.";
                 triedKeyOnDoor = true;
                 break;
             case roomNum === 1    &&  doorUnlocked === false  && haveBoxKey === true  &&    (inp('unlock')||inp('key')||inp('open')||inp('try')||inp('use'))   &&    (inp('door')||inp('handle')||inp('knob'))  :
@@ -1085,7 +1094,7 @@ const checkMap = () => {
                 output.innerHTML = "You knock on the door, but nothing happens.";
                 break;
             case roomNum === 1 &&    (inp('who') && inp('there')) || inp('nok'):
-                output.innerHTML = "Lol you thought.";
+                output.innerHTML = "Lol you thought ;)";
                 break;
             case roomNum === 1  && doorUnlocked === false&&    (inp('take')||inp('grab')||inp('pocket'))    &&    (inp('door')||inp('handle')||inp("knob"))    :
                 output.innerHTML = "You don't have magical pockets, just regular ones. so the <span>door</span> probably isn't going to fit. Besides, it's pretty solid and doesn't look like it's going to be easily moved.";
@@ -1094,30 +1103,51 @@ const checkMap = () => {
                 output.innerHTML = "You pick up a <span>rock</span> and give the <span>door</span> a real good whack. Seriously, you wind up and really lean into it.<br><br>But the <span>door</span> doesn't budge. You didn't even really dent the wood. That's a bummer.<br><br>Can doors can be angry? This <span>door</span> seems angry.";
                 break;
             case roomNum === 1 &&    (inp('thru') || inp('through') || inp('walk') || inp('into') || (inp('in')&&inp('to'))) && inp('door'):
-                output.innerHTML = "The <span>door</span> is closed.";
+                output.innerHTML = "The <span>door</span> is closed. You try the handle, but it's locked.";
+                break;
+            case roomNum === 1 && inp('pick') && inp('lock') :
+                output.innerHTML = "You find a stick and fiddle around with the lock for a bit, but no luck.<br><br>Guess it's not as easy as those adventure novels made it out to be.";
                 break;
                 // stuff for new people
-            case  thingsTried < 40 && boxUnlocked === false && inp('what') && ((inp('going') && inp('on')) || inp('happen')):
+            case  inp('what') && ((inp('going') && inp('on')) || inp('happen')):
                 output.innerHTML = "You suddenly woke up in a strange forest. You can't really remember how you got here, but somehow you know the only way out is through that <span>door</span>.<br><br>Type \"<span>hint</span>\" at any time to get some help.";
                 break;
-            case  thingsTried < 40 && boxUnlocked === false && inp('what') && inp('do') && inp(' i ') :
+            case  inp('what') && inp('do') && inp(' i ') :
                 output.innerHTML = "You get the feeling the only way out is through that <span>door</span>.<br><br>Try typing different things into the prompt and seeing what happens.<br><br>You can type \"<span>hint</span>\" at any time to get some help.";
                 break;
-            case  thingsTried < 40 && boxUnlocked === false && inp('how') && inp('do') && inp(' i ') :
+            case   inp('how') && inp('do') && inp(' i ') :
                 output.innerHTML = "Try typing different things into the prompt and seeing what happens.<br><br>You can type \"<span>hint</span>\" at any time to get some help.";
                 break;
-            case  thingsTried < 40 && boxUnlocked === false && inp('how') && (inp('long')||inp('old')) && inp('door'):
+            case  inp('how') && (inp('long')||inp('old')) && inp('door'):
                 output.innerHTML = "Really old.";
                 break;
-            case  thingsTried < 40 && boxUnlocked === false && inp('where') && (inp('go')):
+            case  inp('where') && (inp('go')):
                 output.innerHTML = "You can type things like \"<span>walk left</span>\" or \"<span>go north</span>\" to explore other parts of the forest. You can type \"<span>map</span>\" to get your bearings.";
                 break;
-            case  thingsTried < 40 && boxUnlocked === false && inp('where') && inp('am') && inp('i'):
-            output.innerHTML = "It's twilight. You're standing in a forest clearing, but you're not sure how you got here. In front of you, a <span>strange door</span> is standing in a grassy clearing surrounded by trees.<br><br>You have a feeling the only way out of here is through that <span>door</span>...";
+            case  inp('where') && inp('am') && inp(' i'):
+                output.innerHTML = "It's twilight. You're standing in a forest clearing, but you're not sure how you got here. In front of you, a <span>strange door</span> is standing in a grassy clearing surrounded by trees.<br><br>You have a feeling the only way out of here is through that <span>door</span>...";
+                break;
+            case  inp('where') && inp('am') && inp(' i'):
+                output.innerHTML = "It's twilight. You're standing in a forest clearing, but you're not sure how you got here. In front of you, a <span>strange door</span> is standing in a grassy clearing surrounded by trees.<br><br>You have a feeling the only way out of here is through that <span>door</span>...";
+                break;
+            case  inp('who') && inp('am') && inp(' i'):
+                output.innerHTML = "You're a traveller in a strange place.";
+                break;
+            case  inp('who') && ((inp('are') && inp('you')) || (inp('is') && inp('this'))):
+                output.innerHTML = "That's a secret.";
+                break;
+            case  inp('rules')  :
+                output.innerHTML = "Explore the forest and open the <span>door</span>.";
                 break;
                 // catch-all for door
             case roomNum === 1 && inp('door') :
                 output.innerHTML = "The <span>door</span> is made of a dark wood, and it's <span>handle</span> and <span>lock</span> are iron. It's worn, but sturdy. Something tells you it's been hear a long time.";
+                break;
+            case roomNum === 1 && inp('lock') && haveBoxKey === false:
+                output.innerHTML = "You wiggle the handle, but the <span>door</span> is securely locked.";
+                break;
+            case roomNum === 1 && inp('lock') && haveBoxKey === true:
+                output.innerHTML = "You try to use the <span>silver key</span> to unlock the door, but it doesn't fit. Drat.";
                 break;
 
             // ROOM 3
@@ -1714,13 +1744,16 @@ const checkMap = () => {
                 break;
             
             // INTERACT WITH TREES
-                // take
-            case (inp('take')||inp('grab')||inp('pocket'))  && inp('tree')   :
-                output.innerHTML = "Your <span>pockets</span> aren't that big! They're just regular sized.";
-                break;
                 // default for tree-less rooms
             case ((roomNum === 7 || roomNum === 8 || roomNum === 13))  &&    (inp('tree')||inp('branch'))     :
                 output.innerHTML = "There aren't any trees around here.";
+                break;
+                // take
+            case (inp('take')||inp('grab')||inp('pocket'))  && (inp('stick') ||inp('branch') ) :
+                output.innerHTML = "Lot's a good sticks around for sure. But your pockets are only so big, so you decide to leave them where the are.";
+                break;
+            case (inp('take')||inp('grab')||inp('pocket'))  && inp('tree')   :
+                output.innerHTML = "Your <span>pockets</span> aren't that big! They're just regular sized.";
                 break;
                 // climb
             case (inp('climb')|| (inp('rope')&&haveRope===true) )  &&    (inp('tree')||inp('branch')) :
@@ -1745,7 +1778,9 @@ const checkMap = () => {
             case (inp('hug')||inp('love'))  && inp('tree')   :
                 output.innerHTML = "Ya hippie :)";
                 break;
-
+            case inp('tree')   :
+                output.innerHTML = "There are a lot of different kinds of trees around you - oaks, sycamore, pines trees, cyrpress, even some eucalyptus. Their leaves cover the ground.<br><br>You search around the trees for a bit, but don't find anything.";
+                break;
 
             // GET FLOWER
             case (roomNum === 1 || roomNum === 3 || roomNum === 5)   &&    (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('flower'))     :
@@ -1764,6 +1799,9 @@ const checkMap = () => {
                 break;
             case inp('smell') &&    (inp('flower')) &&  (roomNum === 1 || roomNum === 3 || roomNum === 5)   :
                 output.innerHTML = "Lovely :)<br><br>+10 points";
+                break;
+            case (roomNum === 1 || roomNum === 3 || roomNum === 5)   &&    (inp('flower')||haveFlower === true)  :
+                output.innerHTML = "Lovely :)";
                 break;
 
             // INTERACT WITH ROCKS
@@ -1784,6 +1822,10 @@ const checkMap = () => {
             case inp('eat')  &&    (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "...";
                 break;
+            case (inp('rock')||inp('stone')||inp('pebble'))    :
+                output.innerHTML = "What about the rocks?";
+                break;
+
 
             // INTERACT WITH GRASS
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get'))   &&    inp('grass')    :
@@ -1804,6 +1846,9 @@ const checkMap = () => {
             case inp('eat')  &&    inp('grass')    :
                 output.innerHTML = "...why??";
                 break;
+            case inp('grass')    :
+                output.innerHTML = "What about the grass?";
+                break;
             
             // STICKS
             case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && inp('stick') && (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')) :
@@ -1820,6 +1865,9 @@ const checkMap = () => {
             case  inp('aim') && inp("for") && inp('bush') :
                 output.innerHTML = "You thinkin what I'm thinkin?";
                 break;
+            case  inp('bush') :
+                output.innerHTML = "What about the bushes?";
+                break;
 
             // LEAVES
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get'))   &&   (inp('leaves')||inp('leaf'))    :
@@ -1828,10 +1876,19 @@ const checkMap = () => {
             case  (inp('leaves')||inp('leaf')) && (inp('search')||inp('inspect')||inp('look')||inp('check')) :
                 output.innerHTML = "You search the leaves, but don't find anything (other than some nice leaves.)";
                 break;
+            case  (inp('leaves')||inp('leaf'))  :
+                output.innerHTML = "The ground is covered in a variety of leaves from all the different kinds of trees.";
+                break;
 
             // DIG
+            case inp('dig') && (inp('gold')||inp('treause')):
+                output.innerHTML = "No treasure here!";
+                break;
+            case inp('dig') && inp('mushroom')  :
+                output.innerHTML = "Not really the season for that.";
+                break;
             case inp('dig'):
-            output.innerHTML = "You don't have anything to dig with, and you're not sure what you'd be looking for anyway.";
+                output.innerHTML = "You don't have anything to dig with, and you're not really sure what you'd be looking for anyway.";
                 break;
 
             // UNLOCK / INTERACT WITH THE BOX IN INVENTORY
@@ -1920,6 +1977,17 @@ const checkMap = () => {
                 output.innerHTML = checkInventory();
                 displayInventory();
                 break;
+
+            // DEFAULT KEY
+            case inp('key') && haveBoxKey === false  :
+                output.innerHTML = "Maybe there is a key around here somewhere. Try <span>looking</span> at things, or <span>walking</span> in a direction.";
+                break;
+            case inp('key') && haveBox === false  :
+                output.innerHTML = "I wonder what this <span>key</span> is for?";
+                break;
+            case inp('key') &&  boxUnlocked === true :
+                output.innerHTML = "There must be a way to open the <span>door</span> somehow.";
+                break;
                     
             // DEFAULT "LOOK"
             case (inp('inspect')||inp('look')||inp('check')||inp('search')||inp('find'))   :
@@ -1940,6 +2008,35 @@ const checkMap = () => {
             // DEFAULT "SOMETHING"
             case inp('something')   :
                 output.innerHTML = "Try looking around you, or interacting with objects.";
+                break;
+
+            // DEFAULT "NEGATIVITY"
+            case (inp('bad')||inp('terrible')||inp('sad')||inp('lonely')||inp('unhappy')||inp('not good')||inp('depress'))   :
+                output.innerHTML = "I'm just a pre-programmed robot, so I can't say much. But you're doing great, and I hope you find a bit of brightness today <3";
+                break;
+
+            // ABOUT THE GAME
+            case inp('game')  :
+                output.innerHTML = "This game was made by nok nok in HTML and Javascript. The 3D images are also mostly made by nok nok in Blender, except for a few models by Liam Xee and Pastean Narcis Dan. The 8-bit style cutscene images are a combination of Night Cafe AI and Photoshop.<br><br>Thanks for playing!";
+                break;
+
+            // DEFAULT "POSITIVITY"
+            case (inp('great')||inp('good')||inp('happy')||inp('fine')||inp('okay')||inp('not bad'))   :
+                output.innerHTML = ":)";
+                break;
+                
+            // DEFAULT QUESTION WORDS
+            case inp('what') :
+                output.innerHTML = "Try interacting with some of the objects.";
+                break;
+            case inp('where') :
+                output.innerHTML = "Try looking around.";
+                break;
+            case inp('when') :
+                output.innerHTML = "It's twilight, and the sun is just beginning to set.";
+                break;
+            case inp('why') :
+                output.innerHTML = "This is a strange place. Maybe you can find some answers by looking around.";
                 break;
 
             // CLEARING INVENTORY
