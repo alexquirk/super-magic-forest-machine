@@ -57,7 +57,7 @@
             <br><br>
             Type something in the prompt below, then press the "ENTER" button.
             <br><br>
-            You can type "<span>help</span>" at any time to get a hint.
+            You can type "<span>hing</span>" at any time to get some help.
         </div>
         <div class="dialoguearea">
             <input type="button" id="dialogue1" class="dialogue" value="Option 1">
@@ -164,7 +164,7 @@ const makeFadeAway = () => {
     const roomVisited = ["", true, false, false, false, false, false, false, false, false, false, false, false, false];
     const inventory = [];
 
-    profanityResponse = ["Hey now! This is a nice game.", "Oh c'mon.", ".....Alright...", "Seriously...?", "Okay, I'm gonna need you to stop that.", "This is getting old now.", "This is getting old now.", "This is getting REAALY old now.", "STOOOPPPPP", "I'M GONNA RESET THE GAME", "I'LL DO IT", "I'LL RESET THE GAME DON'T MAKE ME DO IT", "...", "...", "...", "You are really freaking annoying you know that right", "Okay I'm seriously done this time.", "Okay I'm seriously done this time.", "Okay I'm seriously done this time.", "I said I'M DONE THIS TIME", ""]
+    profanityResponse = ["Hey now! This is a nice game.", "Oh c'mon.", ".....Alright...", "Seriously...?", "Okay, I'm gonna need you to stop that.", "This is getting old now.", "This is getting old now.", "This is getting REAALY old now.", "STOOOPPPPP", "I'M GONNA RESET THE GAME", "I'LL DO IT", "I'LL RESET THE GAME DON'T MAKE ME DO IT", "...", "...", "...", ">:(", "Okay I'm seriously done this time.", "Okay I'm seriously done this time.", "Okay for real I'm seriously done this time.", "I said I'M DONE THIS TIME", "Can't say I didn't warn you :P"]
 
 // INVENTORY
     const checkInventory = () => {
@@ -647,6 +647,9 @@ const checkMap = () => {
             case inp('chill') || (inp('not') && inp('much')):
                 output.innerHTML = "cool cool";
                 break;
+            case inp('what') && inp('supposed'):
+                output.innerHTML = "Try exploring by typing <span>go</span>, followed by a direction. It's also a good idea to type <span>look around</span> when you enter a new area to get the lay of the land.";
+                break;
             case inp('what') && inp('up'):
                 output.innerHTML = "Nothing much, hbu";
                 break;
@@ -672,13 +675,12 @@ const checkMap = () => {
                 output.innerHTML = ";)";
                 break;
             case (inp('poop')||inp("fuck")||inp("sex")||inp("shit")||inp("cunt")||inp("pussy")||inp("dick")||inp("penis"))||inp('cock')||inp('boner')||inp('crap')||inp('wank')||inp("piss")||inp('shart')||inp('balls')||inp('vagina')||inp('gooch')||inp('retard')||inp('asshole')||inp('ass hole')||inp('bitch')||inp('you die')||inp('hate')  :
-                if (profanityCounter < 20) {
+                if (profanityCounter < 21) {
                     output.innerHTML = profanityResponse[profanityCounter];
                     profanityCounter++;
                     break;
                 } else {
-                    output.innerHTML = "";
-                    profanityCounter++;
+                    document.body.style.display = 'none';
                     break;
                 };
             case (inp("this is")||inp('game')) && (inp('stupid')||inp('dumb')) :
@@ -690,8 +692,8 @@ const checkMap = () => {
             case (inp("this")||inp('game')) && (inp('suck')||inp('blow')) :
                 output.innerHTML = "lol u wish.";
                 break;
-            case (inp("this is")||inp('game')) && inp('retard') :
-                output.innerHTML = "Ok that's just mean.";
+            case ((inp("you")&inp('are'))||inp('you\'re')) && inp('mean') :
+                output.innerHTML = "No you're mean!";
                 break;
             case inp("boob")||inp("tits")||inp("titties")||inp("titty") :
                 output.innerHTML = "(.)(.)";
@@ -714,13 +716,12 @@ const checkMap = () => {
             
         // GET HINT
                 // initial hints
-            case (inp("hint") || inp("help") || inp("clue")) && firstHint === false && haveBox === false && ropeTaken === false && haveBoxKey === false && thingsTried < 5 && roomVisited[5] === false && roomVisited[3] === false && roomVisited[10] === false && roomVisited[4] === false    :
+            case (inp("hint") || inp("help") || inp("clue")) && firstHint === false && haveBox === false && ropeTaken === false && haveBoxKey === false && roomVisited[5] === false && roomVisited[3] === false && roomVisited[10] === false && roomVisited[4] === false    :
                 output.innerHTML = "There is something strange about this place...<br><br>You can type commands like \"<span>look around</span>\", \"<span>walk</span>\" in a direction, or \"<span>look</span>\" at something.<br><br>You can also try to put some objects in your pockets, or type \"<span>pockets</span>\" to see what you've picked up so far. Important items are often highligheted in <span>this shade of red</span>.<br><br>You can type \"<span>map</span>\" to see where you've been.";
-                break;
-            case (inp("hint") || inp("help") || inp("clue")) && firstHint === false && haveBox === false && ropeTaken === false && haveBoxKey === false && roomVisited[5] === false && roomVisited[3] === false && roomVisited[10] === false && roomVisited[4] === false :
-                output.innerHTML = "There is something strange about this place...<br><br>You can type commands like \"<span>look around</span>\", \"<span>walk</span>\" in a direction, or \"<span>look</span>\" at something.<br><br>You can also try to put some objects in your pockets, or type \"<span>pockets</span>\" to see what you've picked up so far. Important items are often highligheted in <span>this shade of red</span><br><br>You can type \"<span>map</span>\" to see where you've been.";
                 firstHint = true;
-                thingsTried = 0;
+                break;
+            case (inp("hint") || inp("help") || inp("clue")) && thingsTried < 6 && haveBox === false && ropeTaken === false && haveBoxKey === false && roomVisited[5] === false && roomVisited[3] === false && roomVisited[10] === false && roomVisited[4] === false :
+                output.innerHTML = "You can type commands like \"<span>look around</span>\", \"<span>walk</span>\" in a direction, or \"<span>look</span>\" at something.<br><br>You can also try to put some objects in your pockets, or type \"<span>pockets</span>\" to see what you've picked up so far. Important items are often highligheted in <span>this shade of red</span><br><br>You can type \"<span>map</span>\" to see where you've been.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && roomVisited[4] === false && roomVisited[3] === false && roomVisited[10] === false  && roomVisited [5] === false:
                 output.innerHTML = "There's a lot of forest to explore! Try typing \"<span>walk east</span>\", or \"<span>map</span>\" to see where you are.";
@@ -1980,7 +1981,7 @@ const checkMap = () => {
 
             // DEFAULT KEY
             case inp('key') && haveBoxKey === false  :
-                output.innerHTML = "Maybe there is a key around here somewhere. Try <span>looking</span> at things, or <span>walking</span> in a direction.";
+                output.innerHTML = "The key has got to be around here somewhere.<br><br>Try <span>looking</span> at things, or <span>walking</span> in a direction.";
                 break;
             case inp('key') && haveBox === false  :
                 output.innerHTML = "I wonder what this <span>key</span> is for?";
@@ -2014,6 +2015,9 @@ const checkMap = () => {
             case (inp('bad')||inp('terrible')||inp('sad')||inp('lonely')||inp('unhappy')||inp('not good')||inp('depress'))   :
                 output.innerHTML = "I'm just a pre-programmed robot, so I can't say much. But you're doing great, and I hope you find a bit of brightness today <3";
                 break;
+            case (inp('stupid')||inp('dumb')||inp('lame')||inp('sucks')||inp('blows'))   :
+                output.innerHTML = ":(";
+                break;
 
             // ABOUT THE GAME
             case inp('game')  :
@@ -2021,7 +2025,7 @@ const checkMap = () => {
                 break;
 
             // DEFAULT "POSITIVITY"
-            case (inp('great')||inp('good')||inp('happy')||inp('fine')||inp('okay')||inp('not bad'))   :
+            case (inp('love')||inp('great')||inp('good')||inp('happy')||inp('fine')||inp('okay')||inp('not bad'))   :
                 output.innerHTML = ":)";
                 break;
                 
