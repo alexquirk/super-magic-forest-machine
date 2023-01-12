@@ -295,7 +295,6 @@ const playGhostCutscene = () => {
     let currentCutscene = document.getElementById("cutscene");
     currentCutscene.addEventListener('ended', function() {
         document.getElementById('cutsceneviewer').style.display = "none";
-        room9Switch();
         output.innerHTML = "You reach for a <span>mushroom</span>...<br><br>but a <span>ghost</span> appears!!<br><br>It seems like it's guarding the mushrooms.";
         document.getElementById("cutscene").src="";
     })
@@ -307,7 +306,6 @@ const playMarbleCutscene = () => {
     let currentCutscene = document.getElementById("cutscene");
     currentCutscene.addEventListener('ended', function() {
         document.getElementById('cutsceneviewer').style.display = "none";
-        room4Switch();
         output.innerHTML = "You wave the <span>ribbon</span> around a bit, and suddenly the <span>cat</span> perks up and leaps from the tree!";
         document.getElementById("cutscene").src="";
     })
@@ -641,6 +639,9 @@ const checkMap = () => {
         switch (true) {
     
         // GLOBAL
+            case inp('get room num'):
+                output.innerHTML = roomNum;
+                break;
             case inp('wake') && inp('up'):
                 output.innerHTML = "You rub your eyes and pinch yourself, but nothing happens.";
                 break;
@@ -1200,14 +1201,14 @@ const checkMap = () => {
                 if (firefliesSeen === false) {
                     playFireflyCutscene();
                     firefliesSeen = true;
-                }
+                };
                 break;
             case roomNum === 2 &&    (inp('inspect')||inp('look')||inp('search'))    &&    (inp('fire'))     :
                 output.innerHTML = "You've never seen <span>fireflies</span> this bright before! They illuminate the whole forest.";
                 if (firefliesSeen === false) {
                     playFireflyCutscene();
                     firefliesSeen = true;
-                }
+                };
                 break;
             case roomNum === 2 && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
                 output.innerHTML = 'You catch a <span>firefly</span>, and very carefully put it in the <span>box</span> and close the lid.<br><br>You catch another, and another... and pretty soon the <span>box</span> is full of <span>fireflies</span>!';
@@ -1215,6 +1216,7 @@ const checkMap = () => {
                 removeItem("a <span>smashed-up box</span>");
                 inventory.push("a <span>box of fireflies</span>");
                 haveFireflies = true;
+                switchChestRopeImage();
                 break;
             case roomNum === 2 && (inp('box')||inp('chest')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  haveFireflies === true :
                 output.innerHTML = 'The <span>box</span> is already full of <span>fireflies</span>!';
@@ -1252,11 +1254,12 @@ const checkMap = () => {
                 break;
                 // ribbon and play
             case roomNum === 4  && marbleDown === false && haveRibbon === true &&    (inp('play')||inp('cat')||inp('use')) && inp('ribbon') :
+                playMarbleCutscene();
                 catDiscovered = true;
                 marbleDown = true;
                 haveRibbon = false;
-                removeItem()
-                playMarbleCutscene();
+                removeItem("a <span>red ribbon</span>");
+                room4Switch();
                 break;
             case ( (roomNum === 4 && marbleDown === true) || ( roomNum === 12 && marbleReunited === true ) ) &&  (   inp('play')  ||  (inp('cat')||inp('use')) && inp('ribbon')   ) :
                 output.innerHTML = "You grab the <span>ribbon</span> and wave it around for the <span>cat</span>. Is there anything better than this?";
@@ -1513,6 +1516,7 @@ const checkMap = () => {
                 removeItem("a <span>smashed-up box</span>");
                 inventory.push("a <span>box of fireflies</span>");
                 haveFireflies = true;
+                switchChestRopeImage();
                 break;
             case roomNum === 7 &&  firefliesReleased===true &&  (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The cave floor is a rough stone, and covered in stalagmites and <span>crystals</span>";
@@ -1528,8 +1532,9 @@ const checkMap = () => {
 
             // ROOM 9
             case roomNum === 9 && ghostDiscovered === false   &&  (inp('look')||inp('inspect')||inp('search')||inp('check')||inp('take')||inp('grab')||inp('pocket')||inp('eat'))   &&    (inp('mushroom')||inp('circle'))  :
-                ghostDiscovered = true;
                 playGhostCutscene();
+                ghostDiscovered = true;
+                room9Switch();
                 break;
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false  &&  (inp('search')||inp('take')||inp('grab')||inp('pocket')||inp('eat'))   &&    (inp('mushroom')||inp('circle'))  :
                 output.innerHTML = 'You take a step towards the mushrooms, but the <span>ghostly figure</span> gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br><span class="journal">"Moon... cactus...</span>"<br><br>What could that mean?';
@@ -1711,16 +1716,19 @@ const checkMap = () => {
                 haveFireflies = false;
                 removeItem("a <span>box of fireflies</span>");
                 inventory.push("a <span>wooden box</span>");
+                switchChestRopeImage();
                 break;
             case roomNum !== 7 && haveFireflies=== true && (inp('release')||inp('open'))   &&    (inp('box')||inp('chest')||inp('fireflies'))  :
                 output.innerHTML = 'You release the <span>fireflies</span> into the air. They linger for a moment, glimmering quietly, before floating up and away.<br><br>"Maybe they\'re going back to join their friends", you think.';
                 haveFireflies = false;
                 removeItem("a <span>box of fireflies</span>");
                 inventory.push("a <span>wooden box</span>");
+                switchChestRopeImage();
                 break;
             case roomNum === 7 && haveFireflies=== true && (inp('release')||inp('open'))   &&    (inp('box')||inp('chest')||inp('fireflies'))  :
                 firefliesReleased = true;
                 haveFireflies = false;
+                switchChestRopeImage();
                 playCaveCutscene2();
                 document.getElementById("room7").src="./roomimages/smfmroom7a.png";
                 removeItem("a <span>box of fireflies</span>");
@@ -1911,6 +1919,7 @@ const checkMap = () => {
                 haveRibbon = true;
                 thingsTried = 0;
                 inventory.push("a <span>red ribbon</span>");
+                switchChestRopeImage();
                 if (checkingInventory === true) {
                     displayInventory();
                 }
@@ -1947,6 +1956,7 @@ const checkMap = () => {
                 removeItem("a <span>wooden box</span");
                 inventory.push("a <span>smashed-up box</span>");
                 inventory.push("a <span>red ribbon</span>");
+                switchChestRopeImage();
                 break;
             case inp('smash') && inp('ribbon') && haveRibbon === true:
                 output.innerHTML = "Nothing happened.<br><br>Jerk."
