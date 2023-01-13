@@ -647,7 +647,11 @@ const checkMap = () => {
     document.getElementById('maptiles').style.display = "block";
 };
 
-const clearMap = () => {document.getElementById('maptiles').style.display = "none"};
+const clearMap = () => {
+    document.getElementById('maptiles').style.display = "none"
+    output.innerHTML = "You close your <span>map</span>.";
+    };
+
 
 // USER INPUT
     const inp = (arg) => {
@@ -815,7 +819,7 @@ const clearMap = () => {document.getElementById('maptiles').style.display = "non
             case (inp("hint") || inp("help") || inp("clue")) && firefliesReleased === true && robotAwake === false :
                 output.innerHTML = "You used the <span>fireflies</span> to light up the <span>cave</span>, and found it was full of <span>strange crystals</span>.";
                 break;
-            case (inp("hint") || inp("help") || inp("clue")) && robotAwake === true :
+            case (inp("hint") || inp("help") || inp("clue"))  :
                 output.innerHTML = "You got this!";
                 break;
 
@@ -1791,14 +1795,21 @@ const clearMap = () => {document.getElementById('maptiles').style.display = "non
                 break;
 
             // ROOM 12
-            case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
+            case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('search')) && robotAwake === false  &&    (inp('forest')||inp('around'))     :
                 if (lakeDiscovered === false) {
                     playBeachCutscene();
                     lakeDiscovered = true;
                 };
                 output.innerHTML = "A <span>strange figure</span> is lying under a tree by the lake shore.";
                 break;
-            case roomNum === 12 &&     (inp('tree')||inp('branch'))     :
+            case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('search')) && robotAwake === true  &&    (inp('forest')||inp('around'))     :
+                if (lakeDiscovered === false) {
+                    playBeachCutscene();
+                    lakeDiscovered = true;
+                };
+                output.innerHTML = "A <span>robot</span> is standing under a tree by the lake shore.";
+                break;
+            case roomNum === 12  && robotAwake === false &&     (inp('tree')||inp('branch'))     :
                 output.innerHTML = "There's a <span>robot</span> lying under a tree by the lake shore. It looks like it's sleeping, or powered down.";
                 break;
                 // inspect strange figure
@@ -2088,7 +2099,7 @@ const clearMap = () => {document.getElementById('maptiles').style.display = "non
                 switchChestRopeImage();
                 if (checkingInventory === true) {
                     displayInventory();
-                }
+                };
                 break;
             case (inp('unlock')||inp('open')||inp('key'))   &&  !(inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))  && (inp('box')||inp('chest'))  && haveBox === true && haveBoxKey === false  :
                 output.innerHTML = "The <span>box</span> is securely locked, and you don't have a <span>key</span>." ;
@@ -2098,21 +2109,36 @@ const clearMap = () => {document.getElementById('maptiles').style.display = "non
                 break;
             case (inp('look')||inp('inspect')||inp('check')||inp('search'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveFireflies === false  :
                 output.innerHTML = "The <span>box</span> is made of hard wood and reinforced with metal banding and a silver lock." ;
+                if (checkingInventory === true) {
+                    displayInventory();
+                };
                 break;
             case (inp('look')||inp('inspect')||inp('check')||inp('search'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveFireflies === true  :
                 output.innerHTML = "The <span>box</span> is made of hard wood and reinforced with metal banding and a silver lock. You can see the glow from the <span>fireflies</span> through the crack in the lid." ;
+                if (checkingInventory === true) {
+                    displayInventory();
+                };
                 break;
             case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true && boxSmashed === 0 && boxUnlocked === false    :
                 output.innerHTML = "You hit the <span>box</span> with a rock... and it opens! ...just kidding.<br><br>This is a puzzle game. Not a smashing-stuff-with-rocks game." ;
                 boxSmashed++;
+                if (checkingInventory === true) {
+                    displayInventory();
+                };
                 break;
             case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true  && boxSmashed === 1 && boxUnlocked === false  :
                 output.innerHTML = "Didn't I already tell you that wasn't going to work? You gotta find a smart way to open the <span>box</span>." ;
                 boxSmashed++;
+                if (checkingInventory === true) {
+                    displayInventory();
+                };
                 break;
             case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true  && boxSmashed === 2 && boxUnlocked === false :
                 output.innerHTML = "It's a nice <span>box</span>! Don't smash it! The <span>key</span> is literally in the next screen over. This is just rude." ;
                 boxSmashed++;
+                if (checkingInventory === true) {
+                    displayInventory();
+                };
                 break;
             case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true  && boxSmashed === 3 :
                 output.innerHTML = "Okay fine!!! You smash the <span>box</span> and it opens! Are you happy now??<br><br>There's a <span>red ribbon</span> inside. Good luck smashing that around you jerk." ;
@@ -2123,6 +2149,9 @@ const clearMap = () => {document.getElementById('maptiles').style.display = "non
                 inventory.push("a <span>smashed-up box</span>");
                 inventory.push("a <span>red ribbon</span>");
                 switchChestRopeImage();
+                if (checkingInventory === true) {
+                    displayInventory();
+                };
                 break;
             case inp('smash') && inp('ribbon') && haveRibbon === true:
                 output.innerHTML = "Nothing happened.<br><br>Jerk."
