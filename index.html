@@ -122,6 +122,7 @@ const makeFadeAway = () => {
     let roomNum = 1;
 
     let checkingInventory = false;
+    let inventoryAsk = false;
     let doorUnlocked = false;
     let haveRock = false;
     let haveFlower = false;
@@ -150,6 +151,7 @@ const makeFadeAway = () => {
     let readingAsk = false;
     let ghostDiscovered = false;
     let checkingMap = false;
+    let mapAsk = false;
     let thingsTried = 0;
     let firstHint = false;
     let triedKeyOnDoor = false;
@@ -185,8 +187,8 @@ const makeFadeAway = () => {
         };
         // document.getElementById("map").classList.toggle('blur');
     };
+
     // Displaying Inventory Images
-    
     const switchChestRopeImage = () => {
         if (haveFireflies === true && haveRope === true) {
                 document.getElementById("inventory1").src="./inventoryimages/boxglowrope.png";
@@ -206,39 +208,36 @@ const makeFadeAway = () => {
     }
 
     const displayInventory = () => {
-            if (inventory.length > 0) {document.getElementById('map').classList.add('blur')};
+            if (inventory.length > 0) {
+                map.classList.add('blur');
+                checkingInventory = true;
+                inventoryAsk = true;
+            };
             if (haveFlower === true) {
                     document.getElementById("inventory6").style.zIndex = "6";
-                    checkingInventory = true;
+                    
             };
             if (haveRibbon === true) {
                     document.getElementById("inventory2").style.zIndex = "2";
-                    checkingInventory = true;
             };
             if (haveBoxKey === true) {
                     document.getElementById("inventory4").style.zIndex = "4";
-                    checkingInventory = true;
             };
             if (haveCrystal === true) {
                     document.getElementById("inventory5").style.zIndex = "5";
-                    checkingInventory = true;
             };
             if (haveRock === true) {
                     document.getElementById("inventory7").style.zIndex = "7";
-                    checkingInventory = true;
             };
             if (haveBox === true || haveRope === true) {
                     document.getElementById("inventory1").style.zIndex = "1";
-                    checkingInventory = true;
             };
             if (haveMug === true) {
                 document.getElementById("inventory3").src="./inventoryimages/mug.png";
                 document.getElementById("inventory3").style.zIndex = "3";
-                checkingInventory = true;
             } else if (haveMushy === true) {
                 document.getElementById("inventory3").src="./inventoryimages/mushy.png";
                 document.getElementById("inventory3").style.zIndex = "3";
-                checkingInventory = true;
             }
     };
 
@@ -297,6 +296,17 @@ const playGhostCutscene = () => {
     currentCutscene.addEventListener('ended', function() {
         document.getElementById('cutsceneviewer').style.display = "none";
         output.innerHTML = "You reach for a <span>mushroom</span>...<br><br>but a <span>ghost</span> appears!!<br><br>It seems like it's guarding the mushrooms.";
+        document.getElementById("cutscene").src="";
+    })
+};
+
+const playGhostMugCutscene = () => {
+    document.getElementById('cutsceneviewer').style.display = "flex";
+    document.getElementById("cutscene").src="./cutscenes/ghostmugcutscene.mp4";
+    let currentCutscene = document.getElementById("cutscene");
+    currentCutscene.addEventListener('ended', function() {
+        document.getElementById('cutsceneviewer').style.display = "none";
+        output.innerHTML = 'The <span>ghost</span> fades away, and you catch a faint whisper in the wind:<br><br>"<span class="journal">Thanks for caring...</span>"<br><br>Maybe it\'s just your imagination, but it suddenly seems like the forest around you is a bit brighter.'
         document.getElementById("cutscene").src="";
     })
 };
@@ -622,15 +632,10 @@ const room1Switch = () => {
 
 // VIEWING THE MAP
 const checkMap = () => {
-    if (checkingMap === true){
-        document.getElementById('maptiles').style.display = "block";
-        // map.style.filter = "brightness(50%)";
-    }
+    checkingMap = true;
+    mapAsk = true;
+    document.getElementById('maptiles').style.display = "block";
 };
-
-// const makeMapBright = () => {
-//     map.style.filter = "brightness(100%)";
-// }
 
 // USER INPUT
     const inp = (arg) => {
@@ -646,6 +651,8 @@ const checkMap = () => {
 
         // not being asked
         readingAsk = false;
+        mapAsk = false;
+        inventoryAsk = false;
 
         //clear buttons
         bookButton.style.display = "none";
@@ -662,6 +669,9 @@ const checkMap = () => {
             case inp('get room num'):
                 output.innerHTML = roomNum;
                 break;
+            case inp('get ghost vars'):
+                output.innerHTML = "mugTaken: " + mugTaken + "<br><br>ghostDiscovered: " + ghostDiscovered + "<br><br>ghostGivenMug: " + ghostGivenMug;
+                break;
             case inp('wake') && inp('up'):
                 output.innerHTML = "You rub your eyes and pinch yourself, but nothing happens.";
                 break;
@@ -670,12 +680,6 @@ const checkMap = () => {
                 break; 
             case inp('chill') || (inp('not') && inp('much')):
                 output.innerHTML = "cool cool";
-                break;
-            case inp('what') && inp('supposed'):
-                output.innerHTML = "Try exploring by typing <span>go</span>, followed by a direction. It's also a good idea to type <span>look around</span> when you enter a new area to get the lay of the land.";
-                break;
-            case inp('what') && inp('up'):
-                output.innerHTML = "Nothing much, hbu";
                 break;
             case inp('how') && inp('are') && inp('you') :
                 output.innerHTML = "I'm good! How are you?";
@@ -794,12 +798,11 @@ const checkMap = () => {
 
 
         // MAP CHECKING
-        case inp('map') :
-            checkingMap = true;
-            output.innerHTML = "You open your <span>map</span>."
-            userInput.value = "";
-            checkMap();
-            break;
+            case inp('map') :
+                output.innerHTML = "You open your <span>map</span>."
+                userInput.value = "";
+                checkMap();
+                break;
 
         // CHECK INVENTORY
             case ((inp("check")||inp('look')||inp('inspect'))   &&    inp('pocket')) || inp('inventory')  :
@@ -1109,7 +1112,7 @@ const checkMap = () => {
                 break;
                 // inspect door
             case roomNum === 1 &&    (inp('inspect')||inp('look')||inp('search')||inp('check')||inp('behind'))    &&    (inp('door')||inp('frame'))     :
-                output.innerHTML = "The <span>door</span> is made of a dark wood, and it's <span>handle</span> and <span>lock</span> are iron. It's worn, but sturdy. Something tells you it's been hear a long time.";
+                output.innerHTML = "The <span>door</span> is made of a dark wood, and it's <span>handle</span> and <span>lock</span> are iron. It's worn, but sturdy. Something tells you it's been here a long time.";
                 break;
             case roomNum === 1 &&    (inp('look')||inp('inspect')||inp('try'))   &&    (inp('lock')||inp('handle')||inp('knob'))     :
                 output.innerHTML = "The door's gnob and lock are simple and a bit rusty, but strong. You try to push it open, but it won't budge.";
@@ -1124,7 +1127,7 @@ const checkMap = () => {
             case roomNum === 1  && doorUnlocked === false&&    (inp('take')||inp('grab')||inp('pocket'))    &&    (inp('door')||inp('handle')||inp("knob"))    :
                 output.innerHTML = "You don't have magical pockets, just regular ones. so the <span>door</span> probably isn't going to fit. Besides, it's pretty solid and doesn't look like it's going to be easily moved.";
                 break;
-            case roomNum === 1  && doorUnlocked === false &&    (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('kick')||inp('ram '))    &&    (inp('door')||inp('handle')||inp("knob"))   :
+            case roomNum === 1  && doorUnlocked === false &&    (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('kick')||inp('ram ')||inp('bust'))    &&    (inp('door')||inp('handle')||inp("knob"))   :
                 output.innerHTML = "You pick up a <span>rock</span> and give the <span>door</span> a real good whack. Seriously, you wind up and really lean into it.<br><br>But the <span>door</span> doesn't budge. You didn't even really dent the wood. That's a bummer.<br><br>Can doors can be angry? This <span>door</span> seems angry.";
                 break;
             case roomNum === 1 &&    (inp('thru') || inp('through') || inp('walk') || inp('into') || (inp('in')&&inp('to'))) && inp('door'):
@@ -1164,9 +1167,18 @@ const checkMap = () => {
             case  inp('rules')  :
                 output.innerHTML = "Explore the forest and open the <span>door</span>.";
                 break;
+            case inp('what') && inp('supposed'):
+                output.innerHTML = "Try exploring by typing <span>go</span>, followed by a direction. It's also a good idea to type <span>look around</span> when you enter a new area to get the lay of the land.";
+                break;
+            case inp('what') && inp('is') && inp('this'):
+                output.innerHTML = "Try typing \"<span>look around</span>\" to get your bearings.";
+                break;
                 // catch-all for door
             case roomNum === 1 && inp('door') :
-                output.innerHTML = "The <span>door</span> is made of a dark wood, and it's <span>handle</span> and <span>lock</span> are iron. It's worn, but sturdy. Something tells you it's been hear a long time.";
+                output.innerHTML = "The <span>door</span> is made of a dark wood, and it's <span>handle</span> and <span>lock</span> are iron. It's worn, but sturdy. Something tells you it's been here a long time.";
+                break;
+            case roomNum === 1 && doorUnlocked === false && (inp('knob')||inp('handle')) :
+                output.innerHTML = "You try the <span>door knob</span>, but it's locked.";
                 break;
             case roomNum === 1 && inp('lock') && haveBoxKey === false:
                 output.innerHTML = "You wiggle the handle, but the <span>door</span> is securely locked.";
@@ -1552,7 +1564,7 @@ const checkMap = () => {
 
             // ROOM 9
                 // look around
-            case roomNum === 9  && (ghostDiscovered === false || mugTaken===true)  &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))  :
+            case roomNum === 9  && (ghostDiscovered === false || ghostGivenMug === true)  &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))  :
                 output.innerHTML = "This must be the oldest part of the forest. The trees here look like they haven't seen sunlight in years.<br><br>There is a circle of <span>mushrooms</span> in the middle of the hollow.";
                 break;
             case roomNum === 9 &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))   :
@@ -1565,7 +1577,7 @@ const checkMap = () => {
                 room9Switch();
                 break;
                 // take mushrooms after ghost given mug
-            case roomNum === 9 && ghostGivenMug === true  ( (inp('take')||inp('grab')||inp('pocket')||inp('gather')||inp('pick'))  || (inp('eat')&&haveMushy === false)   )  &&    (inp('mushroom')||inp('circle'))  :
+            case roomNum === 9 && ghostGivenMug === true && ( (inp('take')||inp('grab')||inp('pocket')||inp('gather')||inp('pick'))  || (inp('eat')&&haveMushy === false)   )  &&    (inp('mushroom')||inp('circle'))  :
                 output.innerHTML = 'You pick a nice looking <span>mushroom</span> and put it in your pocket.';
                 haveMushy = true;
                 inventory.push('a <span>wild mushroom</span>');
@@ -1574,7 +1586,7 @@ const checkMap = () => {
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false  &&  (inp('search')||inp('take')||inp('grab')||inp('pocket')||inp('eat')||inp('gather')||inp('pick'))   &&    (inp('mushroom')||inp('circle'))  :
                 output.innerHTML = 'You take a step towards the mushrooms, but the <span>ghostly figure</span> gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br>"<span class="journal">Moon... cactus...</span>"<br><br>What could that mean?';
                 break;
-                // look at with mushrooms
+                // look at mushrooms
             case roomNum === 9 &&  (inp('look')||inp('inspect')||inp('check'))   &&    (inp('mushroom')||inp('circle')) :
                 output.innerHTML = 'The <span>mushrooms</span> are red with white spots. You can\'t decide whether they look delicious, or deadly.';
                 break;
@@ -1583,48 +1595,49 @@ const checkMap = () => {
                 output.innerHTML = 'You take a step towards the mushrooms, but the <span>ghostly figure</span> gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br>"<span class="journal">Moon... cactus...</span>"<br><br>What could that mean?';
                 ghostGivenMug = true;
                 haveMug = false;
+                playGhostMugCutscene();
+                room9Switch();
                 removeItem("an <span>old mug</span>");
-                output.innerHTML = 'The <span>ghost</span> fades away.<br><br>You catch a faint whisper in the wind:<br><br>"<span class="journal">Thanks for caring...</span>"<br><br>Maybe it\'s just your imagination, but it suddenly seems like the forest around you is a bit brighter.';
                 break;
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false && haveMug === true  &&  inp('mug')  :
                 output.innerHTML = "What do you want to do with the <span>mug</span>?"
                 break;
                 // interact with ghost
-            case roomNum === 9 && ghostDiscovered === true && mugTaken === false  &&  (inp('ask')||inp('question')):
-                output.innerHTML = 'You gather your courage and ask the ghost what it wants.<br><br>...<br><br>A voice whispers...<br><br><span class="journal">"Moon... cactus... well...</span>"<br><br>What could that mean?';
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('ask')||inp('question')):
+                output.innerHTML = 'You gather the courage to ask the ghost what it wants.<br><br>A voice whispers...<br><br><span class="journal">"Moon... cactus... well...</span>"<br><br>What could that mean?';
                 break;
-            case roomNum === 9 && ghostDiscovered === true && mugTaken === false  &&  (inp('talk')||inp('chat')||inp('hello')||inp('say')||inp(' hi')):
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('talk')||inp('chat')||inp('hello')||inp('say')||inp(' hi')):
                 output.innerHTML = 'A voice whispers...<br><br><span class="journal">"Moon... cactus...</span>"<br><br>What could that mean?';
                 break;
-            case roomNum === 9 && ghostDiscovered === true && mugTaken === false  &&  (inp('flirt')||inp('compliment')||inp('flatter')||inp('cham')) :
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('flirt')||inp('compliment')||inp('flatter')||inp('cham')) :
                 output.innerHTML = 'You sly dog.<br><br>The <span>ghost</span> seems to blush... or maybe it\'s just a trick of the light.';
                 break;
-            case roomNum === 9 && ghostDiscovered === true && mugTaken === false  &&  inp('boo') || inp('scare') ||  inp('frighten') ||  inp('shoo') ||  inp('curse') :
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  inp('boo') || inp('scare') ||  inp('frighten') ||  inp('shoo') ||  inp('curse') :
                 output.innerHTML = 'The <span>ghost</span> doesn\'t seem scared of you...';
                 break;
-            case roomNum === 9 && ghostDiscovered === true && mugTaken === false &&  (inp('hit')||inp('push')||inp('punch')||inp('beat')||inp('fight'))  &&    (inp('ghost')||inp('figure'))  :
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false &&  (inp('hit')||inp('push')||inp('punch')||inp('beat')||inp('fight'))  &&    (inp('ghost')||inp('figure'))  :
                 output.innerHTML = 'It\'s a freaking<span>ghost</span> yo! It would probably whip your butt.<br><br>Besides, doesn\'t look solid';
                 break;
-            case roomNum === 9 && ghostDiscovered === true && mugTaken === false &&  (inp('touch')||inp('move'))  &&    (inp('ghost')||inp('figure'))  :
-                output.innerHTML = 'Thie <span>ghost</span> is totally freaking you out... there\'s no way you\'re getting close enought to do that.';
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false &&  (inp('touch')||inp('move'))  &&    (inp('ghost')||inp('figure'))  :
+                output.innerHTML = 'The <span>ghost</span> is totally freaking you out... there\'s no way you\'re getting close enought to do that.';
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && inp('run') :
                 room2Switch();
-                userInput.value = "Got away safely!";
+                output.innerHTML = "Got away safely!";
                 roomNum = 2;
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && (inp('cast')||inp('spell')||inp('magic')||inp('exorcis')||inp('incantation')||inp('enchant')||inp('hypno')||inp('tranc')) :
-                userInput.value = "You've never been very good at spells and encantations, especially not when standing in front of a real <span>ghost</span>.<br><br>Maybe the ghost has something to say though...";
+                output.innerHTML = "You've never been very good at spells and encantations, especially not when standing in front of a real <span>ghost</span>.<br><br>Maybe the ghost has something to say though...";
                 break;
                 // catch-all for ghosts and mushrooms
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && inp('ghost') :
-                userInput.value = "The <span>ghost</span> hovers eerily over the <span>mushrooms</span>";
+                output.innerHTML = "The <span>ghost</span> hovers eerily over the <span>mushrooms</span>";
                 break;
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug && inp('ghost') :
-                userInput.value = "The <span>ghost</span> is gone.";
+                output.innerHTML = "The <span>ghost</span> is gone.";
                 break;
             case roomNum === 9 &&  inp('mushroom') :
-                userInput.value = "The circle of <span>mushrooms</span> looks rather enticing.";
+                output.innerHTML = "The circle of <span>mushrooms</span> looks rather enticing.";
                 break;
 
             // ROOM 10
@@ -1735,13 +1748,48 @@ const checkMap = () => {
 
             // ROOM 12
 
-            case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
+            case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around'))     :
                 if (lakeDiscovered === false) {
                     playBeachCutscene();
                     lakeDiscovered = true;
                 };
                 output.innerHTML = "A <span>strange figure</span> is lying under a tree by the lake shore.";
                 break;
+            case roomNum === 12 &&     (inp('tree')||inp('branch'))     :
+                output.innerHTML = "There's a <span>robot</span> lying under a tree by the lake shore. It looks like it's sleeping, or powered down.";
+                break;
+                // inspect strange figure
+            case roomNum === 12 && robotAwake === false &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('figure')||inp('person')||inp('thing')||inp('robot')||inp('machine'))   :
+                output.innerHTML = "A <span>robot</span> is lying under the tree by the lake, as if it just fell asleep there.<br><br>It looks like maybe it's been turned off. There is a panel on the front of the robot that looks like it could house a <span>power source</span>, but it's empty.";
+                break;
+                // interact with sleeping robot
+            case roomNum === 12 && robotAwake === false && inp('wake')  :
+                output.innerHTML = "You wave your hands in front of the <span>robot</span>, and give it a little shake, but it doesn't react.";
+                break;
+            case roomNum === 12 && robotAwake === false && (inp('talk')||inp('chat')||inp('ask')||inp('question')||inp('say'))  :
+                output.innerHTML = "The <span>robot</span> is powered down and unresponsive.";
+                break;
+                // power attempts
+            case roomNum === 12 && robotAwake === false && (  (inp('panel')||inp('source'))  ||  ((inp('open')||inp('power')) && inp('robot'))  ):
+                output.innerHTML = "There's an empty space for a <span>power supply</span> of some kind in the <span>robot</span>. You look around, but don't find anything.";
+                break;
+            case roomNum === 12 && robotAwake === false && (( (inp('turn')||inp('switch'))   &&    (inp('figure')||inp('person')||inp('thing')||inp('robot')||inp('machine')) ) || (inp('electric')||inp("button")||inp('fuel')||inp('activate')||inp('operate')||((inp('switch')||inp('turn'))&&inp('on'))))  :
+                output.innerHTML = "You search the <span>robot</span> for a switch or button, and find panel on the front that looks like it could house a <span>power source</span>.";
+                break;
+            case roomNum === 12 && robotAwake === false && (inp('battery')||inp('power'))  :
+                output.innerHTML = "You look for a battery or power supply, but you don't find anything.";
+                break;
+            case roomNum === 12 && robotAwake === false && (inp('wire')||inp('rig')||inp('fix')||inp('repair'))  :
+                output.innerHTML = "You're not much of a mechanic, but you take a close look at the <span>robot</span>. Everything seems fine, except for an empty <span>power supply</span>.";
+                break;
+            case roomNum === 12 && robotAwake === false && inp('charge') :
+                output.innerHTML = "You don't have a way to charge the <span>robot</span> right now.";
+                break;
+                // defaults
+            case roomNum === 12 && robotAwake === false && (inp('robot')||inp('figure')||inp('person'))  :
+                output.innerHTML = "The <span>robot</span> is inactive.";
+                break;
+
 
             // ROOM 13
             case roomNum === 13 &&  (inp('look')||inp('inspect')||inp('search')||inp('check'))   &&    (inp('well')||inp('around')||inp('ground')||inp('floor')||inp('dirt'))  && mugTaken === false  :
@@ -1816,6 +1864,9 @@ const checkMap = () => {
                 break;
             case ((roomNum === 6 || roomNum === 12) || (roomNum === 5 && haveBoxKey === true))&&    (inp('look')||inp('inspect')||inp('search')||inp('check')||inp('grab')||inp('take')||inp('pocket')||inp('get'))   &&    (inp('drift')||inp('wood')):
                 output.innerHTML = "You search around the driftwood on the shore but don't find anything particularly useful.";
+                break;
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8) &&    inp('swim')  :
+                output.innerHTML = "Brrr... the water is cold!";
                 break;
             
             // INTERACT WITH TREES
@@ -2181,8 +2232,8 @@ const checkMap = () => {
             document.getElementById("book").src="";
             document.getElementById('map').classList.remove('blurless');
         };
-        checkingInventory = false;
-        checkingMap = false;
+        if (inventoryAsk === false) {checkingInventory = false};
+        if (mapAsk === false) {checkingMap = false};
     }
 
     enterButton.addEventListener('click', pressEnter);

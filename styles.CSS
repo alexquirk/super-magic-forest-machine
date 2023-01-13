@@ -124,7 +124,6 @@ body {
 
 #map {
     display: grid;
-    filter: brightness(100%);
 }
 
 .room {
