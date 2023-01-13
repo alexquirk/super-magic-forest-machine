@@ -362,7 +362,7 @@ input:focus, textarea {
 }
   
 
-/* @media only screen and (orientation: portrait) {
+@media only screen and (orientation: portrait) {
     #titlecard {
         height: -webkit-fill-available;
     }
@@ -374,4 +374,4 @@ input:focus, textarea {
     #cutsceneviewer {
         height: -webkit-fill-available;
     }
-} */
+}
