@@ -155,6 +155,10 @@ body {
     filter: blur(20px); 
 }
 
+.darken { 
+    filter: brightness(40%);
+}
+
 #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7 {
     position: relative;
     z-index: -2;

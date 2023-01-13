@@ -102,7 +102,7 @@ const makeFadeAway = () => {
 
 //DECLARE VARIABLES
     const userInput = document.getElementById('userinput');
-    const outputarea = document.getElementById('outputarea');
+    const outputArea = document.getElementById('outputarea');
     const output = document.getElementById('output');
     const enterButton = document.getElementById('enterbutton');
     const mapArrow = document.getElementById('maparrow');
@@ -281,7 +281,7 @@ const makeFadeAway = () => {
                 document.getElementById('map').classList.remove('blurless');
             }
         };
-        outputarea.scroll(0,0);
+        outputArea.scroll(0,0);
     };
 
     //hit button to show book text
@@ -645,11 +645,14 @@ const checkMap = () => {
     checkingMap = true;
     mapAsk = true;
     document.getElementById('maptiles').style.display = "block";
+    map.classList.add('darken');
 };
 
 const clearMap = () => {
     document.getElementById('maptiles').style.display = "none"
     output.innerHTML = "You close your <span>map</span>.";
+    map.classList.remove('darken');
+    userInput.focus(); 
     };
 
 
@@ -664,6 +667,7 @@ const clearMap = () => {
 
         //clear map
         document.getElementById('maptiles').style.display = "none";
+        map.classList.remove('darken');
 
         // not being asked
         readingAsk = false;
@@ -2315,7 +2319,7 @@ const clearMap = () => {
         // CLEAR INPUT FORM
         userInput.value = "";
         currentPage = 0;
-        outputarea.scroll(0,0);
+        outputArea.scroll(0,0);
     }
 
 // PRESSING ENTER 
@@ -2343,7 +2347,7 @@ const clearMap = () => {
         if (event.key === "Enter") {
             event.preventDefault();
             document.getElementById("enterbutton").click();
-            // outputarea.scroll(0,0);
+            // outputArea.scroll(0,0);
             // hideMobileKeyboardOnReturn(input);
         }
     });
