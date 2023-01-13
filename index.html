@@ -1507,11 +1507,9 @@ const checkMap = () => {
                 break;
 
             // ROOM 7
-            case roomNum === 7 &&  (inp('look'))   &&    (inp('cave')||inp('around')) && firefliesReleased === false :
+                // inspect / explore dark
+            case roomNum === 7  && firefliesReleased === false &&  (inp('look'))   &&    (inp('cave')||inp('around')) :
                 output.innerHTML = "The air feels different here... but it's too dark to see anything...";
-                break;
-            case roomNum === 7 &&  (inp('feel'))   &&    (inp('cave')||inp('around')||inp('wall')) && firefliesReleased === false :
-                output.innerHTML = "The walls of the <span>cave</span> are rough rock. You feel your way forward as far as you can, but the light starts to disappear behind so you turn around and head back.";
                 break;
             case roomNum === 7 && (inp('rope'))  && firefliesReleased === false && haveRope === true :
                 output.innerHTML = "You tie one end of the <span>rope</span> to a rock near the <span>cave</span> entrance and hold the other end as you walk into the darkness.<br><br>With your hands out in front of you, you slowly feel your way through through the maze of rock. Some of the walls around you feel rough and stoney, while others feel smooth and glassy.<br><br>Eventually you reach the end of the <span>rope</span> and are forced to turn back.";
@@ -1519,20 +1517,25 @@ const checkMap = () => {
             case roomNum === 7 && (inp('rope'))  && firefliesReleased === true && haveRope === true :
                 output.innerHTML = "You check around the cave, but it doesn't seem like the <span>rope</span> will be much help right now.";
                 break;
+            case roomNum === 7 &&  (inp('feel'))   &&    (inp('cave')||inp('around')||inp('wall')) && firefliesReleased === false :
+                output.innerHTML = "The walls of the <span>cave</span> are rough rock. You feel your way forward as far as you can, but the light starts to disappear behind so you turn around and head back.";
+                break;
             case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check')||inp('look'))   &&    (inp('cave')||inp('around')) && firefliesReleased === false :
                 output.innerHTML = "You feel your way around the <span>cave</span>. The ground is rocky and the walls smooth. It's much too dark to see anything...<br><br>You smash your shins against something hard a few times before abandoning your search.";
                 break;
+                // inspect / explore light
             case roomNum === 7 &&  (inp('look'))   &&    (inp('cave')||inp('around')) && firefliesReleased === true :
                 output.innerHTML = "The cave is full of glowing <span>crystals</span>! The light from the <span>fireflies</span> catches every surface and facet of the magnificent gems.<br><br>There is another passageway leading <span>west</span>.";
                 break;
             case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check'))   &&    (inp('cave')||inp('around')) && firefliesReleased === true :
                 output.innerHTML = "The cave is full of magnificent glowing <span>crystals</span> protruding from the walls and littering the ground.<br><br>There is another passageway leading <span>west</span>";
                 break;
-            case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check')||inp('look'))   &&    (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
-                output.innerHTML = "There are abudnances of <span>crystals</span> in every corner of the cave.";
-                break;
             case roomNum === 7 &&  inp('stala') && firefliesReleased === true :
                 output.innerHTML = "The cave is full of dripping stalactites and stalagmites. You used to have a hard time telling them apart, until you learned this helpful mnemonic device:<br><br>'Satactites' hang TIGHT from the ceiling, but be careful of stalagmites: you MIGHT trip over them!";
+                break;
+                // interact with crystal
+            case roomNum === 7 &&  (inp('inspect')||inp('search')||inp('check')||inp('look'))   &&    (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
+                output.innerHTML = "There are abudnances of <span>crystals</span> in every corner of the cave.";
                 break;
             case (roomNum === 7 || roomNum === 8) &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
                 output.innerHTML = "You pick up a small piece of <span>crystal</span> off the ground. It's surprisingly warm in your hand, and seems to magnify the light from the <span>fireflies</span>.<br><br>You put the <span>crystal</span>in your <span>pocket</span>.";
