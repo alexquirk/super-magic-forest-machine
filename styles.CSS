@@ -124,6 +124,7 @@ body {
 
 #map {
     display: grid;
+    filter: brightness(100%);
 }
 
 .room {
@@ -340,7 +341,7 @@ input:focus, textarea {
 }  
 
 #userinput {
-    width: 280px;
+    max-width: 280px;
     flex-grow: 10;
     min-width: 180px;
     padding: 5px;
