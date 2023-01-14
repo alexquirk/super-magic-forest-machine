@@ -131,6 +131,7 @@ const makeFadeAway = () => {
     let checkingMap = false;
     let mapAsk = false;
 
+    let currentConversation = 0;
     let dialogueAsk = false;
     let inDialogue = false;
 
@@ -250,9 +251,9 @@ const makeFadeAway = () => {
 
 // DIALOGUE BUTTONS
     //dialogue texts
-    const robotDialogueTexts = ["Oh. Hi there. I guess you’re the one who woke me up, huh?",
+    const robotDialogueText = ["Oh. Hi there. I guess you’re the one who woke me up, huh?",
                                 "Haha… no… Well, not any more-so than the trees, or the grass, or the rocks.",
-                                "They call me ‘Jen’. It’s short for ‘generator’. I’m a utility robot. A long time ago I helped some humans work here in the forest.",
+                                "My name is Jen. It’s short for ‘generator’. I’m a utility robot. A long time ago I helped some humans work here in the forest.",
                                 "Oh, the same thing humans are always doing, I suppose.  Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy.",
                                 "Nothing, everything, and all the in-betweens.",
                                 "So impatient. Always on a mission. Always trying to get something done.<br><br>Yes, I can help you. But I need you to bring me something first.",
@@ -277,11 +278,11 @@ const makeFadeAway = () => {
                                 "When you get out, will you describe it to me?",
                                 ];
     
-    const dialogueButtonTexts = ["Talk to the robot?",
+    const dialogueButtonText = ["Talk to the robot?",
                                  "Are you the Super Magic Forest Machine?",
-                                 "What's you name?",
+                                 "What are you?",
                                  "What were the humans doing?",
-                                 "What did they arguing about?",
+                                 "What did they argue about?",
                                  "Can you help me get out of here?",
                                  "What do you need me to bring you?",
                                  "I'm busy",
@@ -301,19 +302,31 @@ const makeFadeAway = () => {
                                  "What will happen to you when I leave? Can you come with me?",
                                  "Is that why you decided to stop propelling yourself through time?",
                                  "So, life is about choosing how to be?",
-                                 "I don’t know much about life, to be honest. I’m just a robot. I’m barely capable of speech."
+                                 "I have to leave"
                                 ];
 
 const showDialogueButton = (dialogueNumber1, dialogueNumber2) => {
-        d1.value = dialogueButtonTexts[dialogueNumber1];
-        d2.value = dialogueButtonTexts[dialogueNumber2];
-        if (typeof dialogueNumber1 !== undefined) {
+        d1.value = dialogueButtonText[dialogueNumber1];
+        d2.value = dialogueButtonText[dialogueNumber2];
+        if (dialogueNumber1 !== undefined) {
             d1.style.display = "block";
         } else {d1.style.display = "none"};
-        if (typeof dialogueNumber2 !== undefined) {
+        if (dialogueNumber2 !== undefined) {
             d2.style.display = "block";
-        } else {d1.style.display = "none"};
+        } else {d2.style.display = "none"};
     };                             
+  
+    //when dialogue 'X' button is pressed, show response 'X' and display follow-up reasponses    
+showDialogue1Response = () => {
+    output.innerHTML = robotDialogueText[0];
+    }; 
+
+showDialogue2Response = () => {
+    output.innerHTML = robotDialogueText[1];
+    };
+
+d1.addEventListener('click', showDialogue1Response);
+d2.addEventListener('click', showDialogue2Response);
 
 
 // BOOK BUTTONS
@@ -333,11 +346,6 @@ const showDialogueButton = (dialogueNumber1, dialogueNumber2) => {
         bookButton.style.display = "block"; 
     };
 
-    showDialogueResponse = {} //when dialogue X button is pressed, show response X and display follow-up reasponses
-
-
-    d1.addEventListener('click', showDialogueResponse);
-    d2.addEventListener('click', showDialogueResponse);
 
     //display journal texts according to position in array
     const showBookText = () => {
@@ -768,7 +776,7 @@ const clearMap = () => {
         // GLOBAL
             case inp ('talk test'):
                 output.innerHTML = "";
-                showDialogueButton(1, 2);
+                showDialogueButton(0);
                 break;
             case inp('get room num'):
                 output.innerHTML = roomNum;
