@@ -31,7 +31,7 @@
         <div class="viewer">
             <div id="blackbackground"></div>
             <div id= "map">
-                <img class="room" id="room1" src="./roomimages/smfmroom1newangle.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png">
+                <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png">
             </div>            
             <img id= "inventory1" src="">
             <img id= "inventory2" src="./inventoryimages/ribbon.png">
@@ -60,8 +60,8 @@
             You can type "<span>hint</span>" at any time to get some help.
         </div>
         <div class="dialoguearea">
-            <input type="button" id="dialogue1" class="dialogue" value="Option 1">
-            <input type="button" id="dialogue2" class="dialogue" value="Option 2">
+            <button type="button" id="dialogue1" class="dialogue">Option 1</button>
+            <button type="button" id="dialogue2" class="dialogue">Option 2</button>
             <input type="button" id="bookbutton" class="dialogue" value="Read Journal">
         </div>
         </div>
@@ -311,11 +311,11 @@ const conversationMap = [[2,1],[2,5],[3,10],[4,11],[13,5],[7,6],[8,9],[8,9],[9,1
 const createConversation = () => {
     output.innerHTML = robotDialogueTexts[currentConversation];
     if (conversationMap[currentConversation][0] > -1) {
-        d1.value = dialogueButtonTexts[conversationMap[currentConversation][0]];
+        d1.innerHTML = dialogueButtonTexts[conversationMap[currentConversation][0]];
         d1.style.display = "block";
     };
     if (conversationMap[currentConversation][1] > -1) {
-        d2.value = dialogueButtonTexts[conversationMap[currentConversation][1]];
+        d2.innerHTML = dialogueButtonTexts[conversationMap[currentConversation][1]];
         d2.style.display = "block";
     };
 };
@@ -2338,7 +2338,7 @@ const clearMap = () => {
                 break;
                 
             // TRAVEL TO LAKE
-            case roomNum !== 8 && roomNum !== 7 && roomNum !== 13  && (inp('travel')||inp('go')||inp('walk'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')) :
+            case roomNum !== 8 && roomNum !== 7 && roomNum !== 13  && (inp('travel')||inp('go')||inp('walk')||inp('find')||inp('look for'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')) :
                 if (roomNum === 11 || roomNum === 10) {
                     room12Switch();
                     userInput.value = "";

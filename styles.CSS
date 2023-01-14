@@ -296,7 +296,7 @@ body {
     color: rgb(148, 200, 255);
 }
 
-.dialoguearea > input {
+.dialoguearea > input, .dialoguearea > button {
     font-family:inherit;
     font-size: inherit;
     background-color: black;
@@ -312,11 +312,13 @@ body {
 #dialogue1 {
     display: none;
     margin: 30px auto 0;
+    max-width: 95%;
 }
 
 #dialogue2 {
     display: none;
-    margin: 10px auto 0;
+    margin: 10px auto 5px;
+    max-width: 98.5%;
 }
 
 #bookbutton {
