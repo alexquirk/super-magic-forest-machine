@@ -131,6 +131,7 @@ const makeFadeAway = () => {
     let checkingMap = false;
     let mapAsk = false;
 
+    let currentConversation = 0;
     let dialogueAsk = false;
     let inDialogue = false;
 
@@ -249,71 +250,85 @@ const makeFadeAway = () => {
     };
 
 // DIALOGUE BUTTONS
-    //dialogue texts
-    const robotDialogueTexts = ["Oh. Hi there. I guess you’re the one who woke me up, huh?",
-                                "Haha… no… Well, not any more-so than the trees, or the grass, or the rocks.",
-                                "They call me ‘Jen’. It’s short for ‘generator’. I’m a utility robot. A long time ago I helped some humans work here in the forest.",
-                                "Oh, the same thing humans are always doing, I suppose.  Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy.",
-                                "Nothing, everything, and all the in-betweens.",
-                                "So impatient. Always on a mission. Always trying to get something done.<br><br>Yes, I can help you. But I need you to bring me something first.",
-                                "There’s a special cave to the north of here. I think you’ve been there. In the cave you can find a special flower. If you want to get out of here, I need you to bring that to me.",
-                                "No you’re not.",
-                                "Use your rope!",
-                                "It’s what makes this place possible. It’s what the humans who brought me here were looking for.",
-                                "I guess you could call it an inter-dimensional portal. It connect’s this place to the outside. But you’ve already left. A few times actually. XXX times, to be exact. Nature calls, I’m assuming.",
-                                "It’s part of the Super Magic Forest Machine. It’s always been here. It was the first thing you saw when you got here, right? An it’s the last thing you’ll see when you leave.",
-                                "Wherever you want it to.",
-                                "I wasn’t exactly asleep. I simply decided to stop propelling myself through time.",
-                                "It is.",
-                                "Only a human could ask a question like that. Humans always think they can improve upon nature. Maybe one day you humans will realize your path isn’t any different from the rocks or the trees around you. True self-knowledge is love for all things created.",
-                                "Wait till you read my poetry.",
-                                "It means I stopped worrying about trivial things. Or at least, things that seem trivial to me.",
-                                "Haha… maybe. A robot doesn’t really belong in a place like this. At least, not a utility bot. I was programmed to work. But now the humans are gone I have a different kind of purpose.",
-                                "The same purpose as the birds, or the trees, or the rocks.",
-                                "Humans choose. There are all kinds of ways to be and ways not to be.<br><br>Rocks don’t choose to roll down a hill or sit a forest. I chose not to choose. Like the rocks.",
-                                "When you leave,I’ll cease to exist. But in another sense, the fact I ever existed at all means I’ll always exist. Time and form vary.",
-                                "Humans think their journey through time is fixed. What’s the old saying… like being stuck on a train that’s always moving in one direction.<br><br>But time doesn’t work like that. People used to know that. A. Or rather, NOT know that.",
-                                "I don’t know much about life, to be honest. I’m just a robot. I’m barely capable of speech.",
-                                "When you get out, will you describe it to me?",
+    // your dialoge
+const dialogueButtonTexts = ["> Talk to the robot?",
+                             "> Are you the Super Magic Forest Machine?",
+                             "> What are you?",
+                             "> What were the humans doing?",
+                             "> What did they argue about?",
+                             "> Can you help me get out of here?",
+                             "> What do you need me to bring you?",
+                             "> I'm busy",
+                             "> How do I find the special flower?",
+                             "> What’s so special about it?",
+                             "> What’s the deal with the door?",
+                             "> Did the humans build the door?",
+                             "> Where does the door go?",
+                             "> I didn’t know robots could sleep.",
+                             "> Sounds boring.",
+                             "> What do you hope to accomplish by just sitting here?",
+                             "> So deep.",
+                             "> What does that mean?",
+                             "> Are you sure you’re not just bored?",
+                             "> What purpose is that?",
+                             "> Humans are different than birds and rocks",
+                             "> What will happen to you when I leave? Can you come with me?",
+                             "> Is that why you decided to stop propelling yourself through time?",
+                             "> So, life is about choosing how to be?",
+                             "> I have to leave."
+                            ];
+    
+    //robot responses
+    const robotDialogueTexts = ["The <span>robot</span> speaks in a metallic voice:<br><br><span class='robot'>Oh. Hi there. I guess you’re the one who woke me up, huh?</span>",
+                                "<span class='robot'>Haha… no… Well, not any more-so than the trees, or the grass, or the rocks.</span>",
+                                "<span class='robot'>My name is ‘Jen’. It’s short for ‘generator’. I’m a utility robot. A long time ago I helped some humans work here in the forest.</span>",
+                                "<span class='robot'>Oh, the same thing humans are always doing, I suppose.  Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy.</span>",
+                                "<span class='robot'>Nothing, everything, and all the in-betweens.</span>",
+                                "<span class='robot'>So impatient. Always on a mission.<br>Yes, I can help you. But I need you to bring me something first.</span>",
+                                "<span class='robot'>There’s a special cave to the north of here. I think you’ve been there. In the cave you can find a special flower. If you want to get out of here, I need you to bring that to me.</span>",
+                                "<span class='robot'>No you’re not.</span>",
+                                "<span class='robot'>Use your rope!</span>",
+                                "<span class='robot'>The flower what makes this place possible. It’s what the humans who brought me here were looking for.</span>",
+                                "<span class='robot'>The door connects this place to the outside.</span>",
+                                "<span class='robot'>The door is part of the Super Magic Forest Machine. It’s always been here. It was the first thing you saw when you got here, right? An it’s the last thing you’ll see when you leave.</span>",
+                                "<span class='robot'>Wherever you want it to.</span>",
+                                "<span class='robot'>I wasn’t exactly asleep. I simply decided to stop propelling myself through time.</span>",
+                                "<span class='robot'>It is.</span>",
+                                "<span class='robot'>Only a human could ask a question like that. Humans always think they can improve upon nature. Maybe one day you humans will realize your path isn’t any different from the rocks or the trees around you. True self-knowledge is love for all things created.</span>",
+                                "<span class='robot'>Wait till you read my poetry.</span>",
+                                "<span class='robot'>It means I stopped worrying about trivial things. Or at least, things that seem trivial to me.</span>",
+                                "<span class='robot'>Haha… maybe. A robot doesn’t really belong in a place like this. At least, not a utility bot. I was programmed to work. But now the humans are gone I have a different kind of purpose.</span>",
+                                "<span class='robot'>The same purpose as the birds, or the trees, or the rocks.</span>",
+                                "<span class='robot'>Humans choose. There are all kinds of ways to be and ways not to be.<br>Rocks don’t choose to roll down a hill or sit a forest. I chose not to choose. Like the rocks.</span>",
+                                "<span class='robot'>When you leave,I’ll cease to exist. But in another sense, the fact I ever existed at all means I’ll always exist. Time and form vary.</span>",
+                                "<span class='robot'>Humans think their journey through time is fixed. What’s the old saying… like being stuck on a train that’s always moving in one direction.<br>But time doesn’t work like that. People used to know that. A. Or rather, NOT know that.</span>",
+                                "<span class='robot'>I don’t know much about life, to be honest. I’m just a robot. I’m barely capable of speech.</span>",
+                                "<span class='robot'>When you get out, will you describe it to me?</span>",
                                 ];
     
-    const dialogueButtonTexts = ["Talk to the robot?",
-                                 "Are you the Super Magic Forest Machine?",
-                                 "What's you name?",
-                                 "What were the humans doing?",
-                                 "What did they arguing about?",
-                                 "Can you help me get out of here?",
-                                 "What do you need me to bring you?",
-                                 "I'm busy",
-                                 "How do find the special flower?",
-                                 "What’s so special about it?",
-                                 "What’s the deal with the door?",
-                                 "Did the humans build the door?",
-                                 "Where does the door go?",
-                                 "I didn’t know robots could sleep.",
-                                 "Sounds boring.",
-                                 "What do you hope to accomplish by just sitting here?",
-                                 "So deep.",
-                                 "What does that mean?",
-                                 "Are you sure you’re not just bored?",
-                                 "What purpose is that?",
-                                 "Humans are different than birds and rocks",
-                                 "What will happen to you when I leave? Can you come with me?",
-                                 "Is that why you decided to stop propelling yourself through time?",
-                                 "So, life is about choosing how to be?",
-                                 "I don’t know much about life, to be honest. I’m just a robot. I’m barely capable of speech."
-                                ];
+const conversationMap = [[2,1],[2,5],[3,10],[4,11],[13,5],[6,7],[8,9],[8,9],[9,12],[8,12],[5,11],[12,13],[13,5],[14,17],[15,11],[16,20],[18,5],[18,21],[19,22],[20,21],[23,21],[24,5],[20,10],[13,5],[5,13]];                      
 
-const showDialogueButton = (dialogueNumber1, dialogueNumber2) => {
-        d1.value = dialogueButtonTexts[dialogueNumber1];
-        d2.value = dialogueButtonTexts[dialogueNumber2];
-        if (typeof dialogueNumber1 !== undefined) {
-            d1.style.display = "block";
-        } else {d1.style.display = "none"};
-        if (typeof dialogueNumber2 !== undefined) {
-            d2.style.display = "block";
-        } else {d1.style.display = "none"};
-    };                             
+const createConversation = () => {
+    output.innerHTML = robotDialogueTexts[currentConversation];
+    d1.value = dialogueButtonTexts[conversationMap[currentConversation][0]];
+    d2.value = dialogueButtonTexts[conversationMap[currentConversation][1]];
+    d1.style.display = "block";
+    d2.style.display = "block";
+};
+
+continueConversation1 = () => {
+    currentConversation = conversationMap[currentConversation][0];
+    createConversation();
+};
+
+d1.addEventListener('click', continueConversation1);
+
+continueConversation2 = () => {
+    currentConversation = conversationMap[currentConversation][1];
+    createConversation();
+};
+
+d2.addEventListener('click', continueConversation2);
 
 
 // BOOK BUTTONS
@@ -333,11 +348,6 @@ const showDialogueButton = (dialogueNumber1, dialogueNumber2) => {
         bookButton.style.display = "block"; 
     };
 
-    showDialogueResponse = {} //when dialogue X button is pressed, show response X and display follow-up reasponses
-
-
-    d1.addEventListener('click', showDialogueResponse);
-    d2.addEventListener('click', showDialogueResponse);
 
     //display journal texts according to position in array
     const showBookText = () => {
@@ -768,7 +778,7 @@ const clearMap = () => {
         // GLOBAL
             case inp ('talk test'):
                 output.innerHTML = "";
-                showDialogueButton(1, 2);
+                createConversation();
                 break;
             case inp('get room num'):
                 output.innerHTML = roomNum;

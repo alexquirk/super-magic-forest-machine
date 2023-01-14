@@ -291,6 +291,10 @@ body {
     color: rgb(201, 255, 212);
 }
 
+#output > .robot {
+    color: rgb(148, 200, 255);
+}
+
 .dialoguearea > input {
     font-family:inherit;
     font-size: inherit;
@@ -300,14 +304,20 @@ body {
     padding: 1px 5px 5px;
     margin-top: 5px;
     margin-bottom: 5px;
-  }
+}
+
+.dialogue {
+    padding: 5px;
+}
 
 #dialogue1 {
     display: none;
+    margin-top: 10px;
 }
 
 #dialogue2 {
     display: none;
+    margin-top: 10px;
 }
 
 #bookbutton {

@@ -3,7 +3,7 @@ currentConversation
 1: 2, 5
 2: 3, 10
 3: 4, 11
-4: 5, 10
+4: 5, 13
 5: 6, 7
 6: 8, 9
 7: 8, 9
@@ -37,7 +37,7 @@ Oh. Hi there. I guess you’re the one who woke me up, huh?
 Haha… no… Well, not any more-so than the trees, or the grass, or the rocks.
 
 2
-> What are you?
+> What's your name?
 My name is ‘Jen’. It’s short for ‘generator’. I’m a utility robot. A long time ago I helped some humans work here in the forest.
 
 3
