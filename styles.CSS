@@ -277,6 +277,7 @@ body {
     margin: 0px auto;
     flex-grow: 5;
     overflow: scroll;
+    text-align: center;
 } 
 
 #output {
@@ -312,12 +313,12 @@ body {
 
 #dialogue1 {
     display: none;
-    margin-top: 10px;
+    margin: 30px auto 0;
 }
 
 #dialogue2 {
     display: none;
-    margin-top: 10px;
+    margin: 10px auto 0;
 }
 
 #bookbutton {

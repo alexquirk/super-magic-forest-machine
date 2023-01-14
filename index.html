@@ -290,7 +290,7 @@ const dialogueButtonTexts = ["> Talk to the robot?",
                                 "<span class='robot'>Use your rope!</span>",
                                 "<span class='robot'>The flower what makes this place possible. It’s what the humans who brought me here were looking for.</span>",
                                 "<span class='robot'>The door connects this place to the outside.</span>",
-                                "<span class='robot'>The door is part of the Super Magic Forest Machine. It’s always been here. It was the first thing you saw when you got here, right? An it’s the last thing you’ll see when you leave.</span>",
+                                "<span class='robot'>The door has always been here. It was the first thing you saw when you got here, right? And it’s the last thing you’ll see when you leave.</span>",
                                 "<span class='robot'>Wherever you want it to.</span>",
                                 "<span class='robot'>I wasn’t exactly asleep. I simply decided to stop propelling myself through time.</span>",
                                 "<span class='robot'>It is.</span>",
@@ -300,20 +300,24 @@ const dialogueButtonTexts = ["> Talk to the robot?",
                                 "<span class='robot'>Haha… maybe. A robot doesn’t really belong in a place like this. At least, not a utility bot. I was programmed to work. But now the humans are gone I have a different kind of purpose.</span>",
                                 "<span class='robot'>The same purpose as the birds, or the trees, or the rocks.</span>",
                                 "<span class='robot'>Humans choose. There are all kinds of ways to be and ways not to be.<br>Rocks don’t choose to roll down a hill or sit a forest. I chose not to choose. Like the rocks.</span>",
-                                "<span class='robot'>When you leave,I’ll cease to exist. But in another sense, the fact I ever existed at all means I’ll always exist. Time and form vary.</span>",
+                                "<span class='robot'>When you leave,I’ll cease to exist. But in another sense, the fact I ever existed at all means I’ll always exist.</span>",
                                 "<span class='robot'>Humans think their journey through time is fixed. What’s the old saying… like being stuck on a train that’s always moving in one direction.<br>But time doesn’t work like that. People used to know that. A. Or rather, NOT know that.</span>",
                                 "<span class='robot'>I don’t know much about life, to be honest. I’m just a robot. I’m barely capable of speech.</span>",
                                 "<span class='robot'>When you get out, will you describe it to me?</span>",
                                 ];
     
-const conversationMap = [[2,1],[2,5],[3,10],[4,11],[13,5],[6,7],[8,9],[8,9],[9,12],[8,12],[5,11],[12,13],[13,5],[14,17],[15,11],[16,20],[18,5],[18,21],[19,22],[20,21],[23,21],[24,5],[20,10],[13,5],[5,13]];                      
+const conversationMap = [[2,1],[2,5],[3,10],[4,11],[13,5],[7,6],[8,9],[8,9],[9,12],[8,12],[5,11],[12,13],[13,5],[14,17],[15,11],[16,20],[18,5],[18,21],[19,22],[20,21],[23,21],[24,5],[20,10],[13,5],[-1,-1]];                      
 
 const createConversation = () => {
     output.innerHTML = robotDialogueTexts[currentConversation];
-    d1.value = dialogueButtonTexts[conversationMap[currentConversation][0]];
-    d2.value = dialogueButtonTexts[conversationMap[currentConversation][1]];
-    d1.style.display = "block";
-    d2.style.display = "block";
+    if (conversationMap[currentConversation][0] > -1) {
+        d1.value = dialogueButtonTexts[conversationMap[currentConversation][0]];
+        d1.style.display = "block";
+    };
+    if (conversationMap[currentConversation][1] > -1) {
+        d2.value = dialogueButtonTexts[conversationMap[currentConversation][1]];
+        d2.style.display = "block";
+    };
 };
 
 continueConversation1 = () => {
@@ -1900,6 +1904,10 @@ const clearMap = () => {
                 break;
 
             // ROOM 12
+                // talk to robot
+            case roomNum === 12  && robotAwake === true && (  (inp('talk')||inp('how')||inp('who')||inp('what')||inp('inquire')||inp('ask')||inp('question')||inp('converse')||(inp('use')&&inp('robot')) )    ||    (( (inp('turn')||inp('switch'))   &&    (inp('figure')||inp('person')||inp('thing')||inp('robot')||inp('machine')) ) || (inp("button")||inp('activate')||inp('operate')||((inp('switch')||inp('turn'))&&inp('on'))))  ):
+                createConversation();
+                break;
             case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('search')) && robotAwake === false  &&    (inp('forest')||inp('around'))     :
                 if (lakeDiscovered === false) {
                     playBeachCutscene();
