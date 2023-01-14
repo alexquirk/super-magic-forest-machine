@@ -62,7 +62,8 @@
         <div class="dialoguearea">
             <button type="button" id="dialogue1" class="dialogue">Option 1</button>
             <button type="button" id="dialogue2" class="dialogue">Option 2</button>
-            <input type="button" id="bookbutton" class="dialogue" value="Read Journal">
+            <button type="button" id="leavebutton" class="dialogue">leave conversation</button>
+            <input type="button" id="bookbutton" class="dialogue" value="> Read Journal">
         </div>
         </div>
     </div>
@@ -108,6 +109,7 @@ const makeFadeAway = () => {
     const mapArrow = document.getElementById('maparrow');
     const d1 = document.getElementById("dialogue1");
     const d2 = document.getElementById("dialogue2");
+    const leaveButton = document.getElementById("leavebutton");
     const bookButton = document.getElementById("bookbutton");
     const map = document.getElementById("map");
 
@@ -289,8 +291,8 @@ const dialogueButtonTexts = ["> Talk to the robot?",
                                 "<span class='robot'>No you’re not.</span>",
                                 "<span class='robot'>Use your rope!</span>",
                                 "<span class='robot'>The flower what makes this place possible. It’s what the humans who brought me here were looking for.</span>",
-                                "<span class='robot'>The door connects this place to the outside.</span>",
-                                "<span class='robot'>The door has always been here. It was the first thing you saw when you got here, right? And it’s the last thing you’ll see when you leave.</span>",
+                                "<span class='robot'>The door connects this place to the outside. I guess you could call it an interdimensional portal, or something like that.</span>",
+                                "<span class='robot'>Definitely not. The door has always been here, as far as I can tell. The humans who brought me here acted like they couldn't even see it. Most of them, anyway.<br><br>Single-minded beings have a hard time confronting the incomprehensible.</span>",
                                 "<span class='robot'>Wherever you want it to.</span>",
                                 "<span class='robot'>I wasn’t exactly asleep. I simply decided to stop propelling myself through time.</span>",
                                 "<span class='robot'>It is.</span>",
@@ -304,12 +306,16 @@ const dialogueButtonTexts = ["> Talk to the robot?",
                                 "<span class='robot'>Humans think their journey through time is fixed. What’s the old saying… like being stuck on a train that’s always moving in one direction.<br>But time doesn’t work like that. People used to know that. A. Or rather, NOT know that.</span>",
                                 "<span class='robot'>I don’t know much about life, to be honest. I’m just a robot. I’m barely capable of speech.</span>",
                                 "<span class='robot'>When you get out, will you describe it to me?</span>",
+                                "<span class='robot'>Hello again!</span>"
                                 ];
     
-const conversationMap = [[2,1],[2,5],[3,10],[4,11],[13,5],[7,6],[8,9],[8,9],[9,12],[8,12],[5,11],[12,13],[13,5],[14,17],[15,11],[16,20],[18,5],[18,21],[19,22],[20,21],[23,21],[24,5],[20,10],[13,5],[-1,-1]];                      
+const conversationMap = [[2,1],[2,5],[3,10],[4,11],[13,5],[7,6],[8,9],[8,9],[9,12],[8,12],[5,11],[12,13],[13,5],[14,17],[15,11],[16,20],[18,20],[18,21],[19,22],[20,21],[23,21],[24,5],[20,10],[13,5],[-1,-1],[2,1]];                      
 
 const createConversation = () => {
     output.innerHTML = robotDialogueTexts[currentConversation];
+    dialogueAsk = true;
+    inDialogue = true;
+    leaveButton.style.display = "block";
     if (conversationMap[currentConversation][0] > -1) {
         d1.innerHTML = dialogueButtonTexts[conversationMap[currentConversation][0]];
         d1.style.display = "block";
@@ -333,6 +339,18 @@ continueConversation2 = () => {
 };
 
 d2.addEventListener('click', continueConversation2);
+
+leaveConversation = () => {
+    dialogueAsk = false;
+    inDialogue = false;
+    d1.style.display = "none";
+    d2.style.display = "none";
+    leaveButton.style.display = "none";
+    output.innerHTML = "<span class='robot'>See ya later!</span>";
+    currentConversation = 25;
+};
+
+leaveButton.addEventListener('click', leaveConversation);
 
 
 // BOOK BUTTONS
@@ -361,10 +379,10 @@ d2.addEventListener('click', continueConversation2);
             currentPage = currentPage + 1;
             reading = true;
             readingAsk = false;
-            bookButton.value = 'Keep Reading';
+            bookButton.value = '> Keep Reading';
             document.getElementById('map').classList.add('blurless');
             if (currentPage === 7) {
-                bookButton.value = "Done";
+                bookButton.value = "> Done";
                 userInput.value = "";
             } 
             else if (currentPage >= 8 ) {
@@ -767,6 +785,7 @@ const clearMap = () => {
         readingAsk = false;
         mapAsk = false;
         inventoryAsk = false;
+        dialogueAsk = false;
 
         //clear buttons
         bookButton.style.display = "none";
@@ -774,13 +793,14 @@ const clearMap = () => {
         document.getElementById('map').classList.remove('blurless');
         d1.style.display = "none";
         d2.style.display = "none";
+        leaveButton.style.display = "none";
         
 
         // GET INPUT
         switch (true) {
     
         // GLOBAL
-            case inp ('talk test'):
+            case inp('talk test'):
                 output.innerHTML = "";
                 createConversation();
                 break;
@@ -1328,17 +1348,17 @@ const clearMap = () => {
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('book')||inp('journal')||inp('diary'))   && foundBook === true  :
                 output.innerHTML = "The <span>journal</span> has a worn leather cover.<br><br>The pages inside are water damaged, but the hand-written ink is still legibled.<br><br>There's no title, and no author.";
-                showBookButton("Read Journal?");
+                showBookButton("> Read Journal?");
                 readingAsk = true;
                 break;
             case roomNum === 3 &&    inp('read')    &&    (inp('book')||inp('journal')||inp('diary'))   :
                 output.innerHTML = "You pick up the <span>journal</span>."
-                showBookButton("Read Journal?");
+                showBookButton("> Read Journal?");
                 readingAsk = true;
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))    &&    (inp('book')||inp('journal')||inp('diary'))   && foundBook === false  :
                 output.innerHTML = "There's a <span>book</span> on the ground in front of the stump. It looks like somebody used this spot to sit and read or write.";
-                showBookButton("Read Journal?");
+                showBookButton("> Read Journal?");
                 readingAsk = true;
                 foundBook = true;
                 break;
@@ -1348,7 +1368,7 @@ const clearMap = () => {
                 break;
             case roomNum === 3 &&    (inp('take')||inp('grab')||inp('pocket'))    &&    (inp('book')||inp('journal')||inp('diary'))   :
                 output.innerHTML = "The <span>book</span> seems rather personal. You decide to leave it here in case somebody comes back for it.";
-                showBookButton("Read Journal?");
+                showBookButton("> Read Journal?");
                 readingAsk = true;
                 foundBook = true;
                 break;
@@ -2414,6 +2434,13 @@ const clearMap = () => {
                 checkingMap = false;
                 // makeMapBright();
                 break;
+            
+            // CLEARING DIALOGUE
+            case inp('') && inDialogue === true:
+                output.innerHTML = "";
+                inDialogue = false;
+                currentConversation = 25;
+                break;
 
             
         // DEFAULT
@@ -2445,6 +2472,7 @@ const clearMap = () => {
         };
         if (inventoryAsk === false) {checkingInventory = false};
         if (mapAsk === false) {checkingMap = false};
+        if (dialogueAsk === false) {inDialogue = false};
     }
 
     enterButton.addEventListener('click', pressEnter);

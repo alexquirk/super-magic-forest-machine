@@ -15,7 +15,7 @@ currentConversation
 13: 14, 17
 14: 15, 11
 15: 16, 20
-16: 18, 5
+16: 18, 20
 17: 18, 21 18: 19, 22
 19: 20, 21
 20: 23, 21,
@@ -71,11 +71,11 @@ It’s what makes this place possible. It’s what the humans who brought me her
 
 10
 > What’s the deal with the door?
-I guess you could call it an inter-dimensional portal. It connect’s this place to the outside. But you’ve already left. A few times actually. XXX times, to be exact. Nature calls, I’m assuming.
+It connects this place to the outside.
 
 11
 > Did the humans build the door?
-It’s part of the Super Magic Forest Machine. It’s always been here. It was the first thing you saw when you got here, right? An it’s the last thing you’ll see when you leave.
+Definitely not. The door has always been here. The humans that brought me here acted like they couldn't even see it. Most of them, anyway. Single-minded beings have a hard time confronting the incomprehensible.
 
 12
 > Where does the door go?
@@ -130,5 +130,8 @@ I don’t know much about life, to be honest. I’m just a robot. I’m barely c
 > I have to leave
 When you get out, will you describe it to me?
 
+25
+> Hello
+Hello again!
 
 

@@ -317,6 +317,12 @@ body {
 
 #dialogue2 {
     display: none;
+    margin: 10px auto 0;
+    max-width: 95%;
+}
+
+#leavebutton {
+    display: none;
     margin: 10px auto 5px;
     max-width: 98.5%;
 }
