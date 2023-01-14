@@ -30,6 +30,7 @@
         <img class="border1" src="./roomimages/border 1.png">
         <div class="viewer">
             <div id="blackbackground"></div>
+            <img class="compasstriangles" id="northtriangle" src="./compasstriangles/north.png">
             <div id= "map">
                 <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png">
             </div>            
@@ -222,6 +223,7 @@ const makeFadeAway = () => {
                 map.classList.add('blur');
                 checkingInventory = true;
                 inventoryAsk = true;
+                outputArea.style.textAlign = "center";
             };
             if (haveFlower === true) {
                     document.getElementById("inventory6").style.zIndex = "6";
@@ -314,6 +316,7 @@ const dialogueButtonTexts = ["> Talk to the robot?",
 const conversationMap = [[2,1],[2,5],[3,10],[4,11],[13,5],[7,6],[8,9],[8,9],[9,12],[3, 8],[11,5],[12,13],[13,5],[17, 14],[15,11],[16,20],[18,20],[18,21],[19,22],[20,21],[23,21],[24,5],[20,10],[13,5],[25,-1],[-1,-1],[2,1]];                      
 
 const createConversation = () => {
+    outputArea.style.textAlign = "center";
     output.innerHTML = robotDialogueTexts[currentConversation];
     dialogueAsk = true;
     inDialogue = true;
@@ -350,7 +353,7 @@ leaveConversation = () => {
     d2.style.display = "none";
     leaveButton.style.display = "none";
     if (currentConversation !== 25) {output.innerHTML = "<span class='robot'>See ya later!</span>"}
-    else {output.innerHTML = ""};
+    else {output.innerHTML = ""; outputArea.style.textAlign = "left";};
     currentConversation = 26;
 };
 
@@ -377,6 +380,7 @@ leaveButton.addEventListener('click', leaveConversation);
 
     //display journal texts according to position in array
     const showBookText = () => {
+        outputArea.style.textAlign = "center";
         if (reading === true || readingAsk === true) {
             output.innerHTML = journalText[currentPage];
             document.getElementById("book").src="./inventoryimages/book.png";
@@ -2429,6 +2433,7 @@ const clearMap = () => {
             // CLEARING INVENTORY
             case inp('') && checkingInventory === true:
                 checkingInventory = false;
+                outputArea.style.textAlign = "left";
                 output.innerHTML = "";
                 break;
 
@@ -2436,6 +2441,7 @@ const clearMap = () => {
             case inp('') && checkingMap === true:
                 output.innerHTML = "";
                 checkingMap = false;
+                outputArea.style.textAlign = "left";
                 // makeMapBright();
                 break;
             
@@ -2443,6 +2449,7 @@ const clearMap = () => {
             case inp('') && inDialogue === true:
                 output.innerHTML = "";
                 inDialogue = false;
+                outputArea.style.textAlign = "left";
                 currentConversation = 26;
                 break;
 
@@ -2477,6 +2484,7 @@ const clearMap = () => {
         if (inventoryAsk === false) {checkingInventory = false};
         if (mapAsk === false) {checkingMap = false};
         if (dialogueAsk === false) {inDialogue = false};
+        if (dialogueAsk === false && inDialogue === false && mapAsk === false && checkingMap === false && inventoryAsk === false && checkingInventory === false) {outputArea.style.textAlign = "left";};
     }
 
     enterButton.addEventListener('click', pressEnter);
