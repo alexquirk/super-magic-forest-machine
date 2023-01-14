@@ -107,6 +107,7 @@ body {
     align-content: center;
     justify-content: center;
     overflow: hidden;
+    position: relative;
 }
 
 #blackbackground {
@@ -166,9 +167,23 @@ body {
 
 .compasstriangles {
     position: absolute;
-    display: inline;
     z-index: 1;
-    height: 8%;
+    height: 22%;
+    opacity: 80%;
+    display: inline;
+}
+
+#southtriangle {
+    bottom: 0;
+    right: 0;
+}
+
+#westtriangle {
+    bottom: 0;
+}
+
+#easttriangle {
+    right: 0;
 }
 
 #book {
@@ -280,7 +295,7 @@ body {
     margin: 0px auto;
     flex-grow: 5;
     overflow: scroll;
-    text-align: left;
+    text-align: center;
 } 
 
 #output {

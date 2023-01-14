@@ -30,7 +30,7 @@
         <img class="border1" src="./roomimages/border 1.png">
         <div class="viewer">
             <div id="blackbackground"></div>
-            <img class="compasstriangles" id="northtriangle" src="./compasstriangles/north.png">
+            <img class="compasstriangles" id="northtriangle" src="./compasstriangles/north.png" onclick="goNorth()"><img class="compasstriangles" id="westtriangle" src="./compasstriangles/west.png" onclick="goWest()"><img class="compasstriangles" id="southtriangle" src="./compasstriangles/south.png" onclick="goSouth()"><img class="compasstriangles" id="easttriangle" src="./compasstriangles/east.png" onclick="goEast()">
             <div id= "map">
                 <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png">
             </div>            
@@ -113,6 +113,11 @@ const makeFadeAway = () => {
     const leaveButton = document.getElementById("leavebutton");
     const bookButton = document.getElementById("bookbutton");
     const map = document.getElementById("map");
+
+    const northTriangle = document.getElementById("northtriangle");
+    const southTriangle = document.getElementById("southtriangle");
+    const eastTriangle = document.getElementById("easttriangle");
+    const westTriangle = document.getElementById("westtriangle");
 
     const removeItem = (item) => {
         for ( var i = 0; i < inventory.length; i++) { 
@@ -223,7 +228,6 @@ const makeFadeAway = () => {
                 map.classList.add('blur');
                 checkingInventory = true;
                 inventoryAsk = true;
-                outputArea.style.textAlign = "center";
             };
             if (haveFlower === true) {
                     document.getElementById("inventory6").style.zIndex = "6";
@@ -316,7 +320,6 @@ const dialogueButtonTexts = ["> Talk to the robot?",
 const conversationMap = [[2,1],[2,5],[3,10],[4,11],[13,5],[7,6],[8,9],[8,9],[9,12],[3, 8],[11,5],[12,13],[13,5],[17, 14],[15,11],[16,20],[18,20],[18,21],[19,22],[20,21],[23,21],[24,5],[20,10],[13,5],[25,-1],[-1,-1],[2,1]];                      
 
 const createConversation = () => {
-    outputArea.style.textAlign = "center";
     output.innerHTML = robotDialogueTexts[currentConversation];
     dialogueAsk = true;
     inDialogue = true;
@@ -353,7 +356,7 @@ leaveConversation = () => {
     d2.style.display = "none";
     leaveButton.style.display = "none";
     if (currentConversation !== 25) {output.innerHTML = "<span class='robot'>See ya later!</span>"}
-    else {output.innerHTML = ""; outputArea.style.textAlign = "left";};
+    else {output.innerHTML = "";};
     currentConversation = 26;
 };
 
@@ -380,7 +383,6 @@ leaveButton.addEventListener('click', leaveConversation);
 
     //display journal texts according to position in array
     const showBookText = () => {
-        outputArea.style.textAlign = "center";
         if (reading === true || readingAsk === true) {
             output.innerHTML = journalText[currentPage];
             document.getElementById("book").src="./inventoryimages/book.png";
@@ -539,6 +541,10 @@ const room1Switch = () => {
         moveAllRoomsBack();
         room1.style.zIndex = "0";
         roomNum = 1;
+        northTriangle.style.display = "inline";
+        southTriangle.style.display = "inline";
+        eastTriangle.style.display = "inline";
+        westTriangle.style.display = "inline";
     };
     const room2Switch = () => {
         if (roomVisited[2] === false) {
@@ -553,6 +559,10 @@ const room1Switch = () => {
         room2.style.zIndex = "0";
         document.getElementById("room2tile").src="./maptiles/room2tile.png";
         roomNum = 2;
+        northTriangle.style.display = "none";
+        southTriangle.style.display = "inline";
+        eastTriangle.style.display = "inline";
+        westTriangle.style.display = "inline";
     };
     const room3Switch = () => {
         if (roomVisited[3] === false) { 
@@ -571,6 +581,10 @@ const room1Switch = () => {
         room3.style.zIndex = "0";
         document.getElementById("room3tile").src="./maptiles/room3tile.png";
         roomNum = 3;
+        northTriangle.style.display = "inline";
+        southTriangle.style.display = "inline";
+        eastTriangle.style.display = "none";
+        westTriangle.style.display = "inline";
     };
     const room4Switch = () => {
         if (roomNum === 1 && marbleDown === false) {
@@ -592,6 +606,10 @@ const room1Switch = () => {
         room4.style.zIndex = "0";
         document.getElementById("room4tile").src="./maptiles/room4tile.png";
         roomNum = 4;
+        northTriangle.style.display = "none";
+        southTriangle.style.display = "inline";
+        eastTriangle.style.display = "inline";
+        westTriangle.style.display = "inline";
     };
     const room5Switch = () => { 
         if (roomNum === 1) {
@@ -608,6 +626,10 @@ const room1Switch = () => {
         room5.style.zIndex = "0";
         document.getElementById("room5tile").src="./maptiles/room5tile.png";
         roomNum = 5;
+        northTriangle.style.display = "inline";
+        southTriangle.style.display = "none";
+        eastTriangle.style.display = "inline";
+        westTriangle.style.display = "inline";
     };
     const room6Switch = () => {
         if (haveRope === false && ropeSet === false && roomNum === 5) {
@@ -626,6 +648,10 @@ const room1Switch = () => {
         room6.style.zIndex = "0";
         document.getElementById("room6tile").src="./maptiles/room6tile.png";
         roomNum = 6;
+        northTriangle.style.display = "inline";
+        southTriangle.style.display = "none";
+        eastTriangle.style.display = "none";
+        westTriangle.style.display = "inline";
     }; 
     const room7Switch = () => {
         if (firefliesReleased === false) {
@@ -640,10 +666,18 @@ const room1Switch = () => {
         if (firefliesReleased === false) {
             room7.src="./roomimages/smfmroom7a.png"
             document.getElementById("room7tile").src="./maptiles/room7tiledark.png";
+            northTriangle.style.display = "none";
+            southTriangle.style.display = "inline";
+            eastTriangle.style.display = "none";
+            westTriangle.style.display = "none";
         }
         else {
             room7.src="./roomimages/smfmroom7b.png";
             document.getElementById("room7tile").src="./maptiles/room7tile.png";
+            northTriangle.style.display = "none";
+            southTriangle.style.display = "inline";
+            eastTriangle.style.display = "none";
+            westTriangle.style.display = "inline";
         }
         room7.style.zIndex = "0";
         roomNum = 7;
@@ -661,6 +695,10 @@ const room1Switch = () => {
         room8.style.zIndex = "0";
         document.getElementById("room8tile").src="./maptiles/room8tile.png";
         roomNum = 8;
+        northTriangle.style.display = "none";
+        southTriangle.style.display = "none";
+        eastTriangle.style.display = "inline";
+        westTriangle.style.display = "none";
     };
     const room9Switch = () => {
         if (roomVisited[9] === false) {
@@ -677,6 +715,10 @@ const room1Switch = () => {
         room9.style.zIndex = "0";
         document.getElementById("room9tile").src="./maptiles/room9tile.png";
         roomNum = 9;
+        northTriangle.style.display = "none";
+        southTriangle.style.display = "none";
+        eastTriangle.style.display = "none";
+        westTriangle.style.display = "inline";
     }; 
     const room10Switch = () => {
         if (roomVisited[10] === false) { 
@@ -706,6 +748,10 @@ const room1Switch = () => {
         room10.style.zIndex = "0";
         document.getElementById("room10tile").src="./maptiles/room10tile.png";
         roomNum = 10;
+        northTriangle.style.display = "inline";
+        southTriangle.style.display = "inline";
+        eastTriangle.style.display = "inline";
+        westTriangle.style.display = "none";
     }; 
     const room11Switch = () => {
         if (roomVisited[11] === false) {
@@ -722,6 +768,10 @@ const room1Switch = () => {
         room11.style.zIndex = "0";
         document.getElementById("room11tile").src="./maptiles/room11tile.png";
         roomNum = 11;
+        northTriangle.style.display = "inline";
+        southTriangle.style.display = "inline";
+        eastTriangle.style.display = "inline";
+        westTriangle.style.display = "none";
     };
     const room12Switch = () => {
         if (robotAwake === false) {
@@ -747,6 +797,10 @@ const room1Switch = () => {
         room12.style.zIndex = "0";
         document.getElementById("room12tile").src="./maptiles/room12tile.png";
         roomNum = 12;
+        northTriangle.style.display = "inline";
+        southTriangle.style.display = "inline";
+        eastTriangle.style.display = "inline";
+        westTriangle.style.display = "none";
     }; 
     const room13Switch = () => {
         output.innerHTML = "You carefully climb down the rope to the bottom of the <span>well</span>.";
@@ -756,7 +810,35 @@ const room1Switch = () => {
         else {room13.src="./roomimages/smfmroom13b.png"};
         room13.style.zIndex = "0";
         roomNum = 13;
+        northTriangle.style.display = "none";
+        southTriangle.style.display = "none";
+        eastTriangle.style.display = "none";
+        westTriangle.style.display = "none";
     }; 
+
+    // CHEATER MAP CLICKING FUNCTIONS
+
+    const goNorth = () =>
+        {
+            userInput.value = "go north";
+            processInput();
+        };
+    const goSouth = () =>
+        {
+            userInput.value = "go south";
+            processInput();
+        };
+    const goEast = () =>
+        {
+            userInput.value = "go east";
+            processInput();
+        };
+    const goWest = () =>
+        {
+            userInput.value = "go west";
+            processInput();
+        };
+
 
 // VIEWING THE MAP
 const checkMap = () => {
@@ -2433,7 +2515,6 @@ const clearMap = () => {
             // CLEARING INVENTORY
             case inp('') && checkingInventory === true:
                 checkingInventory = false;
-                outputArea.style.textAlign = "left";
                 output.innerHTML = "";
                 break;
 
@@ -2441,7 +2522,6 @@ const clearMap = () => {
             case inp('') && checkingMap === true:
                 output.innerHTML = "";
                 checkingMap = false;
-                outputArea.style.textAlign = "left";
                 // makeMapBright();
                 break;
             
@@ -2449,7 +2529,6 @@ const clearMap = () => {
             case inp('') && inDialogue === true:
                 output.innerHTML = "";
                 inDialogue = false;
-                outputArea.style.textAlign = "left";
                 currentConversation = 26;
                 break;
 
@@ -2484,7 +2563,6 @@ const clearMap = () => {
         if (inventoryAsk === false) {checkingInventory = false};
         if (mapAsk === false) {checkingMap = false};
         if (dialogueAsk === false) {inDialogue = false};
-        if (dialogueAsk === false && inDialogue === false && mapAsk === false && checkingMap === false && inventoryAsk === false && checkingInventory === false) {outputArea.style.textAlign = "left";};
     }
 
     enterButton.addEventListener('click', pressEnter);
