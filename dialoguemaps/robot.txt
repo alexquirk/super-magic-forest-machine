@@ -8,7 +8,7 @@ currentConversation
 6: 8, 9
 7: 8, 9
 8: 9, 12
-9: 8, 12
+9: 3, 8
 10: 5, 11
 11: 12, 13
 12: 13, 5
@@ -67,7 +67,7 @@ Use your rope.
 
 9
 > What’s so special about it?
-It’s what makes this place possible. It’s what the humans who brought me here were looking for.
+The flower is what makes this place possible. It’s what the humans who brought me here were looking for.
 
 10
 > What’s the deal with the door?
