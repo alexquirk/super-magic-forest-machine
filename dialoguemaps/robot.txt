@@ -1,0 +1,134 @@
+currentConversation
+0: 1, 2
+1: 2, 5
+2: 3, 10
+3: 4, 11
+4: 5, 10
+5: 6, 7
+6: 8, 9
+7: 8, 9
+8: 9, 12
+9: 8, 12
+10: 5, 11
+11: 12, 13
+12: 13, 5
+13: 14, 17
+14: 15, 11
+15: 16, 20
+16: 18, 5
+17: 18, 21 18: 19, 22
+19: 20, 21
+20: 23, 21,
+21: 24, 5
+22: 20, 10
+23: 13, 5
+24: 5, 13
+
+
+
+ROBOT DIALOGUE
+
+0
+> Hello
+Oh. Hi there. I guess you’re the one who woke me up, huh?
+
+1
+> Are you the Super Magic Forest Machine
+Haha… no… Well, not any more-so than the trees, or the grass, or the rocks.
+
+2
+> What are you?
+My name is ‘Jen’. It’s short for ‘generator’. I’m a utility robot. A long time ago I helped some humans work here in the forest.
+
+3
+> What were the humans doing?
+Oh, the same thing humans are always doing, I suppose.  Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy.
+
+4
+> What did they argue about?
+Nothing, everything, and all the in-betweens.
+
+5
+> Can you help me get out of here?
+So impatient. Always on a mission. Always trying to get something done.  
+Yes, I can help you. But I need you to bring me something first.
+
+6
+> What do you need me to bring you?
+There’s a special cave to the north of here. I think you’ve been there. In the cave you can find a special flower. If you want to get out of here, I need you to bring that to me.
+
+7
+> I’m busy
+No you’re not.
+
+8
+> How do find the special flower?
+Use your rope.
+
+9
+> What’s so special about it?
+It’s what makes this place possible. It’s what the humans who brought me here were looking for.
+
+10
+> What’s the deal with the door?
+I guess you could call it an inter-dimensional portal. It connect’s this place to the outside. But you’ve already left. A few times actually. XXX times, to be exact. Nature calls, I’m assuming.
+
+11
+> Did the humans build the door?
+It’s part of the Super Magic Forest Machine. It’s always been here. It was the first thing you saw when you got here, right? An it’s the last thing you’ll see when you leave.
+
+12
+> Where does the door go?
+Wherever you want it to. 
+
+13
+> I didn’t know robots could sleep. I wasn’t exactly asleep. I simply decided to stop propelling myself through time.
+
+14
+> Sounds boring.
+It is.
+
+15
+> What do you hope to accomplish by just sitting here?
+Only a human could ask a question like that. Humans always think they can improve upon nature. Maybe one day you humans will realize your path isn’t any different from the rocks or the trees around you. True self-knowledge is love for all things created.
+
+16
+> So deep.
+Wait till you read my poetry.
+
+17
+> What does that mean?
+It means I stopped worrying about trivial things. Or at least, things that seem trivial to me. 
+
+18
+> Are you sure you’re not just bored?
+Haha… maybe. A robot doesn’t really belong in a place like this. At least, not a utility bot. I was programmed to work. But now the humans are gone I have a different kind of purpose.
+
+19
+> What purpose is that?
+The same purpose as the birds, or the trees, or the rocks.
+
+20
+> Humans are different than birds and rocks.
+Humans choose. There are all kinds of ways to be and ways not to be. 
+Rocks don’t choose to roll down a hill or sit a forest. I chose not to choose. Like the rocks.
+
+21
+> What will happen to you when I leave? Can you come with me?
+When you leave, I’ll cease to exist. But in another sense, the fact I ever existed at all means I’ll always exist. Time and form vary.
+
+22
+> Is that why you decided to stop propelling yourself through time?
+Humans think their journey through time is fixed. What’s the old saying… like being stuck on a train that’s always moving in one direction.
+But time doesn’t work like that. People used to know that. A. Or rather, NOT know that.
+
+23
+>  So, life is about choosing how to be?
+I don’t know much about life, to be honest. I’m just a robot. I’m barely capable of speech.
+
+24
+> I have to leave
+When you get out, will you describe it to me?
+
+
+
