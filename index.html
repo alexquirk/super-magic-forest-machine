@@ -295,7 +295,6 @@ const playGhostCutscene = () => {
     let currentCutscene = document.getElementById("cutscene");
     currentCutscene.addEventListener('ended', function() {
         document.getElementById('cutsceneviewer').style.display = "none";
-        output.innerHTML = "You reach for a <span>mushroom</span>...<br><br>but a <span>ghost</span> appears!!<br><br>It seems like it's guarding the mushrooms.";
         document.getElementById("cutscene").src="";
     })
 };
@@ -306,7 +305,6 @@ const playGhostMugCutscene = () => {
     let currentCutscene = document.getElementById("cutscene");
     currentCutscene.addEventListener('ended', function() {
         document.getElementById('cutsceneviewer').style.display = "none";
-        output.innerHTML = 'The <span>ghost</span> fades away, and you catch a faint whisper in the wind:<br><br>"<span class="journal">Thanks for caring...</span>"<br><br>Maybe it\'s just your imagination, but it suddenly seems like the forest around you is a bit brighter.'
         document.getElementById("cutscene").src="";
     })
 };
@@ -317,7 +315,6 @@ const playMarbleCutscene = () => {
     let currentCutscene = document.getElementById("cutscene");
     currentCutscene.addEventListener('ended', function() {
         document.getElementById('cutsceneviewer').style.display = "none";
-        output.innerHTML = "You wave the <span>ribbon</span> around a bit, and suddenly the <span>cat</span> perks up and leaps from the tree!";
         document.getElementById("cutscene").src="";
     })
 };
@@ -1326,6 +1323,7 @@ const clearMap = () => {
                 haveRibbon = false;
                 removeItem("a <span>red ribbon</span>");
                 room4Switch();
+                output.innerHTML = "You wave the <span>ribbon</span> around a bit, and suddenly the <span>cat</span> perks up and leaps from the tree!";
                 break;
             case ( (roomNum === 4 && marbleDown === true) || ( roomNum === 12 && marbleReunited === true ) ) &&  (   inp('play')  ||  (inp('cat')||inp('use')) && inp('ribbon')   ) :
                 output.innerHTML = "You grab the <span>ribbon</span> and wave it around for the <span>cat</span>. Is there anything better than this?";
@@ -1612,6 +1610,7 @@ const clearMap = () => {
                 playGhostCutscene();
                 ghostDiscovered = true;
                 room9Switch();
+                output.innerHTML = "You reach for a <span>mushroom</span>...<br><br>but a <span>ghost</span> appears!!<br><br>It seems like it's guarding the mushrooms.";
                 break;
                 // take mushrooms after ghost given mug
             case roomNum === 9 && ghostGivenMug === true && ( (inp('take')||inp('grab')||inp('pocket')||inp('gather')||inp('pick'))  || (inp('eat')&&haveMushy === false)   )  &&    (inp('mushroom')||inp('circle'))  :
@@ -1635,6 +1634,7 @@ const clearMap = () => {
                 playGhostMugCutscene();
                 room9Switch();
                 removeItem("an <span>old mug</span>");
+                output.innerHTML = 'The <span>ghost</span> fades away, and you catch a faint whisper in the wind:<br><br>"<span class="journal">Thanks for caring...</span>"<br><br>Maybe it\'s just your imagination, but it suddenly seems like the forest around you is a bit brighter.'
                 break;
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false && haveMug === true  &&  inp('mug')  :
                 output.innerHTML = "What do you want to do with the <span>mug</span>?"
@@ -1738,7 +1738,7 @@ const clearMap = () => {
             case roomNum === 10 &&  inp('use') &&   inp('well')  && ropeSet === false :
                 output.innerHTML = "The <span>well</span> doesn't have a bucket or rope.";
                 break;
-            case roomNum === 10 &&  (inp('climb')||inp('use')) && (inp('down')||inp('well')||inp('rope'))  && ropeSet === true :
+            case roomNum === 10  && ropeSet === true   &&  (((inp('climb')||inp('use')) && (inp('down')||inp('well')) )||  inp('rope')) :
                 output.innerHTML = "You test the <span>rope</span>, and then carefully lower yourself into the <span>well</span>...";
                 room13Switch();
                 roomNum = 13;
@@ -1760,7 +1760,11 @@ const clearMap = () => {
             case roomNum === 10 &&    (inp('inspect')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
                 break;
-            
+                // default rope
+            case roomNum === 10 && haveRope === true && inp('rope') :
+                output.innerHTML = "How do you want to use the rope?";
+                break;
+
             // ROOM 11
             case roomNum === 11 &&  (inp('look')||inp('inspect')||inp('search'))   &&    (inp('forest')||inp('around')) :
                 if (caveInspected === false) {
