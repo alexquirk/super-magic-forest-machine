@@ -326,6 +326,7 @@ const createConversation = () => {
         d2.innerHTML = dialogueButtonTexts[conversationMap[currentConversation][1]];
         d2.style.display = "block";
     } else {d2.style.display = "none"};
+    outputArea.scroll(0,0);
 };
 
 continueConversation1 = () => {
@@ -348,7 +349,8 @@ leaveConversation = () => {
     d1.style.display = "none";
     d2.style.display = "none";
     leaveButton.style.display = "none";
-    output.innerHTML = "<span class='robot'>See ya later!</span>";
+    if (currentConversation !== 25) {output.innerHTML = "<span class='robot'>See ya later!</span>"}
+    else {output.innerHTML = ""};
     currentConversation = 26;
 };
 
