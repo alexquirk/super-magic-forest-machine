@@ -131,7 +131,6 @@ const makeFadeAway = () => {
     let checkingMap = false;
     let mapAsk = false;
 
-    let currentConversation = 0;
     let dialogueAsk = false;
     let inDialogue = false;
 
@@ -251,9 +250,9 @@ const makeFadeAway = () => {
 
 // DIALOGUE BUTTONS
     //dialogue texts
-    const robotDialogueText = ["Oh. Hi there. I guess you’re the one who woke me up, huh?",
+    const robotDialogueTexts = ["Oh. Hi there. I guess you’re the one who woke me up, huh?",
                                 "Haha… no… Well, not any more-so than the trees, or the grass, or the rocks.",
-                                "My name is Jen. It’s short for ‘generator’. I’m a utility robot. A long time ago I helped some humans work here in the forest.",
+                                "They call me ‘Jen’. It’s short for ‘generator’. I’m a utility robot. A long time ago I helped some humans work here in the forest.",
                                 "Oh, the same thing humans are always doing, I suppose.  Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy.",
                                 "Nothing, everything, and all the in-betweens.",
                                 "So impatient. Always on a mission. Always trying to get something done.<br><br>Yes, I can help you. But I need you to bring me something first.",
@@ -278,11 +277,11 @@ const makeFadeAway = () => {
                                 "When you get out, will you describe it to me?",
                                 ];
     
-    const dialogueButtonText = ["Talk to the robot?",
+    const dialogueButtonTexts = ["Talk to the robot?",
                                  "Are you the Super Magic Forest Machine?",
-                                 "What are you?",
+                                 "What's you name?",
                                  "What were the humans doing?",
-                                 "What did they argue about?",
+                                 "What did they arguing about?",
                                  "Can you help me get out of here?",
                                  "What do you need me to bring you?",
                                  "I'm busy",
@@ -302,31 +301,19 @@ const makeFadeAway = () => {
                                  "What will happen to you when I leave? Can you come with me?",
                                  "Is that why you decided to stop propelling yourself through time?",
                                  "So, life is about choosing how to be?",
-                                 "I have to leave"
+                                 "I don’t know much about life, to be honest. I’m just a robot. I’m barely capable of speech."
                                 ];
 
-// const conversationMap = [[1,2],[2,5],[3,10],[4,11],[5,10],[6,7],[8,9],[9,12],[8,12],[5,11],[12,13],[13,5],[14,17],[15,11],[16,20],[18,5],[18,21],[18,22],[20,21],[23,21],[24,5],[20,10],[13,5],[5,13]]
-
-// show dialogue                                 
-// const showDialogueButton = () => {
-        // d1.value = dialogueButtonText[conversationMap[0][1]];
-        // d2.value = dialogueButtonText[conversationMap[0][2]];
-        // d1.style.display = "block";
-        // d2.style.display = "block";
-    // };                             
-  
-// d1.addEventListener('click', showDialogue1Response);
-// d2.addEventListener('click', showDialogue2Response);
-
-//     //when dialogue 'X' button is pressed, show response 'X' and display follow-up reasponses    
-// showDialogue1Response = () => {
-//     output.innerHTML = robotDialogueText[0];
-//     }; 
-
-// showDialogue2Response = () => {
-//     output.innerHTML = robotDialogueText[1];
-//     };
-
+const showDialogueButton = (dialogueNumber1, dialogueNumber2) => {
+        d1.value = dialogueButtonTexts[dialogueNumber1];
+        d2.value = dialogueButtonTexts[dialogueNumber2];
+        if (typeof dialogueNumber1 !== undefined) {
+            d1.style.display = "block";
+        } else {d1.style.display = "none"};
+        if (typeof dialogueNumber2 !== undefined) {
+            d2.style.display = "block";
+        } else {d1.style.display = "none"};
+    };                             
 
 
 // BOOK BUTTONS
@@ -346,8 +333,11 @@ const makeFadeAway = () => {
         bookButton.style.display = "block"; 
     };
 
-    //hit button to show book text
-    bookButton.addEventListener('click', showBookText);
+    showDialogueResponse = {} //when dialogue X button is pressed, show response X and display follow-up reasponses
+
+
+    d1.addEventListener('click', showDialogueResponse);
+    d2.addEventListener('click', showDialogueResponse);
 
     //display journal texts according to position in array
     const showBookText = () => {
@@ -375,6 +365,8 @@ const makeFadeAway = () => {
         outputArea.scroll(0,0);
     };
 
+    //hit button to show book text
+    bookButton.addEventListener('click', showBookText);
 
 // CUTSCENES
     const playGhostCutscene = () => {
@@ -500,7 +492,7 @@ const moveAllRoomsBack = () => {
     allRooms[roomNum-1].style.zIndex = "-2"; 
     }
 
-    const room1Switch = () => {
+const room1Switch = () => {
         mapArrow.style.top = "53%";
         mapArrow.style.left = "42.6%";
         output.innerHTML = "The <span>wooden door</span> stands in the middle of the clearing.";
@@ -774,11 +766,10 @@ const clearMap = () => {
         switch (true) {
     
         // GLOBAL
-            // case inp ('talk test'):
-            //     output.innerHTML = "";
-            //     currentConversation = 0;
-            //     showDialogueButton();
-            //     break;
+            case inp ('talk test'):
+                output.innerHTML = "";
+                showDialogueButton(1, 2);
+                break;
             case inp('get room num'):
                 output.innerHTML = roomNum;
                 break;
