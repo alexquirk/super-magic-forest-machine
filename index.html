@@ -123,6 +123,17 @@ const makeFadeAway = () => {
 
     let checkingInventory = false;
     let inventoryAsk = false;
+
+    let currentPage = 0;
+    let reading = false;
+    let readingAsk = false;
+
+    let checkingMap = false;
+    let mapAsk = false;
+
+    let dialogueAsk = false;
+    let inDialogue = false;
+
     let doorUnlocked = false;
     let haveRock = false;
     let haveFlower = false;
@@ -146,23 +157,19 @@ const makeFadeAway = () => {
     let haveRibbon = false;
     let foundBook = false;
     let haveMushy = false;
-    let currentPage = 0;
-    let reading = false;
-    let readingAsk = false;
     let ghostDiscovered = false;
-    let checkingMap = false;
-    let mapAsk = false;
-    let thingsTried = 0;
-    let firstHint = false;
     let triedKeyOnDoor = false;
-    let profanityCounter = 0;
     let caveInspected = false;
     let lakeDiscovered = false;
-    let boxSmashed = 0;
     let firstCutscene = false;
-    let sassyHint = false;
     let firefliesSeen = false;
     let waterSearchedOnce = false;
+    
+    let firstHint = false;
+    let thingsTried = 0;
+    let profanityCounter = 0;
+    let sassyHint = false;
+    let boxSmashed = 0;
 
     const roomVisited = ["", true, false, false, false, false, false, false, false, false, false, false, false, false];
     const inventory = [];
@@ -241,6 +248,74 @@ const makeFadeAway = () => {
             }
     };
 
+// DIALOGUE BUTTONS
+    //dialogue texts
+    const robotDialogueTexts = ["Oh. Hi there. I guess you’re the one who woke me up, huh?",
+                                "Haha… no… Well, not any more-so than the trees, or the grass, or the rocks.",
+                                "They call me ‘Jen’. It’s short for ‘generator’. I’m a utility robot. A long time ago I helped some humans work here in the forest.",
+                                "Oh, the same thing humans are always doing, I suppose.  Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy.",
+                                "Nothing, everything, and all the in-betweens.",
+                                "So impatient. Always on a mission. Always trying to get something done.<br><br>Yes, I can help you. But I need you to bring me something first.",
+                                "There’s a special cave to the north of here. I think you’ve been there. In the cave you can find a special flower. If you want to get out of here, I need you to bring that to me.",
+                                "No you’re not.",
+                                "Use your rope!",
+                                "It’s what makes this place possible. It’s what the humans who brought me here were looking for.",
+                                "I guess you could call it an inter-dimensional portal. It connect’s this place to the outside. But you’ve already left. A few times actually. XXX times, to be exact. Nature calls, I’m assuming.",
+                                "It’s part of the Super Magic Forest Machine. It’s always been here. It was the first thing you saw when you got here, right? An it’s the last thing you’ll see when you leave.",
+                                "Wherever you want it to.",
+                                "I wasn’t exactly asleep. I simply decided to stop propelling myself through time.",
+                                "It is.",
+                                "Only a human could ask a question like that. Humans always think they can improve upon nature. Maybe one day you humans will realize your path isn’t any different from the rocks or the trees around you. True self-knowledge is love for all things created.",
+                                "Wait till you read my poetry.",
+                                "It means I stopped worrying about trivial things. Or at least, things that seem trivial to me.",
+                                "Haha… maybe. A robot doesn’t really belong in a place like this. At least, not a utility bot. I was programmed to work. But now the humans are gone I have a different kind of purpose.",
+                                "The same purpose as the birds, or the trees, or the rocks.",
+                                "Humans choose. There are all kinds of ways to be and ways not to be.<br><br>Rocks don’t choose to roll down a hill or sit a forest. I chose not to choose. Like the rocks.",
+                                "When you leave,I’ll cease to exist. But in another sense, the fact I ever existed at all means I’ll always exist. Time and form vary.",
+                                "Humans think their journey through time is fixed. What’s the old saying… like being stuck on a train that’s always moving in one direction.<br><br>But time doesn’t work like that. People used to know that. A. Or rather, NOT know that.",
+                                "I don’t know much about life, to be honest. I’m just a robot. I’m barely capable of speech.",
+                                "When you get out, will you describe it to me?",
+                                ];
+    
+    const dialogueButtonTexts = ["Talk to the robot?",
+                                 "Are you the Super Magic Forest Machine?",
+                                 "What's you name?",
+                                 "What were the humans doing?",
+                                 "What did they arguing about?",
+                                 "Can you help me get out of here?",
+                                 "What do you need me to bring you?",
+                                 "I'm busy",
+                                 "How do find the special flower?",
+                                 "What’s so special about it?",
+                                 "What’s the deal with the door?",
+                                 "Did the humans build the door?",
+                                 "Where does the door go?",
+                                 "I didn’t know robots could sleep.",
+                                 "Sounds boring.",
+                                 "What do you hope to accomplish by just sitting here?",
+                                 "So deep.",
+                                 "What does that mean?",
+                                 "Are you sure you’re not just bored?",
+                                 "What purpose is that?",
+                                 "Humans are different than birds and rocks",
+                                 "What will happen to you when I leave? Can you come with me?",
+                                 "Is that why you decided to stop propelling yourself through time?",
+                                 "So, life is about choosing how to be?",
+                                 "I don’t know much about life, to be honest. I’m just a robot. I’m barely capable of speech."
+                                ];
+
+const showDialogueButton = (dialogueNumber1, dialogueNumber2) => {
+        d1.value = dialogueButtonTexts[dialogueNumber1];
+        d2.value = dialogueButtonTexts[dialogueNumber2];
+        if (typeof dialogueNumber1 !== undefined) {
+            d1.style.display = "block";
+        } else {d1.style.display = "none"};
+        if (typeof dialogueNumber2 !== undefined) {
+            d2.style.display = "block";
+        } else {d1.style.display = "none"};
+    };                             
+
+
 // BOOK BUTTONS
     //page texts
     const journalText = ["The <span>journal</span> begins:<br><br><span class='journal'>          Day 14<br><br>Still no sign of it. <br><br>Our readings indicated that it should be near, but as soon as we got close, all our instruments went haywire. We'll have to continue our search manually until the equipment is repaired.</span>",
@@ -257,6 +332,12 @@ const makeFadeAway = () => {
         bookButton.value = buttonText;
         bookButton.style.display = "block"; 
     };
+
+    showDialogueResponse = {} //when dialogue X button is pressed, show response X and display follow-up reasponses
+
+
+    d1.addEventListener('click', showDialogueResponse);
+    d2.addEventListener('click', showDialogueResponse);
 
     //display journal texts according to position in array
     const showBookText = () => {
@@ -287,107 +368,107 @@ const makeFadeAway = () => {
     //hit button to show book text
     bookButton.addEventListener('click', showBookText);
 
-
 // CUTSCENES
-const playGhostCutscene = () => {
-    document.getElementById('cutsceneviewer').style.display = "flex";
-    document.getElementById("cutscene").src="./cutscenes/ghostcutscene.mp4";
-    let currentCutscene = document.getElementById("cutscene");
-    currentCutscene.addEventListener('ended', function() {
-        document.getElementById('cutsceneviewer').style.display = "none";
-        document.getElementById("cutscene").src="";
-    })
-};
+    const playGhostCutscene = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/ghostcutscene.mp4";
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
+    
+    const playGhostMugCutscene = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/ghostmugcutscene.mp4";
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
+    
+    const playMarbleCutscene = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/marblecutscene.mp4";
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
+    
+    const playTreeClimbCutscene = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/treeclimbcutscene.mp4";
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
+    
+    const playCaveCutscene = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/cavecutscene.mp4";
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
+    
+    const playCaveCutscene2 = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/cavecutscene2.mp4";
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
+    
+    const playBeachCutscene = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/beachcutscene.mp4";
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
+    
+    const playFirstCutscene = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/firstcutscene.mp4";
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
+    
+    const playFireflyCutscene = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/fireflycutscene.mp4";
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
+    
+    const playRobotCutscene = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/robotcutscene.mp4";
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
 
-const playGhostMugCutscene = () => {
-    document.getElementById('cutsceneviewer').style.display = "flex";
-    document.getElementById("cutscene").src="./cutscenes/ghostmugcutscene.mp4";
-    let currentCutscene = document.getElementById("cutscene");
-    currentCutscene.addEventListener('ended', function() {
-        document.getElementById('cutsceneviewer').style.display = "none";
-        document.getElementById("cutscene").src="";
-    })
-};
-
-const playMarbleCutscene = () => {
-    document.getElementById('cutsceneviewer').style.display = "flex";
-    document.getElementById("cutscene").src="./cutscenes/marblecutscene.mp4";
-    let currentCutscene = document.getElementById("cutscene");
-    currentCutscene.addEventListener('ended', function() {
-        document.getElementById('cutsceneviewer').style.display = "none";
-        document.getElementById("cutscene").src="";
-    })
-};
-
-const playTreeClimbCutscene = () => {
-    document.getElementById('cutsceneviewer').style.display = "flex";
-    document.getElementById("cutscene").src="./cutscenes/treeclimbcutscene.mp4";
-    let currentCutscene = document.getElementById("cutscene");
-    currentCutscene.addEventListener('ended', function() {
-        document.getElementById('cutsceneviewer').style.display = "none";
-        document.getElementById("cutscene").src="";
-    })
-};
-
-const playCaveCutscene = () => {
-    document.getElementById('cutsceneviewer').style.display = "flex";
-    document.getElementById("cutscene").src="./cutscenes/cavecutscene.mp4";
-    let currentCutscene = document.getElementById("cutscene");
-    currentCutscene.addEventListener('ended', function() {
-        document.getElementById('cutsceneviewer').style.display = "none";
-        document.getElementById("cutscene").src="";
-    })
-};
-
-const playCaveCutscene2 = () => {
-    document.getElementById('cutsceneviewer').style.display = "flex";
-    document.getElementById("cutscene").src="./cutscenes/cavecutscene2.mp4";
-    let currentCutscene = document.getElementById("cutscene");
-    currentCutscene.addEventListener('ended', function() {
-        document.getElementById('cutsceneviewer').style.display = "none";
-        document.getElementById("cutscene").src="";
-    })
-};
-
-const playBeachCutscene = () => {
-    document.getElementById('cutsceneviewer').style.display = "flex";
-    document.getElementById("cutscene").src="./cutscenes/beachcutscene.mp4";
-    let currentCutscene = document.getElementById("cutscene");
-    currentCutscene.addEventListener('ended', function() {
-        document.getElementById('cutsceneviewer').style.display = "none";
-        document.getElementById("cutscene").src="";
-    })
-};
-
-const playFirstCutscene = () => {
-    document.getElementById('cutsceneviewer').style.display = "flex";
-    document.getElementById("cutscene").src="./cutscenes/firstcutscene.mp4";
-    let currentCutscene = document.getElementById("cutscene");
-    currentCutscene.addEventListener('ended', function() {
-        document.getElementById('cutsceneviewer').style.display = "none";
-        document.getElementById("cutscene").src="";
-    })
-};
-
-const playFireflyCutscene = () => {
-    document.getElementById('cutsceneviewer').style.display = "flex";
-    document.getElementById("cutscene").src="./cutscenes/fireflycutscene.mp4";
-    let currentCutscene = document.getElementById("cutscene");
-    currentCutscene.addEventListener('ended', function() {
-        document.getElementById('cutsceneviewer').style.display = "none";
-        document.getElementById("cutscene").src="";
-    })
-};
-
-const playRobotCutscene = () => {
-    document.getElementById('cutsceneviewer').style.display = "flex";
-    document.getElementById("cutscene").src="./cutscenes/robotcutscene.mp4";
-    let currentCutscene = document.getElementById("cutscene");
-    currentCutscene.addEventListener('ended', function() {
-        document.getElementById('cutsceneviewer').style.display = "none";
-        document.getElementById("cutscene").src="";
-    })
-};
 
 // ROOM SWITCHING FUNCTIONS
 
@@ -646,10 +727,12 @@ const checkMap = () => {
 };
 
 const clearMap = () => {
-    document.getElementById('maptiles').style.display = "none"
-    output.innerHTML = "You close your <span>map</span>.";
-    map.classList.remove('darken');
-    userInput.focus(); 
+    if (checkingMap === true || mapAsk === true) {
+        document.getElementById('maptiles').style.display = "none"
+        output.innerHTML = "You close your <span>map</span>.";
+        map.classList.remove('darken');
+        userInput.focus(); 
+        };
     };
 
 
@@ -683,6 +766,10 @@ const clearMap = () => {
         switch (true) {
     
         // GLOBAL
+            case inp ('talk test'):
+                output.innerHTML = "";
+                showDialogueButton(1, 2);
+                break;
             case inp('get room num'):
                 output.innerHTML = roomNum;
                 break;
