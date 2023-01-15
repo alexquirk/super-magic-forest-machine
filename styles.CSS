@@ -171,6 +171,7 @@ body {
     z-index: 50;
     height: 24%;
     display: inline;
+    opacity: 70%;
 }
 
 #southtriangle {
