@@ -170,8 +170,9 @@ body {
     position: absolute;
     z-index: 50;
     height: 24%;
+    max-height: 90px;
     display: inline;
-    opacity: 70%;
+    opacity: 80%;
 }
 
 #southtriangle {
