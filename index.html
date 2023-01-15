@@ -1782,7 +1782,7 @@ const clearMap = () => {
             case roomNum === 6 &&   ropeTaken === false &&    (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    (inp('rope'))     :
                 output.innerHTML = "The <span>rope</span> seems to be the only thing about the boat that is still in decent condition.";
                 break;
-            case roomNum === 6    && ropeTaken === false &&    (inp('take')||inp('grab')||inp('pocket')||inp('untie')||inp('remove')||inp('get'))   &&    (inp('rope'))  :
+            case roomNum === 6    && ropeTaken === false && (    ((inp('take')||inp('grab')||inp('pocket')||inp('remove')||inp('get')||inp('use')||inp('tie'))   &&    (inp('rope')))  ||  (inp('tie') &&  inp('boat'))  ):
                 haveRope = true;
                 ropeTaken = true;
                 inventory.push("a <span>rope</span>")
@@ -1790,22 +1790,14 @@ const clearMap = () => {
                 switchChestRopeImage();
                 output.innerHTML = "You untie the <span>rope</span> and put it in your <span>pocket</span>.<br><br>Type \"<span>pockets</span>\" to see what you have with you.";
                 break;
-            case roomNum === 6 &&  (inp('use') && inp('rope')) && ropeTaken === false:
-                haveRope = true;
-                ropeTaken = true;
-                inventory.push("a <span>rope</span>")
-                switchChestRopeImage();
-                room6Switch();
-                output.innerHTML = "The <span>rope</span> is tied to the sunken <span>boat</span>. Mmaybe you can use it to better use elsewhere.";
-                break;
             case roomNum === 6 && ropeTaken === true && (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    (inp('rope'))     :
                 output.innerHTML = "The <span>rope</span> is gone. You took it, remember?";
                 break;
             case roomNum === 6 &&   ropeTaken === true && (inp('take')||inp('grab')||inp('pocket')||inp('get'))   &&    (inp('rope'))     :
                 output.innerHTML = "You already took the <span>rope.</span>";
                 break;    
-            case roomNum === 6 &&  (inp('use') && inp('rope')):
-                output.innerHTML = "You don't see a way to make the <span>rope</span> useful here.";
+            case roomNum === 6 && haveRope === true && inp('rope'):
+                output.innerHTML = "You don't need to use the <span>rope</span> here.";
                 break;
 
             // ROOM 7
