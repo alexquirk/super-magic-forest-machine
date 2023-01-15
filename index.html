@@ -175,7 +175,7 @@ const makeFadeAway = () => {
     let waterSearchedOnce = false;
     
     let firstHint = false;
-    let thingTried = 0;
+    let thingsTried = 0;
     let thingsTriedSinceLastBigThing = 0;
     let profanityCounter = 0;
     let sassyHint = false;
@@ -1360,7 +1360,7 @@ const clearMap = () => {
             case roomNum === 1 &&    (inp('inspect')||inp('see ')||inp('look')||inp('search')||inp('check'))    &&    (inp('door')||inp('frame'))     :
                 output.innerHTML = "The <span>door</span> is made of a dark wood, and it's <span>handle</span> and <span>lock</span> are iron. It's worn, but sturdy. Something tells you it's been here a long time.";
                 break;
-            case roomNum === 1 &&    (iinp('beyond'))    &&    (inp('door')||inp('frame'))     :
+            case roomNum === 1 &&    (inp('beyond'))    &&    (inp('door')||inp('frame'))     :
                 output.innerHTML = "You press your hand against the <span>door</span> and a chill goes up your spine.<br><br>There must be a way to open it...<br><br>Type commands below to explore the forest. You can move around quicker by tapping the corners of the screen above.<br><br>Don't forget to type<span>look around</span> when you enter a new area.";
                 break;
             case roomNum === 1 &&    (inp('behind')||inp('other side'))    &&    (inp('door')||inp('frame'))     :
@@ -2141,7 +2141,7 @@ const clearMap = () => {
                 playRobotCutscene();
                 robotAwake = true;
                 room12Switch();
-                thingsTriedSinceLastBigThing = 0
+                thingsTriedSinceLastBigThing = 0;
                 haveCrystal = false;
                 removeItem("a <span>strange crystal</span>");
                 output.innerHTML = "You open the <span>robot's</span> front panel, and carefully slide the <span>crystal</span> into the empty battery slot, and suddenly the <span>robot</span> comes to life!";
@@ -2582,7 +2582,7 @@ const clearMap = () => {
             case inp('dig') && (inp('gold')||inp('treause')):
                 output.innerHTML = "No treasure here!";
                 break;
-            case inp('dig') && inp('mushroom') && roomNum !==9 :
+            case inp('dig') && inp('mushroom') && roomNum !== 9 :
                 output.innerHTML = "Not really the season for that.";
                 break;
             case inp('dig') && inp('stump')  && roomNum === 3 :
@@ -2763,7 +2763,7 @@ const clearMap = () => {
         userInput.value = "";
         currentPage = 0;
         outputArea.scroll(0,0);
-    }
+    };
 
 // PRESSING ENTER 
     const pressEnter = () => {
