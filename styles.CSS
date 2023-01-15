@@ -4,6 +4,7 @@ body {
     font-size: 18px;
     overflow: scroll;
     margin: 0px;
+    touch-action: manipulation;  /* via  https://stackoverflow.com/questions/10614481/disable-double-tap-zoom-option-in-browser-on-touch-devices */
 }
 
 /* TITLE CARD */
