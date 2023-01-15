@@ -168,8 +168,7 @@ body {
 .compasstriangles {
     position: absolute;
     z-index: 50;
-    height: 22%;
-    opacity: 90%;
+    height: 24%;
     display: inline;
 }
 

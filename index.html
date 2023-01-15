@@ -990,25 +990,25 @@ const clearMap = () => {
                 output.innerHTML = "The objects around you can be interacted with. Try typing \"<span>pick up rock</span>\".<br><br>You can also type \"<span>check pockets</span>\" to see what items you've picked up so far.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === false &&  boxUnlocked === false && roomNum !== 12 && roomNum !== 5 && roomNum !== 6:
-                output.innerHTML = "You can hear the sound of water to the <span>south</span>. That might be a good place to <span>look around</span>.";
+                output.innerHTML = "You can travel around the forest by typing things like <span>go north</span>.<br><br>. You can also get around by clicking on the triangles in the corners of the screen above, or by typing <span>map</span> and clicking on an area you've already been to.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === false &&  boxUnlocked === false :
-                output.innerHTML = "The beach seems like a good place to look for useful things. Try <span>searching</span> around the water to see what has washed up on the shore.";
+                output.innerHTML = "It's always helpful to <span>look around</span> any time you arrive in a new area.<br><br>You can move around the forest quickly by clicking on triangles in the corners of the screen above, or by typing <span>map</span> and clicking on an area you've already been to.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === true && haveBox === false && triedKeyOnDoor === false &&  boxUnlocked === false:
                 output.innerHTML = "You found a <span>key</span>!<br><br>I bet it unlocks something nearby.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === true && haveBox === false && triedKeyOnDoor === true &&  boxUnlocked === false:
-                output.innerHTML = "Welp, looks like you have the wrong <span>key</span> for the <span>door</span>.<br><br>Maybe this <span>key</span> fits something else nearby<br><br>You can type \"<span>map</span>\" to see where you've been, or \"<span>hint</span>\" if you get stuck.";
+                output.innerHTML = "Welp, looks like this is the wrong <span>key</span> for the <span>door</span>...<br><br>Maybe this <span>key</span> fits something else nearby<br><br>You can type \"<span>map</span>\" to see where you've been, or \"<span>hint</span>\" if you get stuck.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === true &&  boxUnlocked === false && thingsTried < 80 :
                 output.innerHTML = "You can hear something inside the <span>box</span> when you shake it. There has to be a way to open it! Maybe the <span>key</span> is nearby.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === true &&  boxUnlocked === false && thingsTried < 100 :
-                output.innerHTML = "I bet you can get this <span>box</span> open somehow!";
+                output.innerHTML = "I'm sure you can get this <span>box</span> open somehow!";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === true &&  boxUnlocked === false :
-                output.innerHTML = "There has to be a way to open this <span>box</span> somehow...";
+                output.innerHTML = "There has to be a way to open this <span>box</span>...";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === false && haveBox === true && haveBoxKey === true:
                 output.innerHTML = "Type \"<span>pockets</span>\" to see what you have with you.";
