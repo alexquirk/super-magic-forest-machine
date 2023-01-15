@@ -1017,7 +1017,7 @@ const clearMap = () => {
                 output.innerHTML = "You used the key to open <span>box</span>, but there was only a <span>red ribbon</span> inside.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && haveFireflies === false && firefliesReleased === false && boxSmashed > 2 && (thingsTried < 10 || sassyHint === false):
-                output.innerHTML = "You really think I'm gonna give you a hint after you smashed open the <span>box</span> like that? HA.<br><br>This one's on you.";
+                output.innerHTML = "You really think I'm gonna give you a hint after you smashed the <span>box</span> like that? HA.<br><br>This one's on you.";
                 sassyHint = true;
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && haveFireflies === false && firefliesReleased === false && boxSmashed > 2  && thingsTried < 20:
@@ -1659,9 +1659,9 @@ const clearMap = () => {
                     lakeDiscovered = true;
                 };
                 waterSearchedOnce = true;
-                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy <span>something</span> shining under the water near the rocks.";
+                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy <span>something</span> shining under the water near the <span>rocks</span>.";
                 break;
-            case roomNum === 5 &&  haveBoxKey === false && boxSmashed < 3 && (inp('search')||inp('inspect')||inp('look')||inp('check')||inp('behind'))   &&    (inp('water')||inp('rock')||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
+            case roomNum === 5 &&  haveBoxKey === false && boxSmashed < 3 && (inp('search')||inp('inspect')||inp('look')||inp('check'))   &&    (inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')||inp('water')||inp('rock')||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
                 output.innerHTML = "You find a <span>key</span> in the <span>rocks</span> by the shore. You put the <span>key</span> in your <span>pocket</span>.<br><br>Type \"<span>pockets</span>\" to see what you have with you.";
                 haveBoxKey = true;
                 inventory.push("a <span>silver key</span>");
@@ -1899,7 +1899,7 @@ const clearMap = () => {
                 roomNum = 2;
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && (inp('cast')||inp('spell')||inp('magic')||inp('exorcis')||inp('incantation')||inp('enchant')||inp('hypno')||inp('tranc')) :
-                output.innerHTML = "You've never been very good at spells and encantations, especially not when standing in front of a real <span>ghost</span>.<br><br>Maybe the ghost has something to say though...";
+                output.innerHTML = "You've never been very good at spells and encantations, especially not when standing in front of a real <span>ghost</span>.";
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveRibbon === true && inp('ribbon')  :
                 output.innerHTML = "You offer the <span>ribbon</span> to the ghost.<br><br><span class='journal'>\"No... thanks...\"</span>";
@@ -1908,7 +1908,16 @@ const clearMap = () => {
                 output.innerHTML = "I don't think the <span>ghost</span> can use that.";
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveCrystal === true && (inp('crystal')||inp('gem'))  :
-                output.innerHTML = "You offer the <span>crystal</span> to the ghost.<br><br><span class='journal'>\"Ohh... what... a find... keep it... for Jen...\"</span><br><br>Who could 'Jen' be?";
+                output.innerHTML = "You offer the <span>crystal</span> to the <span>ghost</span>.<br><br><span class='journal'>\"Jen... would love that...\"</span><br><br>Who could 'Jen' be?";
+                break;
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveCrystal === true && inp('key') && haveBoxKey === true && haveBox === false  :
+                output.innerHTML = "You show the <span>key</span> to the <span>ghost</span>.<br><br><span class='journal'>\"Box... boat...\"</span>";
+                break;
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveCrystal === true && inp('key') && haveBox === true && haveBoxKey === true :
+                output.innerHTML = "You offer the <span>key</span> to the <span>ghost</span>.<br><br><span class='journal'>\"No... thanks...\"</span>";
+                break;
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveCrystal === true && inp('box') && haveBox === true :
+                output.innerHTML = "You offer the <span>key</span> to the <span>ghost</span>.<br><br><span class='journal'>\"Not... mine...\"</span>";
                 break;
                 // catch-all for ghosts and mushrooms
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && inp('ghost') :
@@ -2004,6 +2013,13 @@ const clearMap = () => {
                 // default rope
             case roomNum === 10 && haveRope === true && inp('rope') :
                 output.innerHTML = "How do you want to use the rope?";
+                break;
+                // default well
+            case roomNum === 10 && inp('in ') && inp('well') :
+                output.innerHTML = "You peer down into the <span>well</span>, but you can't see the bottom.";
+                break;
+            case roomNum === 10 && inp('well') :
+                output.innerHTML = "Well, well, well... you can't do that. Try something else.";
                 break;
 
             // ROOM 11
@@ -2255,9 +2271,6 @@ const clearMap = () => {
                 break;
 
             // INTERACT WITH ROCKS
-            case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('rock')||inp('stone')||inp('pebble'))  && haveRock=== true  :
-                output.innerHTML = "You already have a <span>rock</span> in your <span>pocket</span>.<br><br>You can check your pockets by tpying <span>pockets</span> or <span>inventory</span>.";
-                break;
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "There's an art to <span>rock</span> collecting. You find a nice one and put it in your <span>pocket</span>.<br><br>Type \"<span>pockets</span>\" to see what you have with you.";
                 inventory.push("a <span>rock</span>")
@@ -2276,9 +2289,7 @@ const clearMap = () => {
                 output.innerHTML = "You wind up and throw the rock as far as you can.";
                 haveRock = false;
                 break;
-            case (inp('rock')||inp('stone')||inp('pebble'))    :
-                output.innerHTML = "What about the rocks?";
-                break;
+            
 
 
             // INTERACT WITH GRASS
@@ -2299,9 +2310,6 @@ const clearMap = () => {
                 break;
             case inp('eat')  &&    inp('grass')    :
                 output.innerHTML = "...why??";
-                break;
-            case inp('grass')    :
-                output.innerHTML = "What about the grass?";
                 break;
             
             // STICKS
@@ -2332,26 +2340,6 @@ const clearMap = () => {
                 break;
             case  inp('touch') && (inp('leaves')||inp('leaf'))  :
                 output.innerHTML = "You touch the leaves. They feel leafy.<br><br>Better leaf them alone.";
-                break;
-            case  (inp('leaves')||inp('leaf'))  :
-                output.innerHTML = "The ground is covered in a variety of leaves from all the different kinds of trees.";
-                break;
-
-            // DIG / DIRT / GROUND
-            case inp('dig') && (inp('gold')||inp('treause')):
-                output.innerHTML = "No treasure here!";
-                break;
-            case inp('dig') && inp('mushroom')  :
-                output.innerHTML = "Not really the season for that.";
-                break;
-            case inp('dig'):
-                output.innerHTML = "You don't have anything to dig with, and you're not really sure what you'd be looking for anyway.";
-                break;
-            case  inp('touch') && (inp('dirt') || inp('ground'))  :
-                output.innerHTML = "Yaaay dirt.";
-                break;
-            case  inp('ground') || (inp('dirt'))  :
-                output.innerHTML = "Look, everyone loves some good dirt. But we got things to do here, people.";
                 break;
 
             // UNLOCK / INTERACT WITH THE BOX IN INVENTORY
@@ -2385,7 +2373,7 @@ const clearMap = () => {
                 };
                 break;
             case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force'))   &&    (inp('box')||inp('chest'))  && haveBox === true && boxSmashed === 0 && boxUnlocked === false    :
-                output.innerHTML = "You hit the <span>box</span> with a rock... and it opens! ...just kidding.<br><br>This is a puzzle game. Not a smashing-stuff-with-rocks game." ;
+                output.innerHTML = "You hit the <span>box</span> with a rock... and it opens! ...just kidding.<br><br>This is a puzzle game, not a smashing-stuff-with-rocks game, so don't get any ideas." ;
                 boxSmashed++;
                 if (checkingInventory === true) {
                     displayInventory();
@@ -2410,6 +2398,7 @@ const clearMap = () => {
                 boxUnlocked = true;
                 thingsTried = 0;
                 haveRibbon = true;
+                boxSmashed = 4;
                 removeItem("a <span>wooden box</span");
                 inventory.push("a <span>smashed-up box</span>");
                 inventory.push("a <span>red ribbon</span>");
@@ -2421,11 +2410,38 @@ const clearMap = () => {
             case inp('smash') && inp('ribbon') && haveRibbon === true:
                 output.innerHTML = "Nothing happened.<br><br>Jerk."
                 break;
+            case inp('box') && haveBox === true && boxUnlocked === false:
+                output.innerHTML = "It's not a large <span>box</span>... but it sounds like there might be something inside."
+                break;
+            case inp('box') && boxUnlocked === true && (inp('water')||inp('lake')||inp('ocean')) && (roomNum === 12 || roomNum === 8 || roomNum === 5 || roomNum === 6) :
+                output.innerHTML = "You start to dip the <span>box</span> into the water, but quickly realize it's not water-tight. Oh well."
+                break;
+            case inp('box') && boxUnlocked === true && (inp('leaves')||inp('leaf')||inp('stick')) :
+                output.innerHTML = "You put some leaves in the bottom of the <span>box</span>. It looks like some little bugs could live their happily now :)"
+                break;
+            case inp('box') && boxUnlocked === true && (inp('dirt')||inp('grass')) :
+                output.innerHTML = "You put some dirt and grass in the bottom of the <span>box</span>. Now it's the perfect home for some bugs :)"
+                break;
+            case inp('box') && boxUnlocked === true && (inp('rock')||inp('stone')||inp('pebble')) :
+                output.innerHTML = "You carefully put a small rock in the <span>box</span>. The <span>box</span> is the perfect size for a bug's home."
+                break;
+            case inp('box') && boxUnlocked === true && inp('flower') && (haveFlower === true || (roomNum === 1 || roomNum === 3 || roomNum === 5) ):
+                output.innerHTML = "You put a <span>flower</span> in the <span>box</span>.<br><br>Any little creatures living in this box would be happy for the decoration :)"
+                break;
+            case inp('box') && boxUnlocked === true:
+                output.innerHTML = "I bet you could put all kinds of things in this <span>box</span>.<br><br>There was a <span>ribbon</span> in it when you found it."
+                break;
 
             // INTERACT WITH OTHER ITEMS IN INVENTORY
                 // key
-            case (inp('inspect')||inp('look')||inp('check')||inp('what'))   &&    inp('key')  && haveBoxKey === true  :
+            case (inp('inspect')||inp('look')||inp('check')||inp('what'))   &&    inp('key')  && haveBoxKey === true && haveBox === false :
                 output.innerHTML = "The <span>key</span> is shiny silver and about the size of your pinky finger.";
+                if (checkingInventory === true) {
+                    displayInventory();
+                }
+                break;
+            case (inp('inspect')||inp('look')||inp('check')||inp('what'))   &&    inp('key')  && haveBoxKey === true  :
+                output.innerHTML = "The <span>key</span> is shiny silver and about the size of your pinky finger. Since it's silver, you would guess would open something with a silver lock.";
                 if (checkingInventory === true) {
                     displayInventory();
                 }
@@ -2439,15 +2455,21 @@ const clearMap = () => {
             case inp('key') &&  boxUnlocked === true :
                 output.innerHTML = "There must be a way to open the <span>door</span> somehow.";
                 break;
-                // ribon
+                // ribbon
             case (inp('inspect')||inp('look')||inp('check')||inp('what'))   &&    inp('ribbon')  && haveRibbon === true  :
                 output.innerHTML = "The <span>ribbon</span> is made of vibrant red silk and about two feet long. It may have been a hair tie at one point.";
                 if (checkingInventory === true) {
                     displayInventory();
                 }
                 break;
-            case inp('hair')  &&  inp('tie') && inp('ribbon')  && haveRibbon === true  :
+            case inp('hair')  &&  inp('ribbon')  && haveRibbon === true  :
                 output.innerHTML = "You tie the <span>ribbon</span> in you hair. Nice :)";
+                break;
+            case inp('ribbon') && ( inp('use') || inp('tie') )&& haveRibbon === true  :
+                output.innerHTML = "You can't use the <span>ribbon</span> for that, sorry.";
+                break;
+            case inp('ribbon') :
+                output.innerHTML = "";
                 break;
             case roomNum === 12 && marbleReunited === false && robotAwake && inp('ribbon')    :
                 output.innerHTML = "You show the <span>ribbon</span> to the <span>robot</span><br><br><span class='robot'>\"What a beatiful thing! I have a friend who would love a ribbon like that,\"</span>, the <spam>robot</span> says.";
@@ -2486,12 +2508,21 @@ const clearMap = () => {
                 output.innerHTML = checkInventory();
                 displayInventory();
                 break;
-                    
-            // DEFAULT "LOOK"
-            case (inp('inspect')||inp('look')||inp('check')||inp('search')||inp('find'))   :
-                output.innerHTML = "What do you want to look at?";
+                  
+            // DIG / DIRT / GROUND
+            case inp('dig') && (inp('gold')||inp('treause')):
+                output.innerHTML = "No treasure here!";
                 break;
-                
+            case inp('dig') && inp('mushroom')  :
+                output.innerHTML = "Not really the season for that.";
+                break;
+            case inp('dig'):
+                output.innerHTML = "You don't have anything to dig with, and you're not really sure what you'd be looking for anyway.";
+                break;
+            case  inp('touch') && (inp('dirt') || inp('ground'))  :
+                output.innerHTML = "Yaaay dirt.";
+                break;
+
             // TRAVEL TO LAKE
             case roomNum !== 8 && roomNum !== 7 && roomNum !== 13  && (inp('travel')||inp('go')||inp('walk')||inp('find')||inp('look for'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')) :
                 if (roomNum === 11 || roomNum === 10) {
@@ -2543,11 +2574,6 @@ const clearMap = () => {
                 output.innerHTML = "Where do you want to go?<br><br>Type \"<span>map</span>\" to see where you have been.";
                 break;
 
-            // DEFAULT "TAKE"
-            case (inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   :
-                output.innerHTML = "That won't work.";
-                break;
-
             // DEFAULT "SOMETHING"
             case (inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put')) && (inp('thing')||inp('object')||inp('item')||inp('stuff') ) :
                 output.innerHTML = "What do you want to take?";
@@ -2556,17 +2582,17 @@ const clearMap = () => {
                 output.innerHTML = "Try looking around you, or interacting with objects.<br><br>You can move around the forest quickly by clicking in the corners of the screen above.";
                 break;
 
+            // ABOUT THE GAME
+            case inp('game')  :
+                output.innerHTML = "This game was made by nok nok in HTML and Javascript. The 3D images are also mostly made by nok nok in Blender, except for a few models by Liam Xee and Pastean Narcis Dan. The 8-bit style cutscene images are a combination of Night Cafe AI and Photoshop.<br><br>Thanks for playing!";
+                break;
+                
             // DEFAULT "NEGATIVITY"
             case (inp('bad')||inp('terrible')||inp('sad')||inp('lonely')||inp('unhappy')||inp('not good')||inp('depress'))   :
                 output.innerHTML = "I'm just a pre-programmed robot, so I can't say much. But you're doing great, and I hope you find a bit of brightness today <3";
                 break;
             case (inp('stupid')||inp('dumb')||inp('lame')||inp('sucks')||inp('blows'))   :
                 output.innerHTML = ":(";
-                break;
-
-            // ABOUT THE GAME
-            case inp('game')  :
-                output.innerHTML = "This game was made by nok nok in HTML and Javascript. The 3D images are also mostly made by nok nok in Blender, except for a few models by Liam Xee and Pastean Narcis Dan. The 8-bit style cutscene images are a combination of Night Cafe AI and Photoshop.<br><br>Thanks for playing!";
                 break;
 
             // DEFAULT "POSITIVITY"
@@ -2603,6 +2629,36 @@ const clearMap = () => {
                 break;
             case inp('groove') || inp('boogy') :
                 output.innerHTML = "Uhh! That's what I like to see.";
+                break;
+            case inp('magic') || inp('spell') :
+                output.innerHTML = "Abracadabra! Kallamazoo! How Now Brown Cow!<br><br>...nothing happened.";
+                break;
+
+            // OBJECT DEFAULTS
+            case inp('grass')    :
+                output.innerHTML = "What about the grass?";
+                break;
+            case  inp('ground') || (inp('dirt'))  :
+                output.innerHTML = "Look, everyone loves some good dirt. But we got things to do here, people.";
+                break;
+            case  (inp('leaves')||inp('leaf'))  :
+                output.innerHTML = "The ground is covered in a variety of leaves from all the different kinds of trees.";
+                break;
+            case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('rock')||inp('stone')||inp('pebble'))  && haveRock=== true  :
+                output.innerHTML = "You already have a <span>rock</span> in your <span>pocket</span>.<br><br>You can check your pockets by tpying <span>pockets</span> or <span>inventory</span>.";
+                break;
+            case (inp('rock')||inp('stone')||inp('pebble'))    :
+                output.innerHTML = "What about the rocks?";
+                break;
+
+            // DEFAULT "TAKE"
+            case (inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   :
+                output.innerHTML = "That won't work.";
+                break;
+
+            // DEFAULT "LOOK"
+            case (inp('inspect')||inp('look')||inp('check')||inp('search')||inp('find'))   :
+                output.innerHTML = "What do you want to look at?";
                 break;
 
             // CLEARING INVENTORY
