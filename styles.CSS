@@ -16,7 +16,7 @@ body {
     transform: translateX(-50%);  
     width: 100vw;
     overflow: hidden;
-    max-width: 700px;
+    max-width: 720px;
     min-width: 320px;
     height: 100vh;  
     /* height: -webkit-fill-available; */
@@ -34,7 +34,7 @@ body {
 }
 
 @keyframes fadeOut {
-    0% { opacity: 1; }
+    0% { opacity: 1;  }
     100% { opacity: 0; }
   }
 
@@ -55,7 +55,7 @@ body {
     left: 50%;
     transform: translateX(-50%);  
     width: 100%;
-    max-width: 700px;
+    max-width: 800px;
     min-width: 320px;
     height: 95vh;  
     /* height: -webkit-fill-available; */
@@ -167,20 +167,20 @@ body {
     z-index: -2;
 }
 
-#introarrow {
+/* #introarrow {
     max-height: 100%;
     max-width: 100%;
     grid-row: 1;
     grid-column: 1;
-    top: 4%;
-    right: 6%;
+    top: 7%;
+    right: 8%;
     position: absolute;
     z-index: 50;
-    width: 15%;
-    height: 15%;
+    width: 8%;
+    height: auto;
     display: inline;
-    animation: introArrowFade 2s linear infinite;
-}
+    animation: introArrowFade 3s linear infinite;
+} */
 
 .compasstriangles {
     position: absolute;
@@ -207,7 +207,7 @@ body {
 
 #easttriangle {
     right: 0;
-    opacity: 80%;
+    opacity: 90%;
 }
 
 #book {
@@ -248,10 +248,10 @@ body {
 
 @keyframes introArrowFade {
     0%,100% { 
-        opacity: .3;
+        opacity: .15;
     }
     50% { 
-        opacity: .6;
+        opacity: .5;
     }
 }
 
@@ -317,7 +317,7 @@ body {
 
 #room14tile {
     left: 16.9%;
-    top: 69.35%;
+    top: 73%;
 }
 
 /* OUTPUT TEXT AREA */
@@ -451,5 +451,11 @@ input:focus, textarea {
 
     #cutsceneviewer {
         height: -webkit-fill-available;
+    }
+}
+
+@media only screen and (orientation: landscape) {
+    .compasstriangles {
+        max-height: 85px;
     }
 }
