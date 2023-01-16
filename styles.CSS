@@ -137,11 +137,11 @@ body {
     /* transition: 0.1s all ease-in-out; */
 }
 
-#room1 {
+#room14 {            /* START ROOM, also remember to switch inisual roomNum in index.html and add/remove appropriate rooms to z-index initial conditions below*/
     z-index: 0;
 }
 
-#room2, #room3, #room4, #room5, #room6, #room7, #room8, #room9, #room10, #room11, #room12, #room13 {
+#room1, #room2, #room3, #room4, #room5, #room6, #room7, #room8, #room9, #room10, #room11, #room12, #room13 {
     z-index: -2;
 }
 
@@ -172,20 +172,26 @@ body {
     height: 24%;
     max-height: 90px;
     display: inline;
-    opacity: 80%;
 }
 
 #southtriangle {
     bottom: 0;
     right: 0;
+    opacity: 0%;
+}
+
+#northtriangle {
+    opacity: 0%;
 }
 
 #westtriangle {
     bottom: 0;
+    opacity: 0%;
 }
 
 #easttriangle {
     right: 0;
+    opacity: 80%;
 }
 
 #book {
@@ -281,6 +287,11 @@ body {
 
 #room12tile {
     left: 29.8%;
+    top: 69.35%;
+}
+
+#room14tile {
+    left: 16.9%;
     top: 69.35%;
 }
 

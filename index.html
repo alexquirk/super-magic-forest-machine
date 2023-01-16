@@ -19,7 +19,7 @@
 
 <div id="cutsceneviewer">
     <video poster="./cutscenes/loadingleaf.gif"  id="cutscene" autoplay="autoplay" muted playsinline>
-        <source src="" type="video/mp4">
+        <source src="" type="video/mp4" control="none">
     </video>
 </div>
 
@@ -32,7 +32,7 @@
             <div id="blackbackground"></div>
             <img class="compasstriangles" id="northtriangle" src="./compasstriangles/north.png" onclick="goNorth()"><img class="compasstriangles" id="westtriangle" src="./compasstriangles/west.png" onclick="goWest()"><img class="compasstriangles" id="southtriangle" src="./compasstriangles/south.png" onclick="goSouth()"><img class="compasstriangles" id="easttriangle" src="./compasstriangles/east.png" onclick="goEast();">
             <div id= "map">
-                <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png">
+                <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png">
             </div>            
             <img id= "inventory1" src="">
             <img id= "inventory2" src="./inventoryimages/ribbon.png">
@@ -43,7 +43,7 @@
             <img id= "inventory7" src="./inventoryimages/rock.png">
             <img id= "book">
             <div id= "maptiles">
-                <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" src="./maptiles/room1tile.png" onclick="room1Switch()"><img class="roomtile" id="room2tile" onclick="room2Switch()"><img class="roomtile" id="room3tile" onclick="room3Switch()"><img class="roomtile" id="room4tile" onclick="room4Switch()"><img class="roomtile" id="room5tile" onclick="room5Switch()"><img class="roomtile" id="room6tile" onclick="room6Switch()"><img class="roomtile" id="room7tile" onclick="room7Switch()"><img class="roomtile" id="room8tile" onclick="room8Switch()"><img class="roomtile" id="room9tile" onclick="room9Switch()"><img class="roomtile" id="room10tile" onclick="room10Switch()"><img class="roomtile" id="room11tile" onclick="room11Switch()"><img class="roomtile" id="room12tile" onclick="room12Switch()">
+                <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" src="./maptiles/room1tile.png" onclick="room1Switch()"><img class="roomtile" id="room2tile" onclick="room2Switch()"><img class="roomtile" id="room3tile" onclick="room3Switch()"><img class="roomtile" id="room4tile" onclick="room4Switch()"><img class="roomtile" id="room5tile" onclick="room5Switch()"><img class="roomtile" id="room6tile" onclick="room6Switch()"><img class="roomtile" id="room7tile" onclick="room7Switch()"><img class="roomtile" id="room8tile" onclick="room8Switch()"><img class="roomtile" id="room9tile" onclick="room9Switch()"><img class="roomtile" id="room10tile" onclick="room10Switch()"><img class="roomtile" id="room11tile" onclick="room11Switch()"><img class="roomtile" id="room12tile" onclick="room12Switch()"><img class="roomtile" id="room14tile" onclick="room14Switch()">
             </div>   
         </div>
         <img class="border2" src="./roomimages/border 2.png">
@@ -51,12 +51,11 @@
 
     <!-- OUTPUT AREA -->
     <div id="outputarea" onclick="clearMap()">
-        <div id="output">You open your eyes and find yourself in a forest clearing. 
-            In front of you stands a <span>strange wooden door</span>.
+        <div id="output">You open your eyes and find yourself in a forest clearing.
             <br><br>
-            You try to remember how you got here, but your mind is fuzzy. "Guess I fell asleep," you think to yourself. Either way, something tells you the only way out of here is through the weird <span>door</span>.
+            You try to remember how you got here, but your mind is fuzzy. "Guess I fell asleep," you think to yourself. The woods around you are dense, but there is a narrow path leading <span>east</span>.
             <br><br>
-            Type something in the prompt below, then press the "ENTER" button.
+            Click the arrow labeled 'E' in the top right corner of the screen to travel 'East', or type "travel east" in the prompt below and press 'ENTER'.
             <br><br>
             You can type "<span>hint</span>" at any time to get some help.
         </div>
@@ -89,20 +88,26 @@
 const theMachine = document.getElementById('themachine')
 
 document.onkeydown = e => { 
-    theMachine.style.display = "flex";
-    document.getElementById('titlecard').classList.add('fadeout');
-    let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
-    setTimeout(makeGoAway, 1000);
+    if (introCutscenePlayed === false) 
+        {
+        introCutscenePlayed = true;
+        playIntroCutscene();
+        theMachine.style.display = "flex";
+        document.getElementById('titlecard').classList.add('fadeout');
+        let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
+        setTimeout(makeGoAway, 1000)
+        }
 };
 const makeFadeAway = () => {
+    playIntroCutscene();
     theMachine.style.display = "flex";
     document.getElementById('titlecard').classList.add('fadeout');
     let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
     setTimeout(makeGoAway, 1000);
 };
 
-
 //DECLARE VARIABLES
+    const introCutscenePlayed = false;
     const userInput = document.getElementById('userinput');
     const outputArea = document.getElementById('outputarea');
     const output = document.getElementById('output');
@@ -127,7 +132,7 @@ const makeFadeAway = () => {
         };           
     };
 
-    let roomNum = 1;
+    let roomNum = 14;
 
     let checkingInventory = false;
     let inventoryAsk = false;
@@ -181,7 +186,7 @@ const makeFadeAway = () => {
     let sassyHint = false;
     let boxSmashed = 0;
 
-    const roomVisited = ["", true, false, false, false, false, false, false, false, false, false, false, false, false];
+    const roomVisited = ["", false, false, false, false, false, false, false, false, false, false, false, false, false, true];
     const inventory = [];
 
     profanityResponse = ["Hey now! This is a nice game.", "Oh c'mon.", ".....Alright...", "Seriously...?", "Okay, I'm gonna need you to stop that.", "This is getting old now.", "This is getting old now.", "This is getting REAALY old now.", "STOOOPPPPP", "I'M GONNA RESET THE GAME", "I'LL DO IT", "I'LL RESET THE GAME DON'T MAKE ME DO IT", "...", "...", "...", ">:(", "Okay I'm seriously done this time.", "Okay I'm seriously done this time.", "Okay for real I'm seriously done this time.", "I said I'M DONE THIS TIME", "Can't say I didn't warn you :P"]
@@ -222,7 +227,7 @@ const makeFadeAway = () => {
             } else if (haveRope === true) {
                 document.getElementById("inventory1").src="./inventoryimages/rope.png";
             };
-    }
+    };
 
     const displayInventory = () => {
             if (inventory.length > 0) {
@@ -412,6 +417,22 @@ leaveButton.addEventListener('click', leaveConversation);
     bookButton.addEventListener('click', showBookText);
 
 // CUTSCENES
+
+    const playIntroCutscene = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/introcutscene.mp4";
+        document.getElementById("cutscene").pause();
+        setTimeout(()=> {
+            document.getElementById("cutscene").play();
+            }
+            ,2000);
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
+
     const playGhostCutscene = () => {
         document.getElementById('cutsceneviewer').style.display = "flex";
         document.getElementById("cutscene").src="./cutscenes/ghostcutscene.mp4";
@@ -528,8 +549,9 @@ const room10 = document.getElementById("room10");
 const room11 = document.getElementById("room11");
 const room12 = document.getElementById("room12");
 const room13 = document.getElementById("room13");
+const room14 = document.getElementById("room14");
 
-allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13]
+allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14]
 
 const moveAllRoomsBack = () => {
     allRooms[roomNum-1].style.zIndex = "-2"; 
@@ -805,7 +827,7 @@ const room1Switch = () => {
         northTriangle.style.opacity = "80%";
         southTriangle.style.opacity = "28%";
         eastTriangle.style.opacity = "80%";
-        westTriangle.style.opacity = "28%";
+        westTriangle.style.opacity = "80%";
     }; 
     const room13Switch = () => {
         output.innerHTML = "You carefully climb down the rope to the bottom of the <span>well</span>.";
@@ -820,7 +842,19 @@ const room1Switch = () => {
         eastTriangle.style.opacity = "28%";
         westTriangle.style.opacity = "28%";
     }; 
-
+    const room14Switch = () => {  
+        output.innerHTML = "You travel <span>west</span> and return to the glade where you awoke.";
+        mapArrow.style.top = "73%";
+        mapArrow.style.left = "16.9%";
+        moveAllRoomsBack();
+        room14.style.zIndex = "0";
+        document.getElementById("room14tile").src="./maptiles/room14tile.png";
+        roomNum = 5;
+        northTriangle.style.opacity = "28%";
+        southTriangle.style.opacity = "28%";
+        eastTriangle.style.opacity = "80%";
+        westTriangle.style.opacity = "28%";
+    };
     // CHEATER MAP CLICKING FUNCTIONS
 
     const goNorth = () =>
@@ -1107,6 +1141,10 @@ const clearMap = () => {
                         room1Switch();
                         roomNum = 1;
                         break;
+                    case 14:
+                        room12Switch();
+                        roomNum = 12;
+                        break;
                     case 2:
                         room9Switch();
                         roomNum = 9;
@@ -1143,6 +1181,10 @@ const clearMap = () => {
                         output.innerHTML = "The forest is too dense to go any further north.";
                         break;
                     case 2:
+                        userInput.value = "";
+                        output.innerHTML = "The forest is too dense to go any further north.";
+                        break;
+                    case 14:
                         userInput.value = "";
                         output.innerHTML = "The forest is too dense to go any further north.";
                         break;
@@ -1188,6 +1230,10 @@ const clearMap = () => {
             // GOING WEST
             case ((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    inp('left'))  || inp('west')  :
                 switch (roomNum) {
+                    case 14:
+                        userInput.value = "";
+                        output.innerHTML = "The forest is too dense to go any further north.";
+                        break;
                     case 11:
                         userInput.value = "";
                         output.innerHTML = "The forest is too dense to go any further west.";
@@ -1201,8 +1247,10 @@ const clearMap = () => {
                         output.innerHTML = "There's nowhere to go!";
                         break;
                     case 12:
+                        room14Switch();
                         userInput.value = "";
-                        output.innerHTML = "The forest is too dense to go any further west, and there is a fence in the way.";
+                        output.innerHTML = "You travel <span>west</span> and return to the glade where you awoke.";
+                        roomNum = 14;
                         break;
                     case 3:
                         room1Switch();
@@ -1279,6 +1327,10 @@ const clearMap = () => {
                         roomNum = 6;
                         break;
                     case 5:
+                        userInput.value = "";
+                        output.innerHTML = "You can't go any farther south - the water seems to go on forever.";
+                        break;
+                    case 14:
                         userInput.value = "";
                         output.innerHTML = "You can't go any farther south - the water seems to go on forever.";
                         break;
@@ -2290,24 +2342,24 @@ const clearMap = () => {
                 break;
 
             // GET FLOWER
-            case (roomNum === 1 || roomNum === 3 || roomNum === 5)   &&    (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    (inp('flower'))     :
+            case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12)   &&    (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    (inp('flower'))     :
                 output.innerHTML = "You look at the flowers. Nice :)<br><br>+1 point";
                 break;
-            case (roomNum === 1 || roomNum === 3 || roomNum === 5)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === false   :
+            case (roomNum === 1 || roomNum === 3 || roomNum === 5  || roomNum === 14 || roomNum === 12)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === false   :
                 output.innerHTML = 'You pick one of the <span>blue flowers</span> and carefully put it in your <span>pocket</span>.<br><br>Maybe it will be useful later?<br><br>Type "<span>pockets</span>" to check what you have with you.';
                 haveFlower = true;
                 inventory.push("a <span>blue flower</span>");
                 break;
-            case (roomNum === 1 || roomNum === 3 || roomNum === 5)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === true   :
+            case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === true   :
                 output.innerHTML = 'You already have a <span>flower</span> in your <span>pocket</span>!';
                 break;
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get'))   &&    (inp('flower')) :
                 output.innerHTML = "There aren't any flowers around here.";
                 break;
-            case inp('smell') &&    (inp('flower')) &&  (roomNum === 1 || roomNum === 3 || roomNum === 5)   :
+            case inp('smell') &&    (inp('flower')) &&  (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12)   :
                 output.innerHTML = "Lovely :)<br><br>+10 points";
                 break;
-            case ((roomNum === 1 || roomNum === 3 || roomNum === 5) ||  haveFlower === true) &&    inp('flower')  :
+            case ((roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12) ||  haveFlower === true) &&    inp('flower')  :
                 output.innerHTML = "Lovely :)";
                 break;
 
@@ -2464,7 +2516,7 @@ const clearMap = () => {
             case inp('box') && boxUnlocked === true && (inp('rock')||inp('stone')||inp('pebble')) :
                 output.innerHTML = "You carefully put a small rock in the <span>box</span>. The <span>box</span> is the perfect size for a bug's home."
                 break;
-            case inp('box') && boxUnlocked === true && inp('flower') && (haveFlower === true || (roomNum === 1 || roomNum === 3 || roomNum === 5) ):
+            case inp('box') && boxUnlocked === true && inp('flower') && (haveFlower === true || (roomNum === 1 || roomNum === 3 || roomNum === 5  || roomNum === 14 || roomNum === 12) ):
                 output.innerHTML = "You put a <span>flower</span> in the <span>box</span>.<br><br>Any little creatures living in this box would be happy for the decoration :)<br><br>+3 points"
                 break;
             case inp('box') && boxUnlocked === true:
