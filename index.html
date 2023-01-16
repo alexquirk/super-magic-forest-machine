@@ -36,7 +36,7 @@
             <!-- black background -->
             <div id="blackbackground"></div>
             <!-- navigation arrows -->
-            <!-- <img id= "introarrow" src="./roomimages/introarrow.png"> -->
+            <img id= "introarrow" src="./roomimages/introarrow.png">
             <img class="compasstriangles" id="northtriangle" src="./compasstriangles/north.png" onclick="goNorth()"><img class="compasstriangles" id="westtriangle" src="./compasstriangles/west.png" onclick="goWest()"><img class="compasstriangles" id="southtriangle" src="./compasstriangles/south.png" onclick="goSouth()"><img class="compasstriangles" id="easttriangle" src="./compasstriangles/east.png" onclick="goEast();">
             <!-- main viewer -->
             <div id= "map">
@@ -78,7 +78,7 @@
     
      <!-- INPUT AREA -->
 <div class="inputarea">
-    <input type="text" id="userinput" maxlength="25">
+    <input type="text" id="userinput" maxlength="25" onclick="clearMap()">
     <input type="button" id="enterbutton" value="ENTER">
 </div>
 </article>
@@ -100,7 +100,6 @@ document.onkeydown = e => {
         {
         introCutscenePlayed = true;
         playIntroCutscene();
-        theMachine.style.display = "flex";
         document.getElementById('titlecard').classList.add('fadeout');
         let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
         setTimeout(makeGoAway, 1000)
@@ -108,7 +107,6 @@ document.onkeydown = e => {
 };
 const makeFadeAway = () => {
     playIntroCutscene();
-    theMachine.style.display = "flex";
     document.getElementById('titlecard').classList.add('fadeout');
     let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
     setTimeout(makeGoAway, 1000);
@@ -445,6 +443,7 @@ leaveButton.addEventListener('click', leaveConversation);
                 // document.getElementById('cutsceneviewer').classList.remove('fadeout');
                 };
             setTimeout(makeGoAway, 1000);
+            theMachine.style.display = "flex";
         })
     };
 
@@ -579,10 +578,10 @@ const room1Switch = () => {
         moveAllRoomsBack();
         room1.style.zIndex = "0";
         roomNum = 1;
-        northTriangle.style.opacity = "90%";
-        southTriangle.style.opacity = "90%";
-        eastTriangle.style.opacity = "90%";
-        westTriangle.style.opacity = "90%";
+        northTriangle.style.opacity = "75%";
+        southTriangle.style.opacity = "75%";
+        eastTriangle.style.opacity = "75%";
+        westTriangle.style.opacity = "75%";
     };
     const room2Switch = () => {
         if (roomVisited[2] === false) {
@@ -598,9 +597,9 @@ const room1Switch = () => {
         document.getElementById("room2tile").src="./maptiles/room2tile.png";
         roomNum = 2;
         northTriangle.style.opacity = "28%";
-        southTriangle.style.opacity = "90%";
-        eastTriangle.style.opacity = "90%";
-        westTriangle.style.opacity = "90%";
+        southTriangle.style.opacity = "75%";
+        eastTriangle.style.opacity = "75%";
+        westTriangle.style.opacity = "75%";
     };
     const room3Switch = () => {
         if (roomVisited[3] === false) { 
@@ -619,10 +618,10 @@ const room1Switch = () => {
         room3.style.zIndex = "0";
         document.getElementById("room3tile").src="./maptiles/room3tile.png";
         roomNum = 3;
-        northTriangle.style.opacity = "90%";
-        southTriangle.style.opacity = "90%";
+        northTriangle.style.opacity = "75%";
+        southTriangle.style.opacity = "75%";
         eastTriangle.style.opacity = "28%";
-        westTriangle.style.opacity = "90%";
+        westTriangle.style.opacity = "75%";
     };
     const room4Switch = () => {
         if (roomNum === 1 && marbleDown === false) {
@@ -645,9 +644,9 @@ const room1Switch = () => {
         document.getElementById("room4tile").src="./maptiles/room4tile.png";
         roomNum = 4;
         northTriangle.style.opacity = "28%";
-        southTriangle.style.opacity = "90%";
-        eastTriangle.style.opacity = "90%";
-        westTriangle.style.opacity = "90%";
+        southTriangle.style.opacity = "75%";
+        eastTriangle.style.opacity = "75%";
+        westTriangle.style.opacity = "75%";
     };
     const room5Switch = () => { 
         if (roomNum === 1) {
@@ -666,10 +665,10 @@ const room1Switch = () => {
         room5.style.zIndex = "0";
         document.getElementById("room5tile").src="./maptiles/room5tile.png";
         roomNum = 5;
-        northTriangle.style.opacity = "90%";
+        northTriangle.style.opacity = "75%";
         southTriangle.style.opacity = "28%";
-        eastTriangle.style.opacity = "90%";
-        westTriangle.style.opacity = "90%";
+        eastTriangle.style.opacity = "75%";
+        westTriangle.style.opacity = "75%";
     };
     const room6Switch = () => {
         if (haveRope === false && ropeSet === false && roomNum === 5) {
@@ -688,10 +687,10 @@ const room1Switch = () => {
         room6.style.zIndex = "0";
         document.getElementById("room6tile").src="./maptiles/room6tile.png";
         roomNum = 6;
-        northTriangle.style.opacity = "90%";
+        northTriangle.style.opacity = "75%";
         southTriangle.style.opacity = "28%";
         eastTriangle.style.opacity = "28%";
-        westTriangle.style.opacity = "90%";
+        westTriangle.style.opacity = "75%";
     }; 
     const room7Switch = () => {
         if (firefliesReleased === false) {
@@ -707,7 +706,7 @@ const room1Switch = () => {
             room7.src="./roomimages/smfmroom7a.png"
             document.getElementById("room7tile").src="./maptiles/room7tiledark.png";
             northTriangle.style.opacity = "28%";
-            southTriangle.style.opacity = "90%";
+            southTriangle.style.opacity = "75%";
             eastTriangle.style.opacity = "28%";
             westTriangle.style.opacity = "28%";
         }
@@ -715,9 +714,9 @@ const room1Switch = () => {
             room7.src="./roomimages/smfmroom7b.png";
             document.getElementById("room7tile").src="./maptiles/room7tile.png";
             northTriangle.style.opacity = "28%";
-            southTriangle.style.opacity = "90%";
+            southTriangle.style.opacity = "75%";
             eastTriangle.style.opacity = "28%";
-            westTriangle.style.opacity = "90%";
+            westTriangle.style.opacity = "75%";
         }
         room7.style.zIndex = "0";
         roomNum = 7;
@@ -737,7 +736,7 @@ const room1Switch = () => {
         roomNum = 8;
         northTriangle.style.opacity = "28%";
         southTriangle.style.opacity = "28%";
-        eastTriangle.style.opacity = "90%";
+        eastTriangle.style.opacity = "75%";
         westTriangle.style.opacity = "28%";
     };
     const room9Switch = () => {
@@ -758,7 +757,7 @@ const room1Switch = () => {
         northTriangle.style.opacity = "28%";
         southTriangle.style.opacity = "28%";
         eastTriangle.style.opacity = "28%";
-        westTriangle.style.opacity = "90%";
+        westTriangle.style.opacity = "75%";
     }; 
     const room10Switch = () => {
         if (roomVisited[10] === false) { 
@@ -790,9 +789,9 @@ const room1Switch = () => {
         room10.style.zIndex = "0";
         document.getElementById("room10tile").src="./maptiles/room10tile.png";
         roomNum = 10;
-        northTriangle.style.opacity = "90%";
-        southTriangle.style.opacity = "90%";
-        eastTriangle.style.opacity = "90%";
+        northTriangle.style.opacity = "75%";
+        southTriangle.style.opacity = "75%";
+        eastTriangle.style.opacity = "75%";
         westTriangle.style.opacity = "28%";
     }; 
     const room11Switch = () => {
@@ -810,18 +809,18 @@ const room1Switch = () => {
         room11.style.zIndex = "0";
         document.getElementById("room11tile").src="./maptiles/room11tile.png";
         roomNum = 11;
-        northTriangle.style.opacity = "90%";
-        southTriangle.style.opacity = "90%";
-        eastTriangle.style.opacity = "90%";
+        northTriangle.style.opacity = "75%";
+        southTriangle.style.opacity = "75%";
+        eastTriangle.style.opacity = "75%";
         westTriangle.style.opacity = "28%";
     };
     const room12Switch = () => {
-        // document.getElementById('introarrow').style.display = "none";
+        document.getElementById('introarrow').style.display = "none";
         if (newGame === true) {
-                output.innerHTML = "You walk <span>east</span> along the narrow path for a while until you arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree.<br><br>Try typing a command, like \"<span>look around</span>\", \"<span>inspect strange figure</span>\", or \"<span>pick up a rock</span>\".<br><br>You can type \'hint\' at any point to get some help."
+                output.innerHTML = "You travel <span>east</span> along the narrow path for a while until you arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree.<br><br>Try typing a command, like \"<span>look around</span>\", \"<span>inspect strange figure</span>\", or \"<span>pick up a rock</span>\".<br><br>You can type \'hint\' at any point to get some help."
         } else if (robotAwake === false) {
             if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
-                output.innerHTML = "You walk <span>west</span> along the lakeshore until you arrive at at a large willow tree where a <span>strange figure</span> is laying.";
+                output.innerHTML = "You travel <span>west</span> along the lakeshore until you arrive at at a large willow tree where a <span>strange figure</span> is laying.";
             } else if (roomNum === 14) { 
                 output.innerHTML = "You walk <span>east</span> and arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree." 
             } else {
@@ -829,9 +828,9 @@ const room1Switch = () => {
             }
         } else {
             if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
-                output.innerHTML = "You walk <span>west</span> along the lakeshore until you arrive at the lakeshore, where the <span>robot</span> is standing under a large willow tree.";
+                output.innerHTML = "You travel <span>west</span> along the lakeshore until you arrive at the lakeshore, where the <span>robot</span> is standing under a large willow tree.";
             } else if (roomNum === 14) { 
-                output.innerHTML = "You walk <span>east</span> and  you arrive at the lakeshore, where the <span>robot</span> is standing under a large willow tree." 
+                output.innerHTML = "You travel <span>east</span> and  you arrive at the lakeshore, where the <span>robot</span> is standing under a large willow tree." 
             } else {
                 output.innerHTML = "You walk <span>south</span> and arrive at the lakeshore, where the <span>robot</span> is standing under a large willow tree.";
             }
@@ -846,10 +845,10 @@ const room1Switch = () => {
         document.getElementById("room12tile").src="./maptiles/room12tile.png";
         newGame = false;
         roomNum = 12;
-        northTriangle.style.opacity = "90%";
+        northTriangle.style.opacity = "75%";
         southTriangle.style.opacity = "28%";
-        eastTriangle.style.opacity = "90%";
-        westTriangle.style.opacity = "90%";
+        eastTriangle.style.opacity = "75%";
+        westTriangle.style.opacity = "75%";
     }; 
     const room13Switch = () => {
         output.innerHTML = "You carefully climb down the rope to the bottom of the <span>well</span>.";
@@ -878,7 +877,7 @@ const room1Switch = () => {
         roomNum = 14;
         northTriangle.style.opacity = "28%";
         southTriangle.style.opacity = "28%";
-        eastTriangle.style.opacity = "90%";
+        eastTriangle.style.opacity = "75%";
         westTriangle.style.opacity = "28%";
     };
     // CHEATER MAP CLICKING FUNCTIONS
@@ -916,7 +915,8 @@ const checkMap = () => {
 const clearMap = () => {
     if (checkingMap === true || mapAsk === true) {
         document.getElementById('maptiles').style.display = "none"
-        output.innerHTML = "You close your <span>map</span>.";
+        // output.innerHTML = "You close your <span>map</span>.";
+        output.innerHTML = "";
         map.classList.remove('darken');
         userInput.focus(); 
         };

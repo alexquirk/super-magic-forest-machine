@@ -55,7 +55,7 @@ body {
     left: 50%;
     transform: translateX(-50%);  
     width: 100%;
-    max-width: 800px;
+    max-width: 720px;
     min-width: 320px;
     height: 95vh;  
     /* height: -webkit-fill-available; */
@@ -167,7 +167,7 @@ body {
     z-index: -2;
 }
 
-/* #introarrow {
+#introarrow {
     max-height: 100%;
     max-width: 100%;
     grid-row: 1;
@@ -180,7 +180,7 @@ body {
     height: auto;
     display: inline;
     animation: introArrowFade 3s linear infinite;
-} */
+}
 
 .compasstriangles {
     position: absolute;
@@ -248,10 +248,10 @@ body {
 
 @keyframes introArrowFade {
     0%,100% { 
-        opacity: .15;
+        opacity: .19;
     }
     50% { 
-        opacity: .5;
+        opacity: .25;
     }
 }
 
