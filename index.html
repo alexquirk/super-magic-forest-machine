@@ -2160,7 +2160,7 @@ const clearMap = () => {
                     // playBeachCutscene();
                     lakeDiscovered = true;
                 };
-                output.innerHTML = "A <span>strange figure</span> is lying under a tree by the lake shore.";
+                output.innerHTML = "A <span>strange figure</span> is lying under a tree by the lake shore.<br><br>To the west, a narrow path leads back the the glade where you awoke. To the north, a wooded path cuts into the forest. ";
                 break;
             case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('see ')||inp('search')) && robotAwake === true  &&    (inp('forest')||inp('around'))     :
                 if (lakeDiscovered === false) {
@@ -2195,7 +2195,7 @@ const clearMap = () => {
                 break;     
                 // power attempts
             case roomNum === 12 && robotAwake === false && (  (inp('panel')||inp('source'))  ||  ((inp('open')||inp('power')) && inp('robot'))  ):
-                output.innerHTML = "There's an empty space for a <span>power supply</span> of some kind in the <span>robot</span>. You look around, but don't find anything.";
+                output.innerHTML = "There's an empty space for a <span>power supply</span> of some kind in the <span>robot</span>.<br><br>You look around for something to power the robot with, but don't find anything.";
                 break;
             case roomNum === 12 && robotAwake === false && (( (inp('turn')||inp('switch')||inp('robot'))   &&    (inp('figure')||inp('person')||inp('thing')||inp('robot')||inp('machine')) ) || (inp('electric')||inp("button")||inp('fuel')||inp('activate')||inp('operate')||((inp('switch')||inp('turn'))&&inp('on'))))  :
                 output.innerHTML = "You search the <span>robot</span> for a switch or button, and find panel on the front that looks like it could house a <span>power source</span>.";
@@ -2690,7 +2690,7 @@ const clearMap = () => {
                 break;
             case (inp("walk")||inp('go')||inp('travel')):
                 userInput.value = "";
-                output.innerHTML = "Where do you want to go?<br><br>Type \"<span>map</span>\" to see where you have been.";
+                output.innerHTML = "Which direction to you want to go?<br><br>Type \"<span>map</span>\" to see where you have been.";
                 break;
 
             // ABOUT THE GAME

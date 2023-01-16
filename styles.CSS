@@ -169,17 +169,20 @@ body {
 
 #introarrow {
     max-height: 100%;
+    opacity: 0;
     max-width: 100%;
     grid-row: 1;
     grid-column: 1;
-    top: 7%;
-    right: 8%;
+    top: 8%;
+    right: 9.5%;
     position: absolute;
     z-index: 50;
     width: 8%;
     height: auto;
     display: inline;
-    animation: introArrowFade 3s linear infinite;
+    animation: introArrowFade 3s linear ;
+    animation-delay: 8s;
+    animation-fill-mode: forwards;
 }
 
 .compasstriangles {
@@ -247,11 +250,11 @@ body {
 }
 
 @keyframes introArrowFade {
-    0%,100% { 
-        opacity: .19;
+    0% { 
+        opacity: 0;
     }
-    50% { 
-        opacity: .25;
+    100% { 
+        opacity: 1;
     }
 }
 
