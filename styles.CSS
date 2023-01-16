@@ -30,6 +30,7 @@ body {
 .fadeout { 
     animation: fadeOut 1s; 
     animation-timing-function: ease-in;
+    animation-iteration-count: 1;
 }
 
 @keyframes fadeOut {
@@ -166,6 +167,21 @@ body {
     z-index: -2;
 }
 
+#introarrow {
+    max-height: 100%;
+    max-width: 100%;
+    grid-row: 1;
+    grid-column: 1;
+    top: 4%;
+    right: 6%;
+    position: absolute;
+    z-index: 50;
+    width: 15%;
+    height: 15%;
+    display: inline;
+    animation: introArrowFade 2s linear infinite;
+}
+
 .compasstriangles {
     position: absolute;
     z-index: 50;
@@ -227,6 +243,15 @@ body {
     50% { 
         opacity: 1;
         transform: translateY(0px);
+    }
+}
+
+@keyframes introArrowFade {
+    0%,100% { 
+        opacity: .3;
+    }
+    50% { 
+        opacity: .6;
     }
 }
 

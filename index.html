@@ -27,10 +27,18 @@
     
     <!-- VIEWER -->
     <div class="viewbox">
+
+        <!-- border 1 -->
         <img class="border1" src="./roomimages/border 1.png">
+
         <div class="viewer">
+
+            <!-- black background -->
             <div id="blackbackground"></div>
+            <!-- navigation arrows -->
+            <img id= "introarrow" src="./roomimages/introarrow.png">
             <img class="compasstriangles" id="northtriangle" src="./compasstriangles/north.png" onclick="goNorth()"><img class="compasstriangles" id="westtriangle" src="./compasstriangles/west.png" onclick="goWest()"><img class="compasstriangles" id="southtriangle" src="./compasstriangles/south.png" onclick="goSouth()"><img class="compasstriangles" id="easttriangle" src="./compasstriangles/east.png" onclick="goEast();">
+            <!-- main viewer -->
             <div id= "map">
                 <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png">
             </div>            
@@ -45,19 +53,19 @@
             <div id= "maptiles">
                 <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" src="./maptiles/room1tile.png" onclick="room1Switch()"><img class="roomtile" id="room2tile" onclick="room2Switch()"><img class="roomtile" id="room3tile" onclick="room3Switch()"><img class="roomtile" id="room4tile" onclick="room4Switch()"><img class="roomtile" id="room5tile" onclick="room5Switch()"><img class="roomtile" id="room6tile" onclick="room6Switch()"><img class="roomtile" id="room7tile" onclick="room7Switch()"><img class="roomtile" id="room8tile" onclick="room8Switch()"><img class="roomtile" id="room9tile" onclick="room9Switch()"><img class="roomtile" id="room10tile" onclick="room10Switch()"><img class="roomtile" id="room11tile" onclick="room11Switch()"><img class="roomtile" id="room12tile" onclick="room12Switch()"><img class="roomtile" id="room14tile" onclick="room14Switch()">
             </div>   
+        
         </div>
+
+        <!-- border 2 -->
         <img class="border2" src="./roomimages/border 2.png">
     </div>
 
     <!-- OUTPUT AREA -->
     <div id="outputarea" onclick="clearMap()">
-        <div id="output">You open your eyes and find yourself in a forest clearing.
-            <br><br>
-            You try to remember how you got here, but your mind is fuzzy. "Guess I fell asleep," you think to yourself. The woods around you are dense, but there is a narrow path leading <span>east</span>.
-            <br><br>
-            Click the arrow labeled 'E' in the top right corner of the screen to travel 'East', or type "travel east" in the prompt below and press 'ENTER'.
-            <br><br>
-            You can type "<span>hint</span>" at any time to get some help.
+        <div id="output">
+
+                <!-- READ THIS :) -->
+
         </div>
         <div class="dialoguearea">
             <button type="button" id="dialogue1" class="dialogue">Option 1</button>
@@ -148,6 +156,7 @@ const makeFadeAway = () => {
     let dialogueAsk = false;
     let inDialogue = false;
 
+    let newGame = true;
     let doorUnlocked = false;
     let haveRock = false;
     let haveFlower = false;
@@ -424,12 +433,17 @@ leaveButton.addEventListener('click', leaveConversation);
         document.getElementById("cutscene").pause();
         setTimeout(()=> {
             document.getElementById("cutscene").play();
+            room14Switch();
             }
-            ,2000);
+            ,2500);
         let currentCutscene = document.getElementById("cutscene");
         currentCutscene.addEventListener('ended', function() {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
+            document.getElementById('cutsceneviewer').classList.add('fadeout');
+            let makeGoAway = () => {
+                document.getElementById('cutsceneviewer').style.display = "none";
+                document.getElementById("cutscene").src="";
+                };
+            setTimeout(makeGoAway, 1000);
         })
     };
 
@@ -842,8 +856,13 @@ const room1Switch = () => {
         eastTriangle.style.opacity = "28%";
         westTriangle.style.opacity = "28%";
     }; 
-    const room14Switch = () => {  
-        output.innerHTML = "You travel <span>west</span> and return to the glade where you awoke.";
+    const room14Switch = () => { 
+        if (newGame === false) {
+            document.getElementById('introarrow').style.display = "none";
+            output.innerHTML = "You travel <span>west</span> and return to the glade where you awoke.";
+        } else {
+            output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"Guess I fell asleep,\" you think to yourself. The woods around you are dense, but there is a narrow path leading <span>east</span>.<br><br>Click the arrow labeled 'E' in the top right corner of the screen to travel 'East', or type \"travel east\" in the prompt below and press 'ENTER'.<br><br>You can type \"<span>hint</span>\" at any time to get some help.";
+        };
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
         moveAllRoomsBack();
