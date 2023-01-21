@@ -85,7 +85,7 @@
     
      <!-- INPUT AREA -->
 <div class="inputarea">
-    <input type="text" id="userinput" maxlength="25" onclick="clearMap()">
+    <input type="text" id="userinput" maxlength="25" onclick="clearMap(); inputFocus();">
     <input type="button" id="enterbutton" value="ENTER">
 </div>
 </article>
@@ -934,10 +934,13 @@ const clearMap = () => {
         // output.innerHTML = "You close your <span>map</span>.";
         output.innerHTML = "";
         map.classList.remove('darken');
-        userInput.focus(); 
+        // userInput.focus(); 
         };
     };
 
+const inputFocus = () => {
+    userInput.focus()
+};
 
 // USER INPUT
     const inp = (arg) => {
@@ -2465,7 +2468,7 @@ const clearMap = () => {
                 };
                 break;
             case (inp('unlock')||inp('open')||inp('key'))   &&  !(inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force')||inp('bust')||inp('bash'))  && (inp('box')||inp('chest'))  && haveBox === true && haveBoxKey === false  :
-                output.innerHTML = "The <span>box</span> is securely locked, and you don't have a <span>key</span>." ;
+                output.innerHTML = "The <span>box</span> is securely locked. You don't have a <span>key</span>." ;
                 break;
             case (inp('shake')||inp('rattle'))   &&    (inp('box')||inp('chest'))  && haveBox === true && boxUnlocked === false  :
                 output.innerHTML = "You shake the box <span>box</span>. There's <span>something</span> light and soft inside it." ;
