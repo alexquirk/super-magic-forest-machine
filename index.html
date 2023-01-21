@@ -833,7 +833,7 @@ const room1Switch = () => {
     const room12Switch = () => {
         document.getElementById('introarrow').style.display = "none";
         if (newGame === true) {
-                output.innerHTML = "You travel <span>east</span> along the narrow path for a while until you arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree.<br><br>Try typing a command, like \"<span>look around</span>\", \"<span>inspect strange figure</span>\", or \"<span>pick up a rock</span>\".<br><br>You can type \'hint\' at any point to get some help."
+                output.innerHTML = "You travel <span>east</span> along the narrow path until you arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree.<br><br>Try typing a command, like \"<span>look around</span>\", \"<span>inspect strange figure</span>\", or \"<span>pick up a rock</span>\".<br><br>You can type \'hint\' at any point to get some help."
         } else if (robotAwake === false) {
             if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
                 output.innerHTML = "You travel <span>west</span> along the lakeshore until you arrive at at a large willow tree where a <span>strange figure</span> is laying.";
@@ -1627,7 +1627,7 @@ const clearMap = () => {
                 haveRibbon = false;
                 removeItem("a <span>red ribbon</span>");
                 room4Switch();
-                output.innerHTML = "The moment you pull the <span>red ribbon</span> out of your pocket, the <span>cat</span> perks up.<br><br>You drag the <span>ribbon</span> across the ground, and leaps from the tree!";
+                output.innerHTML = "The moment you pull the <span>red ribbon</span> out of your pocket, the <span>cat</span> perks up.<br><br>You start to wave the <span>ribbon</span> around, and the <span>cat</span> leaps from the tree!";
                 break;
             case ( (roomNum === 4 && marbleDown === true) || ( roomNum === 12 && marbleReunited === true ) ) &&  (   inp('play')  ||  (inp('cat')||inp('use')) && inp('ribbon')   ) :
                 output.innerHTML = "You grab the <span>ribbon</span> and wave it around for the <span>cat</span>. Is there anything better than this?";
@@ -2092,7 +2092,7 @@ const clearMap = () => {
             case roomNum === 10 &&  inp('use') &&   inp('well')  && ropeSet === false :
                 output.innerHTML = "The <span>well</span> doesn't have a bucket or rope.";
                 break;
-            case roomNum === 10  && ropeSet === true   &&  (  (inp('go')&& inp('down'))   ||  (inp('use')&&inp('well'))   ||  inp('rope') || inp('climb')) :
+            case roomNum === 10  && ropeSet === true   &&  (  (inp('go')&& inp('down'))   ||  (inp('use') && (inp('well')|| inp('rope'))) || inp('climb')) :
                 output.innerHTML = "You test the <span>rope</span>, and then carefully lower yourself into the <span>well</span>...";
                 room13Switch();
                 roomNum = 13;
@@ -2278,7 +2278,7 @@ const clearMap = () => {
                 firefliesReleased = true;
                 haveFireflies = false;
                 switchChestRopeImage();
-                //playCaveCutscene2();
+                playCaveCutscene2();
                 document.getElementById("room7").src="./roomimages/smfmroom7a.png";
                 removeItem("a <span>box of fireflies</span>");
                 inventory.push("a <span>wooden box</span>");
@@ -2776,7 +2776,7 @@ const clearMap = () => {
 
             // DEFAULT QUESTION WORDS
             case  inp('what') && ((inp('going') && inp('on')) || inp('happen')):
-                output.innerHTML = "You suddenly woke up in a strange forest. You can't really remember how you got here, but somehow you know the only way out is through that <span>door</span>.<br><br>Type \"<span>hint</span>\" at any time to get some help.";
+                output.innerHTML = "You suddenly woke up in a strange forest. You can't really remember how you got here.<br><br>Explore the forest, and find a way out. Type \"<span>hint</span>\" at any time to get some help.";
                 break;
             case  inp('what') && inp('do') && inp(' i ') :
                 output.innerHTML = "You get the feeling the only way out is through that <span>door</span>.<br><br>Try typing different things into the prompt and seeing what happens.<br><br>You can type \"<span>hint</span>\" at any time to get some help.";
