@@ -2,11 +2,6 @@ html, body {
     overscroll-behavior: none;   /*  disable pull-down-to-refresh-page on mobile, via    https://www.matuzo.at/blog/2022/100daysof-day53/   */
   }
 
-.sw-pinit-button,
-div.sw-pinit a.sw-pinit-button:hover:before {
-    display: none;
-} /* removing pinterest pins, via   https://theme.co/forum/t/remove-pinterest-pin-on-hover/18397   */
-
 body {
     background-color: black;
     font-family: 'DotGothic16', sans-serif;
