@@ -479,6 +479,16 @@ leaveButton.addEventListener('click', leaveConversation);
             document.getElementById("cutscene").src="";
         })
     };
+
+    const playOwlCutscene = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/owlcutscene.mp4";
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
     
     const playTreeClimbCutscene = () => {
         document.getElementById('cutsceneviewer').style.display = "flex";
