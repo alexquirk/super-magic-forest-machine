@@ -58,7 +58,7 @@
             <img id= "inventory7" src="./inventoryimages/rock.png">
             <img id= "book">
             <div id= "maptiles">
-                <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" src="./maptiles/room1tile.png" onclick="room1Switch()"><img class="roomtile" id="room2tile" onclick="room2Switch()"><img class="roomtile" id="room3tile" onclick="room3Switch()"><img class="roomtile" id="room4tile" onclick="room4Switch()"><img class="roomtile" id="room5tile" onclick="room5Switch()"><img class="roomtile" id="room6tile" onclick="room6Switch()"><img class="roomtile" id="room7tile" onclick="room7Switch()"><img class="roomtile" id="room8tile" onclick="room8Switch()"><img class="roomtile" id="room9tile" onclick="room9Switch()"><img class="roomtile" id="room10tile" onclick="room10Switch()"><img class="roomtile" id="room11tile" onclick="room11Switch()"><img class="roomtile" id="room12tile" onclick="room12Switch()"><img class="roomtile" id="room14tile" onclick="room14Switch()">
+                <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" onclick="room1Switch()"><img class="roomtile" id="room2tile" onclick="room2Switch()"><img class="roomtile" id="room3tile" onclick="room3Switch()"><img class="roomtile" id="room4tile" onclick="room4Switch()"><img class="roomtile" id="room5tile" onclick="room5Switch()"><img class="roomtile" id="room6tile" onclick="room6Switch()"><img class="roomtile" id="room7tile" onclick="room7Switch()"><img class="roomtile" id="room8tile" onclick="room8Switch()"><img class="roomtile" id="room9tile" onclick="room9Switch()"><img class="roomtile" id="room10tile" onclick="room10Switch()"><img class="roomtile" id="room11tile" onclick="room11Switch()"><img class="roomtile" id="room12tile" onclick="room12Switch()"><img class="roomtile" id="room14tile" onclick="room14Switch()">
             </div>   
         
         </div>
@@ -85,7 +85,7 @@
     
      <!-- INPUT AREA -->
 <div class="inputarea">
-    <input type="text" id="userinput" maxlength="25" onclick="clearMap(); inputFocus();">
+    <input type="text" id="userinput" maxlength="25" onclick="clearMap()">
     <input type="button" id="enterbutton" value="ENTER">
 </div>
 </article>
@@ -591,8 +591,10 @@ const room1Switch = () => {
         mapArrow.style.top = "53%";
         mapArrow.style.left = "42.6%";
         output.innerHTML = "You find yourself in a clearin in the middle of the forest, where a <span>strange wooden door</span> is standing.";
+        roomVisited[2] = true;
         moveAllRoomsBack();
         room1.style.zIndex = "0";
+        document.getElementById("room1tile").src="./maptiles/room1tile.png";
         roomNum = 1;
         northTriangle.style.opacity = "75%";
         southTriangle.style.opacity = "75%";
@@ -883,7 +885,7 @@ const room1Switch = () => {
         if (newGame === false) {
             output.innerHTML = "You travel <span>west</span> and return to the glade where you awoke.";
         } else {
-            output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself.<br><br>The woods around you are dense and dark. There is a narrow path leading <span>east</span>.<br><br>To travel east, click the 'E' in the top right corner of the screen, or type \"travel east\" in the prompt below and press 'ENTER'.";
+            output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself.<br><br>The woods around you are dense and dark. There is a narrow path leading <span>east</span>.<br><br>To travel east, click the 'E' in the top right corner in the screen above, or type \"travel east\" in the prompt below and press 'ENTER'.";
         };
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
@@ -938,9 +940,9 @@ const clearMap = () => {
         };
     };
 
-const inputFocus = () => {
-    userInput.focus()
-};
+// const inputFocus = () => {
+//     userInput.focus()
+// };
 
 // USER INPUT
     const inp = (arg) => {
