@@ -224,8 +224,8 @@ body {
 }
 
 #maptiles {
-    z-index: 10;
-    display: none;
+    z-index: -2;
+    display: block;
     background-image: url(./maptiles/mapbackground.png);
     background-size: contain;
     position: relative;
