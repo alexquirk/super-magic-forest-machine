@@ -26,7 +26,7 @@
 
 <div id="cutsceneviewer">
     <video poster="./cutscenes/loadingleaf.gif"  id="cutscene" autoplay="autoplay" muted playsinline>
-        <source src="" type="video/mp4" control="none">
+        <source src="./cutscenes/intro.mp4" type="video/mp4" control="none">
     </video>
 </div>
 
@@ -503,15 +503,15 @@ leaveButton.addEventListener('click', leaveConversation);
         })
     };
     
-    const playCaveCutscene = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/cavecutscene.mp4";
-        let currentCutscene = document.getElementById("cutscene");
-        currentCutscene.addEventListener('ended', function() {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
-        })
-    };
+    // const playCaveCutscene = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/cavecutscene.mp4";
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     currentCutscene.addEventListener('ended', function() {
+    //         document.getElementById('cutsceneviewer').style.display = "none";
+    //         document.getElementById("cutscene").src="";
+    //     })
+    // };
     
     const playCaveCutscene2 = () => {
         document.getElementById('cutsceneviewer').style.display = "flex";
@@ -523,35 +523,35 @@ leaveButton.addEventListener('click', leaveConversation);
         })
     };
     
-    const playBeachCutscene = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/beachcutscene.mp4";
-        let currentCutscene = document.getElementById("cutscene");
-        currentCutscene.addEventListener('ended', function() {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
-        })
-    };
+    // const playBeachCutscene = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/beachcutscene.mp4";
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     currentCutscene.addEventListener('ended', function() {
+    //         document.getElementById('cutsceneviewer').style.display = "none";
+    //         document.getElementById("cutscene").src="";
+    //     })
+    // };
     
-    const playFirstCutscene = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/firstcutscene.mp4";
-        let currentCutscene = document.getElementById("cutscene");
-        currentCutscene.addEventListener('ended', function() {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
-        })
-    };
+    // const playFirstCutscene = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/firstcutscene.mp4";
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     currentCutscene.addEventListener('ended', function() {
+    //         document.getElementById('cutsceneviewer').style.display = "none";
+    //         document.getElementById("cutscene").src="";
+    //     })
+    // };
     
-    const playFireflyCutscene = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/fireflycutscene.mp4";
-        let currentCutscene = document.getElementById("cutscene");
-        currentCutscene.addEventListener('ended', function() {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
-        })
-    };
+    // const playFireflyCutscene = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/fireflycutscene.mp4";
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     currentCutscene.addEventListener('ended', function() {
+    //         document.getElementById('cutsceneviewer').style.display = "none";
+    //         document.getElementById("cutscene").src="";
+    //     })
+    // };
     
     const playRobotCutscene = () => {
         document.getElementById('cutsceneviewer').style.display = "flex";
@@ -1445,7 +1445,7 @@ const inputFocus = () => {
                 // look around
             case roomNum === 1 &&  ( ( (inp('look')||inp('inspect')||inp('see ')||inp('search'))   &&    (inp('forest')||inp('around')) )  ||  (inp('what')&&inp('place'))  ):
                 if (firstCutscene === false) {
-                    playFirstCutscene();
+                    // playFirstCutscene();
                     firstCutscene = true;
                 }
                 output.innerHTML = "It's twilight. The <span>strange door</span> is standing in a grassy clearing surrounded by <span>trees</span> and scattered <span>rocks</span> and <span>flowers</span>.<br><br>To the <span>north</span> and <span>east</span> the forest grows dark and dense. To the <span>south</span>, you can hear the distant sound of water. To the <span>northwest</span> you can see a rocky outcropping.<br><br>Type \"<span>hint</span>\" if you get stuck.";
