@@ -47,7 +47,7 @@
             <img class="compasstriangles" id="northtriangle" src="./compasstriangles/north.png" onclick="goNorth()"><img class="compasstriangles" id="westtriangle" src="./compasstriangles/west.png" onclick="goWest()"><img class="compasstriangles" id="southtriangle" src="./compasstriangles/south.png" onclick="goSouth()"><img class="compasstriangles" id="easttriangle" src="./compasstriangles/east.png" onclick="goEast();">
             <!-- main viewer -->
             <div id= "map">
-                <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png">
+                <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png">
             </div>            
             <img id= "inventory1" src="">
             <img id= "inventory2" src="./inventoryimages/ribbon.png">
@@ -58,7 +58,7 @@
             <img id= "inventory7" src="./inventoryimages/rock.png">
             <img id= "book">
             <div id= "maptiles">
-                <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" onclick="room1Switch()"><img class="roomtile" id="room2tile" onclick="room2Switch()"><img class="roomtile" id="room3tile" onclick="room3Switch()"><img class="roomtile" id="room4tile" onclick="room4Switch()"><img class="roomtile" id="room5tile" onclick="room5Switch()"><img class="roomtile" id="room6tile" onclick="room6Switch()"><img class="roomtile" id="room7tile" onclick="room7Switch()"><img class="roomtile" id="room8tile" onclick="room8Switch()"><img class="roomtile" id="room9tile" onclick="room9Switch()"><img class="roomtile" id="room10tile" onclick="room10Switch()"><img class="roomtile" id="room11tile" onclick="room11Switch()"><img class="roomtile" id="room12tile" onclick="room12Switch()"><img class="roomtile" id="room14tile" onclick="room14Switch()">
+                <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" onclick="room1Switch()"><img class="roomtile" id="room2tile" onclick="room2Switch()"><img class="roomtile" id="room3tile" onclick="room3Switch()"><img class="roomtile" id="room4tile" onclick="room4Switch()"><img class="roomtile" id="room5tile" onclick="room5Switch()"><img class="roomtile" id="room6tile" onclick="room6Switch()"><img class="roomtile" id="room7tile" onclick="room7Switch()"><img class="roomtile" id="room8tile" onclick="room8Switch()"><img class="roomtile" id="room9tile" onclick="room9Switch()"><img class="roomtile" id="room10tile" onclick="room10Switch()"><img class="roomtile" id="room11tile" onclick="room11Switch()"><img class="roomtile" id="room12tile" onclick="room12Switch()"><img class="roomtile" id="room14tile" onclick="room14Switch()"><img class="roomtile" id="room15tile" onclick="room15Switch()">
             </div>   
         
         </div>
@@ -192,6 +192,8 @@ const makeFadeAway = () => {
     let firstCutscene = false;
     let firefliesSeen = false;
     let waterSearchedOnce = false;
+    let boatFixed = false;
+    let haveHook = false;
     
     let firstHint = false;
     let thingsTried = 0;
@@ -200,7 +202,7 @@ const makeFadeAway = () => {
     let sassyHint = false;
     let boxSmashed = 0;
 
-    const roomVisited = ["", false, false, false, false, false, false, false, false, false, false, false, false, false, true];
+    const roomVisited = ["", false, false, false, false, false, false, false, false, false, false, false, false, false, true, false];
     const inventory = [];
 
     profanityResponse = ["Hey now! This is a nice game.", "Oh c'mon.", ".....Alright...", "Seriously...?", "Okay, I'm gonna need you to stop that.", "This is getting old now.", "This is getting old now.", "This is getting REAALY old now.", "STOOOPPPPP", "I'M GONNA RESET THE GAME", "I'LL DO IT", "I'LL RESET THE GAME DON'T MAKE ME DO IT", "...", "...", "...", ">:(", "Okay I'm seriously done this time.", "Okay I'm seriously done this time.", "Okay for real I'm seriously done this time.", "I said I'M DONE THIS TIME", "Can't say I didn't warn you :P"]
@@ -563,6 +565,18 @@ leaveButton.addEventListener('click', leaveConversation);
         })
     };
 
+    const playBoatCutscene = () => {
+        document.getElementById('cutsceneviewer').style.display = "flex";
+        document.getElementById("cutscene").src="./cutscenes/boatcutscene.mp4";
+        let currentCutscene = document.getElementById("cutscene");
+        currentCutscene.addEventListener('ended', function() {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";
+        })
+    };
+
+
+
 
 // ROOM SWITCHING FUNCTIONS
 
@@ -580,8 +594,9 @@ const room11 = document.getElementById("room11");
 const room12 = document.getElementById("room12");
 const room13 = document.getElementById("room13");
 const room14 = document.getElementById("room14");
+const room15 = document.getElementById("room15");
 
-allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14]
+allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15]
 
 const moveAllRoomsBack = () => {
     allRooms[roomNum-1].style.zIndex = "-2"; 
@@ -689,19 +704,29 @@ const room1Switch = () => {
         westTriangle.style.opacity = "75%";
     };
     const room6Switch = () => {
-        if (haveRope === false && ropeSet === false && roomNum === 5) {
-                output.innerHTML = "You travel <span>east</span> along the lake shore until you arrive at a wooded point, where a half-sunk <span>boat</span> is tied to a mooring.";
-            } else if (haveRope === false && ropeSet === false && roomNum === 3) {
-                output.innerHTML = "You travel <span>south</span> through the forest until you arrive at a wooded <span>shoreline</span>, where a half-sunk <span>boat</span> is tied to a mooring.";
-            } else {
-                output.innerHTML = "You arrive at the wooded point where the half-sunk <span>boat</span> sits in the water.";
-        };
+        if (ropeTaken === false && boatFixed === false && roomNum === 5)
+                {output.innerHTML = "You travel <span>east</span> along the lake shore until you arrive at a wooded point, where a half-sunk <span>boat</span> is tied to a mooring."}
+            else if (ropeTaken === false && boatFixed === false && roomNum === 3)
+                {output.innerHTML = "You travel <span>south</span> through the forest until you arrive at a wooded <span>shoreline</span>, where a half-sunk <span>boat</span> is tied to a mooring."}
+            else if (boatFixed === false && ropeTaken === false)
+                {output.innerHTML = "You arrive at the wooded point where the half-sunk <span>boat</span> is tied to a mooring."}
+            else if (boatFixed === false && ropeTaken === true)
+                {output.innerHTML = "You arrive at the wooded point where the half-sunk <span>boat</span> sits in the water."}
+            else if (boatFixed === true && ropeTaken === false)
+                {output.innerHTML = "You arrive at the wooded point where the <span>boat</span> is tied to a mooring."}
+            else if (boatFixed === true && ropeTaken === true)
+                {output.innerHTML = "You arrive at the wooded point where the <span>boat</span> sits in the water."}
         roomVisited[6] = true;
         mapArrow.style.top = "73%";
         mapArrow.style.left = "55.3%";
         moveAllRoomsBack();
-        if (ropeTaken === false) {room6.src="./roomimages/smfmroom6a.png"}
-        else {room6.src="./roomimages/smfmroom6b.png"};
+        if (ropeTaken === false && boatFixed === false) 
+            {room6.src="./roomimages/smfmroom6a.png"}
+        else if (ropeTaken === true && boatFixed === false)
+            {room6.src="./roomimages/smfmroom6b.png"}
+        else if (ropeTaken === true && boatFixed === true)
+            {room6.src="./roomimages/smfmroom6d.png"}  
+        else {room6.src="./roomimages/smfmroom6c.png"}
         room6.style.zIndex = "0";
         document.getElementById("room6tile").src="./maptiles/room6tile.png";
         roomNum = 6;
@@ -898,6 +923,20 @@ const room1Switch = () => {
         eastTriangle.style.opacity = "75%";
         westTriangle.style.opacity = "28%";
     };
+
+    const room15Switch = () => { 
+        output.innerHTML = "You ride the <span>boat</span> out into the lake, and arrive at an island.";
+        mapArrow.style.top = "63%";
+        mapArrow.style.left = "74.5%";
+        moveAllRoomsBack();
+        room15.style.zIndex = "0";
+        document.getElementById("room15tile").src="./maptiles/room15tile.png";
+        roomNum = 15;
+        northTriangle.style.opacity = "28%";
+        southTriangle.style.opacity = "28%";
+        eastTriangle.style.opacity = "28%";
+        westTriangle.style.opacity = "28%";
+    };
     // CHEATER MAP CLICKING FUNCTIONS
 
     const goNorth = () =>
@@ -976,6 +1015,9 @@ const clearMap = () => {
         switch (true) {
     
         // GLOBAL
+            case inp('play boat cutscene'):
+                playBoatCutscene();
+                break;
             case inp('talk test'):
                 output.innerHTML = "";
                 createConversation();
@@ -1775,7 +1817,7 @@ const clearMap = () => {
                 break;
 
             // ROOM 6
-                // B.S.
+                // Looking Around
             case roomNum === 6 &&  ropeTaken === false && (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('shore')||inp('beach'))     :
                 if (lakeDiscovered === false) {
                     // playBeachCutscene();
@@ -1807,54 +1849,55 @@ const clearMap = () => {
             case roomNum === 6 &&    (inp('inspect')||inp('see ')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such.";
                 break;
-            case roomNum === 6 &&  (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))   && haveBox === false  :
-                output.innerHTML = "The <span>boat</span> is full of holes and is mostly under water. Besides, the paddles are nowhere to be seen.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
+                // Attempting to Ride The Boat
+            case roomNum === 6    && haveBox === false  &&  boatFixed === false && (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))  :
+                output.innerHTML = "The <span>boat</span> has a fist-size hole in the bottom and is filled with water. Maybe you can find something to plug the hole with.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
                 haveBox = true;
                 switchChestRopeImage();
                 inventory.push("a <span>wooden box</span>");
                 break;
-            case roomNum === 6 &&  (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))   && haveBox === true  :
-                output.innerHTML = "The <span>boat</span> is full of holes and is mostly under water. Besides, the paddles are nowhere to be seen.";
+            case roomNum === 6    && haveBox === true  && boatFixed === false && (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))  :
+                output.innerHTML = "The <span>boat</span> has a fist-sized hole in the bottom. Maybe you can plug it with something.";
                 break;
-            case roomNum === 6 &&  (inp('fix')||inp('repair')||inp('mend')||inp('patch'))   &&    (inp('boat'))  && haveBox === false   :
-                output.innerHTML = "The <span>boat</span> is way too busted up to fix. It's honestly hardly even a boat at this point.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
+            case roomNum === 6   && boatFixed === true   && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
+                playBoatCutscene();
+                room15Switch();
+                break;
+                // Fixing The Boat
+            case roomNum === 6    && haveBox === false  && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
                 haveBox = true;
+                boatFixed = true;
                 switchChestRopeImage();
+                room6Switch();
+                output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span>rock</span>. After a few minutes of bailing water out, it starts to float again.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
                 inventory.push("a <span>wooden box</span>");
                 break;
+            case roomNum === 6    && haveBox === true  && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
+                output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span>rock</span>. After a few minutes of bailing water out, it starts to float again.";
+                boatFixed = true;
+                room6Switch();
                 break;
-            case roomNum === 6 &&  (inp('fix')||inp('repair')||inp('mend')||inp('patch'))   &&    (inp('boat')) && haveBox === true    :
-                output.innerHTML = "The <span>boat</span> is way too buested up to fix. It's honestly hardly even a boat at this point.";
-                break;
-            // boat/box
-            case roomNum === 6 &&   haveBox === false  &&  (inp('inspect')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under'))   &&    (inp('boat'))     :
+                // Searching The Boat
+            case roomNum === 6 &&   haveBox === false  &&  (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under'))   &&    (inp('boat')||inp('moor'))     :
                 output.innerHTML = "You look into the bottom of the <span>boat</span> and find a <span>locked wooden box</span>.<br><br>You put the <span>box</span> in your <span>pocket</span>.<br><br>Type \"<span>pockets</span>\" to see what you have with you.";
                 haveBox = true;
                 switchChestRopeImage();
                 inventory.push("a <span>wooden box</span>");
                 break;
-            case roomNum === 6   && ropeTaken === false && haveBox === false && (inp('look')||inp('inspect'))  &&    (inp('boat')||inp('moor'))  :
-                output.innerHTML = "The <span>boat</span> is half-sunk, and the paddles are nowhere to be seen. The wood on the bottom is almost completely rotted through, and it's tied to the shore with a thick <span>rope</span>.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
-                haveBox = true;
-                switchChestRopeImage();
-                inventory.push("a <span>wooden box</span>");
+            case roomNum === 6   && ropeTaken === false  && boatFixed === false && (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under'))  &&    (inp('boat')||inp('moor'))  :
+                output.innerHTML = "The <span>boat</span> is half-sunk, and tied to the shore with a thick <span>rope</span>. You look closer, and realize there is a fist-sized hole in the botom.";
                 break;
-            case roomNum === 6   && ropeTaken === false && haveBox === true && (inp('look')||inp('inspect'))  &&    (inp('boat')||inp('moor'))  :
-                output.innerHTML = "The <span>boat</span> is half-sunk, and the paddles are nowhere to be seen. The wood on the bottom is almost completely rotted through.<br><br>It's tied to the shore with a thick <span>rope</span>.";
+            case roomNum === 6   && ropeTaken === true  && boatFixed === false && (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under'))  &&    (inp('boat')||inp('moor'))  :
+                output.innerHTML = "The <span>boat</span> is half-sunk. You look closer, and realize there is a fist-sized hole in the botom.";
                 break;
-            case roomNum === 6   && ropeTaken === true && haveBox === false && (inp('look')||inp('inspect'))  &&    (inp('boat')||inp('moor'))  :
-                output.innerHTML = "The <span>boat</span> is half-sunk, and the paddles are nowhere to be seen. The wood on the bottom is almost completely rotted through, but it looks like there might be <span>something</span> stuck in the bottom.";
+            case roomNum === 6   && ropeTaken === false  && boatFixed === true && (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under'))  &&    (inp('boat')||inp('moor'))  :
+                output.innerHTML = "The <span>boat</span> is tied to the shore with a thick <span>rope</span>.";
                 break;
-            case roomNum === 6   && ropeTaken === true &&  (inp('look')||inp('inspect'))  &&    (inp('boat')||inp('moor'))  :
-                output.innerHTML = "The <span>boat</span> is half-sunk, and the wood on the bottom is almost completely rotted through. The paddles are nowhere to be seen.";
+            case roomNum === 6   && ropeTaken === true  && boatFixed === true && (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under'))  &&    (inp('boat')||inp('moor'))  :
+                output.innerHTML = "What a nice <span>boat</span>!";
                 break;
-            case roomNum === 6  && haveBox === true  && ropeTaken === false && (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('under')||inp('behind'))   &&    (inp('boat')||inp('moor'))   :
-                output.innerHTML = "The <span>boat</span> is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through, and the paddles are nowhere to be seen.<br><br>It\'s tied to the shore with a thick <span>rope</span>.";
-                break;
-            case roomNum === 6  && haveBox === true  &&  (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('behind')||inp('under'))   &&    (inp('boat')||inp('moor'))   :
-                output.innerHTML = "The <span>boat</span> is half-sunk and looks ancient. The wood on the bottom is almost completely rotted through, and the paddles are nowhere to be seen.";
-                break;
-            //rope
+
+                //rope
             case roomNum === 6 &&   ropeTaken === false &&    (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    (inp('rope'))     :
                 output.innerHTML = "The <span>rope</span> seems to be the only thing about the boat that is still in decent condition.";
                 break;
@@ -2238,6 +2281,14 @@ const clearMap = () => {
                 output.innerHTML = "The <span>robot</span> is inactive.";
                 break;
 
+            // ROOM 15
+            case roomNum === 15 &&  (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    inp('around') && haveHook === false :
+                output.innerHTML = "You're on a island! That's pretty cool.<br><br>There's a big thing washed up on the shore that looks like the wing of an aircraft. There's an old <span>pirate's hook</span> on the ground next to it.";
+                break;
+            case roomNum === 15 &&  (   (   (inp('get')||inp('take')||inp('ride'))   &&   (inp('boat'))   )  ||  (   ( inp('go')||inp('travel')) && (inp('forest')||inp('back'))  )  ||  (   inp('leave') && inp('island')   )  )  :
+                room6switch();
+                output.innerHTML = "You ride the <span>boat</span> back to the forest.";
+                break;
 
             // ROOM 13
             case roomNum === 13 &&  (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    (inp('well')||inp('around')||inp('ground')||inp('floor')||inp('dirt'))  && mugTaken === false  :
@@ -2293,28 +2344,28 @@ const clearMap = () => {
                 break;
 
             // INTERACT WITH WATER
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('shore'))     :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12  || roomNum === 15) &&    (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('shore'))     :
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.";
                 break;
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('swim')||inp('dive')||inp('jump')||inp('cross')||inp('get'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach'))     :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12  || roomNum === 15) &&    (inp('swim')||inp('dive')||inp('jump')||inp('cross')||inp('get'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach'))     :
                 output.innerHTML = "You didn't bring a swim suit! The water seems cold anyway.";
                 break;
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('catch')||inp('grab')||inp('take')||inp('lure')||inp('get'))   &&    (inp('fish'))     :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12  || roomNum === 15) &&    (inp('catch')||inp('grab')||inp('take')||inp('lure')||inp('get'))   &&    (inp('fish'))     :
                 output.innerHTML = "You try to catch a fish, but they are way too fast! They probably prefer the water anyway.";
                 break;
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12) &&    (inp('skip')||inp('throw')||inp('toss'))   &&    (inp('rock')||inp('pebble')||inp('stone'))     :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12  || roomNum === 15) &&    (inp('skip')||inp('throw')||inp('toss'))   &&    (inp('rock')||inp('pebble')||inp('stone'))     :
                 output.innerHTML = "You throw a rock out across the water. It skips across the surface a few times before sinking with a 'plop', and you watch the ripples play off each other on the glassy surface.";
                 break;
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8) &&    (inp('drink')||inp('sip'))   &&    (inp('water')||inp('lake'))  && haveMug === true   :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8  || roomNum === 15) &&    (inp('drink')||inp('sip'))   &&    (inp('water')||inp('lake'))  && haveMug === true   :
                 output.innerHTML = "You fill the <span>mug</span> with water from the lake and take a sip. It tastes clean and refreshing.";
                 break;
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8) &&    (inp('drink')||inp('sip'))   &&    (inp('water')||inp('lake'))  :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8  || roomNum === 15) &&    (inp('drink')||inp('sip'))   &&    (inp('water')||inp('lake'))  :
                 output.innerHTML = "You cup your hands into the lake and take a sip. The water is clean and refreshing.";
                 break;
             case ((roomNum === 6 || roomNum === 12) || (roomNum === 5 && haveBoxKey === true))&&    (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check')||inp('grab')||inp('take')||inp('pocket')||inp('get')||inp('under')||inp('behind'))   &&    (inp('drift')||inp('wood')):
                 output.innerHTML = "You search around the driftwood on the shore but don't find anything particularly useful.";
                 break;
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8) &&    inp('swim')  :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8  || roomNum === 15) &&    inp('swim')  :
                 output.innerHTML = "Brrr... the water is cold!";
                 break;
             
@@ -2331,6 +2382,9 @@ const clearMap = () => {
                 output.innerHTML = "Your <span>pockets</span> aren't that big! They're just regular sized.";
                 break;
                 // climb
+            case (roomNum === 15)  && inp('tree') && inp('climb') :
+                output.innerHTML = "Palm trees are, like, really hard to climb, you know?";
+                break;
             case (inp('climb')|| (inp('rope')&&haveRope===true) )  &&    (inp('tree')||inp('branch')) :
                 output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch to look out over the forest.<br><br>There is a <span>lake</span> to the <span>south</span>, but besides that the trees stretch as far as the eye can see.<br><br>You enjoy the view for a minute, then climb down.";
                 playTreeClimbCutscene();
@@ -2342,6 +2396,9 @@ const clearMap = () => {
                 // look
             case (roomNum === 9)  &&    (inp('tree')||inp('branch'))   &&   (inp('look'))  :
                 output.innerHTML = "The trees here look ancient. You get the feeling this is a very old part of the forest.";
+                break;
+            case (roomNum === 9)  && inp('tree') :
+                output.innerHTML = "That's a big ol' palm tree! Nothing much to do with it, though.";
                 break;
             case ((roomNum !== 4) || marbleDown === true) &&   (inp('look'))   &&    (inp('tree')||inp('branch'))     :
                 output.innerHTML = "There is a wide variety of trees in the forest - oaks, sycamore, pines trees, cyrpress, even some eucalyptus.";
@@ -2366,24 +2423,24 @@ const clearMap = () => {
                 break;
 
             // GET FLOWER
-            case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12)   &&    (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    (inp('flower'))     :
+            case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15)   &&    (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    (inp('flower'))     :
                 output.innerHTML = "You look at the flowers. Nice :)<br><br>+1 point";
                 break;
-            case (roomNum === 1 || roomNum === 3 || roomNum === 5  || roomNum === 14 || roomNum === 12)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === false   :
+            case (roomNum === 1 || roomNum === 3 || roomNum === 5  || roomNum === 14 || roomNum === 12  || roomNum === 15)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === false   :
                 output.innerHTML = 'You pick one of the <span>blue flowers</span> and carefully put it in your <span>pocket</span>.<br><br>Maybe it will be useful later?<br><br>Type "<span>pockets</span>" to check what you have with you.';
                 haveFlower = true;
                 inventory.push("a <span>blue flower</span>");
                 break;
-            case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === true   :
+            case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === true   :
                 output.innerHTML = 'You already have a <span>flower</span> in your <span>pocket</span>!';
                 break;
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get'))   &&    (inp('flower')) :
                 output.innerHTML = "There aren't any flowers around here.";
                 break;
-            case inp('smell') &&    (inp('flower')) &&  (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12)   :
+            case inp('smell') &&    (inp('flower')) &&  (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15)   :
                 output.innerHTML = "Lovely :)<br><br>+10 points";
                 break;
-            case ((roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12) ||  haveFlower === true) &&    inp('flower')  :
+            case ((roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12)  || roomNum === 15 ||  haveFlower === true) &&    inp('flower')  :
                 output.innerHTML = "Lovely :)";
                 break;
 
