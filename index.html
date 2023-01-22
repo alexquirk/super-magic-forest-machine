@@ -22,7 +22,9 @@
 
 <!-- THE MACHINE -->
 
-<img id="titlecard" src="./extraimages/titlecard.png" onclick="makeFadeAway()">
+<!-- PUT  THIS BACK WHEN DONE TESTING xxxxx -->
+
+<!-- <img id="titlecard" src="./extraimages/titlecard.png" onclick="makeFadeAway()"> -->
 
 <div id="cutsceneviewer">
     <video poster="./cutscenes/loadingleaf.gif"  id="cutscene" autoplay="autoplay" muted playsinline>
@@ -714,8 +716,8 @@ const room1Switch = () => {
                 {output.innerHTML = "You arrive at the wooded point where the half-sunk <span>boat</span> sits in the water."}
             else if (boatFixed === true && ropeTaken === false)
                 {output.innerHTML = "You arrive at the wooded point where the <span>boat</span> is tied to a mooring."}
-            else if (boatFixed === true && ropeTaken === true)
-                {output.innerHTML = "You arrive at the wooded point where the <span>boat</span> sits in the water."}
+            else
+                {output.innerHTML = "You arrive at the wooded point where the <span>boat</span> sits in the water."};
         roomVisited[6] = true;
         mapArrow.style.top = "73%";
         mapArrow.style.left = "55.3%";
@@ -726,7 +728,9 @@ const room1Switch = () => {
             {room6.src="./roomimages/smfmroom6b.png"}
         else if (ropeTaken === true && boatFixed === true)
             {room6.src="./roomimages/smfmroom6d.png"}  
-        else {room6.src="./roomimages/smfmroom6c.png"}
+        else {
+            room6.src="./roomimages/smfmroom6c.png"
+        };
         room6.style.zIndex = "0";
         document.getElementById("room6tile").src="./maptiles/room6tile.png";
         roomNum = 6;
@@ -929,6 +933,8 @@ const room1Switch = () => {
         mapArrow.style.top = "63%";
         mapArrow.style.left = "74.5%";
         moveAllRoomsBack();
+        if (haveHook === true) {room15.src="./roomimages/smfmroom15b.png"}
+        else {room15.src="./roomimages/smfmroom15a.png"};
         room15.style.zIndex = "0";
         document.getElementById("room15tile").src="./maptiles/room15tile.png";
         roomNum = 15;
@@ -1015,8 +1021,8 @@ const clearMap = () => {
         switch (true) {
     
         // GLOBAL
-            case inp('play boat cutscene'):
-                playBoatCutscene();
+            case inp('var status'):
+                output.innerHTML = "boatFixed: " + boatFixed + "<br><br>ropeTaken: " + ropeTaken + "<br><br>haveBox: " + haveBox
                 break;
             case inp('talk test'):
                 output.innerHTML = "";
@@ -1859,9 +1865,19 @@ const clearMap = () => {
             case roomNum === 6    && haveBox === true  && boatFixed === false && (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))  :
                 output.innerHTML = "The <span>boat</span> has a fist-sized hole in the bottom. Maybe you can plug it with something.";
                 break;
-            case roomNum === 6   && boatFixed === true   && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
+            case roomNum === 6   && boatFixed === true  && ropeTaken === false && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
+                ropeTaken = true;
+                haveRope = true;
+                inventory.push("a <span>rope</span>")
+                switchChestRopeImage();
                 playBoatCutscene();
                 room15Switch();
+                output.innerHTML = "You untie the <span>rope</span> and put it in your pockets, then push the <span>boat</span> out into the lake and hop in. You don't have any paddles, and allow the tide to take you where it will.<br><br>Soon, the <span>boat</span> lands on the shore of an island.";
+                break;
+            case roomNum === 6   && boatFixed === true  && ropeTaken === true && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
+                playBoatCutscene();
+                room15Switch();
+                output.innerHTML = "You push the <span>boat</span> out into the lake and hop in. You don't have any paddles, and allow the tide to take you where it will.<br><br>Soon the boat lands on the shore of an island.";
                 break;
                 // Fixing The Boat
             case roomNum === 6    && haveBox === false  && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
@@ -1873,9 +1889,9 @@ const clearMap = () => {
                 inventory.push("a <span>wooden box</span>");
                 break;
             case roomNum === 6    && haveBox === true  && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
-                output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span>rock</span>. After a few minutes of bailing water out, it starts to float again.";
                 boatFixed = true;
                 room6Switch();
+                output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span>rock</span>. After a few minutes of bailing water out, it starts to float again.";
                 break;
                 // Searching The Boat
             case roomNum === 6 &&   haveBox === false  &&  (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under'))   &&    (inp('boat')||inp('moor'))     :
@@ -2282,12 +2298,33 @@ const clearMap = () => {
                 break;
 
             // ROOM 15
-            case roomNum === 15 &&  (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    inp('around') && haveHook === false :
-                output.innerHTML = "You're on a island! That's pretty cool.<br><br>There's a big thing washed up on the shore that looks like the wing of an aircraft. There's an old <span>pirate's hook</span> on the ground next to it.";
+                // looking around and inspecting things
+            case roomNum === 15  && haveHook === false && (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    inp('around') :
+                output.innerHTML = "You're on a island! That's pretty cool.<br><br>There's a large palm tree, a few rocks, and a big thing washed up on the shore that looks like the wing of an aircraft.<br><br>There's an old <span>pirate's hook</span> on the ground next to the big wing thing.";
                 break;
+            case roomNum === 15  && haveHook === true && (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))   &&    inp('around') :
+                output.innerHTML = "You're on a island! That's pretty cool.<br><br>There's a large palm tree, a few rocks, and a big thing washed up on the shore that looks like the wing of an aircraft.";
+                break;
+            case roomNum === 15  &&  (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check')||inp('grab')||inp('take')||inp('pocket')||inp('get')||inp('under')||inp('behind'))  &&  (  inp('wing')||inp('turbine')||inp('blade')||inp('fan')  ):
+                output.innerHTML = "The object looks like the wing of an airplane, but on closer inspection, you realize it's actually more like the blade of a giant fan. It's wedged in the rocks on the shore. Grasses and sea vegetation have grown around it."
+                break;
+            case (roomNum === 15  || haveHook === true  )&& (inp('look')||inp('inspect')||inp('see ')||inp('search')||inp('check'))  &&   inp('hook') :
+                output.innerHTML = "It's a <span>pirate's hook</span> made of metal and leather. Seems pretty sturdy!"
+                break;
+                // ride boat back
             case roomNum === 15 &&  (   (   (inp('get')||inp('take')||inp('ride'))   &&   (inp('boat'))   )  ||  (   ( inp('go')||inp('travel')) && (inp('forest')||inp('back'))  )  ||  (   inp('leave') && inp('island')   )  )  :
-                room6switch();
+                room6Switch();
                 output.innerHTML = "You ride the <span>boat</span> back to the forest.";
+                break;
+            case roomNum === 15 && (  inp('somewhere else')  || inp('other island')  || inp('different island') || inp('other place') || inp('differnt place') || inp('new place')  || inp('new island'))   :
+                output.innerHTML = "This is the only island in the lake.";
+                break;       
+                // take hook
+            case roomNum === 15 && (inp('take')||inp('grab')||inp('pocket')||inp('get'))  && inp('hook')   :
+                inventory.push("a <span>pirate's hook</span>");
+                haveHook = true;
+                room15Switch;
+                output.innerHTML = "You put the <span>pirate's hook</span> in your <span>pocket</span>.";
                 break;
 
             // ROOM 13
@@ -2382,7 +2419,7 @@ const clearMap = () => {
                 output.innerHTML = "Your <span>pockets</span> aren't that big! They're just regular sized.";
                 break;
                 // climb
-            case (roomNum === 15)  && inp('tree') && inp('climb') :
+            case roomNum === 15  && inp('tree') && inp('climb') :
                 output.innerHTML = "Palm trees are, like, really hard to climb, you know?";
                 break;
             case (inp('climb')|| (inp('rope')&&haveRope===true) )  &&    (inp('tree')||inp('branch')) :
@@ -2397,7 +2434,7 @@ const clearMap = () => {
             case (roomNum === 9)  &&    (inp('tree')||inp('branch'))   &&   (inp('look'))  :
                 output.innerHTML = "The trees here look ancient. You get the feeling this is a very old part of the forest.";
                 break;
-            case (roomNum === 9)  && inp('tree') :
+            case (roomNum === 15)  && inp('tree') :
                 output.innerHTML = "That's a big ol' palm tree! Nothing much to do with it, though.";
                 break;
             case ((roomNum !== 4) || marbleDown === true) &&   (inp('look'))   &&    (inp('tree')||inp('branch'))     :
