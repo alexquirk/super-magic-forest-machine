@@ -29,7 +29,7 @@ currentConversation
 ROBOT DIALOGUE
 
 0
-> Hello
+> 
 Oh. Hi there. I guess you’re the one who woke me up, huh?
 
 1

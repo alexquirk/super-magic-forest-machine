@@ -1,0 +1,87 @@
+currentConversation
+0: 1, 2
+1: 2, 5
+2: 3, 10
+3: 4, 11
+4: 5, 13
+5: 6, 7
+6: 8, 9
+7: 8, 9
+8: 9, 12
+9: 3, 8
+10: 5, 11
+11: 12, 13
+12: 13, 5
+13: 14, 17
+14: 15, 11
+15: 16, 20
+16: 18, 20
+17: 18, 21 18: 19, 22
+19: 20, 21
+20: 23, 21,
+21: 24, 5
+22: 20, 10
+23: 13, 5
+24: 5, 13
+
+
+
+OWL DIALOGUE
+
+0
+>
+Who! Look what we have here. A stranger in the woods.
+
+1
+> Who are you?
+Who am I? Who I am! Who are you?? You don't belong here.
+
+2
+> I'm trying to get out of this place. Can you help me?
+Good luck with that. There's only one way out of this place. And it's locked shut!
+
+3
+> What's the deal with this door?
+Humans always have so many questions. The door is the way. But not for you.
+
+
+4
+>  
+
+
+5
+> 
+
+
+6
+> 
+
+
+7
+> 
+
+
+8
+> 
+
+
+9
+> 
+
+
+10
+> 
+
+
+11
+> 
+
+
+12
+> 
+ 
+
+13
+> 
+
+
