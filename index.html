@@ -951,22 +951,32 @@ const moveAllRoomsBack = () => {
         {
             userInput.value = "go north";
             processInput();
+            triangleButtonFlash(northTriangle)
         };
     const goSouth = () =>
         {
             userInput.value = "go south";
             processInput();
+            triangleButtonFlash(southTriangle)
         };
     const goEast = () =>
         {
             userInput.value = "go east";
             processInput();
+            triangleButtonFlash(eastTriangle);
         };
     const goWest = () =>
         {
             userInput.value = "go west";
             processInput();
+            triangleButtonFlash(westTriangle);
         };
+
+    const triangleButtonFlash = (triangleID) => {
+        triangleID.classList.add('brightfadeoutfortriangles');
+        setTimeout(()=> {triangleID.classList.remove('brightfadeoutfortriangles')}, 200);
+    }
+
 
 
 // VIEWING THE MAP
@@ -2988,7 +2998,7 @@ const clearMap = () => {
     const whiteButtonFlash = (buttonID) => {
         buttonID.classList.add('whitefadeoutforbuttons');
         setTimeout(()=> {buttonID.classList.remove('whitefadeoutforbuttons')}, 200);
-    }
+    };
 
     // from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_trigger_button_enter
     var input = document.getElementById("userinput");

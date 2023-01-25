@@ -82,6 +82,11 @@ body {
 
 /* MAIN GAME BODY */
 
+#border1, #border2 {
+    width: auto;
+    height: auto;
+}
+
 #themachine {
     justify-items: center;
     display: none;   
@@ -478,7 +483,20 @@ body {
     }
 }
 
+.brightfadeoutfortriangles {
+    animation: triangleBrightFade .2s ease-in 1;
+    animation-fill-mode: forwards;
+    
+}
 
+@keyframes triangleBrightFade {
+    0% { 
+        filter: brightness(2);
+    }
+    100% { 
+        filter: brightness(1);
+    }
+}
   
 
 @media only screen and (orientation: portrait) {
