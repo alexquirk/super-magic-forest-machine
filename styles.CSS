@@ -185,7 +185,7 @@ body {
     z-index: 50;
     width: 7%;
     height: auto;
-    display: inline;
+    display: none;
     animation: introArrowFade 3s linear ;
     animation-delay: 8s;
     animation-fill-mode: forwards;
