@@ -204,6 +204,10 @@ body {
     display: inline;
 }
 
+.compasstriangles:hover, #enterbutton:hover {
+    cursor: pointer;
+}
+
 #southtriangle {
     bottom: 0;
     right: 0;
@@ -476,7 +480,7 @@ body {
 
 @keyframes buttonWhiteFade {
     0% { 
-        background-color: rgb(159, 158, 158);
+        background-color: rgb(120, 120, 120);
     }
     100% { 
         background-color: black;

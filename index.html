@@ -277,6 +277,22 @@ const makeFadeAway = () => {
             } else if (haveMushy === true) {
                 document.getElementById("inventory3").src="./inventoryimages/mushy.png";
                 document.getElementById("inventory3").style.zIndex = "3";
+            };
+            if (inventory.length === 1) {
+                document.getElementById("inventory7").style.bottom = "20%"; 
+                document.getElementById("inventory7").style.left = "28%";
+                document.getElementById("inventory6").style.bottom = "10%"; 
+                document.getElementById("inventory6").style.left = "13%";
+            } else if (inventory.length === 2 && haveFlower === true && haveRock === true) {
+                document.getElementById("inventory7").style.bottom = "10%"; 
+                document.getElementById("inventory7").style.left = "20%";
+                document.getElementById("inventory6").style.bottom = "14%"; 
+                document.getElementById("inventory6").style.left = "23%";
+            } else {
+                document.getElementById("inventory7").style.bottom = "0%";
+                document.getElementById("inventory7").style.left = "0%";
+                document.getElementById("inventory6").style.bottom = "0%";
+                document.getElementById("inventory6").style.left = "0%";
             }
     };
 
@@ -2479,7 +2495,7 @@ const clearMap = () => {
                 output.innerHTML = "You look at the flowers. Nice :)<br><br>+1 point";
                 break;
             case (roomNum === 1 || roomNum === 3 || roomNum === 5  || roomNum === 14 || roomNum === 12  || roomNum === 15)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === false   :
-                output.innerHTML = 'You pick one of the <span>blue flowers</span> and carefully put it in your <span>pocket</span>.<br><br>Maybe it will be useful later?<br><br>Type "<span>pockets</span>" to check what you have with you.';
+                output.innerHTML = 'You pick one of the <span>blue flowers</span> and carefully put it in your <span>pocket</span>. Maybe it will be useful later!<br><br>Type "<span>pockets</span>" to check what you have with you.';
                 haveFlower = true;
                 inventory.push("a <span>blue flower</span>");
                 break;
@@ -2821,10 +2837,6 @@ const clearMap = () => {
                 userInput.value = "";
                 room10Switch();
                 break;
-            case (inp("walk")||inp('go')||inp('travel')):
-                userInput.value = "";
-                output.innerHTML = "Which direction to you want to go?<br><br>Type \"<span>map</span>\" to see where you have been.";
-                break;
 
             // ABOUT THE GAME
             case inp('game')  :
@@ -2936,6 +2948,12 @@ const clearMap = () => {
                 break;
             case inp('why') :
                 output.innerHTML = "This is a strange place. Maybe you can find some answers by looking around.";
+                break;
+
+            // DEFAULT GO
+            case (inp("walk")||inp('go')||inp('travel')):
+                userInput.value = "";
+                output.innerHTML = "Which direction to you want to go?<br><br>Type \"<span>map</span>\" to see where you have been.";
                 break;
 
             // CLEARING INVENTORY
