@@ -22,7 +22,7 @@
 
 <!-- THE MACHINE -->
 
-<!-- PUT  THIS BACK WHEN DONE TESTING xxxxx -->
+<!-- PUT  THIS vvvv  BACK WHEN DONE TESTING xxxxx -->
 
 <!-- <img id="titlecard" src="./extraimages/titlecard.png" onclick="makeFadeAway()"> -->
 
@@ -159,7 +159,7 @@ const makeFadeAway = () => {
     let checkingMap = false;
     let mapAsk = false;
 
-    let currentConversation = 0;
+    let currentRobotConversation = 0;
     let dialogueAsk = false;
     let inDialogue = false;
 
@@ -280,9 +280,9 @@ const makeFadeAway = () => {
             }
     };
 
-// DIALOGUE BUTTONS
+// ROBOT DIALOGUE BUTTONS
     // your dialoge
-const dialogueButtonTexts = ["> Talk to the robot?",
+const robotDialogueButtonTexts = ["> Talk to the robot?",
                              "> Are you the Super Magic Forest Machine?",
                              "> What are you?",
                              "> What were the humans doing?",
@@ -340,50 +340,50 @@ const dialogueButtonTexts = ["> Talk to the robot?",
                                 "<span class='robot'>Hello again!</span>"
                                 ];
     
-const conversationMap = [[2,1],[2,5],[3,10],[4,11],[13,5],[7,6],[8,9],[8,9],[9,12],[3, 8],[11,5],[12,13],[13,5],[17, 14],[15,11],[16,20],[18,20],[18,21],[19,22],[20,21],[23,21],[24,5],[20,10],[13,5],[25,-1],[-1,-1],[2,1]];                      
+const robotConversationMap = [[2,1],[2,5],[3,10],[4,11],[13,5],[7,6],[8,9],[8,9],[9,12],[3, 8],[11,5],[12,13],[13,5],[17, 14],[15,11],[16,20],[18,20],[18,21],[19,22],[20,21],[23,21],[24,5],[20,10],[13,5],[25,-1],[-1,-1],[2,1]];                      
 
-const createConversation = () => {
-    output.innerHTML = robotDialogueTexts[currentConversation];
+const createRobotConversation = () => {
+    output.innerHTML = robotDialogueTexts[currentRobotConversation];
     dialogueAsk = true;
     inDialogue = true;
     leaveButton.style.display = "block";
-    if (conversationMap[currentConversation][0] > -1) {
-        d1.innerHTML = dialogueButtonTexts[conversationMap[currentConversation][0]];
+    if (robotConversationMap[currentRobotConversation][0] > -1) {
+        d1.innerHTML = robotDialogueButtonTexts[robotConversationMap[currentRobotConversation][0]];
         d1.style.display = "block";
     } else {d1.style.display = "none"};
-    if (conversationMap[currentConversation][1] > -1) {
-        d2.innerHTML = dialogueButtonTexts[conversationMap[currentConversation][1]];
+    if (robotConversationMap[currentRobotConversation][1] > -1) {
+        d2.innerHTML = robotDialogueButtonTexts[robotConversationMap[currentRobotConversation][1]];
         d2.style.display = "block";
     } else {d2.style.display = "none"};
     outputArea.scroll(0,0);
 };
 
-continueConversation1 = () => {
-    currentConversation = conversationMap[currentConversation][0];
-    createConversation();
+continueRobotConversation1 = () => {
+    currentRobotConversation = robotConversationMap[currentRobotConversation][0];
+    createRobotConversation();
 };
 
-d1.addEventListener('click', continueConversation1);
+d1.addEventListener('click', continueRobotConversation1);
 
-continueConversation2 = () => {
-    currentConversation = conversationMap[currentConversation][1];
-    createConversation();
+continueRobotConversation2 = () => {
+    currentRobotConversation = robotConversationMap[currentRobotConversation][1];
+    createRobotConversation();
 };
 
-d2.addEventListener('click', continueConversation2);
+d2.addEventListener('click', continueRobotConversation2);
 
-leaveConversation = () => {
+leaveRobotConversation = () => {
     dialogueAsk = false;
     inDialogue = false;
     d1.style.display = "none";
     d2.style.display = "none";
     leaveButton.style.display = "none";
-    if (currentConversation !== 25) {output.innerHTML = "<span class='robot'>See ya later!</span>"}
+    if (currentRobotConversation !== 25) {output.innerHTML = "<span class='robot'>See ya later!</span>"}
     else {output.innerHTML = "";};
-    currentConversation = 26;
+    currentRobotConversation = 26;
 };
 
-leaveButton.addEventListener('click', leaveConversation);
+leaveButton.addEventListener('click', leaveRobotConversation);
 
 
 // BOOK BUTTONS
@@ -1027,7 +1027,7 @@ const clearMap = () => {
                 break;
             case inp('talk test'):
                 output.innerHTML = "";
-                createConversation();
+                createRobotConversation();
                 break;
             case inp('get room num'):
                 output.innerHTML = roomNum;
@@ -2234,7 +2234,7 @@ const clearMap = () => {
             // ROOM 12
                 // talk to robot
             case roomNum === 12  && robotAwake === true && (  (inp('talk')||inp('how')||inp('who')||inp('what')||inp('inquire')||inp('ask')||inp('question')||inp('converse')||(inp('use')&&inp('robot')) )    ||    (( (inp('turn')||inp('switch'))   &&    (inp('figure')||inp('person')||inp('thing')||inp('robot')||inp('machine')) ) || (inp("button")||inp('activate')||inp('operate')||((inp('switch')||inp('turn'))&&inp('on'))))  ):
-                createConversation();
+                createRobotConversation();
                 break;
             case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')) && robotAwake === false  &&    (inp('forest')||inp('around'))     :
                 if (lakeDiscovered === false) {
@@ -2944,7 +2944,7 @@ const clearMap = () => {
             case inp('') && inDialogue === true:
                 output.innerHTML = "";
                 inDialogue = false;
-                currentConversation = 26;
+                currentRobotConversation = 26;
                 break;
 
             
