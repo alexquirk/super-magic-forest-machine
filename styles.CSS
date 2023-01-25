@@ -423,15 +423,6 @@ body {
     margin-top: 10px;
   }
 
-input:focus, textarea { 
-    outline: 2px solid gray;
-    /* justify-self: center; */
-    -webkit-appearance: none;
-    appearance: auto;
-    -webkit-border-radius: 0px;
-    border-radius: 0;
-}  
-
 #userinput {
     max-width: 280px;
     flex-direction: row;
@@ -444,6 +435,15 @@ input:focus, textarea {
     border-radius: 0px;
 }
 
+#userinput:focus { 
+    outline: 2px solid gray;
+    /* justify-self: center; */
+    -webkit-appearance: none;
+    appearance: auto;
+    -webkit-border-radius: 0px;
+    border-radius: 0;
+}  
+
 #enterbutton {
     width: 100px;
     padding: 5px;
@@ -453,6 +453,32 @@ input:focus, textarea {
     -webkit-border-radius: 0px;
     border-radius: 0px;
 }
+
+#enterbutton:focus { 
+    outline: none;
+    /* justify-self: center; */
+    -webkit-appearance: none;
+    appearance: auto;
+    -webkit-border-radius: 0px;
+    border-radius: 0;
+}  
+
+.whitefadeoutforbuttons {
+    animation: buttonWhiteFade .2s ease-in 1;
+    animation-fill-mode: forwards;
+    
+}
+
+@keyframes buttonWhiteFade {
+    0% { 
+        background-color: rgb(159, 158, 158);
+    }
+    100% { 
+        background-color: black;
+    }
+}
+
+
   
 
 @media only screen and (orientation: portrait) {

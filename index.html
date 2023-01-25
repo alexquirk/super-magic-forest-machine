@@ -24,7 +24,7 @@
 
 <!-- PUT  THIS vvvv  BACK WHEN DONE TESTING xxxxx -->
 
-<img id="titlecard" src="./extraimages/titlecard.png" onclick="makeFadeAway()">
+<!-- <img id="titlecard" src="./extraimages/titlecard.png" onclick="makeFadeAway()"> -->
 
 <div id="cutsceneviewer">
     <video poster="./cutscenes/loadingleaf.gif"  id="cutscene" autoplay="autoplay" muted playsinline>
@@ -77,10 +77,10 @@
 
         </div>
         <div class="dialoguearea">
-            <button type="button" id="dialogue1" class="dialogue">Option 1</button>
-            <button type="button" id="dialogue2" class="dialogue">Option 2</button>
-            <button type="button" id="leavebutton" class="dialogue">leave conversation</button>
-            <input type="button" id="bookbutton" class="dialogue" value="> Read Journal">
+            <button type="button" id="dialogue1" class="dialogue" onclick="whiteButtonFlash(d1)">Option 1</button>
+            <button type="button" id="dialogue2" class="dialogue" onclick="whiteButtonFlash(d2)">Option 2</button>
+            <button type="button" id="leavebutton" class="dialogue" onclick="whiteButtonFlash(leaveButton)">leave conversation</button>
+            <input type="button" id="bookbutton" class="dialogue" value="> Read Journal" onclick="whiteButtonFlash(bookButton)">
         </div>
         </div>
     </div>
@@ -632,7 +632,7 @@ const moveAllRoomsBack = () => {
         room2.style.zIndex = "0";
         document.getElementById("room2tile").src="./maptiles/room2tile.png";
         roomNum = 2;
-        northTriangle.style.opacity = "28%";
+        northTriangle.style.opacity = "16%";
         southTriangle.style.opacity = "75%";
         eastTriangle.style.opacity = "75%";
         westTriangle.style.opacity = "75%";
@@ -656,7 +656,7 @@ const moveAllRoomsBack = () => {
         roomNum = 3;
         northTriangle.style.opacity = "75%";
         southTriangle.style.opacity = "75%";
-        eastTriangle.style.opacity = "28%";
+        eastTriangle.style.opacity = "16%";
         westTriangle.style.opacity = "75%";
     };
     const room4Switch = () => {
@@ -679,7 +679,7 @@ const moveAllRoomsBack = () => {
         room4.style.zIndex = "0";
         document.getElementById("room4tile").src="./maptiles/room4tile.png";
         roomNum = 4;
-        northTriangle.style.opacity = "28%";
+        northTriangle.style.opacity = "16%";
         southTriangle.style.opacity = "75%";
         eastTriangle.style.opacity = "75%";
         westTriangle.style.opacity = "75%";
@@ -702,7 +702,7 @@ const moveAllRoomsBack = () => {
         document.getElementById("room5tile").src="./maptiles/room5tile.png";
         roomNum = 5;
         northTriangle.style.opacity = "75%";
-        southTriangle.style.opacity = "28%";
+        southTriangle.style.opacity = "16%";
         eastTriangle.style.opacity = "75%";
         westTriangle.style.opacity = "75%";
     };
@@ -736,8 +736,8 @@ const moveAllRoomsBack = () => {
         document.getElementById("room6tile").src="./maptiles/room6tile.png";
         roomNum = 6;
         northTriangle.style.opacity = "75%";
-        southTriangle.style.opacity = "28%";
-        eastTriangle.style.opacity = "28%";
+        southTriangle.style.opacity = "16%";
+        eastTriangle.style.opacity = "16%";
         westTriangle.style.opacity = "75%";
     }; 
     const room7Switch = () => {
@@ -747,23 +747,23 @@ const moveAllRoomsBack = () => {
             output.innerHTML = "The <span>cave</span> is filled with the light of countless <span>fireflies</span>. The strange <span>crystals</span> glow faintly.";
         };
         roomVisited[7] = true;
-        mapArrow.style.top = "13%";
+        mapArrow.style.top = "16%";
         mapArrow.style.left = "29.8%";
         moveAllRoomsBack();
         if (firefliesReleased === false) {
             room7.src="./roomimages/smfmroom7a.png"
             document.getElementById("room7tile").src="./maptiles/room7tiledark.png";
-            northTriangle.style.opacity = "28%";
+            northTriangle.style.opacity = "16%";
             southTriangle.style.opacity = "75%";
-            eastTriangle.style.opacity = "28%";
-            westTriangle.style.opacity = "28%";
+            eastTriangle.style.opacity = "16%";
+            westTriangle.style.opacity = "16%";
         }
         else {
             room7.src="./roomimages/smfmroom7b.png";
             document.getElementById("room7tile").src="./maptiles/room7tile.png";
-            northTriangle.style.opacity = "28%";
+            northTriangle.style.opacity = "16%";
             southTriangle.style.opacity = "75%";
-            eastTriangle.style.opacity = "28%";
+            eastTriangle.style.opacity = "16%";
             westTriangle.style.opacity = "75%";
         }
         room7.style.zIndex = "0";
@@ -776,16 +776,16 @@ const moveAllRoomsBack = () => {
             output.innerHTML = "You arrive at large grotto, where single beam of light from far above illuminates an island in the center of an underground lake.";
         };
         roomVisited[8] = true;
-        mapArrow.style.top = "13%";
+        mapArrow.style.top = "16%";
         mapArrow.style.left = "16.9%";
         moveAllRoomsBack();
         room8.style.zIndex = "0";
         document.getElementById("room8tile").src="./maptiles/room8tile.png";
         roomNum = 8;
-        northTriangle.style.opacity = "28%";
-        southTriangle.style.opacity = "28%";
+        northTriangle.style.opacity = "16%";
+        southTriangle.style.opacity = "16%";
         eastTriangle.style.opacity = "75%";
-        westTriangle.style.opacity = "28%";
+        westTriangle.style.opacity = "16%";
     };
     const room9Switch = () => {
         if (roomVisited[9] === false) {
@@ -802,9 +802,9 @@ const moveAllRoomsBack = () => {
         room9.style.zIndex = "0";
         document.getElementById("room9tile").src="./maptiles/room9tile.png";
         roomNum = 9;
-        northTriangle.style.opacity = "28%";
-        southTriangle.style.opacity = "28%";
-        eastTriangle.style.opacity = "28%";
+        northTriangle.style.opacity = "16%";
+        southTriangle.style.opacity = "16%";
+        eastTriangle.style.opacity = "16%";
         westTriangle.style.opacity = "75%";
     }; 
     const room10Switch = () => {
@@ -840,7 +840,7 @@ const moveAllRoomsBack = () => {
         northTriangle.style.opacity = "75%";
         southTriangle.style.opacity = "75%";
         eastTriangle.style.opacity = "75%";
-        westTriangle.style.opacity = "28%";
+        westTriangle.style.opacity = "16%";
     }; 
     const room11Switch = () => {
         if (roomVisited[11] === false) {
@@ -860,7 +860,7 @@ const moveAllRoomsBack = () => {
         northTriangle.style.opacity = "75%";
         southTriangle.style.opacity = "75%";
         eastTriangle.style.opacity = "75%";
-        westTriangle.style.opacity = "28%";
+        westTriangle.style.opacity = "16%";
     };
     const room12Switch = () => {
         document.getElementById('introarrow').style.display = "none";
@@ -894,7 +894,7 @@ const moveAllRoomsBack = () => {
         newGame = false;
         roomNum = 12;
         northTriangle.style.opacity = "75%";
-        southTriangle.style.opacity = "28%";
+        southTriangle.style.opacity = "16%";
         eastTriangle.style.opacity = "75%";
         westTriangle.style.opacity = "75%";
     }; 
@@ -906,10 +906,10 @@ const moveAllRoomsBack = () => {
         else {room13.src="./roomimages/smfmroom13b.png"};
         room13.style.zIndex = "0";
         roomNum = 13;
-        northTriangle.style.opacity = "28%";
-        southTriangle.style.opacity = "28%";
-        eastTriangle.style.opacity = "28%";
-        westTriangle.style.opacity = "28%";
+        northTriangle.style.opacity = "16%";
+        southTriangle.style.opacity = "16%";
+        eastTriangle.style.opacity = "16%";
+        westTriangle.style.opacity = "16%";
     }; 
     const room14Switch = () => { 
         if (newGame === false) {
@@ -923,10 +923,10 @@ const moveAllRoomsBack = () => {
         room14.style.zIndex = "0";
         document.getElementById("room14tile").src="./maptiles/room14tile.png";
         roomNum = 14;
-        northTriangle.style.opacity = "28%";
-        southTriangle.style.opacity = "28%";
+        northTriangle.style.opacity = "16%";
+        southTriangle.style.opacity = "16%";
         eastTriangle.style.opacity = "75%";
-        westTriangle.style.opacity = "28%";
+        westTriangle.style.opacity = "16%";
     };
 
     const room15Switch = () => { 
@@ -939,10 +939,10 @@ const moveAllRoomsBack = () => {
         room15.style.zIndex = "0";
         document.getElementById("room15tile").src="./maptiles/room15tile.png";
         roomNum = 15;
-        northTriangle.style.opacity = "28%";
-        southTriangle.style.opacity = "28%";
-        eastTriangle.style.opacity = "28%";
-        westTriangle.style.opacity = "28%";
+        northTriangle.style.opacity = "16%";
+        southTriangle.style.opacity = "16%";
+        eastTriangle.style.opacity = "16%";
+        westTriangle.style.opacity = "16%";
     };
 
     // CHEATER MAP CLICKING FUNCTIONS
@@ -2967,6 +2967,7 @@ const clearMap = () => {
 
 // PRESSING ENTER 
     const pressEnter = () => {
+        whiteButtonFlash(enterButton);
         let fem = document.getElementById('userinput').value;
         if ((reading === true || readingAsk === true) && (fem ==""||inp("read"))) {
             showBookText();
@@ -2983,6 +2984,11 @@ const clearMap = () => {
     };
 
     enterButton.addEventListener('click', pressEnter);
+
+    const whiteButtonFlash = (buttonID) => {
+        buttonID.classList.add('whitefadeoutforbuttons');
+        setTimeout(()=> {buttonID.classList.remove('whitefadeoutforbuttons')}, 200);
+    }
 
     // from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_trigger_button_enter
     var input = document.getElementById("userinput");
