@@ -1,137 +1,53 @@
 currentConversation
 0: 1, 2
-1: 2, 5
-2: 3, 10
-3: 4, 11
-4: 5, 13
-5: 6, 7
-6: 8, 9
-7: 8, 9
-8: 9, 12
-9: 3, 8
-10: 5, 11
-11: 12, 13
-12: 13, 5
-13: 14, 17
-14: 15, 11
-15: 16, 20
-16: 18, 20
-17: 18, 21 18: 19, 22
-19: 20, 21
-20: 23, 21,
-21: 24, 5
-22: 20, 10
-23: 13, 5
-24: 5, 13
+1: 2, 3
+2: 3, 5
+3: 4, 5
+4: 5, 2
+5: 6, -1
+6: 7, -1
+7: 8, -1
+8: -1, -1
 
 
-
-ROBOT DIALOGUE
+ROBOT DIALOGUE : DON'T HAVE THE MAP
 
 0
-> 
-Oh. Hi there. I guess you’re the one who woke me up, huh?
+>
+Wow! How long was I asleep for?
 
 1
-> Are you the Super Magic Forest Machine
-Haha… no… Well, not any more-so than the trees, or the grass, or the rocks.
+> I’m not sure. I just got here.
+Oh. In that case, welcome! I must have been asleep for a while. Time is hard to tell around here.
 
 2
-> What's your name?
-My name is ‘Jen’. It’s short for ‘generator’. I’m a utility robot. A long time ago I helped some humans work here in the forest.
+> Where am I?
+Are you lost? …That’s not too surprising. A lot of lost things tend to end up here. This forest is a strange place.
 
 3
-> What were the humans doing?
-Oh, the same thing humans are always doing, I suppose.  Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy.
+> Who are you?
+My name is Analysis Robot TK421. But you can call me ‘Alys’ for short. A long time ago I helped the humans do some work in this forest.
 
 4
-> What did they argue about?
-Nothing, everything, and all the in-betweens.
+> What were the humans doing?
+Oh, the same thing humans are always doing, I suppose. Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy. I think they were here studying something, but I was asleep for a long time, and I can’t quite remember. 
 
 5
-> Can you help me get out of here?
-So impatient. Always on a mission. Always trying to get something done.  
-Yes, I can help you. But I need you to bring me something first.
+> How do I get out of here?
+I’m not sure, but if you give me a second I can scan the area for a way out.
 
 6
-> What do you need me to bring you?
-There’s a special cave to the north of here. I think you’ve been there. In the cave you can find a special flower. If you want to get out of here, I need you to bring that to me.
+> Let’s do it!
+It’s so odd… this forest seems to go on forever. The lake too… But there’s some kind of anomaly to the north. A dark patch… a charged space… static. I can’t tell. You should check it out. Maybe there’s a clue there that can help me get my memory back, and help you find a way out of here.
 
 7
-> I’m busy
-No you’re not.
+> Sure, I’ll take a look.
+Here, take this map. It’ll help you navigate the forest. I’m guessing there’s a reason you’re here.
 
 8
-> How do find the special flower?
-Use your rope.
+> Can you come with me?
+I’m pretty drained after conducting that analysis, to be honest. Besides, the static from the anomaly is really messing with me. I’d better stay here for now.
 
-9
-> What’s so special about it?
-The flower is what makes this place possible. It’s what the humans who brought me here were looking for.
 
-10
-> What’s the deal with the door?
-It connects this place to the outside.
-
-11
-> Did the humans build the door?
-Definitely not. The door has always been here. The humans that brought me here acted like they couldn't even see it. Most of them, anyway. Single-minded beings have a hard time confronting the incomprehensible.
-
-12
-> Where does the door go?
-Wherever you want it to. 
-
-13
-> I didn’t know robots could sleep. I wasn’t exactly asleep. I simply decided to stop propelling myself through time.
-
-14
-> Sounds boring.
-It is.
-
-15
-> What do you hope to accomplish by just sitting here?
-Only a human could ask a question like that. Humans always think they can improve upon nature. Maybe one day you humans will realize your path isn’t any different from the rocks or the trees around you. True self-knowledge is love for all things created.
-
-16
-> So deep.
-Wait till you read my poetry.
-
-17
-> What does that mean?
-It means I stopped worrying about trivial things. Or at least, things that seem trivial to me. 
-
-18
-> Are you sure you’re not just bored?
-Haha… maybe. A robot doesn’t really belong in a place like this. At least, not a utility bot. I was programmed to work. But now the humans are gone I have a different kind of purpose.
-
-19
-> What purpose is that?
-The same purpose as the birds, or the trees, or the rocks.
-
-20
-> Humans are different than birds and rocks.
-Humans choose. There are all kinds of ways to be and ways not to be. 
-Rocks don’t choose to roll down a hill or sit a forest. I chose not to choose. Like the rocks.
-
-21
-> What will happen to you when I leave? Can you come with me?
-When you leave, I’ll cease to exist. But in another sense, the fact I ever existed at all means I’ll always exist. Time and form vary.
-
-22
-> Is that why you decided to stop propelling yourself through time?
-Humans think their journey through time is fixed. What’s the old saying… like being stuck on a train that’s always moving in one direction.
-But time doesn’t work like that. People used to know that. A. Or rather, NOT know that.
-
-23
->  So, life is about choosing how to be?
-I don’t know much about life, to be honest. I’m just a robot. I’m barely capable of speech.
-
-24
-> I have to leave
-When you get out, will you describe it to me?
-
-25
-> Hello
-Hello again!
 
 

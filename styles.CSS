@@ -490,19 +490,19 @@ body {
 .brightfadeoutfortriangles {
     animation: triangleBrightFade .2s ease-in 1;
     animation-fill-mode: forwards;
-    
 }
 
 @keyframes triangleBrightFade {
     0% { 
         filter: brightness(2);
+        opacity: 75%;
     }
     100% { 
         filter: brightness(1);
+        opacity: 75%;
     }
 }
   
-
 @media only screen and (orientation: portrait) {
     #titlecard {
         height: -webkit-fill-available;

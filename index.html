@@ -196,6 +196,8 @@ const makeFadeAway = () => {
     let waterSearchedOnce = false;
     let boatFixed = false;
     let haveHook = false;
+
+    let haveMap = false;
     
     let firstHint = false;
     let thingsTried = 0;
@@ -299,14 +301,14 @@ const makeFadeAway = () => {
 // ROBOT DIALOGUE BUTTONS
     // your dialoge
 const robotDialogueButtonTexts = ["> Talk to the robot?",
-                             "> Are you the Super Magic Forest Machine?",
-                             "> What are you?",
+                             "> I'm not sure, I just got here.",
+                             "> Where am I?",
+                             "> Who are you?",
                              "> What were the humans doing?",
-                             "> What did they argue about?",
-                             "> Can you help me get out of here?",
-                             "> What do you need me to bring you?",
-                             "> I'm busy",
-                             "> How do I find the special flower?",
+                             "> How do I get out of here?",
+                             "> Let's do it!",
+                             "> Sure, I'll take a look.",
+                             "> Can you come with me?",
                              "> What’s so special about the flower?",
                              "> What’s the deal with the door?",
                              "> Did the humans build the door?",
@@ -327,15 +329,15 @@ const robotDialogueButtonTexts = ["> Talk to the robot?",
                             ];
     
     //robot responses
-    const robotDialogueTexts = ["The <span>robot</span> speaks in a metallic voice:<br><br><span class='robot'>Oh. Hi there. I guess you’re the one who woke me up, huh?</span>",
-                                "<span class='robot'>Haha… no… Well, not any more-so than the trees, or the grass, or the rocks.</span>",
-                                "<span class='robot'>My name is ‘Jen’. It’s short for ‘generator’. I’m a utility robot. A long time ago I helped some humans work here in the forest.</span>",
-                                "The robot shrugs its metal arms.<br><br><span class='robot'>Oh, the same thing humans are always doing, I guess. Building things. Burning things. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy.</span>",
-                                "<span class='robot'>Nothing, everything, and all the in-betweens. Humans can be very loud creatures.</span>",
-                                "<span class='robot'>So impatient. Always on a mission.<br>Yes, I can help you. But I need you to bring me something first.</span>",
-                                "The robot gestures to the north.<br><br><span class='robot'>There’s a special cave to the north of here. I think you’ve been there. In the cave you can find a special flower. If you want to get out of here, I need you to bring that to me.</span>",
-                                "<span class='robot'>No you’re not.</span>",
-                                "<span class='robot'>Use your rope!</span>",
+    const robotDialogueTexts = ["The robot speaks in a metallic voice:<br><br><span class='robot'>Wow! How long was I asleep for?</span>",
+                                "<span class='robot'>Oh. In that case, welcome! I must have been asleep for a while. Time is hard to tell around here.</span>",
+                                "<span class='robot'>Are you lost? …That’s not too surprising. A lot of lost things tend to end up here. This forest is a strange place.</span>",
+                                "<span class='robot'>My name is Analysis Robot TK421. But you can call me ‘Alys’ for short. A long time ago I helped the humans do some work in this forest.</span>",
+                                "<span class='robot'>Oh, the same thing humans are always doing, I suppose. Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy. I think they were here studying something, but I was asleep for such a long time, I can’t quite remember.</span>",
+                                "<span class='robot'>I’m not sure, but if you give me a second I can scan the area for a way out.</span>",
+                                "<span class='robot'>It’s so odd… this forest seems to go on forever. The lake too… But there’s some kind of anomaly to the north. A dark patch… a charged space… static. I can’t tell. You should check it out. Maybe there’s a clue there that can help me get my memory back, and help you find a way out of here.</span>",
+                                "<span class='robot'>Here, take this map. It’ll help you navigate the forest. I’m guessing there’s a reason you’re here.</span><br><br>Type \"<span>map</span>\" to view your map.",
+                                "<span class='robot'>I’m pretty drained after conducting that analysis, to be honest. Besides, the static from the anomaly to the north is really messing with me. I’d better stay here for now.</span>",
                                 "<span class='robot'>The flower is what makes this place possible. It’s what the humans who brought me here were looking for.</span>",
                                 "<span class='robot'>The door connects this place to the outside. I guess you could call it an interdimensional portal, or something like that.</span>",
                                 "<span class='robot'>Definitely not. The door has always been here, as far as I can tell. The humans who brought me here acted like they couldn't even see it. Most of them, anyway.<br><br>Single-minded beings have a hard time confronting the incomprehensible.</span>",
@@ -356,7 +358,7 @@ const robotDialogueButtonTexts = ["> Talk to the robot?",
                                 "<span class='robot'>Hello again!</span>"
                                 ];
     
-const robotConversationMap = [[2,1],[2,5],[3,10],[4,11],[13,5],[7,6],[8,9],[8,9],[9,12],[3, 8],[11,5],[12,13],[13,5],[17, 14],[15,11],[16,20],[18,20],[18,21],[19,22],[20,21],[23,21],[24,5],[20,10],[13,5],[25,-1],[-1,-1],[2,1]];                      
+const robotConversationMap = [[1,2],[2,3],[3,5],[4,5],[5,2],[6,-1],[7,-1],[8,-1],[-1,-1]];                      
 
 const createRobotConversation = () => {
     output.innerHTML = robotDialogueTexts[currentRobotConversation];
@@ -371,6 +373,7 @@ const createRobotConversation = () => {
         d2.innerHTML = robotDialogueButtonTexts[robotConversationMap[currentRobotConversation][1]];
         d2.style.display = "block";
     } else {d2.style.display = "none"};
+    if (currentRobotConversation === 7) {haveMap = true};
     outputArea.scroll(0,0);
 };
 
@@ -394,10 +397,13 @@ leaveRobotConversation = () => {
     d1.style.display = "none";
     d2.style.display = "none";
     leaveButton.style.display = "none";
-    if (currentRobotConversation !== 25) {output.innerHTML = "<span class='robot'>See ya later!</span>"}
-    else {output.innerHTML = "";};
-    currentRobotConversation = 26;
+    output.innerHTML = "";
+    setCurrentRobotConversation();
 };
+
+setCurrentRobotConversation = () => {
+    currentRobotConversation = 0;
+}
 
 leaveButton.addEventListener('click', leaveRobotConversation);
 
@@ -1050,7 +1056,7 @@ const clearMap = () => {
     
         // GLOBAL
             case inp('var status'):
-                output.innerHTML = "haveHook: " + haveHook + "<br><br>boatFixed: " + boatFixed + "<br><br>ropeTaken: " + ropeTaken + "<br><br>haveBox: " + haveBox
+                output.innerHTML = "haveMap: " + haveMap + "<br><br>haveHook: " + haveHook + "<br><br>boatFixed: " + boatFixed + "<br><br>ropeTaken: " + ropeTaken + "<br><br>haveBox: " + haveBox
                 break;
             case inp('talk test'):
                 output.innerHTML = "";
@@ -1202,10 +1208,17 @@ const clearMap = () => {
 
         // MAP CHECKING
             case inp('map') :
-                output.innerHTML = "You open your <span>map</span>.<br><br>Press 'ENTER' to return."
-                userInput.value = "";
-                checkMap();
-                break;
+                if (haveMap === true) {
+                    output.innerHTML = "You open your <span>map</span>.<br><br>Press 'ENTER' to return."
+                    userInput.value = "";
+                    checkMap();
+                    break;
+                } else {
+                    output.innerHTML = "Don't have a <span>map</span>."
+                    userInput.value = "";
+                    break;
+                };
+                
 
         // CHECK INVENTORY
             case ((inp("check")||inp('look')||inp('inspect')||inp('examine'))   &&    inp('pocket')) || inp('inventory')  :
@@ -2973,7 +2986,7 @@ const clearMap = () => {
             case inp('') && inDialogue === true:
                 output.innerHTML = "";
                 inDialogue = false;
-                currentRobotConversation = 26;
+                setCurrentRobotConversation();
                 break;
 
             
