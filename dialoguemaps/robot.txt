@@ -1,3 +1,5 @@
+INITIAL (don't have the map)
+
 currentConversation
 0: 1, 2
 1: 2, 3
@@ -9,8 +11,7 @@ currentConversation
 7: 8, -1
 8: -1, -1
 
-
-ROBOT DIALOGUE : DON'T HAVE THE MAP
+Dialogue:
 
 0
 >
@@ -50,4 +51,109 @@ I’m pretty drained after conducting that analysis, to be honest. Besides, the 
 
 
 
+
+
+EXPLORING (dependent on: whether cave has been explored and owl has been met, if you have the crystal, if the cave has been lit up)
+
+currentConversation
+9: -1 or 11(if owl has been met), 10 or 13(if cave has been explored) or 16(if you have the crystal)
+10: -1, -1
+11: 12, -1 or 13(if cave has been explored)
+12: 13, -1 or 11(if owl has been met)
+13: 14 or 16(if you have the crystal), -1
+14: 15, -1
+15: -1, -1
+16: 17. -1
+17: 18, -1
+18: 19, 20
+19: 20, 21
+20: 21, 22
+21: 22, -1
+22: 23, 25(if cave is still dark) or -1
+23: 24, 26
+24: 26, 25(if cave is still dark) or -1
+25: 15, 26
+26: -1, -1
+27: 28, -1
+28: -1, -1
+
+9
+>
+How’s it going? Did you find anything useful?
+
+10
+> Nothing yet!
+I can still sense an anomaly to the north... it think it's worth checking out!
+
+11
+> I met a rude owl.
+Oh yeah. That owl is a real jerk. Don’t pay them any mind.
+
+12
+> What’s the deal with that door?
+I think the humans who brought me here built the door... but I can’t really remember.
+
+13
+> I found a strange dark cave to the north.
+Really? I bet that’s the anomaly I discovered! Did you find anything in it?
+
+14
+> No, it was too dark.
+Hmm… there must be a way to light it up or explore it. Maybe there’s something in the forest that can help?
+
+15
+> Do you know how to light up the cave?
+No, unfortunately… the static energy coming from the cave is really messing with my system.
+
+16
+> I found a crystal in the cave!
+Woah! That’s really something …do you mind if I analyze it?
+
+17
+> Go ahead!
+This crystal is… how do I explain it… it’s… made of everything. And nothing. It shouldn’t exist. It’s some kind of… rounding error.
+
+18
+> Rounding error? What does that mean?
+Hmm… maybe I can explain it like this. Everything exists, right? And things that don’t exist, don’t exist. There’s something, and nothing. True, or false. Everything is either a 1, or a 0. Right? 1 can be added to 0 to get 1. That’s creation by definition. And 1 can be subtracted from 1 to make 0. That’s destruction by deletion. So in the end, everything is just a 1 or a 0.
+
+19
+> What about two? Or a half?
+Well, obviously, ‘2’ exists. Two apples, two inches, two seconds, two electrons. But, in another sense, you can’t REALLY add two apples together. They will always be just one apple, and another completely different apple next to it. Even at the sub-atomic level, particles can’t be superimposed or split without creating something new… I guess things get weird at the quantum level, but I’m a binary machine, and as far as I can tell, so are you.
+
+20
+> This is a bunch of nonsense.
+Yeah, kind of. What I’m trying to say is that this crystal isn’t like that. Not to brag, but I’m one of the most advanced analytical machines to ever exist. But this crystal… it has elements so complex, I can’t even tell if they exist or not. Its composition doesn’t fit the ‘0 or 1’ paradigm. its structure is a paradox.
+
+21
+> What does this have to do with this crystal?
+Well that’s just it… this crystal is composed of parts neither 1 nor 0. 
+
+22
+> Ok… so what does that mean for us?
+It means… it means… I’m not sure what it means… but I think your way out of here is somewhere in that cave. There must be a deeper part of the cave you haven’t explored yet.
+
+23
+> Really? That’s great!
+Yeah… I guess.
+
+24
+> Is everything alright?
+I’m not sure… I think so. Just… be careful, ok?
+
+25
+> The cave is too dark to see around.
+There has to be a way to bring a light source in there with you…
+
+26
+> I’m gonna check it out.
+Good luck!
+
+27
+> It's full of strange crystals!
+Crystals? Really? Do you think you could bring one back for me to analyze?
+
+28
+> Sure!
+Crystal... so strange...
 

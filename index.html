@@ -159,7 +159,7 @@ const makeFadeAway = () => {
     let checkingMap = false;
     let mapAsk = false;
 
-    let currentRobotConversation = 0;
+    let currentRobotConversation = 9; // xxxxxxxxxx needs to be 0
     let dialogueAsk = false;
     let inDialogue = false;
 
@@ -182,14 +182,13 @@ const makeFadeAway = () => {
     let robotAwake = false;
     let haveCrystal = false;
     let haveFireflies = false;
-    let firefliesReleased = false;
+    let firefliesReleased = true; //xxxxxxxxxx
     let electroVineTaken = false;
     let haveRibbon = false;
     let foundBook = false;
     let haveMushy = false;
     let ghostDiscovered = false;
     let triedKeyOnDoor = false;
-    let caveInspected = false;
     let lakeDiscovered = false;
     let firstCutscene = false;
     let firefliesSeen = false;
@@ -197,7 +196,9 @@ const makeFadeAway = () => {
     let boatFixed = false;
     let haveHook = false;
 
-    let haveMap = false;
+    let haveMap = true; //xxxxxxxxx
+    let caveInspected = true; // xxxxxxx
+    let doorInspected = false;
     
     let firstHint = false;
     let thingsTried = 0;
@@ -300,67 +301,81 @@ const makeFadeAway = () => {
 
 // ROBOT DIALOGUE BUTTONS
     // your dialoge
-const robotDialogueButtonTexts = ["> Talk to the robot?",
-                             "> I'm not sure, I just got here.",
-                             "> Where am I?",
-                             "> Who are you?",
-                             "> What were the humans doing?",
-                             "> How do I get out of here?",
-                             "> Let's do it!",
-                             "> Sure, I'll take a look.",
-                             "> Can you come with me?",
-                             "> What’s so special about the flower?",
-                             "> What’s the deal with the door?",
-                             "> Did the humans build the door?",
-                             "> Where does the door go?",
-                             "> I didn’t know robots could sleep.",
-                             "> Sounds boring.",
-                             "> What do you hope to accomplish by just sitting here?",
-                             "> So deep.",
-                             "> What does that mean?",
-                             "> Are you sure you’re not just bored?",
-                             "> What purpose is that?",
-                             "> Humans are different than birds and rocks, you know.",
-                             "> What will happen to you when I leave? Can you come with me?",
-                             "> Is that why you decided to stop propelling yourself through time?",
-                             "> So, life is about choosing how to be?",
-                             "> But I have to leave.",
-                             "> Of course."
+const robotDialogueButtonTexts = ["", //0
+                             "> I'm not sure, I just got here.", //1
+                             "> Where am I?", //2
+                             "> Who are you?", //3
+                             "> What were the humans doing?", //4
+                             "> How do I get out of here?", //5
+                             "> Let's do it!", //6
+                             "> Sure, I'll take a look.", //7
+                             "> Can you come with me?", //8
+                             "", //9
+                             "> Nothing yet!", //10
+                             "> I met a rude owl.", //11
+                             "> What’s the deal with that door?", //12
+                             "> I found a strange dark cave to the north.", //13
+                             "> No, it was too dark.", //14
+                             "> Do you know how to light up the cave?", //15
+                             "> I found a crystal in the cave!", //16
+                             "> Go ahead!", //17
+                             "> Rounding error? What does that mean?", //18
+                             "> What about two? Or a half?", //19
+                             "> This is a bunch of nonsense.", //20
+                             "> What does this have to do with this crystal?", //21
+                             "> Ok… so what does that mean for us?", //22
+                             "> Really? That’s great!", //23
+                             "> Is everything alright?", //24
+                             "> The cave is too dark to see around.", //25
+                             "> I’m gonna check it out.", //26
+                             "> It's full of strange crystals!", //27
+                             "> Sure!" //28
+
                             ];
     
     //robot responses
-    const robotDialogueTexts = ["The robot speaks in a metallic voice:<br><br><span class='robot'>Wow! How long was I asleep for?</span>",
-                                "<span class='robot'>Oh. In that case, welcome! I must have been asleep for a while. Time is hard to tell around here.</span>",
-                                "<span class='robot'>Are you lost? …That’s not too surprising. A lot of lost things tend to end up here. This forest is a strange place.</span>",
-                                "<span class='robot'>My name is Analysis Robot TK421. But you can call me ‘Alys’ for short. A long time ago I helped the humans do some work in this forest.</span>",
-                                "<span class='robot'>Oh, the same thing humans are always doing, I suppose. Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy. I think they were here studying something, but I was asleep for such a long time, I can’t quite remember.</span>",
-                                "<span class='robot'>I’m not sure, but if you give me a second I can scan the area for a way out.</span>",
-                                "<span class='robot'>It’s so odd… this forest seems to go on forever. The lake too… But there’s some kind of anomaly to the north. A dark patch… a charged space… static. I can’t tell. You should check it out. Maybe there’s a clue there that can help me get my memory back, and help you find a way out of here.</span>",
-                                "<span class='robot'>Here, take this map. It’ll help you navigate the forest. I’m guessing there’s a reason you’re here.</span><br><br>Type \"<span>map</span>\" to view your map.",
-                                "<span class='robot'>I’m pretty drained after conducting that analysis, to be honest. Besides, the static from the anomaly to the north is really messing with me. I’d better stay here for now.</span>",
-                                "<span class='robot'>The flower is what makes this place possible. It’s what the humans who brought me here were looking for.</span>",
-                                "<span class='robot'>The door connects this place to the outside. I guess you could call it an interdimensional portal, or something like that.</span>",
-                                "<span class='robot'>Definitely not. The door has always been here, as far as I can tell. The humans who brought me here acted like they couldn't even see it. Most of them, anyway.<br><br>Single-minded beings have a hard time confronting the incomprehensible.</span>",
-                                "<span class='robot'>Wherever you want it to, I guess?</span>",
-                                "<span class='robot'>Well, I wasn’t exactly asleep. I simply decided to stop propelling myself through time.</span>",
-                                "<span class='robot'>It is.</span>",
-                                "The robot shakes its head sadly.<br><br><span class='robot'>Only a human could ask a question like that. Humans always think they can improve upon nature. Maybe one day you humans will realize your path isn’t any different from the rocks or the trees around you. True self-knowledge is love for all things created.</span>",
-                                "<span class='robot'>Hah. Just wait till you read my poetry.</span>",
-                                "The robot thinks for a second.<br><br><span class='robot'>It means... I stopped worrying about trivial things. Or at least, things that seem trivial to me.</span>",
-                                "<span class='robot'>Haha… maybe. A robot doesn’t really belong in a place like this. At least, not a utility bot. I was programmed to work. But now the humans are gone I have a different kind of purpose.</span>",
-                                "<span class='robot'>The same purpose as the birds, or the trees, or the rocks.</span>",
-                                "<span class='robot'>Yeah, you're right. Humans choose. There are all kinds of ways to be and ways not to be.</span><br><br><span class='robot'>Rocks don’t choose to roll down a hill or sit a forest. Trees don't choose to reach for the light, not really. They just do it. I chose not to choose. Like the rocks.</span>",
-                                "<span class='robot'>When you leave I’ll cease to exist.<br><br>But... in another sense, the fact I ever existed at all means I’ll always exist.</span>",
-                                "<span class='robot'>Humans think their journey through time is fixed. What’s the old saying… like being stuck on a train that’s always moving in one direction.<br>But time doesn’t work like that. People used to know that. A. Or rather, NOT know that.</span>",
-                                "<span class='robot'>I don’t know much about life, to be honest. I’m just a robot. I’m barely capable of speech.</span>",
-                                "<span class='robot'>I know. When you get out, will you describe it to me?</span>",
-                                "<span class='robot'>Thanks :)</span>",
-                                "<span class='robot'>Hello again!</span>"
+    const robotDialogueTexts = ["The robot speaks in a metallic voice:<br><br><span class='robot'>Wow! How long was I asleep for?</span>", //0
+                                "<span class='robot'>Oh. In that case, welcome! I must have been asleep for a while. Time is hard to tell around here.</span>", //1
+                                "<span class='robot'>Are you lost? …That’s not too surprising. A lot of lost things tend to end up here. This forest is a strange place.</span>", //2
+                                "<span class='robot'>My name is Analysis Robot TK421. But you can call me ‘Alys’ for short. A long time ago I helped the humans do some work in this forest.</span>", //3
+                                "<span class='robot'>Oh, the same thing humans are always doing, I suppose. Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy. I think they were here studying something, but I was asleep for such a long time, I can’t quite remember.</span>", //4
+                                "<span class='robot'>I’m not sure, but if you give me a second I can scan the area for a way out.</span>", //5
+                                "<span class='robot'>It’s so odd… this forest seems to go on forever. The lake too… But there’s some kind of anomaly to the north. A dark patch… a charged space… static. I can’t tell. You should check it out. Maybe there’s a clue there that can help me get my memory back, and help you find a way out of here.</span>", //6
+                                "<span class='robot'>Here, take this map. It’ll help you navigate the forest. I’m guessing there’s a reason you’re here.</span><br><br>Type \"<span>map</span>\" to view your map.", //7
+                                "<span class='robot'>I’m pretty drained after conducting that analysis, to be honest. Besides, the static from the anomaly to the north is really messing with me. I’d better stay here for now.</span>", //8
+                                "<span class='robot'>How’s it going? Did you find anything useful?</span>", //9
+                                "<span class='robot'>I can still sense an anomaly to the north... I think it's worth checking out!</span>", //10
+                                "<span class='robot'>Oh yeah. That owl is a real jerk. Don’t pay them any mind.</span>", //11
+                                "<span class='robot'>I think the humans who brought me here built the door... but I can’t really remember.</span>", //12
+                                "<span class='robot'>Really? I bet that’s the anomaly I discovered! Did you find anything in it?</span>", //13
+                                "<span class='robot'>Hmm… there must be a way to light it up or explore it. Maybe there’s something in the forest that can help?</span>", //14
+                                "<span class='robot'>No, unfortunately… the static energy coming from the cave is really messing with my system.</span>", //15
+                                "<span class='robot'>Woah! That’s really something …do you mind if I analyze it?</span>", //16
+                                "<span class='robot'>This crystal is… how do I explain it… it’s… made of everything. And nothing. It shouldn’t exist. It’s some kind of… rounding error.</span>", //17
+                                "<span class='robot'>Hmm… maybe I can explain it like this. Everything exists, right? And things that don’t exist, don’t exist. There’s something, and nothing. True, or false. Everything is either a 1, or a 0. Right? 1 can be added to 0 to get 1. That’s creation by definition. And 1 can be subtracted from 1 to make 0. That’s destruction by deletion. So in the end, everything is just a 1 or a 0.</span>", //18
+                                "<span class='robot'>Well, obviously, ‘2’ exists. Two apples, two inches, two seconds, two electrons. But, in another sense, you can’t REALLY add two apples together. They will always be just one apple, and another completely different apple next to it. Even at the sub-atomic level, particles can’t be superimposed or split without creating something new… I guess things get weird at the quantum level, but I’m a binary machine, and as far as I can tell, so are you.</span>", //19
+                                "<span class='robot'>Yeah, kind of. What I’m trying to say is that this crystal isn’t like that. Not to brag, but I’m one of the most advanced analytical machines to ever exist. But this crystal… it has elements so complex, I can’t even tell if they exist or not. Its composition doesn’t fit the ‘0 or 1’ paradigm. its structure is a paradox.</span>", //20
+                                "<span class='robot'>Well that’s just it… this crystal is composed of parts neither 1 nor 0.</span>", //21
+                                "<span class='robot'>It means… it means… I’m not sure what it means… but I think your way out of here is somewhere in that cave.</span>", //22
+                                "<span class='robot'>Yeah… I guess.</span>", //23
+                                "<span class='robot'>I’m not sure… I think so. Just… be careful, ok?</span>", //24
+                                "<span class='robot'>There has to be a way to bring a light source in there with you…</span>", //25
+                                "<span class='robot'>Good luck!</span>", //26
+                                "<span class='robot'>Crystals? Really? Do you think you could bring one back for me to analyze?</span>", //27
+                                "<span class='robot'>Crystals... so strange...</span>", //28
                                 ];
     
-const robotConversationMap = [[1,2],[2,3],[3,5],[4,5],[5,2],[6,-1],[7,-1],[8,-1],[-1,-1]];                      
+                        //      0     1     2     3     4     5      6      7       8       9       10      11      12      13      14      15      16      17      18      19      20      21      22      23      24      25      26      27
+const robotConversationMap = [[1,2],[2,3],[3,5],[4,5],[5,2],[6,-1],[7,-1],[8,-1],[-1,-1],[-1,10],[-1,-1],[12,-1],[-1,-1],[14,-1],[15,-1],[-1,-1],[17,-1],[18,-1],[19,20],[20,21],[21,22],[22,-1],[23,25],[24,26],[26,25],[15,26],[-1,-1],[28,-1],[-1,-1]];                      
 
 const createRobotConversation = () => {
+    // change map if certain criteria are met
+    if (roomVisited[7] === true || caveInspected === true) {robotConversationMap[9][1] = 13; robotConversationMap[11][1] = 13; robotConversationMap[12][0] = 13; };
+    if (firefliesReleased === true) {robotConversationMap[22][1] = -1; robotConversationMap[24][1] = -1; };
+    if (doorInspected === true) {robotConversationMap[9][0] = 11; };
+    if (firefliesReleased === true && haveCrystal === false) {robotConversationMap[13][0] = 27; }
+    if (haveCrystal === true) {robotConversationMap[13][0] = 16; };
+    
     output.innerHTML = robotDialogueTexts[currentRobotConversation];
     dialogueAsk = true;
     inDialogue = true;
@@ -402,8 +417,9 @@ leaveRobotConversation = () => {
 };
 
 setCurrentRobotConversation = () => {
-    currentRobotConversation = 0;
-}
+    if (haveMap === false) {currentRobotConversation = 0}
+    else (currentRobotConversation = 9);
+};
 
 leaveButton.addEventListener('click', leaveRobotConversation);
 
@@ -971,27 +987,31 @@ const moveAllRoomsBack = () => {
 
     const goNorth = () =>
         {
+            triangleButtonFlash(northTriangle)
             userInput.value = "go north";
             processInput();
-            triangleButtonFlash(northTriangle)
+            userInput.focus(); 
         };
     const goSouth = () =>
         {
+            triangleButtonFlash(southTriangle)
             userInput.value = "go south";
             processInput();
-            triangleButtonFlash(southTriangle)
+            userInput.focus(); 
         };
     const goEast = () =>
         {
+            triangleButtonFlash(eastTriangle);
             userInput.value = "go east";
             processInput();
-            triangleButtonFlash(eastTriangle);
+            userInput.focus(); 
         };
     const goWest = () =>
         {
+            triangleButtonFlash(westTriangle);
             userInput.value = "go west";
             processInput();
-            triangleButtonFlash(westTriangle);
+            userInput.focus(); 
         };
 
     const triangleButtonFlash = (triangleID) => {
@@ -1056,7 +1076,7 @@ const clearMap = () => {
     
         // GLOBAL
             case inp('var status'):
-                output.innerHTML = "haveMap: " + haveMap + "<br><br>haveHook: " + haveHook + "<br><br>boatFixed: " + boatFixed + "<br><br>ropeTaken: " + ropeTaken + "<br><br>haveBox: " + haveBox
+                output.innerHTML = "robotConversationMap: " + robotConversationMap + "<br><br>haveMap: " + haveMap + "<br><br>haveHook: " + haveHook + "<br><br>boatFixed: " + boatFixed + "<br><br>ropeTaken: " + ropeTaken + "<br><br>haveBox: " + haveBox
                 break;
             case inp('talk test'):
                 output.innerHTML = "";
@@ -1519,6 +1539,10 @@ const clearMap = () => {
                 break;
             
             // ROOM 14
+            case roomNum === 1 && doorInspected === false && (inp('door')||inp('open')||inp('lock')||inp('frame')||inp('handle')||inp('knob')):
+                doorInspected = true;
+                playOwlCutscene();
+                break;
             case roomNum === 14 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search'))   &&    (inp('forest')||inp('around'))  && (newGame === true || inventory.length === 0 ) :
                 output.innerHTML = "The glade is littered with beautiful <span>blue flowers</span>.<br><br>Type \"<span>pick flower</span>\" to put one in your <span>pockets</span>.<br><br>A narrow path leads <span>east</span> out of the glade.";
                 break;
