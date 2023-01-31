@@ -22,7 +22,7 @@
 
 <!-- THE MACHINE -->
 
-<!-- PUT  THIS vvvv  BACK WHEN DONE TESTING xxxxx -->
+<!-- XXXXXXXXXX bring this back when done testing -->
 
 <!-- <img id="titlecard" src="./extraimages/titlecard.png" onclick="makeFadeAway()"> -->
 
@@ -88,7 +88,7 @@
      <!-- INPUT AREA -->
 <div class="inputarea">
     <input type="text" id="userinput" maxlength="25" onclick="clearMap()">
-    <input type="button" id="enterbutton" value="ENTER">
+    <input type="button" id="enterbutton" value="ENTER" onclick="userInput.focus()">
 </div>
 </article>
 
@@ -159,7 +159,7 @@ const makeFadeAway = () => {
     let checkingMap = false;
     let mapAsk = false;
 
-    let currentRobotConversation = 9; // xxxxxxxxxx needs to be 0
+    let currentRobotConversation = 0; // xxxxxxxxxx needs to be 0
     let dialogueAsk = false;
     let inDialogue = false;
 
@@ -182,7 +182,7 @@ const makeFadeAway = () => {
     let robotAwake = false;
     let haveCrystal = false;
     let haveFireflies = false;
-    let firefliesReleased = true; //xxxxxxxxxx
+    let firefliesReleased = false;
     let electroVineTaken = false;
     let haveRibbon = false;
     let foundBook = false;
@@ -196,8 +196,8 @@ const makeFadeAway = () => {
     let boatFixed = false;
     let haveHook = false;
 
-    let haveMap = true; //xxxxxxxxx
-    let caveInspected = true; // xxxxxxx
+    let haveMap = false; 
+    let caveInspected = false;
     let doorInspected = false;
     
     let firstHint = false;
@@ -338,7 +338,7 @@ const robotDialogueButtonTexts = ["", //0
                                 "<span class='robot'>Oh. In that case, welcome! I must have been asleep for a while. Time is hard to tell around here.</span>", //1
                                 "<span class='robot'>Are you lost? …That’s not too surprising. A lot of lost things tend to end up here. This forest is a strange place.</span>", //2
                                 "<span class='robot'>My name is Analysis Robot TK421. But you can call me ‘Alys’ for short. A long time ago I helped the humans do some work in this forest.</span>", //3
-                                "<span class='robot'>Oh, the same thing humans are always doing, I suppose. Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy. I think they were here studying something, but I was asleep for such a long time, I can’t quite remember.</span>", //4
+                                "<span class='robot'>Oh, the same thing humans are always doing, I suppose. Industry. Building. Burning. Digging things out of the ground. Using Javascript. Humans are always so busy. I think they were here studying something, but I was asleep for such a long time, I can’t quite remember.</span>", //4
                                 "<span class='robot'>I’m not sure, but if you give me a second I can scan the area for a way out.</span>", //5
                                 "<span class='robot'>It’s so odd… this forest seems to go on forever. The lake too… But there’s some kind of anomaly to the north. A dark patch… a charged space… static. I can’t tell. You should check it out. Maybe there’s a clue there that can help me get my memory back, and help you find a way out of here.</span>", //6
                                 "<span class='robot'>Here, take this map. It’ll help you navigate the forest. I’m guessing there’s a reason you’re here.</span><br><br>Type \"<span>map</span>\" to view your map.", //7
@@ -366,7 +366,7 @@ const robotDialogueButtonTexts = ["", //0
                                 ];
     
                         //      0     1     2     3     4     5      6      7       8       9       10      11      12      13      14      15      16      17      18      19      20      21      22      23      24      25      26      27
-const robotConversationMap = [[1,2],[2,3],[3,5],[4,5],[5,2],[6,-1],[7,-1],[8,-1],[-1,-1],[-1,10],[-1,-1],[12,-1],[-1,-1],[14,-1],[15,-1],[-1,-1],[17,-1],[18,-1],[19,20],[20,21],[21,22],[22,-1],[23,25],[24,26],[26,25],[15,26],[-1,-1],[28,-1],[-1,-1]];                      
+const robotConversationMap = [[1,2],[2,3],[3,5],[4,5],[5,-1],[6,-1],[7,-1],[8,-1],[-1,-1],[-1,10],[-1,-1],[12,-1],[-1,-1],[14,-1],[15,-1],[-1,-1],[17,-1],[18,-1],[19,20],[20,21],[21,22],[22,-1],[23,25],[24,26],[26,25],[15,26],[-1,-1],[28,-1],[-1,-1]];                      
 
 const createRobotConversation = () => {
     // change map if certain criteria are met
@@ -492,7 +492,7 @@ leaveButton.addEventListener('click', leaveRobotConversation);
                 };
             setTimeout(makeGoAway, 1000);
             theMachine.style.display = "flex";
-            document.getElementById('introarrow').style.display = 'inline';
+            if (newGame === true) {document.getElementById('introarrow').style.display = 'inline'};
         })
     };
 
@@ -565,16 +565,6 @@ leaveButton.addEventListener('click', leaveRobotConversation);
             document.getElementById("cutscene").src="";
         })
     };
-    
-    // const playBeachCutscene = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/beachcutscene.mp4";
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     currentCutscene.addEventListener('ended', function() {
-    //         document.getElementById('cutsceneviewer').style.display = "none";
-    //         document.getElementById("cutscene").src="";
-    //     })
-    // };
     
     // const playFirstCutscene = () => {
     //     document.getElementById('cutsceneviewer').style.display = "flex";
@@ -903,7 +893,7 @@ const moveAllRoomsBack = () => {
     const room12Switch = () => {
         document.getElementById('introarrow').style.display = "none";
         if (newGame === true) {
-                output.innerHTML = "You travel <span>east</span> along the narrow path until you arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree.<br><br>Try typing a command, like \"<span>look around</span>\", \"<span>inspect strange figure</span>\", or \"<span>pick up a rock</span>\".<br><br>You can type \'hint\' at any point to get some help."
+                output.innerHTML = "You travel <span>east</span> along the narrow path until you arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree.<br><br>Try typing \"<span>inspect strange figure</span>\", then press ENTER."
         } else if (robotAwake === false) {
             if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
                 output.innerHTML = "You travel <span>west</span> along the lakeshore until you arrive at at a large willow tree where a <span>strange figure</span> is laying.";
@@ -1859,17 +1849,9 @@ const clearMap = () => {
 
             // ROOM 5
             case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search'))   &&    (inp('forest')||inp('around'))     :
-                if (lakeDiscovered === false) {
-                    // playBeachCutscene();
-                    lakeDiscovered = true;
-                };
                 output.innerHTML = "The lakeshore is scattered with large <span>rocks</span>. Small pieces of driftwood and other debris have washed in on the tide.<br><br>The lake is really wide... You can't see the other side.";
                 break;
             case roomNum === 5 &&   (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check'))    &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')) && haveBoxKey === false  && waterSearchedOnce === false   :
-                if (lakeDiscovered === false) {
-                    // playBeachCutscene();
-                    lakeDiscovered = true;
-                };
                 waterSearchedOnce = true;
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy <span>something</span> shining under the water near the <span>rocks</span>.";
                 break;
@@ -1890,31 +1872,15 @@ const clearMap = () => {
             // ROOM 6
                 // Looking Around
             case roomNum === 6 &&  ropeTaken === false && boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('shore')||inp('beach'))     :
-                if (lakeDiscovered === false) {
-                    // playBeachCutscene();
-                    lakeDiscovered = true;
-                };
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>There is an old half-sunk <span>boat</span> tied up near the shore.";
                 break;
             case roomNum === 6 &&  ropeTaken === true && boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('shore')||inp('beach'))     :
-                if (lakeDiscovered === false) {
-                    // playBeachCutscene();
-                    lakeDiscovered = true;
-                };
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>There is an old half-sunk <span>boat</span> near the shore.";
                 break;
             case roomNum === 6 &&  ropeTaken === false &&  boatFixed === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check'))   &&    (inp('forest')||inp('around'))     :
-                if (lakeDiscovered === false) {
-                    // playBeachCutscene();
-                    lakeDiscovered = true;
-                };
                 output.innerHTML = "You find yourself on the eastern shore of a lake. The <span>boat</span> is tied to the mooring with a thick <span>rope</span>.";
                 break;
             case roomNum === 6 &&  ropeTaken === true &&  boatFixed === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check'))   &&    (inp('forest')||inp('around'))     :
-                if (lakeDiscovered === false) {
-                    // playBeachCutscene();
-                    lakeDiscovered = true;
-                };
                 output.innerHTML = "You're standing on the shore of a lake. The <span>boat</span> has been pulled up onto the lakeshore.";
                 break
             case roomNum === 6 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
@@ -2296,70 +2262,26 @@ const clearMap = () => {
                 break;
 
             // ROOM 12
-                // talk to robot
-            case roomNum === 12  && robotAwake === true && (  (inp('talk')||inp('how')||inp('who')||inp('what')||inp('inquire')||inp('ask')||inp('question')||inp('converse')||(inp('use')&&inp('robot')) )    ||    (( (inp('turn')||inp('switch'))   &&    (inp('figure')||inp('person')||inp('thing')||inp('robot')||inp('machine')) ) || (inp("button")||inp('activate')||inp('operate')||((inp('switch')||inp('turn'))&&inp('on'))))  ):
+                // wake up robot
+            case roomNum === 12  && robotAwake === false &&   (inp('talk')||inp('inquire')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')) :
+                playRobotCutscene();
+                robotAwake = true;
+                room12Switch();
                 createRobotConversation();
                 break;
+                // talk to the robot
+            case roomNum === 12 && robotAwake === true  &&  (inp('talk')||inp('inquire')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate'))  :
+                createRobotConversation();
+                break;
+                // looking around
             case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')) && robotAwake === false  &&    (inp('forest')||inp('around'))     :
-                if (lakeDiscovered === false) {
-                    // playBeachCutscene();
-                    lakeDiscovered = true;
-                };
                 output.innerHTML = "A <span>strange figure</span> is lying under a tree by the lake shore.<br><br>To the west, a narrow path leads back the the glade where you awoke. To the north, a wooded path cuts into the forest. ";
                 break;
             case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')) && robotAwake === true  &&    (inp('forest')||inp('around'))     :
-                if (lakeDiscovered === false) {
-                    // playBeachCutscene();
-                    lakeDiscovered = true;
-                };
                 output.innerHTML = "A <span>robot</span> is standing under a tree by the lake shore. <br><br>To the north, a wooded trail leads into the forest. The lake shore continues eastward.";
                 break;
             case roomNum === 12  && robotAwake === false &&     (inp('tree')||inp('branch'))     :
                 output.innerHTML = "There's a <span>robot</span> lying under a tree by the lake shore. It looks like it's sleeping, or powered down.";
-                break;
-                // inspect strange figure
-            case roomNum === 12 && robotAwake === false &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('behind'))   &&    (inp('figure')||inp('person')||inp('thing')||inp('robot')||inp('machine'))   :
-                output.innerHTML = "A <span>robot</span> is lying under the tree by the lake, as if it just fell asleep there.<br><br>It looks like maybe it's been turned off. There is a panel on the front of the robot that looks like it could house a <span>power source</span>, but it's empty.";
-                break;
-                // interact with sleeping robot
-            case roomNum === 12 && robotAwake === false && inp('wake')  :
-                output.innerHTML = "You wave your hands in front of the <span>robot</span>, and give it a little shake, but it doesn't react.";
-                break;
-            case roomNum === 12 && robotAwake === false && (inp('talk')||inp('chat')||inp('ask')||inp('question')||inp('say'))  :
-                output.innerHTML = "The <span>robot</span> is powered down and unresponsive.";
-                break;
-                // power up robot
-            case roomNum === 12 && robotAwake === false && haveCrystal === true  && (inp('crystal')||inp('gem')):
-                playRobotCutscene();
-                robotAwake = true;
-                room12Switch();
-                thingsTriedSinceLastBigThing = 0;
-                haveCrystal = false;
-                removeItem("a <span>strange crystal</span>");
-                output.innerHTML = "You open the <span>robot's</span> front panel, and carefully slide the <span>crystal</span> into the empty battery slot, and suddenly the <span>robot</span> comes to life!";
-                break;     
-                // power attempts
-            case roomNum === 12 && robotAwake === false && (  (inp('panel')||inp('source'))  ||  ((inp('open')||inp('power')) && inp('robot'))  ):
-                output.innerHTML = "There's an empty space for a <span>power supply</span> of some kind in the <span>robot</span>.<br><br>You look around for something to power the robot with, but don't find anything.";
-                break;
-            case roomNum === 12 && robotAwake === false && (( (inp('turn')||inp('switch')||inp('robot'))   &&    (inp('figure')||inp('person')||inp('thing')||inp('robot')||inp('machine')) ) || (inp('electric')||inp("button")||inp('fuel')||inp('activate')||inp('operate')||((inp('switch')||inp('turn'))&&inp('on'))))  :
-                output.innerHTML = "You search the <span>robot</span> for a switch or button, and find panel on the front that looks like it could house a <span>power source</span>.";
-                break;
-            case roomNum === 12 && robotAwake === false && (inp('battery')||inp('power'))  :
-                output.innerHTML = "You look for a battery or power supply, but you don't find anything.";
-                break;
-            case roomNum === 12 && robotAwake === false && (inp('wire')||inp('rig')||inp('fix')||inp('repair'))  :
-                output.innerHTML = "You're not much of a mechanic, but you take a close look at the <span>robot</span>. Everything seems fine, except for an empty <span>power supply</span>.";
-                break;
-            case roomNum === 12 && robotAwake === false && inp('charge') :
-                output.innerHTML = "You don't have a way to charge the <span>robot</span> right now.";
-                break;
-            case roomNum === 12 && robotAwake === false && (inp('throw')||inp('hit')||inp('punch')||inp('kick')||inp('attack')||inp('fight')||inp('break')||inp('smash')) :
-                output.innerHTML = "You give the <span>robot</span> a solid wack, but nothing happens.<br><br>Violence never solves anything! Sheesh.";
-                break;
-                // defaults
-            case roomNum === 12 && robotAwake === false && (inp('robot')||inp('figure')||inp('person'))  :
-                output.innerHTML = "The <span>robot</span> is inactive.";
                 break;
 
             // ROOM 15
@@ -2809,6 +2731,9 @@ const clearMap = () => {
                 break;
             case inp('matches') || (inp('light') && inp('match') ):
                 output.innerHTML = "You don't have a any matches.";
+                break;
+            case inp('torch') :
+                output.innerHTML = "There aren't any torches around.";
                 break;
             
             // DIG / DIRT / GROUND

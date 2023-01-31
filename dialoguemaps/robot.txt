@@ -31,7 +31,7 @@ My name is Analysis Robot TK421. But you can call me ‘Alys’ for short. A lon
 
 4
 > What were the humans doing?
-Oh, the same thing humans are always doing, I suppose. Industry. Building. Burning. Digging things out of the ground. Using Javascript. Arguing a lot. Humans are always so busy. I think they were here studying something, but I was asleep for a long time, and I can’t quite remember. 
+Oh, the same thing humans are always doing, I suppose. Industry. Building. Burning. Digging things out of the ground. Using Javascript. Humans are always so busy. I think they were here studying something, but I was asleep for a long time, and I can’t quite remember. 
 
 5
 > How do I get out of here?
