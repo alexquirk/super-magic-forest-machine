@@ -24,7 +24,7 @@
 
 <!-- XXXXXXXXXX bring this back when done testing -->
 
-<img id="titlecard" src="./extraimages/titlecard.png" onclick="makeFadeAway()">
+<!-- <img id="titlecard" src="./extraimages/titlecard.png" onclick="makeFadeAway()"> -->
 
 <div id="cutsceneviewer">
     <video poster="./cutscenes/loadingleaf.gif"  id="cutscene" autoplay="autoplay" muted playsinline>
@@ -629,9 +629,41 @@ const room15 = document.getElementById("room15");
 
 allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15]
 
-const moveAllRoomsBack = () => {
-    allRooms[roomNum-1].style.zIndex = "-2"; 
-    }
+    const moveAllRoomsBack = () => {
+        allRooms[roomNum-1].style.zIndex = "-2";
+        };
+
+    const goEastAnimation = () => {
+        map.classList.add('goeast');
+        setTimeout( 
+            function() {map.classList.remove('goeast')}, 
+            750
+        )
+    };
+
+    const goSouthAnimation = () => {
+        map.classList.add('gosouth');
+        setTimeout( 
+            function() {map.classList.remove('gosouth')}, 
+            750
+        )
+    };
+
+    const goWestAnimation = () => {
+        map.classList.add('gowest');
+        setTimeout( 
+            function() {map.classList.remove('gowest')}, 
+            750
+        )
+    };
+
+    const goNorthAnimation = () => {
+        map.classList.add('gonorth');
+        setTimeout( 
+            function() {map.classList.remove('gonorth')}, 
+            750
+        )
+    };
 
     const room1Switch = () => {
         mapArrow.style.top = "53%";
@@ -1248,6 +1280,7 @@ const clearMap = () => {
                         break;
                     case 1:
                         room3Switch();
+                        goEastAnimation();
                         userInput.value = "";
                         roomNum = 3;
                         break;
@@ -1257,11 +1290,13 @@ const clearMap = () => {
                         break;
                     case 4:
                         room2Switch();
+                        goEastAnimation();
                         userInput.value = "";
                         roomNum = 2;
                         break;
                     case 5:
                         room6Switch();
+                        goEastAnimation();
                         userInput.value = "";
                         roomNum = 6;
                         break;
@@ -1275,28 +1310,34 @@ const clearMap = () => {
                         break;
                     case 11:
                         room4Switch();
+                        goEastAnimation();
                         userInput.value = "";
                         roomNum = 4;
                         break;
                     case 8:
                         room7Switch();
+                        goEastAnimation();
                         userInput.value = "";
                         roomNum = 7;
                         break;
                     case 10:
                         room1Switch();
+                        goEastAnimation();
                         roomNum = 1;
                         break;
                     case 14:
                         room12Switch();
+                        goEastAnimation();
                         roomNum = 12;
                         break;
                     case 2:
                         room9Switch();
+                        goEastAnimation();
                         roomNum = 9;
                         break;
                     case 12:
                         room5Switch();
+                        goEastAnimation();
                         roomNum = 5;
                         break;
                     case 7:
@@ -1314,11 +1355,13 @@ const clearMap = () => {
                 switch (roomNum) {
                     case 3:
                         room2Switch();
+                        goNorthAnimation();
                         userInput.value = "";
                         roomNum = 2;
                         break;
                     case 5:
                         room1Switch();
+                        goNorthAnimation();
                         userInput.value = "";
                         roomNum = 1;
                         break;
@@ -1340,21 +1383,25 @@ const clearMap = () => {
                         break;
                     case 1:
                         room4Switch();
+                        goNorthAnimation();
                         userInput.value = "";
                         roomNum = 4;
                         break;
                     case 6:
                         room3Switch();
+                        goNorthAnimation();
                         userInput.value = "";
                         roomNum = 3;
                         break;
                     case 12:
                         room10Switch();
+                        goNorthAnimation();
                         userInput.value = "";
                         roomNum = 10;
                         break;
                     case 10:
                         room11Switch();
+                        goNorthAnimation();
                         userInput.value = "";
                         roomNum = 11;
                         break;
@@ -1367,6 +1414,7 @@ const clearMap = () => {
                         break;
                     case 11:
                         room7Switch();
+                        goNorthAnimation();
                         userInput.value = "";
                         roomNum = 7;
                         break;
@@ -1394,42 +1442,50 @@ const clearMap = () => {
                         break;
                     case 12:
                         room14Switch();
+                        goWestAnimation();
                         userInput.value = "";
                         output.innerHTML = "You travel <span>west</span> and return to the glade where you awoke.";
                         roomNum = 14;
                         break;
                     case 3:
                         room1Switch();
+                        goWestAnimation();
                         userInput.value = "";
                         roomNum = 1;
                         break;
                     case 2:
                         room4Switch();
+                        goWestAnimation();
                         userInput.value = "";
                         roomNum = 4;
                         break;
                     case 6:
                         room5Switch();
+                        goWestAnimation();
                         userInput.value = "";
                         roomNum = 5;
                         break;
                     case 9:
                         room2Switch();
+                        goWestAnimation();
                         userInput.value = "";
                         roomNum = 2;
                         break;
                     case 4:
                         room11Switch();
+                        goWestAnimation();
                         userInput.value = "";
                         roomNum = 11;
                         break;
                     case 1:
                         room10Switch();
+                        goWestAnimation();
                         userInput.value = "";
                         roomNum = 10;
                         break;
                     case 5:
                         room12Switch();
+                        goWestAnimation();
                         userInput.value = "";
                         roomNum = 12;
                         break;
@@ -1438,6 +1494,7 @@ const clearMap = () => {
                             output.innerHTML = "If you go any further you will lose yourself in the <span>darkness</span>."
                         } else {
                             room8Switch();
+                            goWestAnimation();
                             roomNum = 8;
                         }
                         userInput.value = "";
@@ -1454,21 +1511,25 @@ const clearMap = () => {
                         break;
                     case 2:
                         room3Switch();
+                        goSouthAnimation();
                         userInput.value = "";
                         roomNum = 3;
                         break;
                     case 1:
                         room5Switch();
+                        goSouthAnimation();
                         userInput.value = "";
                         roomNum = 5;
                         break;
                     case 4:
                         room1Switch();
+                        goSouthAnimation();
                         userInput.value = "";
                         roomNum = 1;
                         break;
                     case 3:
                         room6Switch();
+                        goSouthAnimation();
                         userInput.value = "";
                         roomNum = 6;
                         break;
@@ -1494,11 +1555,13 @@ const clearMap = () => {
                         break;
                     case 7:
                         room11Switch();
+                        goSouthAnimation();
                         userInput.value = "";
                         roomNum = 11;
                         break;
                     case 11:
                         room10Switch();
+                        goSouthAnimation();
                         userInput.value = "";
                         roomNum = 10;
                         break;
@@ -1512,6 +1575,7 @@ const clearMap = () => {
                 roomNum = 13;
                 break;
             case roomNum === 10 && ((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    (inp('down')))  || inp('south')  :
+                goSouthAnimation();
                 room12Switch();
                 userInput.value = "";
                 roomNum = 12;
