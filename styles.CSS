@@ -44,29 +44,38 @@ body {
   }
 
 .goeast {
-    animation: goEast .75s ease-out;
+    animation: goEast 1s ease-out;
     animation-iteration-count: 1;
 }
 
 .gosouth {
-    animation: goSouth .75s ease-out;
+    animation: goSouth 1s ease-out;
     animation-iteration-count: 1;
 }
 
 .gonorth {
-    animation: goNorth .75s ease-out;
+    animation: goNorth 1s ease-out;
     animation-iteration-count: 1;
 }
 
 .gowest {
-    animation: goWest .75s ease-out;
+    animation: goWest 1s ease-out;
     animation-iteration-count: 1;
 }
 
 @keyframes goEast {
     0% { 
-        transform: translate(25%, -15%); 
+        opacity: 1;
+    }
+    50% {
         opacity: 0;
+        transform: translate(-16.7%, 10%); 
+        filter: blur(2px);
+    }
+    51% {
+        opacity: 0;
+        transform: translate(16.7%, -10%); 
+        filter: blur(0px);
     }
     100% { 
         transform: translate(0, 0);
@@ -76,8 +85,17 @@ body {
 
 @keyframes goNorth {
     0% { 
-        transform: translate(-25%, -15%); 
+        opacity: 1;
+    }
+    50% {
         opacity: 0;
+        transform: translate(16.7%, 10%);
+        filter: blur(2px);
+    }
+    51% {
+        opacity: 0;
+        transform: translate(-16.7%, -10%); 
+        filter: blur(0px);
     }
     100% { 
         transform: translate(0, 0);
@@ -86,9 +104,18 @@ body {
 }
 
 @keyframes goSouth {
-    0% { 
-        transform: translate(25%, 15%); 
+    0% {  
+        opacity: 1;
+    }
+    50% {
         opacity: 0;
+        transform: translate(-16.7%, -10%);
+        filter: blur(2px);
+    }
+    51% {
+        opacity: 0;
+        transform: translate(16.7%, 10%); 
+        filter: blur(0px);
     }
     100% { 
         transform: translate(0, 0); 
@@ -98,12 +125,20 @@ body {
 
 @keyframes goWest {
     0% { 
-        transform: translate(-25%, 15%); 
+        opacity: 1;
+    }
+    50% {
         opacity: 0;
+        transform: translate(16.7%, -10%); 
+        filter: blur(2px);
+    }
+    51% {
+        opacity: 0;
+        transform: translate(-16.7%, 10%); 
+        filter: blur(0px);
     }
     100% { 
-        transform: translateY(0); 
-        transform: translateX(0);
+        transform: translate(0, 0); 
         opacity: 1;
     }
 }
@@ -193,7 +228,7 @@ body {
     z-index: -1;
 }
 
-#map, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #book, #maptiles, #blackbackground {
+#map, #cutsceneviewer, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #book, #maptiles, #blackbackground {
     max-height: 100%;
     max-width: 100%;
     grid-row: 1;
@@ -477,6 +512,22 @@ body {
     display: none;
     margin: 5px auto 5px;
 }
+
+.textfadein {
+    animation: textFadeIn 1.6s ease-in;
+    animation-iteration-count: 1;
+}
+
+@keyframes textFadeIn {
+    0% { 
+        opacity: 0;
+    }
+    100% { 
+        opacity: 1;
+    }
+}
+
+
 
 /* INPUT AREA */
 
