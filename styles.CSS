@@ -32,6 +32,26 @@ body {
     max-width: 100vw;
 }
 
+#wificard {
+    position: absolute;
+    color: gray;
+    text-align: center;
+    z-index: 99;
+    left: 50%;
+    transform: translateX(-50%);  
+    width: 100vw;
+    overflow: hidden;
+    max-width: 720px;
+    min-width: 320px;
+    height: 100vh;  
+    height: -webkit-fill-available;
+    object-fit: cover;
+    background-color: black;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
 .fadeout { 
     animation: fadeOut 1s; 
     animation-timing-function: ease-in;

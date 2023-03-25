@@ -479,6 +479,15 @@ leaveButton.addEventListener('click', leaveRobotConversation);
 
 // CUTSCENES
 
+    //skip cutscene if space is pressed
+    document.addEventListener('keyup', event => {
+        if (event.code === 'Space') {
+            document.getElementById('cutsceneviewer').style.display = "none";
+            document.getElementById("cutscene").src="";            }   
+        });
+
+    // the cutscenes
+
     const playIntroCutscene = () => {
         document.getElementById('cutsceneviewer').style.display = "flex";
         document.getElementById("cutscene").src="./cutscenes/introcutscene.mp4";
