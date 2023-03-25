@@ -160,12 +160,21 @@ document.onkeydown = e => {
 
     //skip cutscene if space is pressed
     document.addEventListener('keyup', event => {
-        if (event.code === 'Space' && introCutsceneDonePlaying === true ){
+        if (event.code === 'Space' 
+                // uncomment line below to make first cutscene in
+                // && introCutsceneDonePlaying === true 
+                
+                ){
             cutsceneViewer.style.display = "none";
             }});
 
-    // the cutscenes
+    // hide the video when its ended
+    cutsceneVideo.addEventListener('ended', ()=> {
+        endCutscene();
+        introCutsceneDonePlaying = true;
+        });
 
+    // play the cutscene
     const playCutscene = () => {
         switch (true) {
 
@@ -185,171 +194,57 @@ document.onkeydown = e => {
                     },
                     2500
                     );
-                // end the video
-                cutsceneVideo.addEventListener('ended', ()=> {
-                    // add the extra dialogue
-                    output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself.<br><br>The woods around you are dense and dark. There is a narrow path leading <span>east</span>.<br><br>To travel east, click the 'E' in the top right corner in the screen above, or type \"travel east\" in the prompt below and press 'ENTER'.";
-                    //hide the cutscene
-                    cutsceneViewer.style.display = "none";
-                    theMachine.style.display = "flex";
-                    currentCutscene = "";
-                    introCutsceneDonePlaying = true;
-                    })
                 break;
 
-                // robot waking
-                case currentCutscene === "robot waking":
-                    //make cutscene visible
-                    cutsceneViewer.style.display = "flex";
-                    //set source to correct video file
-                    cutsceneVideo.src="./cutscenes/robotcutscene.mp4";
-                    // end the video
-                    cutsceneVideo.addEventListener('ended', ()=> {
-                        createRobotConversation();
-                        cutsceneViewer.style.display = "none";
-                        theMachine.style.display = "flex";
-                        currentCutscene = "";
-                    })
+            // robot waking
+            case currentCutscene === "robot waking":
+                //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+                //set source to correct video file
+                cutsceneVideo.src="./cutscenes/robotcutscene.mp4";
+                // create robot conversation
+                setTimeout(()=> {
+                    createRobotConversation();
+                    },
+                    5000
+                    );
+                break;
+
+            // robot scanning
+            case currentCutscene === "robot scanning":
+                //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+                //set source to correct video file
+                cutsceneVideo.src="./cutscenes/robotscanningcutscene.mp4";
+                break;
+
+            // ride the boat
+            case currentCutscene === "riding boat":
+                //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+                //set source to correct video file
+                cutsceneVideo.src="./cutscenes/boatcutscene.mp4";
+                break;
+
+            // ghost appearing
+            case currentCutscene === "ghost appearing":
+                //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+                //set source to correct video file
+                cutsceneVideo.src="./cutscenes/ghostcutscene.mp4";
+                break;
+
+
 
             }
         };
-        
-        
-    
-    // const playIntroCutscene = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/introcutscene.mp4";
-    //     document.getElementById("cutscene").pause();
-    //     setTimeout(()=> {
-    //         document.getElementById("cutscene").play();
-    //         room14Switch();
-    //         output.classList.add('textfadein');
-    //     }
-    //     ,2500);
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     let introCutscenePlaying = true;
-    //     if (introCutscenePlaying === true) {
-    //         currentCutscene.addEventListener('ended', ()=> {
-    //             output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself.<br><br>The woods around you are dense and dark. There is a narrow path leading <span>east</span>.<br><br>To travel east, click the 'E' in the top right corner in the screen above, or type \"travel east\" in the prompt below and press 'ENTER'.";
-    //             // document.getElementById('cutsceneviewer').classList.add('fadeout');
-    //             let makeGoAway = () => {
-    //                 document.getElementById('cutsceneviewer').style.display = "none";
-    //                 document.getElementById("cutscene").src="";
-    //                 // document.getElementById('cutsceneviewer').classList.remove('fadeout');
-    //                 };
-    //             setTimeout(makeGoAway, 1000);
-    //             theMachine.style.display = "flex";
-    //             if (newGame === true) {document.getElementById('introarrow').style.display = 'inline'};
-    //             let introCutscenePlaying = false;
-    //         })}
-    // };
 
-    // const playGhostCutscene = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/ghostcutscene.mp4";
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     currentCutscene.addEventListener('ended', ()=> {
-    //         document.getElementById('cutsceneviewer').style.display = "none";
-    //         document.getElementById("cutscene").src="";
-    //     })};
-    
-    // const playGhostMugCutscene = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/ghostmugcutscene.mp4";
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     currentCutscene.addEventListener('ended', ()=> {
-    //         document.getElementById('cutsceneviewer').style.display = "none";
-    //         document.getElementById("cutscene").src="";
-    //     })};
-    
-    // const playMarbleCutscene = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/marblecutscene.mp4";
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     currentCutscene.addEventListener('ended', ()=> {
-    //         document.getElementById('cutsceneviewer').style.display = "none";
-    //         document.getElementById("cutscene").src="";
-    //     })};
-
-    // const playOwlCutscene = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/owlcutscene.mp4";
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     currentCutscene.addEventListener('ended', ()=> {
-    //         document.getElementById('cutsceneviewer').style.display = "none";
-    //         document.getElementById("cutscene").src="";
-    //     })};
-    
-    // const playTreeClimbCutscene = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/treeclimbcutscene.mp4";
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     currentCutscene.addEventListener('ended', ()=> {
-    //         document.getElementById('cutsceneviewer').style.display = "none";
-    //         document.getElementById("cutscene").src="";
-    //     })};
-    
-    // // const playCaveCutscene = () => {
-    // //     document.getElementById('cutsceneviewer').style.display = "flex";
-    // //     document.getElementById("cutscene").src="./cutscenes/cavecutscene.mp4";
-    // //     let currentCutscene = document.getElementById("cutscene");
-    // //     currentCutscene.addEventListener('ended', ()=> {
-    // //         document.getElementById('cutsceneviewer').style.display = "none";
-    // //         document.getElementById("cutscene").src="";
-    // //     })
-    // // };
-    
-    // const playCaveCutscene2 = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/cavecutscene2.mp4";
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     currentCutscene.addEventListener('ended', ()=> {
-    //         document.getElementById('cutsceneviewer').style.display = "none";
-    //         document.getElementById("cutscene").src="";
-    //     })};
-    
-    // // const playFirstCutscene = () => {
-    // //     document.getElementById('cutsceneviewer').style.display = "flex";
-    // //     document.getElementById("cutscene").src="./cutscenes/firstcutscene.mp4";
-    // //     let currentCutscene = document.getElementById("cutscene");
-    // //     currentCutscene.addEventListener('ended', ()=> {
-    // //         document.getElementById('cutsceneviewer').style.display = "none";
-    // //         document.getElementById("cutscene").src="";
-    // //     })
-    // // };
-    
-    // // const playFireflyCutscene = () => {
-    // //     document.getElementById('cutsceneviewer').style.display = "flex";
-    // //     document.getElementById("cutscene").src="./cutscenes/fireflycutscene.mp4";
-    // //     let currentCutscene = document.getElementById("cutscene");
-    // //     currentCutscene.addEventListener('ended', ()=> {
-    // //         document.getElementById('cutsceneviewer').style.display = "none";
-    // //         document.getElementById("cutscene").src="";
-    // //     })
-    // // };
-    
-    // const playRobotCutscene = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/robotcutscene.mp4";
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     currentCutscene.addEventListener('ended', ()=> {
-    //         document.getElementById('cutsceneviewer').style.display = "none";
-    //         document.getElementById("cutscene").src="";
-    //         createRobotConversation();
-    //     })};
-
-    // const playBoatCutscene = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/boatcutscene.mp4";
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     currentCutscene.addEventListener('ended', ()=> {
-    //         document.getElementById('cutsceneviewer').style.display = "none";
-    //         document.getElementById("cutscene").src="";
-    //         boatCutscenePlaying = false;
-    //     })};
-
-
-
+    // end the cutscene
+    const endCutscene = () => {
+        cutsceneViewer.style.display = "none";
+        theMachine.style.display = "flex";
+        currentCutscene = "";
+    }
 
 
 //DECLARE VARIABLES
@@ -570,7 +465,7 @@ const robotDialogueButtonTexts = ["", //0
                             ];
     
     //robot responses
-    const robotDialogueTexts = ["You approach the strange figure, and it suddenly lights up! It stands up and speaks in a metallic voice:<br><br><span class='robot'>Wow! How long was I asleep for?</span>", //0
+    const robotDialogueTexts = ["You approach the strange figure, and it suddenly lights up! It stands, and speaks in a metallic voice:<br><br><span class='robot'>Wow! How long was I asleep for?</span>", //0
                                 "<span class='robot'>Oh. In that case, welcome! I must have been asleep for a while. Time is hard to tell around here.</span>", //1
                                 "<span class='robot'>Are you lost? …That’s not too surprising. A lot of lost things tend to end up here. This forest is a strange place.</span>", //2
                                 "<span class='robot'>My name is Analysis Robot TK421. But you can call me ‘Alys’ for short. A long time ago I helped the humans do some work in this forest.</span>", //3
@@ -606,17 +501,35 @@ const robotDialogueButtonTexts = ["", //0
 const robotConversationMap = [[1,2],[2,3],[3,5],[4,5],[5,-1],[6,-1],[7,-1],[8,-1],[-1,-1],[-1,10],[-1,-1],[12,-1],[-1,-1],[14,-1],[15,29],[-1,-1],[17,-1],[18,-1],[19,20],[20,21],[21,22],[22,-1],[23,25],[24,26],[26,25],[15,26],[-1,-1],[28,-1],[-1,-1],[15,-1]];                      
 
 const createRobotConversation = () => {
-    // change map if certain criteria are met
-    if (roomVisited[7] === true || caveInspected === true) {robotConversationMap[9][1] = 13; robotConversationMap[11][1] = 13; robotConversationMap[12][0] = 13; };
-    if (firefliesReleased === true) {robotConversationMap[22][1] = -1; robotConversationMap[24][1] = -1; };
-    if (doorInspected === true) {robotConversationMap[9][0] = 11; };
-    if (firefliesReleased === true && haveCrystal === false) {robotConversationMap[13][0] = 27; }
-    if (haveCrystal === true) {robotConversationMap[13][0] = 16; };
+    // change dialogue map if certain criteria are met
+    if (roomVisited[7] === true || caveInspected === true) 
+        {robotConversationMap[9][1] = 13; robotConversationMap[11][1] = 13; robotConversationMap[12][0] = 13; };
+    if (firefliesReleased === true) 
+        {robotConversationMap[22][1] = -1; robotConversationMap[24][1] = -1; };
+    if (doorInspected === true) 
+        {robotConversationMap[9][0] = 11; };
+    if (firefliesReleased === true && haveCrystal === false) 
+        {robotConversationMap[13][0] = 27; }
+    if (haveCrystal === true) 
+        {robotConversationMap[13][0] = 16; };
     
+    // play cutscenes
+    if (currentRobotConversation === 6) {
+        currentCutscene = "robot scanning";
+        playCutscene();
+    };
+    
+    // show the robot's speech
     output.innerHTML = robotDialogueTexts[currentRobotConversation];
+
+
+    // let the rest of the game know you're in dialogue
     dialogueAsk = true;
     inDialogue = true;
+
+    // make "leave" button visible
     leaveButton.style.display = "block";
+
     if (robotConversationMap[currentRobotConversation][0] > -1) {
         d1.innerHTML = robotDialogueButtonTexts[robotConversationMap[currentRobotConversation][0]];
         d1.style.display = "block";
@@ -649,7 +562,7 @@ leaveRobotConversation = () => {
     d1.style.display = "none";
     d2.style.display = "none";
     leaveButton.style.display = "none";
-    output.innerHTML = "";
+    output.innerHTML = "<span class='robot'>Bye!</span>";
     setCurrentRobotConversation();
 };
 
@@ -2046,12 +1959,14 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 haveRope = true;
                 inventory.push("a <span>rope</span>")
                 switchChestRopeImage();
-                playBoatCutscene();
+                currentCutscene = "riding boat";
+                playCutscene();
                 room15Switch();
                 output.innerHTML = "You untie the <span>rope</span> and put it in your pockets, then push the <span>boat</span> out into the lake and hop in. You don't have any paddles, and allow the tide to take you where it will.<br><br>Soon, the <span>boat</span> lands on the shore of an island.";
                 break;
             case roomNum === 6   && boatFixed === true  && ropeTaken === true && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
-                playBoatCutscene();
+                currentCutscene = "riding boat";
+                playCutscene();
                 room15Switch();
                 output.innerHTML = "You push the <span>boat</span> out into the lake and hop in. You don't have any paddles, and allow the tide to take you where it will.<br><br>Soon the boat lands on the shore of an island.";
                 break;
@@ -2182,7 +2097,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
                 // take / inspect mushrooms & discover ghost
             case roomNum === 9 && ghostDiscovered === false   &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('take')||inp('grab')||inp('pocket')||inp('eat')||inp('behind'))   &&    (inp('mushroom')||inp('circle'))  :
-                playGhostCutscene();
+                currentCutscene = "ghost appearing";
+                playCutscene();
                 ghostDiscovered = true;
                 room9Switch();
                 output.innerHTML = "You reach for a <span>mushroom</span>...<br><br>but a <span>ghost</span> appears!!<br><br>It seems like it's guarding the mushrooms.";
@@ -2413,7 +2329,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 playCutscene();
                 robotAwake = true;
                 room12Switch();
-                output.innerHTML = "...";
+                output.innerHTML = "You approach the figure under the tree...";
                 // createRobotConversation();
                 break;
                 // talk to the robot
