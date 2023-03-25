@@ -24,7 +24,7 @@
 
 <!-- XXXXXXXXXX bring this back when done testing -->
 
-<img id="titlecard" src="./extraimages/titlecard.png" onclick="makeFadeAway()">
+<img id="titlecard" src="./extraimages/titlecard.png" onclick="startGame()">
 
 <!-- <div id="cutsceneviewer">
     <video poster="./cutscenes/loadingleaf.gif"  id="cutscene" autoplay="autoplay" muted playsinline>
@@ -48,7 +48,7 @@
             <img class="compasstriangles" id="northtriangle" src="./compasstriangles/north.png" onclick="goNorth()"><img class="compasstriangles" id="westtriangle" src="./compasstriangles/west.png" onclick="goWest()"><img class="compasstriangles" id="southtriangle" src="./compasstriangles/south.png" onclick="goSouth()"><img class="compasstriangles" id="easttriangle" src="./compasstriangles/east.png" onclick="goEast();">
             <!-- main viewer -->
             <div id="cutsceneviewer">
-                <video poster="./cutscenes/loadingleaf.gif"  id="cutscene" autoplay="autoplay" muted playsinline>
+                <video poster="./cutscenes/loadingleaf.gif"  id="cutscenevideo" autoplay="autoplay" muted playsinline>
                     <source src="./cutscenes/intro.mp4" type="video/mp4" control="none">
                 </video>
             </div>
@@ -97,8 +97,16 @@
 </article>
 
 
-
 </body>
+
+
+
+
+
+
+
+
+
 
 
 <!-- SCRIPT -->
@@ -106,27 +114,245 @@
 
 // PRESS ANY KEY TO CONTINUE
 
-const theMachine = document.getElementById('themachine')
+const titleCard = document.getElementById('titlecard');
 
+const theMachine = document.getElementById('themachine');
+
+let introCutscenePlayed = false;
+let introCutsceneDonePlaying = false;
+
+//start game
+const startGame = () => {
+    titleCard.classList.add('fadeout');
+    theMachine.style.display = "flex";
+    let makeTitleCardGoAway = () => {titleCard.style.display = "none"};
+    setTimeout(makeTitleCardGoAway, 1000);
+    introCutscenePlayed = true;
+    playCutscene();
+    room14Switch();
+    };
+    
+//start game if enter is pressed
 document.onkeydown = e => { 
-    if (introCutscenePlayed === false) 
+    if (!introCutscenePlayed)
         {
-        introCutscenePlayed = true;
-        playIntroCutscene();
-        document.getElementById('titlecard').classList.add('fadeout');
-        let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
-        setTimeout(makeGoAway, 1000)
+        startGame();
         }
 };
-const makeFadeAway = () => {
-    playIntroCutscene();
-    document.getElementById('titlecard').classList.add('fadeout');
-    let makeGoAway = () => {document.getElementById('titlecard').style.display = "none"};
-    setTimeout(makeGoAway, 1000);
-};
+
+// CUTSCENES
+
+    // list of cutscenes:
+        // "intro"
+        // "robot waking"
+        // "robot scanning"
+        // "riding boat"
+        // "ghost appearing"
+        // "owl appearing"
+        // "cat jumping"
+        // "fireflies emerging"
+        
+    let currentCutscene = "intro";
+
+    let cutsceneVideo = document.getElementById("cutscenevideo");
+
+    let cutsceneViewer = document.getElementById('cutsceneviewer');
+
+    //skip cutscene if space is pressed
+    document.addEventListener('keyup', event => {
+        if (event.code === 'Space' && introCutsceneDonePlaying === true ){
+            cutsceneViewer.style.display = "none";
+            }});
+
+    // the cutscenes
+
+    const playCutscene = () => {
+        switch (true) {
+
+            //intro cutscene
+            case currentCutscene === "intro":
+                //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+                //set source to correct video file
+                cutsceneVideo.src="./cutscenes/introcutscene.mp4";
+                // pause it to let it load
+                cutsceneVideo.pause();
+                // unpause after 2.5 seconds
+                setTimeout(()=> {
+                    cutsceneVideo.play();
+                    output.classList.add('textfadein');
+                    output.style.display = 'block';
+                    },
+                    2500
+                    );
+                // end the video
+                cutsceneVideo.addEventListener('ended', ()=> {
+                    // add the extra dialogue
+                    output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself.<br><br>The woods around you are dense and dark. There is a narrow path leading <span>east</span>.<br><br>To travel east, click the 'E' in the top right corner in the screen above, or type \"travel east\" in the prompt below and press 'ENTER'.";
+                    //hide the cutscene
+                    cutsceneViewer.style.display = "none";
+                    theMachine.style.display = "flex";
+                    currentCutscene = "";
+                    introCutsceneDonePlaying = true;
+                    })
+                break;
+
+                // robot waking
+                case currentCutscene === "robot waking":
+                    //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                    //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/robotcutscene.mp4";
+                    // end the video
+                    cutsceneVideo.addEventListener('ended', ()=> {
+                        createRobotConversation();
+                        cutsceneViewer.style.display = "none";
+                        theMachine.style.display = "flex";
+                        currentCutscene = "";
+                    })
+
+            }
+        };
+        
+        
+    
+    // const playIntroCutscene = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/introcutscene.mp4";
+    //     document.getElementById("cutscene").pause();
+    //     setTimeout(()=> {
+    //         document.getElementById("cutscene").play();
+    //         room14Switch();
+    //         output.classList.add('textfadein');
+    //     }
+    //     ,2500);
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     let introCutscenePlaying = true;
+    //     if (introCutscenePlaying === true) {
+    //         currentCutscene.addEventListener('ended', ()=> {
+    //             output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself.<br><br>The woods around you are dense and dark. There is a narrow path leading <span>east</span>.<br><br>To travel east, click the 'E' in the top right corner in the screen above, or type \"travel east\" in the prompt below and press 'ENTER'.";
+    //             // document.getElementById('cutsceneviewer').classList.add('fadeout');
+    //             let makeGoAway = () => {
+    //                 document.getElementById('cutsceneviewer').style.display = "none";
+    //                 document.getElementById("cutscene").src="";
+    //                 // document.getElementById('cutsceneviewer').classList.remove('fadeout');
+    //                 };
+    //             setTimeout(makeGoAway, 1000);
+    //             theMachine.style.display = "flex";
+    //             if (newGame === true) {document.getElementById('introarrow').style.display = 'inline'};
+    //             let introCutscenePlaying = false;
+    //         })}
+    // };
+
+    // const playGhostCutscene = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/ghostcutscene.mp4";
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     currentCutscene.addEventListener('ended', ()=> {
+    //         document.getElementById('cutsceneviewer').style.display = "none";
+    //         document.getElementById("cutscene").src="";
+    //     })};
+    
+    // const playGhostMugCutscene = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/ghostmugcutscene.mp4";
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     currentCutscene.addEventListener('ended', ()=> {
+    //         document.getElementById('cutsceneviewer').style.display = "none";
+    //         document.getElementById("cutscene").src="";
+    //     })};
+    
+    // const playMarbleCutscene = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/marblecutscene.mp4";
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     currentCutscene.addEventListener('ended', ()=> {
+    //         document.getElementById('cutsceneviewer').style.display = "none";
+    //         document.getElementById("cutscene").src="";
+    //     })};
+
+    // const playOwlCutscene = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/owlcutscene.mp4";
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     currentCutscene.addEventListener('ended', ()=> {
+    //         document.getElementById('cutsceneviewer').style.display = "none";
+    //         document.getElementById("cutscene").src="";
+    //     })};
+    
+    // const playTreeClimbCutscene = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/treeclimbcutscene.mp4";
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     currentCutscene.addEventListener('ended', ()=> {
+    //         document.getElementById('cutsceneviewer').style.display = "none";
+    //         document.getElementById("cutscene").src="";
+    //     })};
+    
+    // // const playCaveCutscene = () => {
+    // //     document.getElementById('cutsceneviewer').style.display = "flex";
+    // //     document.getElementById("cutscene").src="./cutscenes/cavecutscene.mp4";
+    // //     let currentCutscene = document.getElementById("cutscene");
+    // //     currentCutscene.addEventListener('ended', ()=> {
+    // //         document.getElementById('cutsceneviewer').style.display = "none";
+    // //         document.getElementById("cutscene").src="";
+    // //     })
+    // // };
+    
+    // const playCaveCutscene2 = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/cavecutscene2.mp4";
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     currentCutscene.addEventListener('ended', ()=> {
+    //         document.getElementById('cutsceneviewer').style.display = "none";
+    //         document.getElementById("cutscene").src="";
+    //     })};
+    
+    // // const playFirstCutscene = () => {
+    // //     document.getElementById('cutsceneviewer').style.display = "flex";
+    // //     document.getElementById("cutscene").src="./cutscenes/firstcutscene.mp4";
+    // //     let currentCutscene = document.getElementById("cutscene");
+    // //     currentCutscene.addEventListener('ended', ()=> {
+    // //         document.getElementById('cutsceneviewer').style.display = "none";
+    // //         document.getElementById("cutscene").src="";
+    // //     })
+    // // };
+    
+    // // const playFireflyCutscene = () => {
+    // //     document.getElementById('cutsceneviewer').style.display = "flex";
+    // //     document.getElementById("cutscene").src="./cutscenes/fireflycutscene.mp4";
+    // //     let currentCutscene = document.getElementById("cutscene");
+    // //     currentCutscene.addEventListener('ended', ()=> {
+    // //         document.getElementById('cutsceneviewer').style.display = "none";
+    // //         document.getElementById("cutscene").src="";
+    // //     })
+    // // };
+    
+    // const playRobotCutscene = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/robotcutscene.mp4";
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     currentCutscene.addEventListener('ended', ()=> {
+    //         document.getElementById('cutsceneviewer').style.display = "none";
+    //         document.getElementById("cutscene").src="";
+    //         createRobotConversation();
+    //     })};
+
+    // const playBoatCutscene = () => {
+    //     document.getElementById('cutsceneviewer').style.display = "flex";
+    //     document.getElementById("cutscene").src="./cutscenes/boatcutscene.mp4";
+    //     let currentCutscene = document.getElementById("cutscene");
+    //     currentCutscene.addEventListener('ended', ()=> {
+    //         document.getElementById('cutsceneviewer').style.display = "none";
+    //         document.getElementById("cutscene").src="";
+    //         boatCutscenePlaying = false;
+    //     })};
+
+
+
+
 
 //DECLARE VARIABLES
-    const introCutscenePlayed = false;
     const userInput = document.getElementById('userinput');
     const outputArea = document.getElementById('outputarea');
     const output = document.getElementById('output');
@@ -147,9 +373,9 @@ const makeFadeAway = () => {
         for ( var i = 0; i < inventory.length; i++) { 
             if (inventory[i] === (item)) { 
                 inventory.splice(i, 1); 
-            }
-        };           
-    };
+            }    
+        };               
+    };    
 
     let roomNum = 14;
 
@@ -194,7 +420,6 @@ const makeFadeAway = () => {
     let ghostDiscovered = false;
     let triedKeyOnDoor = false;
     let lakeDiscovered = false;
-    let firstCutscene = false;
     let firefliesSeen = false;
     let waterSearchedOnce = false;
     let boatFixed = false;
@@ -215,6 +440,12 @@ const makeFadeAway = () => {
     const inventory = [];
 
     profanityResponse = ["Hey now! This is a nice game.", "Oh c'mon.", ".....Alright...", "Seriously...?", "Okay, I'm gonna need you to stop that.", "This is getting old now.", "This is getting old now.", "This is getting REAALY old now.", "STOOOPPPPP", "I'M GONNA RESET THE GAME", "I'LL DO IT", "I'LL RESET THE GAME DON'T MAKE ME DO IT", "...", "...", "...", ">:(", "Okay I'm seriously done this time.", "Okay I'm seriously done this time.", "Okay for real I'm seriously done this time.", "I said I'M DONE THIS TIME", "Can't say I didn't warn you :P"]
+
+
+    
+
+
+
 
 // INVENTORY
     const checkInventory = () => {
@@ -476,151 +707,6 @@ leaveButton.addEventListener('click', leaveRobotConversation);
 
     //hit button to show book text
     bookButton.addEventListener('click', showBookText);
-
-// CUTSCENES
-
-    //skip cutscene if space is pressed
-    document.addEventListener('keyup', event => {
-        if (event.code === 'Space') {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";            }   
-        });
-
-    // the cutscenes
-
-    const playIntroCutscene = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/introcutscene.mp4";
-        document.getElementById("cutscene").pause();
-        setTimeout(()=> {
-            document.getElementById("cutscene").play();
-            room14Switch();
-            output.classList.add('textfadein');
-        }
-        ,2500);
-        let currentCutscene = document.getElementById("cutscene");
-        let introCutscenePlaying = true;
-        if (introCutscenePlaying === true) {
-            currentCutscene.addEventListener('ended', ()=> {
-                output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself.<br><br>The woods around you are dense and dark. There is a narrow path leading <span>east</span>.<br><br>To travel east, click the 'E' in the top right corner in the screen above, or type \"travel east\" in the prompt below and press 'ENTER'.";
-                // document.getElementById('cutsceneviewer').classList.add('fadeout');
-                let makeGoAway = () => {
-                    document.getElementById('cutsceneviewer').style.display = "none";
-                    document.getElementById("cutscene").src="";
-                    // document.getElementById('cutsceneviewer').classList.remove('fadeout');
-                    };
-                setTimeout(makeGoAway, 1000);
-                theMachine.style.display = "flex";
-                if (newGame === true) {document.getElementById('introarrow').style.display = 'inline'};
-                let introCutscenePlaying = false;
-            })}
-    };
-
-    const playGhostCutscene = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/ghostcutscene.mp4";
-        let currentCutscene = document.getElementById("cutscene");
-        currentCutscene.addEventListener('ended', ()=> {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
-        })};
-    
-    const playGhostMugCutscene = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/ghostmugcutscene.mp4";
-        let currentCutscene = document.getElementById("cutscene");
-        currentCutscene.addEventListener('ended', ()=> {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
-        })};
-    
-    const playMarbleCutscene = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/marblecutscene.mp4";
-        let currentCutscene = document.getElementById("cutscene");
-        currentCutscene.addEventListener('ended', ()=> {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
-        })};
-
-    const playOwlCutscene = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/owlcutscene.mp4";
-        let currentCutscene = document.getElementById("cutscene");
-        currentCutscene.addEventListener('ended', ()=> {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
-        })};
-    
-    const playTreeClimbCutscene = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/treeclimbcutscene.mp4";
-        let currentCutscene = document.getElementById("cutscene");
-        currentCutscene.addEventListener('ended', ()=> {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
-        })};
-    
-    // const playCaveCutscene = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/cavecutscene.mp4";
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     currentCutscene.addEventListener('ended', ()=> {
-    //         document.getElementById('cutsceneviewer').style.display = "none";
-    //         document.getElementById("cutscene").src="";
-    //     })
-    // };
-    
-    const playCaveCutscene2 = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/cavecutscene2.mp4";
-        let currentCutscene = document.getElementById("cutscene");
-        currentCutscene.addEventListener('ended', ()=> {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
-        })};
-    
-    // const playFirstCutscene = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/firstcutscene.mp4";
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     currentCutscene.addEventListener('ended', ()=> {
-    //         document.getElementById('cutsceneviewer').style.display = "none";
-    //         document.getElementById("cutscene").src="";
-    //     })
-    // };
-    
-    // const playFireflyCutscene = () => {
-    //     document.getElementById('cutsceneviewer').style.display = "flex";
-    //     document.getElementById("cutscene").src="./cutscenes/fireflycutscene.mp4";
-    //     let currentCutscene = document.getElementById("cutscene");
-    //     currentCutscene.addEventListener('ended', ()=> {
-    //         document.getElementById('cutsceneviewer').style.display = "none";
-    //         document.getElementById("cutscene").src="";
-    //     })
-    // };
-    
-    const playRobotCutscene = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/robotcutscene.mp4";
-        let currentCutscene = document.getElementById("cutscene");
-        currentCutscene.addEventListener('ended', ()=> {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
-            createRobotConversation();
-        })};
-
-    const playBoatCutscene = () => {
-        document.getElementById('cutsceneviewer').style.display = "flex";
-        document.getElementById("cutscene").src="./cutscenes/boatcutscene.mp4";
-        let currentCutscene = document.getElementById("cutscene");
-        currentCutscene.addEventListener('ended', ()=> {
-            document.getElementById('cutsceneviewer').style.display = "none";
-            document.getElementById("cutscene").src="";
-            boatCutscenePlaying = false;
-        })};
-
-
 
 
 // ROOM SWITCHING FUNCTIONS
@@ -1113,36 +1199,38 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     const triangleButtonFlash = (triangleID) => {
         triangleID.classList.add('brightfadeoutfortriangles');
         setTimeout(()=> {triangleID.classList.remove('brightfadeoutfortriangles')}, 200);
-    }
+    };
 
 
 
 // VIEWING THE MAP
-const checkMap = () => {
-    checkingMap = true;
-    mapAsk = true;
-    document.getElementById('maptiles').style.zIndex = "10";
-    map.classList.add('darken');
-};
-
-const clearMap = () => {
-    if (checkingMap === true || mapAsk === true) {
-        document.getElementById('maptiles').style.zIndex = "-2"
-        // output.innerHTML = "You close your <span>map</span>.";
-        output.innerHTML = "";
-        map.classList.remove('darken');
-        // userInput.focus(); 
-        };
+    const checkMap = () => {
+        checkingMap = true;
+        mapAsk = true;
+        document.getElementById('maptiles').style.zIndex = "10";
+        map.classList.add('darken');
     };
+
+    const clearMap = () => {
+        if (checkingMap === true || mapAsk === true) {
+            document.getElementById('maptiles').style.zIndex = "-2"
+            // output.innerHTML = "You close your <span>map</span>.";
+            output.innerHTML = "";
+            map.classList.remove('darken');
+            // userInput.focus(); 
+            };
+        };
 
 // const inputFocus = () => {
 //     userInput.focus()
 // };
 
 // USER INPUT
-    const inp = (arg) => {
+
+    let inp = (arg) => {
         return userInput.value.toLowerCase().includes(arg);
     };
+
     const processInput = () => {
         //clear inventory
         document.getElementById('map').classList.remove('blur');
@@ -2321,7 +2409,8 @@ const clearMap = () => {
             // ROOM 12
                 // wake up robot
             case roomNum === 12  && robotAwake === false &&   (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('tree')) :
-                playRobotCutscene();
+                currentCutscene = "robot waking"
+                playCutscene();
                 robotAwake = true;
                 room12Switch();
                 output.innerHTML = "...";

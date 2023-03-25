@@ -210,7 +210,7 @@ body {
 #themachine {
     justify-items: center;
     display: none;   
-    display: flex; /* get rid of the this when done testing xxxxx */
+    /* display: flex; get rid of the this when done testing xxxxx */
     flex-flow:column nowrap;
     max-width: 720px;
     min-width: 320px;
@@ -483,6 +483,7 @@ body {
 
 #output {
     padding-bottom: 5px;
+    display: none;
 }
 
 #output > span {
