@@ -202,12 +202,6 @@ document.onkeydown = e => {
                 cutsceneViewer.style.display = "flex";
                 //set source to correct video file
                 cutsceneVideo.src="./cutscenes/robotcutscene.mp4";
-                // create robot conversation
-                setTimeout(()=> {
-                    createRobotConversation();
-                    },
-                    5000
-                    );
                 break;
 
             // robot scanning
@@ -234,20 +228,76 @@ document.onkeydown = e => {
                 cutsceneVideo.src="./cutscenes/ghostcutscene.mp4";
                 break;
 
+            // fireflies emerging
+            case currentCutscene === "fireflies emerging":
+                //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+                //set source to correct video file
+                cutsceneVideo.src="./cutscenes/cavecutscene2.mp4";
+                break;
 
+            // cat jumping
+            case currentCutscene === "cat jumping":
+                //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+                //set source to correct video file
+                cutsceneVideo.src="./cutscenes/marblecutscene.mp4";
+                break;
 
             }
         };
 
     // end the cutscene
     const endCutscene = () => {
+        switch (true) {
+        //intro cutscene
+        case currentCutscene === "intro":
+           
+            break;
+
+        // robot waking
+        case currentCutscene === "robot waking":
+            createRobotConversation();
+            break;
+
+        // robot scanning
+        case currentCutscene === "robot scanning":
+             
+            break;
+
+        // ride the boat
+        case currentCutscene === "riding boat":
+             
+            break;
+
+        // ghost appearing
+        case currentCutscene === "ghost appearing":
+             
+            break;
+
+        // fireflies emerging
+        case currentCutscene === "fireflies emerging":
+             
+            break;
+
+        // cat jumping
+        case currentCutscene === "cat jumping":
+                
+            break;
+        }       
+        //generic
         cutsceneViewer.style.display = "none";
         theMachine.style.display = "flex";
         currentCutscene = "";
+        
     }
 
 
 //DECLARE VARIABLES
+
+    //amount to zoom, right offest, bottom offset
+    let zoom = []
+
     const userInput = document.getElementById('userinput');
     const outputArea = document.getElementById('outputarea');
     const output = document.getElementById('output');
@@ -501,6 +551,7 @@ const robotDialogueButtonTexts = ["", //0
 const robotConversationMap = [[1,2],[2,3],[3,5],[4,5],[5,-1],[6,-1],[7,-1],[8,-1],[-1,-1],[-1,10],[-1,-1],[12,-1],[-1,-1],[14,-1],[15,29],[-1,-1],[17,-1],[18,-1],[19,20],[20,21],[21,22],[22,-1],[23,25],[24,26],[26,25],[15,26],[-1,-1],[28,-1],[-1,-1],[15,-1]];                      
 
 const createRobotConversation = () => {
+    zoom = ["180%", "-10%", "-36%"];
     // change dialogue map if certain criteria are met
     if (roomVisited[7] === true || caveInspected === true) 
         {robotConversationMap[9][1] = 13; robotConversationMap[11][1] = 13; robotConversationMap[12][0] = 13; };
@@ -563,6 +614,7 @@ leaveRobotConversation = () => {
     d2.style.display = "none";
     leaveButton.style.display = "none";
     output.innerHTML = "<span class='robot'>Bye!</span>";
+    zoom = ["100%", "0%", "0%"];
     setCurrentRobotConversation();
 };
 
@@ -3007,6 +3059,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 output.innerHTML = "Nothing happened.";
                 break;
         };
+
+        // ZOOM
+        room12.style.width = zoom[0];
+        room12.style.left = zoom[1];
+        room12.style.bottom = zoom[2];
 
         // INCREASE "THINGS TRIED"
         thingsTriedSinceLastBigThing++; // resets when the box is unlocked, fireflies released, and robot awakened.
