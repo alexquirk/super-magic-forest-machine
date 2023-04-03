@@ -295,9 +295,6 @@ document.onkeydown = e => {
 
 //DECLARE VARIABLES
 
-    //amount to zoom, right offest, bottom offset
-    let zoom = []
-
     const userInput = document.getElementById('userinput');
     const outputArea = document.getElementById('outputarea');
     const output = document.getElementById('output');
@@ -386,10 +383,18 @@ document.onkeydown = e => {
 
     profanityResponse = ["Hey now! This is a nice game.", "Oh c'mon.", ".....Alright...", "Seriously...?", "Okay, I'm gonna need you to stop that.", "This is getting old now.", "This is getting old now.", "This is getting REAALY old now.", "STOOOPPPPP", "I'M GONNA RESET THE GAME", "I'LL DO IT", "I'LL RESET THE GAME DON'T MAKE ME DO IT", "...", "...", "...", ">:(", "Okay I'm seriously done this time.", "Okay I'm seriously done this time.", "Okay for real I'm seriously done this time.", "I said I'M DONE THIS TIME", "Can't say I didn't warn you :P"]
 
+// ZOOM FUNCTIONS
 
-    
-
-
+const robotZoom = () => {
+    document.getElementById("room12").style.width = "200%";
+    document.getElementById("room12").style.bottom = "-42%";
+    document.getElementById("room12").style.left = "-15%";
+}
+const robotUnZoom = () => {
+    document.getElementById("room12").style.width = "100%";
+    document.getElementById("room12").style.bottom = "0%";
+    document.getElementById("room12").style.left = "0%";
+}
 
 
 // INVENTORY
@@ -551,7 +556,9 @@ const robotDialogueButtonTexts = ["", //0
 const robotConversationMap = [[1,2],[2,3],[3,5],[4,5],[5,-1],[6,-1],[7,-1],[8,-1],[-1,-1],[-1,10],[-1,-1],[12,-1],[-1,-1],[14,-1],[15,29],[-1,-1],[17,-1],[18,-1],[19,20],[20,21],[21,22],[22,-1],[23,25],[24,26],[26,25],[15,26],[-1,-1],[28,-1],[-1,-1],[15,-1]];                      
 
 const createRobotConversation = () => {
-    zoom = ["180%", "-10%", "-36%"];
+    // zoom
+    robotZoom();
+
     // change dialogue map if certain criteria are met
     if (roomVisited[7] === true || caveInspected === true) 
         {robotConversationMap[9][1] = 13; robotConversationMap[11][1] = 13; robotConversationMap[12][0] = 13; };
@@ -614,7 +621,6 @@ leaveRobotConversation = () => {
     d2.style.display = "none";
     leaveButton.style.display = "none";
     output.innerHTML = "<span class='robot'>Bye!</span>";
-    zoom = ["100%", "0%", "0%"];
     setCurrentRobotConversation();
 };
 
@@ -1034,7 +1040,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     const room12Switch = () => {
         document.getElementById('introarrow').style.display = "none";
         if (newGame === true) {
-                output.innerHTML = "You travel <span>east</span> along the narrow path until you arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree.<br><br>\"What a strange place!\" you think to yourself. \"I should probably try <span>looking around</span>.\""
+                output.innerHTML = "You travel <span>east</span> along the narrow path until you arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree."
         } else if (robotAwake === false) {
             if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
                 output.innerHTML = "You travel <span>west</span> along the lakeshore until you arrive at at a large willow tree where a <span>strange figure</span> is laying.";
@@ -1219,6 +1225,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         d2.style.display = "none";
         leaveButton.style.display = "none";
         
+        // clear zoom / unzoon
+        robotUnZoom();
 
         // GET INPUT
         switch (true) {
@@ -2260,8 +2268,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search'))   &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "You find yourself standing on front of a stone <span>well</span> in the middle of the clearing. From here a rocky path leads <span>north</span>. You can hear the sound of water to the <span>south</span>.";
                 break;
+            case roomNum === 10 && haveRope === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('peer')||inp('behind'))   &&    (inp('well'))     :
+                output.innerHTML = "You peer down into the <span>well</span>. It's too deep to see the bottom.<br><br>It seems out and out of use. You look around for a bucket or rope, but don't find one.<br><br>";
+                break;
             case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('peer')||inp('behind'))   &&    (inp('well'))     :
-                output.innerHTML = "The <span>well</span> looks out and out of use. You look around for a bucket, but don't find anything.<br><br>You peer down into it. It's too deep to see the bottom.";
+                output.innerHTML = "You peer down into the <span>well</span>. It's too deep to see the bottom.<br><br>It seems out and out of use. You look around for a bucket, but don't find one.<br><br>";
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('rock')    :
                 output.innerHTML = "You drop a rock into the <span>well</span>. It clatters off the walls for a few seconds before falling silent.<br><br>No splash... it must be dry.";
@@ -2543,7 +2554,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 output.innerHTML = "That's a big ol' palm tree! Nothing much to do with it, though.";
                 break;
             case ((roomNum !== 4) || marbleDown === true) &&   (inp('look'))   &&    (inp('tree')||inp('branch'))     :
-                output.innerHTML = "There is a wide variety of trees in the forest - oaks, sycamore, pines trees, cyrpress, even some eucalyptus.";
+                output.innerHTML = "There is a wide variety of trees in the forest - oaks, sycamore, pines trees, cyrpress, even some eucalyptus.<br><br>You search around the trees, but don't fund anything particularly useful.";
                 break;
                 // search
             case ((roomNum !== 4) || marbleDown === true) &&   (inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('behind')||inp('under'))   &&    (inp('tree')||inp('branch'))     :
@@ -3059,11 +3070,6 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 output.innerHTML = "Nothing happened.";
                 break;
         };
-
-        // ZOOM
-        room12.style.width = zoom[0];
-        room12.style.left = zoom[1];
-        room12.style.bottom = zoom[2];
 
         // INCREASE "THINGS TRIED"
         thingsTriedSinceLastBigThing++; // resets when the box is unlocked, fireflies released, and robot awakened.
