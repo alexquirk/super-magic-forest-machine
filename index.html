@@ -395,6 +395,26 @@ const robotUnZoom = () => {
     document.getElementById("room12").style.bottom = "0%";
     document.getElementById("room12").style.left = "0%";
 }
+const wellZoom = () => {
+    document.getElementById("room10").style.width = "180%";
+    document.getElementById("room10").style.bottom = "-38%";
+    document.getElementById("room10").style.left = "-38%";
+}
+const wellUnZoom = () => {
+    document.getElementById("room10").style.width = "100%";
+    document.getElementById("room10").style.bottom = "0%";
+    document.getElementById("room10").style.left = "0%";
+}
+const doorZoom = () => {
+    document.getElementById("room1").style.width = "160%";
+    document.getElementById("room1").style.bottom = "-30%";
+    document.getElementById("room1").style.left = "-32%";
+}
+const doorUnZoom = () => {
+    document.getElementById("room1").style.width = "100%";
+    document.getElementById("room1").style.bottom = "0%";
+    document.getElementById("room1").style.left = "0%";
+}
 
 
 // INVENTORY
@@ -649,17 +669,29 @@ leaveButton.addEventListener('click', leaveRobotConversation);
         bookButton.style.display = "block"; 
     };
 
+    // function to show the book
+    const showBook = () => {
+        document.getElementById("book").src="./inventoryimages/book.png";
+        document.getElementById('map').classList.add('blurless');
+    }
+    // function to hide the book
+    const hideBook = () => {
+        document.getElementById("book").src="";
+        document.getElementById('map').classList.remove('blurless');
+    }
+
 
     //display journal texts according to position in array
     const showBookText = () => {
         if (reading === true || readingAsk === true) {
             output.innerHTML = journalText[currentPage];
-            document.getElementById("book").src="./inventoryimages/book.png";
+            // document.getElementById("book").src="./inventoryimages/book.png";
             currentPage = currentPage + 1;
             reading = true;
             readingAsk = false;
             bookButton.value = '> Keep Reading';
-            document.getElementById('map').classList.add('blurless');
+            // document.getElementById('map').classList.add('blurless');
+            showBook();
             if (currentPage === 7) {
                 bookButton.value = "> Done";
                 userInput.value = "";
@@ -669,8 +701,9 @@ leaveButton.addEventListener('click', leaveRobotConversation);
                 currentPage = 0;
                 bookButton.style.display = "none";
                 reading = false;
-                document.getElementById("book").src="";
-                document.getElementById('map').classList.remove('blurless');
+                // document.getElementById("book").src="";
+                // document.getElementById('map').classList.remove('blurless');
+                hideBook();
             }
         };
         outputArea.scroll(0,0);
@@ -1227,6 +1260,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         
         // clear zoom / unzoon
         robotUnZoom();
+        wellUnZoom();
+        doorUnZoom();
 
         // GET INPUT
         switch (true) {
@@ -1679,45 +1714,57 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 // try to open door
             case roomNum === 1 && doorUnlocked === false && haveBoxKey === false &&    (inp('open')||inp('try')||inp('use'))    &&    (inp('door')||inp('handle')||inp("knob"))  :
                 output.innerHTML = "The <span>door</span> is locked.";
+                doorZoom();
                 break;
             case roomNum === 1   &&  doorUnlocked === false  && haveBoxKey === true && triedKeyOnDoor === false&&    (inp('unlock')||inp('key')||inp('open')||inp('try')||inp('use'))   &&    (inp('door')||inp('handle')||inp('knob'))  :
                 output.innerHTML = "You try to unlock the <span>door</span> with the <span>key</span> you found down by the lake... but it doesn't fit the lock.<br><br>Darn it! Guess it isn't going to be that easy.<br><br>Maybe this <span>key</span> fits something else.";
                 triedKeyOnDoor = true;
+                doorZoom();
                 break;
             case roomNum === 1    &&  doorUnlocked === false  && haveBoxKey === true  &&    (inp('unlock')||inp('key')||inp('open')||inp('try')||inp('use'))   &&    (inp('door')||inp('handle')||inp('knob'))  :
+                doorZoom();
                 output.innerHTML = "You try to unlock the <span>door</span> with the <span>key</span> you found down by the lake, but it doesn't fit the lock.<br><br>Now that you look closer, the <span>key</span> is shiny silver, but the lock on the <span>door</span> is a dull iron.<br><br>Maybe this <span>key</span> fits something else nearby.";
                 break;
             case roomNum === 1    &&  doorUnlocked === false  &&    inp('unlock')   &&    (inp('door')||inp('handle'))   :
                 output.innerHTML = "You don't have the <span>key</span>. Maybe it's nearby?";
+                doorZoom();
                 break;
                 // inspect door
             case roomNum === 1 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check'))    &&    (inp('door')||inp('frame'))     :
                 output.innerHTML = "The <span>door</span> is made of a dark wood, and it's <span>handle</span> and <span>lock</span> are iron. It's worn, but sturdy. Something tells you it's been here a long time.";
+                doorZoom();
                 break;
             case roomNum === 1 &&    (inp('beyond'))    &&    (inp('door')||inp('frame'))     :
                 output.innerHTML = "You press your hand against the <span>door</span> and a chill goes up your spine.<br><br>There must be a way to open it...<br><br>Type commands below to explore the forest. You can move around quicker by tapping the corners of the screen above.<br><br>Don't forget to type<span>look around</span> when you enter a new area.";
+                doorZoom();
                 break;
             case roomNum === 1 &&    (inp('behind')||inp('other side'))    &&    (inp('door')||inp('frame'))     :
                 output.innerHTML = "You walk all the way around the <span>door frame</span>, but it's not connected to anything.";
+                doorZoom();
                 break;
             case roomNum === 1 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('try'))   &&    (inp('lock')||inp('handle')||inp('knob'))     :
                 output.innerHTML = "The door's gnob and lock are simple and a bit rusty, but strong. You try to push it open, but it won't budge.";
+                doorZoom();
                 break;
                 // weird attemps
             case roomNum === 1 &&  inp ("ask") && inp('please') :
                 output.innerHTML = "You ask the <span>door</span> nicely to open, but nothing happens. You feel kind of silly for talking to a door.";
+                doorZoom();
                 break;
             case roomNum === 1 &&  inp ("sesame") :
                 output.innerHTML = "'One Thousand and One Arabian Nights', huh? Good stuff.<br><br>The door still doesn't open, and now you kind of want a bagel.";
                 break;
             case roomNum === 1 &&  inp ("password") :
                 output.innerHTML = "You say aloud every weird phrase, magical word, or secret-agent style code you can think of, but the door stubbornly remains closed.";
+                doorZoom();
                 break;
             case roomNum === 1 &&  inp ("flower") && inp('door'):
-                output.innerHTML = "You offer the <span>door</span> a </span>, but it doesn't seem interested.";
+                output.innerHTML = "You offer the <span>door</span> a <span>flower</span>, but it doesn't seem interested.";
+                doorZoom();
                 break;
             case roomNum === 1 &&    inp('knock') :
                 output.innerHTML = "You knock on the door, but nothing happens. I guess no one is home";
+                doorZoom();
                 break;
             case roomNum === 1 &&    (inp('who') && inp('there')) || inp('nok'):
                 output.innerHTML = "Lol you thought";
@@ -1727,25 +1774,32 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
             case roomNum === 1  && doorUnlocked === false &&    (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('kick')||inp('ram ')||inp('bust')||inp('bash')||inp('punch'))    &&    (inp('door')||inp('handle')||inp("knob"))   :
                 output.innerHTML = "You pick up a <span>rock</span> and give the <span>door</span> a real good whack. Seriously, you wind up and really lean into it.<br><br>But the <span>door</span> doesn't budge. You didn't even really dent the wood. That's a bummer.<br><br>Can doors can be angry? This <span>door</span> seems angry.";
+                doorZoom();
                 break;
             case roomNum === 1 &&    (inp('thru') || inp('through') || inp('walk') || inp('into') || (inp('in')&&inp('to'))) && inp('door'):
                 output.innerHTML = "The <span>door</span> is closed. You try the handle, but it's locked.";
+                doorZoom();
                 break;
             case roomNum === 1 && inp('pick') && inp('lock') :
                 output.innerHTML = "You find a stick and fiddle around with the lock for a bit, but no luck.<br><br>Guess it's not as easy as those adventure novels made it out to be.";
+                doorZoom();
                 break;
                 // catch-all for door
             case roomNum === 1 && inp('door') :
                 output.innerHTML = "The <span>door</span> is made of a dark wood, and it's <span>handle</span> and <span>lock</span> are iron. It's worn, but sturdy. Something tells you it's been here a long time.";
+                doorZoom();
                 break;
             case roomNum === 1 && doorUnlocked === false && (inp('knob')||inp('handle')) :
                 output.innerHTML = "You try the <span>door knob</span>, but it's locked.";
+                doorZoom();
                 break;
             case roomNum === 1 && inp('lock') && haveBoxKey === false:
                 output.innerHTML = "You wiggle the handle, but the <span>door</span> is securely locked.";
+                doorZoom();
                 break;
             case roomNum === 1 && inp('lock') && haveBoxKey === true:
                 output.innerHTML = "You try to use the <span>silver key</span> to unlock the door, but it doesn't fit. Drat.";
+                doorZoom();
                 break;
 
             // ROOM 3
@@ -1760,8 +1814,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 showBookButton("> Read Journal?");
                 readingAsk = true;
                 break;
-            case roomNum === 3 &&    inp('read')    &&    (inp('book')||inp('journal')||inp('diary'))   :
-                output.innerHTML = "You pick up the <span>journal</span>."
+            case roomNum === 3 &&    (inp('read') ||inp('pick'))   &&    (inp('book')||inp('journal')||inp('diary'))   :
+                output.innerHTML = "You reach for the <span>journal</span>."
                 showBookButton("> Read Journal?");
                 readingAsk = true;
                 break;
@@ -2270,23 +2324,29 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
             case roomNum === 10 && haveRope === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('peer')||inp('behind'))   &&    (inp('well'))     :
                 output.innerHTML = "You peer down into the <span>well</span>. It's too deep to see the bottom.<br><br>It seems out and out of use. You look around for a bucket or rope, but don't find one.<br><br>";
+                wellZoom();
                 break;
             case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('peer')||inp('behind'))   &&    (inp('well'))     :
                 output.innerHTML = "You peer down into the <span>well</span>. It's too deep to see the bottom.<br><br>It seems out and out of use. You look around for a bucket, but don't find one.<br><br>";
+                wellZoom();
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('rock')    :
                 output.innerHTML = "You drop a rock into the <span>well</span>. It clatters off the walls for a few seconds before falling silent.<br><br>No splash... it must be dry.";
+                wellZoom();
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('stick')    :
                 output.innerHTML = "You throw a stick into the <span>well</span>. It clatters off the walls for a few seconds before falling silent.<br><br>No splash... it must be dry.";
+                wellZoom();
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  (inp('money')||inp('coin')||inp('penny')||inp('quarter')||inp('dime')||inp('nickel')) :
                 output.innerHTML = "You search your <span>pockets</span> for a coin to throw in the well, but no luck.";
+                wellZoom();
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('flower')  && haveFlower === true   :
                 output.innerHTML = "You drop a <span>flower</span> into the <span>well</span>. It drifts lazily down into the darkness until you lose sight of it.";
                 haveFlower = false;
                 removeItem("a <span>blue flower</span>");
+                wellZoom();
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('flower')  && haveFlower === false   :
                 output.innerHTML = "You don't have a <span>flower</span> to drop!";
@@ -2294,10 +2354,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('crystal') && haveCrystal === true   :
                 output.innerHTML = "You throw the <span>crystal</span> down the <span>well</span>. It hits the side and breaks apart before falling out of sight.";
                 removeItem("a <span>strange crystal</span>");
+                wellZoom();
                 haveCrystal = false;
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('box') && haveBox === true  && ropeTaken === true && haveBoxKey === false :
-                output.innerHTML = "Ok that's a good idea ngl. The box wouuld probably break when it hit the bottom. So +10 points for ingenuity.<br><br>But you're gonna need the box later ok? So you can't do that.<br><br>Try checking the <span>rocks</span> down by the lake, there's a <span>key</span> down there you can open the box with.";
+                output.innerHTML = "Ok that's a good idea ngl. The box wouuld probably break when it hit the bottom. So +10 points for ingenuity.<br><br>But you're gonna need the box later, ok? So you can't do that.<br><br>Try checking the <span>rocks</span> down by the lake, there's a <span>key</span> down there you can open the box with.";
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('box') && haveBox === true  :
                 output.innerHTML = "The box would probably break, which would be kind of a shame.";
@@ -2306,9 +2367,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 output.innerHTML = "You just brought the <span>mug</span> up!";
                 break;
             case roomNum === 10 &&  (inp('jump')||inp('fall')||(inp('get')&&inp('well')))   &&    (inp('well'))     :
+                wellZoom();
                 output.innerHTML = "For a moment you imagine jumping into the <span>well</span>... What's that old phrase? \"L'appel du vide...\"<br><br>You decide to keep your feet on the ground.";
                 break;
             case roomNum === 10 &&  inp('use') &&   inp('well')  && ropeSet === false :
+                wellZoom();
                 output.innerHTML = "The <span>well</span> doesn't have a bucket or rope.";
                 break;
             case roomNum === 10  && ropeSet === true   &&  (  (inp('go')&& inp('down'))   ||  (inp('use') && (inp('well')|| inp('rope'))) || inp('climb')) :
@@ -2317,6 +2380,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 roomNum = 13;
                 break;
             case roomNum === 10 &&  (inp('climb')||inp('use')) &&   (inp('well')||inp('down')||inp('rope'))  && ropeSet === false :
+                wellZoom();
                 output.innerHTML = "You consider trying to climb down the <span>well</span>, but the walls are slippery and you're not sure if you'd be able to get back up again...";
                 break;
             case roomNum === 10 &&  ropeSet === true &&  (inp('take')||inp('grab')||inp('pocket')||inp('untie')||inp('remove')||inp('get'))   &&    (inp('rope'))     :
@@ -2339,9 +2403,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
                 // default well
             case roomNum === 10 && inp('in ') && inp('well') :
+                wellZoom();
                 output.innerHTML = "You peer down into the <span>well</span>, but you can't see the bottom.";
                 break;
             case roomNum === 10 && inp('well') :
+                wellZoom();
                 output.innerHTML = "Well, well, well... you can't do that. Try something else.";
                 break;
 
@@ -3091,8 +3157,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         } else {
             processInput();
             reading = false;
-            document.getElementById("book").src="";
-            document.getElementById('map').classList.remove('blurless');
+            hideBook();
         };
         if (inventoryAsk === false) {checkingInventory = false};
         if (mapAsk === false) {checkingMap = false};
