@@ -415,7 +415,16 @@ const doorUnZoom = () => {
     document.getElementById("room1").style.bottom = "0%";
     document.getElementById("room1").style.left = "0%";
 }
-
+const stumpZoom = () => {
+    document.getElementById("room3").style.width = "180%";
+    document.getElementById("room3").style.bottom = "-28%";
+    document.getElementById("room3").style.left = "-38%";
+}
+const stumpUnZoom = () => {
+    document.getElementById("room3").style.width = "100%";
+    document.getElementById("room3").style.bottom = "0%";
+    document.getElementById("room3").style.left = "0%";
+}
 
 // INVENTORY
     const checkInventory = () => {
@@ -1262,6 +1271,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         robotUnZoom();
         wellUnZoom();
         doorUnZoom();
+        stumpUnZoom();
 
         // GET INPUT
         switch (true) {
@@ -1808,35 +1818,42 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('behind')||inp('under'))    &&    (inp('stump'))   && foundBook === true  :
                 output.innerHTML = "Looks like a good place to sit and rest. You wonder how long ago the tree was cut down, but you're stumped.";
+                stumpZoom();
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check'))    &&    (inp('book')||inp('journal')||inp('diary'))   && foundBook === true  :
                 output.innerHTML = "The <span>journal</span> has a worn leather cover.<br><br>The pages inside are water damaged, but the hand-written ink is still legibled.<br><br>There's no title, and no author.";
                 showBookButton("> Read Journal?");
+                stumpZoom();
                 readingAsk = true;
                 break;
             case roomNum === 3 &&    (inp('read') ||inp('pick'))   &&    (inp('book')||inp('journal')||inp('diary'))   :
                 output.innerHTML = "You reach for the <span>journal</span>."
                 showBookButton("> Read Journal?");
+                stumpZoom();
                 readingAsk = true;
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check'))    &&    (inp('book')||inp('journal')||inp('diary'))   && foundBook === false  :
                 output.innerHTML = "There's a <span>book</span> on the ground in front of the stump. It looks like somebody used this spot to sit and read or write.";
                 showBookButton("> Read Journal?");
+                stumpZoom();
                 readingAsk = true;
                 foundBook = true;
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('behind')||inp('under'))    &&    inp('stump')   && foundBook === false  :
                 output.innerHTML = "There's a <span>book</span> on the ground in front of the stump. It looks like somebody used this spot to sit and read or write.";
                 foundBook = true;
+                stumpZoom();
                 break;
             case roomNum === 3 &&    (inp('take')||inp('grab')||inp('pocket'))    &&    (inp('book')||inp('journal')||inp('diary'))   :
                 output.innerHTML = "The <span>book</span> seems rather personal. You decide to leave it here in case somebody comes back for it.";
                 showBookButton("> Read Journal?");
                 readingAsk = true;
                 foundBook = true;
+                stumpZoom();
                 break;
             case roomNum === 3 &&    (inp('sit')||inp('rest'))     :
                 output.innerHTML = "You sit down on the stump to rest for a minute. It's comfier than you would have thought.<br><br>+30 points";
+                stumpZoom();
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass, with scattered rocks and flowers.<br><br>There is a <span>old book</span> on the ground near the stump.";
