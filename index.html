@@ -425,6 +425,16 @@ const stumpUnZoom = () => {
     document.getElementById("room3").style.bottom = "0%";
     document.getElementById("room3").style.left = "0%";
 }
+const boatZoom = () => {
+    document.getElementById("room6").style.width = "210%";
+    document.getElementById("room6").style.bottom = "-47%";
+    document.getElementById("room6").style.left = "-103%";
+}
+const boatUnZoom = () => {
+    document.getElementById("room6").style.width = "100%";
+    document.getElementById("room6").style.bottom = "0%";
+    document.getElementById("room6").style.left = "0%";
+}
 
 // INVENTORY
     const checkInventory = () => {
@@ -781,7 +791,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     const room1Switch = () => {
         mapArrow.style.top = "53%";
         mapArrow.style.left = "42.6%";
-        output.innerHTML = "You find yourself in a clearin in the middle of the forest, where a <span>strange wooden door</span> is standing.";
+        output.innerHTML = "You find yourself in a clearing in the middle of the forest, where a <span>strange wooden door</span> is standing.";
         roomVisited[2] = true;
         setTimeout(  ()=> {
             moveAllRoomsBack();
@@ -1272,6 +1282,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         wellUnZoom();
         doorUnZoom();
         stumpUnZoom();
+        boatUnZoom();
 
         // GET INPUT
         switch (true) {
@@ -2081,8 +2092,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 haveBox = true;
                 switchChestRopeImage();
                 inventory.push("a <span>wooden box</span>");
+                boatZoom();
                 break;
             case roomNum === 6    && haveBox === true  && boatFixed === false && (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))  :
+                boatZoom();
                 output.innerHTML = "The <span>boat</span> has a fist-sized hole in the bottom. Maybe you can plug it with something.";
                 break;
             case roomNum === 6   && boatFixed === true  && ropeTaken === false && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
@@ -2105,6 +2118,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             case roomNum === 6    && haveBox === false  && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
                 haveBox = true;
                 boatFixed = true;
+                boatZoom();
                 switchChestRopeImage();
                 room6Switch();
                 output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span>rock</span>. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
@@ -2112,6 +2126,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
             case roomNum === 6    && haveBox === true  && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
                 boatFixed = true;
+                boatZoom();
                 room6Switch();
                 output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span>rock</span>. You spend a few minutes bailing water out, and soon it starts to float again.";
                 break;
@@ -2119,31 +2134,42 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             case roomNum === 6 &&   haveBox === false  &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under'))   &&    (inp('boat')||inp('moor'))     :
                 output.innerHTML = "You look into the bottom of the <span>boat</span> and find a <span>locked wooden box</span>.<br><br>You put the <span>box</span> in your <span>pocket</span>.<br><br>Type \"<span>pockets</span>\" to see what you have with you.";
                 haveBox = true;
+                boatZoom();
                 switchChestRopeImage();
                 inventory.push("a <span>wooden box</span>");
                 break;
             case roomNum === 6   && ropeTaken === false  && boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under'))  &&    (inp('boat')||inp('moor'))  :
+                boatZoom();
                 output.innerHTML = "The <span>boat</span> is half-sunk, and tied to the shore with a thick <span>rope</span>. You look closer, and realize there is a fist-sized hole in the botom.";
                 break;
             case roomNum === 6   && ropeTaken === true  && boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under'))  &&    (inp('boat')||inp('moor'))  :
+                boatZoom();
                 output.innerHTML = "The <span>boat</span> is half-sunk. You look closer, and realize there is a fist-sized hole in the botom.";
                 break;
             case roomNum === 6   && ropeTaken === false  && boatFixed === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under'))  &&    (inp('boat')||inp('moor'))  :
+                boatZoom();
                 output.innerHTML = "The <span>boat</span> is tied to the shore with a thick <span>rope</span>.";
                 break;
             case roomNum === 6   && ropeTaken === true  && boatFixed === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under'))  &&    (inp('boat')||inp('moor'))  :
+                boatZoom();
                 output.innerHTML = "What a nice <span>boat</span>!";
                 break;
 
                 //rope
-            case roomNum === 6 &&   ropeTaken === false &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check'))   &&    (inp('rope'))     :
+            case roomNum === 6 &&   ropeTaken === false &&  boatFixed === false &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check'))   &&    (inp('rope'))     :
                 output.innerHTML = "The <span>rope</span> seems to be the only thing about the boat that is still in decent condition.";
+                boatZoom();
+                break;
+            case roomNum === 6 &&   ropeTaken === false &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check'))   &&    (inp('rope'))     :
+                output.innerHTML = "The <span>rope</span> seems to be in decent condition.";
+                boatZoom();
                 break;
             case roomNum === 6    && ropeTaken === false && (    ((inp('take')||inp('grab')||inp('pocket')||inp('remove')||inp('get')||inp('use')||inp('tie'))   &&    (inp('rope')))  ||  (inp('tie') &&  inp('boat'))  ):
                 haveRope = true;
                 ropeTaken = true;
                 inventory.push("a <span>rope</span>")
                 room6Switch();
+                boatZoom();
                 switchChestRopeImage();
                 output.innerHTML = "You untie the <span>rope</span> and put it in your <span>pocket</span>.<br><br>Type \"<span>pockets</span>\" to see what you have with you.";
                 break;
