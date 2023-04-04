@@ -248,7 +248,7 @@ body {
     z-index: -1;
 }
 
-#map, #cutsceneviewer, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #book, #maptiles, #blackbackground {
+#map, #cutsceneviewer, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8, #book, #maptiles, #blackbackground {
     max-height: 100%;
     max-width: 100%;
     grid-row: 1;
@@ -294,7 +294,7 @@ body {
     filter: brightness(40%);
 }
 
-#inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7 {
+#inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8 {
     position: relative;
     z-index: -2;
 }
