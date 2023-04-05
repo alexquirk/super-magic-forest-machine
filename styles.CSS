@@ -248,7 +248,7 @@ body {
     z-index: -1;
 }
 
-#map, #cutsceneviewer, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8, #book, #maptiles, #blackbackground {
+#map, #cutsceneviewer, .inventorybutton, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8, #book, #maptiles, #blackbackground {
     max-height: 100%;
     max-width: 100%;
     grid-row: 1;
@@ -462,6 +462,51 @@ body {
 #room15tile {
     left: 74.3%;
     top: 63%;
+}
+
+/* INVENTORY */
+
+.inventorybutton {
+    position: relative;
+    z-index: 200;
+    min-width: 0px;
+    width: 10%;
+    height: 10%;
+    opacity: .5;
+}
+
+#ropechestbutton {
+    top: 10%;
+    left: 10%;
+}
+
+#rockbutton {
+    width: 7%;
+    top: 70%;
+    left: 19.5%;
+}
+
+#flowerbutton {
+    top: 50%;
+    left: 32%;
+    width: 8%;
+    height: 25%;
+}
+
+#keybutton {
+    top: 48%;
+    left: 52%;
+    width: 8%;
+    height: 28%;
+    transform: rotate(59deg);
+}
+
+#stickbutton {
+    top: 61%;
+    left: 72%;
+    width: 5%;
+    height: 32%;
+    transform: rotate(72deg);
 }
 
 /* OUTPUT TEXT AREA */

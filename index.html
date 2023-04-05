@@ -56,13 +56,21 @@
                 <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png">
             </div>            
             <img id= "inventory1" src="">
+                <button class="inventorybutton" id= "ropechestbutton" onclick="ropeChestClick()" ></button>
             <img id= "inventory2" src="./inventoryimages/ribbon.png">
+                <button class="inventorybutton" id= "ribbonbutton" onclick="ribbonClick()"></button>
             <img id= "inventory3" src="./inventoryimages/mug.png">
+                <button class="inventorybutton" id= "mugbutton" onclick="mugClick()"></button>
             <img id= "inventory4" src="./inventoryimages/key.png">
+                <button class="inventorybutton" id= "keybutton" onclick="keyClick()"></button>
             <img id= "inventory5" src="./inventoryimages/crystal.png">
+                <button class="inventorybutton" id= "crystalbutton" onclick="crystalClick()"></button>
             <img id= "inventory6" src="./inventoryimages/flower.png">
+                <button class="inventorybutton" id= "flowerbutton" onclick="flowerClick()"></button>
             <img id= "inventory7" src="./inventoryimages/rock.png">
+                <button class="inventorybutton" id= "rockbutton" onclick="rockClick()" ></button>
             <img id= "inventory8" src="./inventoryimages/stick.png">
+                <button class="inventorybutton" id= "stickbutton" onclick="stickClick()"></button>
             <img id= "book">
             <div id= "maptiles">
                 <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" onclick="room1Switch()"><img class="roomtile" id="room2tile" onclick="room2Switch()"><img class="roomtile" id="room3tile" onclick="room3Switch()"><img class="roomtile" id="room4tile" onclick="room4Switch()"><img class="roomtile" id="room5tile" onclick="room5Switch()"><img class="roomtile" id="room6tile" onclick="room6Switch()"><img class="roomtile" id="room7tile" onclick="room7Switch()"><img class="roomtile" id="room8tile" onclick="room8Switch()"><img class="roomtile" id="room9tile" onclick="room9Switch()"><img class="roomtile" id="room10tile" onclick="room10Switch()"><img class="roomtile" id="room11tile" onclick="room11Switch()"><img class="roomtile" id="room12tile" onclick="room12Switch()"><img class="roomtile" id="room14tile" onclick="room14Switch()"><img class="roomtile" id="room15tile" onclick="room15Switch()">
@@ -324,6 +332,7 @@ document.onkeydown = e => {
 
     let checkingInventory = false;
     let inventoryAsk = false;
+    let fixingBoat = false;
 
     let currentPage = 0;
     let reading = false;
@@ -503,32 +512,32 @@ const catTreeUnZoom = () => {
                 inventoryAsk = true;
             };
             if (haveFlower === true) {
-                    document.getElementById("inventory6").style.zIndex = "6";
+                    document.getElementById("inventory6").style.zIndex = "106";
             };
             if (haveRibbon === true) {
-                    document.getElementById("inventory2").style.zIndex = "2";
+                    document.getElementById("inventory2").style.zIndex = "102";
             };
             if (haveBoxKey === true) {
-                    document.getElementById("inventory4").style.zIndex = "4";
+                    document.getElementById("inventory4").style.zIndex = "104";
             };
             if (haveStick === true) {
-                    document.getElementById("inventory8").style.zIndex = "8";
+                    document.getElementById("inventory8").style.zIndex = "108";
             };
             if (haveCrystal === true) {
-                    document.getElementById("inventory5").style.zIndex = "5";
+                    document.getElementById("inventory5").style.zIndex = "105";
             };
             if (haveRock === true) {
-                    document.getElementById("inventory7").style.zIndex = "7";
+                    document.getElementById("inventory7").style.zIndex = "107";
             };
             if (haveBox === true || haveRope === true) {
-                    document.getElementById("inventory1").style.zIndex = "1";
+                    document.getElementById("inventory1").style.zIndex = "101";
             };
             if (haveMug === true) {
                 document.getElementById("inventory3").src="./inventoryimages/mug.png";
-                document.getElementById("inventory3").style.zIndex = "3";
+                document.getElementById("inventory3").style.zIndex = "103";
             } else if (haveMushy === true) {
                 document.getElementById("inventory3").src="./inventoryimages/mushy.png";
-                document.getElementById("inventory3").style.zIndex = "3";
+                document.getElementById("inventory3").style.zIndex = "103";
             };
             if (inventory.length === 1) {
                 document.getElementById("inventory7").style.bottom = "20%"; 
@@ -537,17 +546,76 @@ const catTreeUnZoom = () => {
                 document.getElementById("inventory6").style.left = "13%";
                 document.getElementById("inventory8").style.bottom = "25%"; 
                 document.getElementById("inventory8").style.left = "-22%";
+                document.getElementById("rockbutton").style.top = "50%"; 
+                document.getElementById("rockbutton").style.left = "47%";
             } else if (inventory.length === 2 && haveFlower === true && haveRock === true) {
                 document.getElementById("inventory7").style.bottom = "10%"; 
                 document.getElementById("inventory7").style.left = "20%";
                 document.getElementById("inventory6").style.bottom = "14%"; 
                 document.getElementById("inventory6").style.left = "23%";
+            } else if (inventory.length < 4 && haveFlower === true && haveRock === true && haveStick === true) {
+                document.getElementById("inventory7").style.bottom = "10%"; 
+                document.getElementById("inventory7").style.left = "20%";
+                document.getElementById("inventory6").style.bottom = "14%"; 
+                document.getElementById("inventory6").style.left = "23%";
+                document.getElementById("inventory8").style.bottom = "5%"; 
+                document.getElementById("inventory8").style.left = "-15%";
             } else {
                 document.getElementById("inventory7").style.bottom = "0%";
                 document.getElementById("inventory7").style.left = "0%";
                 document.getElementById("inventory6").style.bottom = "0%";
                 document.getElementById("inventory6").style.left = "0%";
+                document.getElementById("inventory8").style.bottom = "0%"; 
+                document.getElementById("inventory8").style.left = "0%";
             }
+    };
+
+    // clicking inventory items / fixing boat
+    const stickClick = () => {
+        if (fixingBoat === true) {
+            output.innerHTML = "You push the <span>stick</span> into the hole, but it's too small, and water continues to leak into the <span>boat</span>."
+        }
+    };
+    const mugClick = () => {
+        if (fixingBoat === true) {
+            output.innerHTML = "You push the <span>mug</span> into the hole, but it's a bit too big and the handle is in the way. Maybe something else will fit better."
+        }
+    };
+    const ropeChestClick = () => {
+        if (fixingBoat === true) {
+            output.innerHTML = "You try to cram the <span>rope</span> into the hole, but there's too much if it and water keeps leaking through the cracks."
+        }
+    };
+    const crystalClick = () => {
+        if (fixingBoat === true) {
+            output.innerHTML = "You push the <span>crystal</span> into the hole, but it's too smooth and slides right out."
+        }
+    };
+    const flowerClick = () => {
+        if (fixingBoat === true) {
+            output.innerHTML = "You try to plug the hole with the <span>flower</span>, but it's too small and fragile."
+        }
+    };
+    const keyClick = () => {
+        if (fixingBoat === true) {
+            output.innerHTML = "You try to plug the hole with the <span>key</span>, but it's too small."
+        }
+    };
+    const ribbonClick = () => {
+        if (fixingBoat === true) {
+            output.innerHTML = "You try to plug the hole with the <span>ribbon</span>, but it's much too small."
+        };
+    };
+    const rockClick = () => {
+        if (fixingBoat === true) {
+            haveBox = true;
+            boatFixed = true;
+            boatZoom();
+            switchChestRopeImage();
+            room6Switch();
+            output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span>rock</span>. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
+            inventory.push("a <span>wooden box</span>");
+        };
     };
 
 // ROBOT DIALOGUE BUTTONS
@@ -1295,6 +1363,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         mapAsk = false;
         inventoryAsk = false;
         dialogueAsk = false;
+        fixingBoat = false;
 
         //clear buttons
         bookButton.style.display = "none";
@@ -2036,7 +2105,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 catDiscovered = true;
                 catTreeZoom();
                 if (haveStick === true) {
-                    removeItem("a stick")
+                    removeItem("a <span>stick</span>")
                 };
                 haveStick = false;
                 output.innerHTML = "You throw a <span>stick</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.<br><br>-50 points";
@@ -2173,15 +2242,23 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 output.innerHTML = "You push the <span>boat</span> out into the lake and hop in. You don't have any paddles, and allow the tide to take you where it will.<br><br>Soon the boat lands on the shore of an island.";
                 break;
                 // Fixing The Boat
-            case roomNum === 6    && haveBox === false  && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
-                haveBox = true;
-                boatFixed = true;
-                boatZoom();
-                switchChestRopeImage();
-                room6Switch();
-                output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span>rock</span>. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
-                inventory.push("a <span>wooden box</span>");
+            case roomNum === 6   && boatFixed === false && inventory.length === 0 && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
+                output.innerHTML = "You don't have anything in  your <span>pockets</span> to fix the boat with. Try looking around for something.";
                 break;
+            case roomNum === 6   && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
+                displayInventory();
+                fixingBoat = true;
+                output.innerHTML = "What do you want to use to fix the boat?";
+                break;
+            // case roomNum === 6    && haveBox === false  && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
+            //     haveBox = true;
+            //     boatFixed = true;
+            //     boatZoom();
+            //     switchChestRopeImage();
+            //     room6Switch();
+            //     output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span>rock</span>. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
+            //     inventory.push("a <span>wooden box</span>");
+            //     break;
             case roomNum === 6    && haveBox === true  && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
                 boatFixed = true;
                 boatZoom();
@@ -2440,7 +2517,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 wellZoom();
                 if (haveStick === true) {
                     output.innerHTML = "You throw your stick into the <span>well</span>. It clatters off the walls for a few seconds before falling silent.<br><br>No splash... it must be dry.";
-                    removeItem("a stick");
+                    removeItem("a <span>stick</span>");
                     haveStick = false;
                 };
                 break;
@@ -2542,7 +2619,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             case roomNum === 11 && (inp('rock')||inp('stone')||inp('pebble')) && (inp('throw')||inp('chuck')||inp('toss')) && haveRock === true   :
                 output.innerHTML = "You throw your rock into the cave. It disappears into the dark with a clatter.";
                 haveRock = false;
-                removeItem('a rock');
+                removeItem("a <span>rock</span>");
                 break;
             case roomNum === 11 && (inp('rock')||inp('stone')||inp('pebble')) && (inp('throw')||inp('chuck')||inp('toss')) && haveRock === false   :
                 output.innerHTML = "You throw a rock into the cave. It disappears into the dark with a clatter.";
@@ -2550,7 +2627,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             case roomNum === 11 && (inp('stick')||inp('branch')) && (inp('throw')||inp('chuck')||inp('toss')) && haveStick === true   :
                 output.innerHTML = "You throw your stick into the cave. It disappears into the dark with a clatter.";
                 haveStick = false;
-                removeItem('a stick');
+                removeItem("a <span>stick</span>");
                 break;
             case roomNum === 11 && (inp('stick')||inp('branch')) && (inp('throw')||inp('chuck')||inp('toss')) && haveStick === false   :
                 output.innerHTML = "You throw a stick into the cave. It disappears into the dark with a clatter.";
@@ -2799,8 +2876,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
             case (inp('rock')||inp('stone')||inp('pebble')) && inp('throw') && haveRock === true   :
                 output.innerHTML = "You wind up and throw your rock as far as you can.";
+                removeItem("a <span>rock</span>");
                 haveRock = false;
-                removeItem('a rock');
                 break;
             case (inp('rock')||inp('stone')||inp('pebble')) && inp('throw') && haveRock === false   :
                 output.innerHTML = "You wind up and throw your rock as far as you can.";
@@ -2829,12 +2906,12 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             // STICKS
             case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && haveStick === false && (inp('stick')||inp('branch'))&& (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')) :
                 output.innerHTML = "You find a nice <span>stick</span> and put it in your pocket.";
-                inventory.push("a stick");
+                inventory.push("a <span>stick</span>");
                 haveStick = true;
                 break;
             case (roomNum === 5||roomNum === 6||roomNum === 12) && haveStick === true && (inp('throw')||inp('toss')||inp('chuck')) && inp('stick') :
                 output.innerHTML = "You throw your <span>stick</span> out into the water and watch it float away.";
-                removeItem("a stick");
+                removeItem("a <span>stick</span>");
                 haveStick = false;
                 break;
             case (roomNum === 5||roomNum === 6||roomNum === 12) && (inp('throw')||inp('toss')||inp('chuck')) && inp('stick') :
@@ -2842,12 +2919,12 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
             case haveStick === true && (inp('throw')||inp('toss')||inp('chuck')) && inp('stick') :
                 output.innerHTML = "You throw your <span>stick</span> into the forest, startling some birds, byt nothing else really happens.";
-                removeItem("a stick");
+                removeItem("a <span>stick</span>");
                 haveStick = false;
                 break;
             case haveStick === true && inp('drop') && inp('stick') :
                 output.innerHTML = "You drop your <span>stick</span>.";
-                removeItem("a stick");
+                removeItem("a <span>stick</span>");
                 haveStick = false;
                 break;
             case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && haveStick === true && (inp('stick')||inp('branch'))&& (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')) :
