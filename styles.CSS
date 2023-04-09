@@ -468,22 +468,17 @@ body {
 
 .inventorybutton {
     position: relative;
-    z-index: 200;
     min-width: 0px;
     width: 10%;
     height: 10%;
-    opacity: .5;
-}
-
-#ropechestbutton {
-    top: 10%;
-    left: 10%;
+    opacity: 0;
 }
 
 #rockbutton {
     width: 7%;
     top: 70%;
     left: 19.5%;
+    z-index: 207;
 }
 
 #flowerbutton {
@@ -491,6 +486,7 @@ body {
     left: 32%;
     width: 8%;
     height: 25%;
+    z-index: 206;
 }
 
 #keybutton {
@@ -499,6 +495,7 @@ body {
     width: 8%;
     height: 28%;
     transform: rotate(59deg);
+    z-index: 204;
 }
 
 #stickbutton {
@@ -507,6 +504,47 @@ body {
     width: 5%;
     height: 32%;
     transform: rotate(72deg);
+    z-index: 208;
+}
+
+#chestbutton {
+    top: 37%;
+    left: 22%;
+    width: 40%;
+    height: 30%;
+    transform: rotate(-4deg);
+    z-index: 200;
+}
+
+#ropebutton {
+    top: 54%;
+    left: 15%;
+    width: 54%;
+    height: 20%;
+    z-index: 201;
+}
+
+#ribbonbutton {
+    width: 27%;
+    top: 72%;
+    left: 36%;
+    transform: rotate(-5deg);
+    z-index: 203;
+}
+
+#mugbutton {
+    width: 17%;
+    height: 30%;
+    top: 40%;
+    left: 68%;
+    z-index: 203;
+}
+
+#crystalbutton {
+    width: 11%;
+    top: 66.5%;
+    left: 61.5%;
+    z-index: 205;
 }
 
 /* OUTPUT TEXT AREA */
