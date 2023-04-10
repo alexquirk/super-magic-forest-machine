@@ -102,7 +102,7 @@
      <!-- INPUT AREA -->
 <div class="inputarea">
     <input type="text" id="userinput" maxlength="30" onclick="clearMap()">
-    <input type="button" id="enterbutton" value="ENTER" onclick="focusOnInput()">
+    <input type="button" id="enterbutton" value="ENTER" >
 </div>
 </article>
 
@@ -139,6 +139,7 @@ const startGame = () => {
     setTimeout(makeTitleCardGoAway, 1000);
     introCutscenePlayed = true;
     playCutscene();
+    room14Switch();
     };
     
 //start game if enter is pressed
@@ -261,7 +262,7 @@ document.onkeydown = e => {
         switch (true) {
         //intro cutscene
         case currentCutscene === "intro":
-            room14Switch();
+           
             break;
 
         // robot waking
@@ -697,7 +698,6 @@ const catTreeUnZoom = () => {
     // close inventory
     const closeInventory = () => {
         document.getElementById('map').classList.remove('blur');
-        // move items back
         document.getElementById("inventory1").style.zIndex = "-2";document.getElementById("inventory2").style.zIndex = "-2";document.getElementById("inventory3").style.zIndex = "-2";document.getElementById("inventory4").style.zIndex = "-2";document.getElementById("inventory5").style.zIndex = "-2";document.getElementById("inventory6").style.zIndex = "-2";document.getElementById("inventory7").style.zIndex = "-2";document.getElementById("inventory8").style.zIndex = "-2";
     };
 
@@ -1277,7 +1277,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             } else if (roomNum === 14) { 
                 output.innerHTML = "You walk <span>east</span> and arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree." 
             } else {
-                output.innerHTML = "You walk <span>south</span> until you arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willo tree.";
+                output.innerHTML = "You walk <span>south</span> until you arrive at a <span>lake shore</span>. where a <span>strange figure</span> is laying against a large willo tree.";
             }
         } else {
             if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
@@ -3483,25 +3483,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
 
 // PRESSING ENTER 
-
-    const focusOnInput = () => {
-        if ( 
-                !(   
-                   navigator.userAgent.match(/Android/i)
-                || navigator.userAgent.match(/webOS/i)
-                || navigator.userAgent.match(/iPhone/i)
-                || navigator.userAgent.match(/iPad/i)
-                || navigator.userAgent.match(/iPod/i)
-                || navigator.userAgent.match(/BlackBerry/i)
-                || navigator.userAgent.match(/Windows Phone/i))
-                ) {
-            userInput.focus();
-                }
-    }
-
     const pressEnter = () => {
         whiteButtonFlash(enterButton);
-        hideKeyboard();
         let fem = document.getElementById('userinput').value;
         if ((reading === true || readingAsk === true) && (fem ==""||inp("read"))) {
             showBookText();
@@ -3528,10 +3511,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     input.addEventListener("keypress",
     function(event) {
         if (event.key === "Enter") {
-            hideMobileKeyboardOnReturn(input);
             event.preventDefault();
             document.getElementById("enterbutton").click();
             // outputArea.scroll(0,0);
+            hideMobileKeyboardOnReturn(input);
         }
     });
 

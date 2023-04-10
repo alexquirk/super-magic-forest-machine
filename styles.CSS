@@ -16,7 +16,7 @@ body {
 
 #titlecard {
     position: absolute;
-    z-index: 100;
+    z-index: 1000;
     left: 50%;
     transform: translateX(-50%);  
     width: 100vw;
@@ -176,7 +176,7 @@ body {
 #cutsceneviewer {
     display: none;
     position: absolute;
-    z-index: 99;
+    z-index: 999;
     left: 50%;
     transform: translateX(-50%);  
     width: 100%;
@@ -189,7 +189,7 @@ body {
 }
 
 #cutscenevideo {
-    z-index: 99;
+    z-index: 999;
 }
 
 #cutscene {
