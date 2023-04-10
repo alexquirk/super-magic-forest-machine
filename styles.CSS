@@ -645,18 +645,18 @@ body {
 }
 
 .boxfadein {
-    animation: boxFadeIn 1.6s ease-in;
+    animation: boxFadeIn 1.3s ease-out;
     animation-iteration-count: 1;
 }
 
 @keyframes boxFadeIn {
     0% { 
         opacity: 0;
-        transform: translate(0, -45%) scaleY(.1);
+        transform: translate(0, -45%) scaleY(.1) scaleX(.3);
     }
     100% { 
         opacity: 1;
-        transform: translate(0, 0) scaleY(1);
+        transform: translate(0, 0) scaleY(1) scaleX(1);
 
     }
 }

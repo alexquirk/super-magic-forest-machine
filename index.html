@@ -101,7 +101,7 @@
     
      <!-- INPUT AREA -->
 <div id="inputarea">
-    <input type="text" id="userinput" maxlength="30" onclick="clearMap()">
+    <input type="text" id="userinput" maxlength="30" onclick="clearMap()" placeholder="type something">
     <input type="button" id="enterbutton" value="ENTER" >
 </div>
 </article>
@@ -199,8 +199,6 @@ document.onkeydown = e => {
                 // unpause after 2.5 seconds
                 setTimeout(()=> {
                     cutsceneVideo.play();
-                    output.classList.add('textfadein');
-                    output.style.display = 'block';
                     },
                     2500
                     );
@@ -266,6 +264,13 @@ document.onkeydown = e => {
             inputArea.classList.add('textfadein');
             outputArea.style.display = "block";
             inputArea.style.display = "flex";
+            output.style.opacity = "0";
+            setTimeout(function() { 
+                output.style.opacity = "1";
+                output.classList.add('textfadein'); 
+                }, 
+                900)
+            output.style.display = 'block';
             room14Switch();
             room14.style.zIndex = "0";
             document.getElementById("room14tile").src="./maptiles/room14tile.png";
@@ -3493,6 +3498,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 
 // PRESSING ENTER 
     const pressEnter = () => {
+        // clear placeholder on input form
+        userInput.placeholder = "";
+        // bring back placeholder after 15 seconds
+        setTimeout(function() {userInput.placeholder = "type something"}, 20000)
         // make button flash
         whiteButtonFlash(enterButton);
         let fem = document.getElementById('userinput').value;
