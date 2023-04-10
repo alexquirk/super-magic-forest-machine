@@ -137,9 +137,10 @@ const startGame = () => {
     theMachine.style.display = "flex";
     let makeTitleCardGoAway = () => {titleCard.style.display = "none"};
     setTimeout(makeTitleCardGoAway, 1000);
-    introCutscenePlayed = true;
     playCutscene();
-    room14Switch();
+    let setIntroCutscenePlayedToTrue = () => {introCutscenePlayed = true;};
+    // how much time after pressing space on the title card must pass before pressing space again will skip the first cutscene?
+    setTimeout(setIntroCutscenePlayedToTrue, 1000);
     };
     
 //start game if enter is pressed
@@ -168,14 +169,14 @@ document.onkeydown = e => {
 
     let cutsceneViewer = document.getElementById('cutsceneviewer');
 
-    //skip cutscene if space is pressed
+    //skip cutscene if spacebar is pressed
     document.addEventListener('keyup', event => {
         if (event.code === 'Space' 
-                // uncomment line below to make first cutscene in
+                // uncomment line below to make first cutscene unskippable?
                 // && introCutsceneDonePlaying === true 
                 
                 ){
-            cutsceneViewer.style.display = "none";
+            if (introCutscenePlayed === true) {endCutscene();}
             }});
 
     // hide the video when its ended
@@ -202,7 +203,7 @@ document.onkeydown = e => {
                     output.classList.add('textfadein');
                     output.style.display = 'block';
                     },
-                    2500
+                    1500
                     );
                 break;
 
@@ -262,7 +263,12 @@ document.onkeydown = e => {
         switch (true) {
         //intro cutscene
         case currentCutscene === "intro":
-           
+            room14Switch();
+            room14.style.zIndex = "0";
+            document.getElementById("room14tile").src="./maptiles/room14tile.png";
+            roomNum = 14;
+            output.classList.remove('textfadein');
+            output.style.display = 'block';
             break;
 
         // robot waking
