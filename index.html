@@ -3483,8 +3483,15 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
 
 // PRESSING ENTER 
+    // via https://gist.github.com/cemerson/3907428
+    var hideKeyboard = function() {
+        document.activeElement.blur();
+        $("input").blur();
+    };
+
     const pressEnter = () => {
         whiteButtonFlash(enterButton);
+        hideKeyboard();
         let fem = document.getElementById('userinput').value;
         if ((reading === true || readingAsk === true) && (fem ==""||inp("read"))) {
             showBookText();
@@ -3497,7 +3504,6 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         if (inventoryAsk === false) {checkingInventory = false};
         if (mapAsk === false) {checkingMap = false};
         if (dialogueAsk === false) {inDialogue = false};
-        enterButton.blur;
     };
 
     enterButton.addEventListener('click', pressEnter);
