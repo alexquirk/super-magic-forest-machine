@@ -139,7 +139,6 @@ const startGame = () => {
     setTimeout(makeTitleCardGoAway, 1000);
     introCutscenePlayed = true;
     playCutscene();
-    room14Switch();
     };
     
 //start game if enter is pressed
@@ -262,7 +261,7 @@ document.onkeydown = e => {
         switch (true) {
         //intro cutscene
         case currentCutscene === "intro":
-           
+            room14Switch();
             break;
 
         // robot waking
@@ -698,6 +697,7 @@ const catTreeUnZoom = () => {
     // close inventory
     const closeInventory = () => {
         document.getElementById('map').classList.remove('blur');
+        // move items back
         document.getElementById("inventory1").style.zIndex = "-2";document.getElementById("inventory2").style.zIndex = "-2";document.getElementById("inventory3").style.zIndex = "-2";document.getElementById("inventory4").style.zIndex = "-2";document.getElementById("inventory5").style.zIndex = "-2";document.getElementById("inventory6").style.zIndex = "-2";document.getElementById("inventory7").style.zIndex = "-2";document.getElementById("inventory8").style.zIndex = "-2";
     };
 
