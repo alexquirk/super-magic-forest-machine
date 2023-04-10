@@ -189,8 +189,11 @@ body {
 }
 
 #cutscenevideo {
-    position: relative;
     z-index: 999;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 #cutscene {
