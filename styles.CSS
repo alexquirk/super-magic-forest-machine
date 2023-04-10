@@ -188,6 +188,10 @@ body {
     border: 1px solid black;
 }
 
+#cutscenevideo {
+    z-index: 99;
+}
+
 #cutscene {
     height: 100%;
     position: absolute;
