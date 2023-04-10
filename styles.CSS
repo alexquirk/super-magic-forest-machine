@@ -319,7 +319,7 @@ body {
 
 .compasstriangles {
     position: absolute;
-    z-index: 50;
+    z-index: 400;
     height: 24%;
     max-height: 90px;
     display: inline;
