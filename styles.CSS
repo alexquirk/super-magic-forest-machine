@@ -474,6 +474,10 @@ body {
     opacity: 0;
 }
 
+.inventorybutton:focus {
+    opacity: 0;
+}
+
 #rockbutton {
     width: 7%;
     top: 70%;
