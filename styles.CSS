@@ -308,27 +308,9 @@ body {
     z-index: -2;
 }
 
-#introarrow {
-    max-height: 100%;
-    opacity: 0;
-    max-width: 100%;
-    grid-row: 1;
-    grid-column: 1;
-    top: 11%;
-    right: 8%;
-    position: absolute;
-    z-index: 50;
-    width: 7%;
-    height: auto;
-    display: none;
-    animation: introArrowFade 3s linear ;
-    animation-delay: 8s;
-    animation-fill-mode: forwards;
-}
-
 .compasstriangles {
     position: absolute;
-    z-index: 400;
+    z-index: 50;
     height: 24%;
     max-height: 90px;
     display: inline;
@@ -484,6 +466,10 @@ body {
 }
 
 .inventorybutton:focus {
+    opacity: 0;
+}
+
+.inventorybutton:active {
     opacity: 0;
 }
 

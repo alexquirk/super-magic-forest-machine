@@ -44,7 +44,6 @@
             <!-- black background -->
             <div id="blackbackground"></div>
             <!-- navigation arrows -->
-            <img id= "introarrow" src="./roomimages/introarrow.png">
             <img class="compasstriangles" id="northtriangle" src="./compasstriangles/north.png" onclick="goNorth()"><img class="compasstriangles" id="westtriangle" src="./compasstriangles/west.png" onclick="goWest()"><img class="compasstriangles" id="southtriangle" src="./compasstriangles/south.png" onclick="goSouth()"><img class="compasstriangles" id="easttriangle" src="./compasstriangles/east.png" onclick="goEast();">
             <!-- main viewer -->
             <div id="cutsceneviewer">
@@ -739,7 +738,7 @@ const ghostUnZoom = () => {
             room6Switch();
             closeInventory();
             output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span>rock</span>. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
-            inventory.push("a <span>wooden box</span>");
+            if (haveBox === false ) {inventory.push("a <span>wooden box</span>")};
         };
     };
 
@@ -1316,7 +1315,6 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         );
     };
     const room12Switch = () => {
-        document.getElementById('introarrow').style.display = "none";
         if (newGame === true) {
                 output.innerHTML = "You travel <span>east</span> along the narrow path until you arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree."
         } else if (robotAwake === false) {
@@ -2383,6 +2381,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
             case roomNum === 6 &&  ropeTaken === false &&  boatFixed === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "You find yourself on the eastern shore of a lake. The <span>boat</span> is tied to the mooring with a thick <span>rope</span>.";
+                break;
+            case roomNum === 6 &&  ropeTaken === false &&  boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('forest')||inp('around'))     :
+                output.innerHTML = "You find yourself on the eastern shore of a lake. A half-sunk <span>boat</span> is tied to a mooring with a thick <span>rope</span>.";
                 break;
             case roomNum === 6 &&  ropeTaken === true &&  boatFixed === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "You're standing on the shore of a lake. The <span>boat</span> has been pulled up onto the lakeshore.";
