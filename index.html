@@ -338,6 +338,9 @@ document.onkeydown = e => {
     }
 
 
+// the evil button
+//                       <span><button onclick='spanClick(\"XOXOX\")'>XOXOX</button></span>
+
 
 //DECLARE VARIABLES
 
@@ -518,7 +521,7 @@ const ghostUnZoom = () => {
 // INVENTORY
     const checkInventory = () => {
         if (inventory.length === 0) {
-            return "You don't have anything in your <span>pockets</span> yet.<br><br>Maybe there is something useful nearby you can <span>take</span> with you?"
+            return "You don't have anything in your pockets yet.<br><br>Maybe there is something useful nearby you can take with you."
         } else {
             let inventoryText = ["You have "];
             for (var i = 0; i < inventory.length - 1; i++) {
@@ -784,14 +787,14 @@ const robotDialogueButtonTexts = ["", //0
                             ];
     
     //robot responses
-    const robotDialogueTexts = ["You approach the strange figure, and it suddenly lights up! It stands, and speaks in a metallic voice:<br><br><span class='robot'>Wow! How long was I asleep for?</span>", //0
+    const robotDialogueTexts = ["You approach the strange figure, and it suddenly lights up. It stands, and speaks in a metallic voice:<br><br><span class='robot'>Wow! How long was I asleep for?</span>", //0
                                 "<span class='robot'>Huh. I must have slept for a while. Time is hard to tell around here.</span>", //1
                                 "<span class='robot'>Are you lost? …That’s not too surprising. A lot of lost things tend to end up here. This forest is a strange place.</span>", //2
                                 "<span class='robot'>My name is Analysis Robot TK421. But you can call me ‘Alys’ for short. A long time ago I helped the humans do some work in this forest.</span>", //3
                                 "<span class='robot'>Oh, the same thing humans are always doing, I suppose. Industry. Building. Burning. Digging things out of the ground. Using Javascript. Humans are always so busy. I think they were here studying something, but I was asleep for such a long time, I can’t quite remember.</span>", //4
                                 "<span class='robot'>I’m not sure, but if you give me a second I can scan the area for a way out.</span>", //5
                                 "<span class='robot'>It’s so odd… this forest seems to go on forever. The lake too… But there’s some kind of anomaly to the north. A dark patch… a charged space… static. I can’t tell. You should check it out. Maybe there’s a clue there that can help you find a way out of here.</span>", //6
-                                "<span class='robot'>Here, take this map. It’ll help you navigate the forest. I’m guessing there’s a reason you’re here.</span><br><br>Type \"<span>map</span>\" to view your map.", //7
+                                "<span class='robot'>Here, take this map. It’ll help you navigate the forest. I’m guessing there’s a reason you’re here.</span><br><br>Type <span>map</span> to view your map.", //7
                                 "<span class='robot'>To be honest I’m pretty drained after conducting that analysis. Besides, the static from the anomaly to the north is really messing with me. I’d better stay here for now.</span>", //8
                                 "<span class='robot'>How’s it going? Did you find anything useful?</span>", //9
                                 "<span class='robot'>I can still sense an anomaly to the north... I think it's worth checking out!</span>", //10
@@ -886,6 +889,7 @@ leaveRobotConversation = () => {
     leaveButton.style.display = "none";
     output.innerHTML = "";
     setCurrentRobotConversation();
+    robotUnZoom();
 };
 
 setCurrentRobotConversation = () => {
@@ -1016,7 +1020,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     const room1Switch = () => {
         mapArrow.style.top = "53%";
         mapArrow.style.left = "42.6%";
-        output.innerHTML = "You find yourself in a clearing in the middle of the forest, where a <span>strange wooden door</span> is standing.";
+        output.innerHTML = "You find yourself in a clearing in the middle of the forest, where a <span><button onclick='spanClick(\"inspect door\")'>strange wooden door</button></span> is standing.";
         roomVisited[2] = true;
         setTimeout(  ()=> {
             moveAllRoomsBack();
@@ -1033,9 +1037,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room2Switch = () => {
         if (roomVisited[2] === false) {
-            output.innerHTML = "The forest grows darker. Large leafy branches block out almost at the light from the fading sun.<br><br>In the middle of the clearing, the <span>glowing light</span> of countless fireflies illuminate the forest.";
+            output.innerHTML = "The forest grows darker. Large leafy branches block out almost at the light from the fading sun.<br><br>In the middle of the clearing, the glowing light of countless fireflies illuminate the forest.";
         } else {
-            output.innerHTML = "The forest is dark, but the air is filled with <span>fireflies</span>. It's rather magical.";
+            output.innerHTML = "The forest is dark, but the air is filled with fireflies. It's rather magical.";
         };
         roomVisited[2] = true;
         mapArrow.style.top = "32%";
@@ -1056,12 +1060,12 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     const room3Switch = () => {
         if (roomVisited[3] === false) { 
             if (roomNum === 1 || roomNum === 6) {
-                output.innerHTML = "The trees grow more dense as you travel through the forest.<br><br>You arrive at a shady knoll with an old <span>stump</span> in the middle.";
+                output.innerHTML = "The trees grow more dense as you travel through the forest.<br><br>You arrive at a shady knoll with an old <span><button onclick='spanClick(\"inspect stump\")'>stump</button></span> in the middle.";
             } else {
-                output.innerHTML = "You make your way <span>south</span> through the forest.<br><br>You arrive at a shady knoll with an old <span>stump</span> in the middle.";
+                output.innerHTML = "You make your way south through the forest.<br><br>You arrive at a shady knoll with an old <span><button onclick='spanClick(\"inspect stump\")'>stump</button></span> in the middle.";
             }
         } else {
-            output.innerHTML = "An old <span>tree stump</span> sits in the center of a shady knoll.";
+            output.innerHTML = "An old <span><button onclick='spanClick(\"inspect stump\")'>stump</button></span> sits in the center of a shady knoll.";
         };
         roomVisited[3] = true;
         mapArrow.style.top = "53%";
@@ -1110,13 +1114,13 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room5Switch = () => { 
         if (roomNum === 1) {
-            output.innerHTML = "You travel south until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
+            output.innerHTML = "You travel south until you arrive at at rocky <span><button onclick='spanClick(\"search lake\")'>lake shore</button></span>. The fading sunlight glistens on the calm surface.";
         } else if (roomNum === 12) {
-            output.innerHTML = "You travel east until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
+            output.innerHTML = "You travel east until you arrive at at rocky <span><button onclick='spanClick(\"search lake\")'>lake shore</button></span>. The fading sunlight glistens on the calm surface.";
         } else if (roomNum ===6 ) {
-            output.innerHTML = "You travel west until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
+            output.innerHTML = "You travel west until you arrive at at rocky <span><button onclick='spanClick(\"search lake\")'>lake shore</button></span>. The fading sunlight glistens on the calm surface.";
         } else {
-            output.innerHTML = "You arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface."
+            output.innerHTML = "You arrive at at rocky <span><button onclick='spanClick(\"search lake\")'>lake shore</button></span>. The fading sunlight glistens on the calm surface."
         };
         roomVisited[5] = true;
         mapArrow.style.top = "73%";
@@ -1136,17 +1140,17 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room6Switch = () => {
         if (ropeTaken === false && boatFixed === false && roomNum === 5)
-                {output.innerHTML = "You travel east along the lake shore until you arrive at a wooded point, where a half-sunk <span>boat</span> is tied to a mooring."}
+                {output.innerHTML = "You travel east along the lake shore until you arrive at a wooded point, where a half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
             else if (ropeTaken === false && boatFixed === false && roomNum === 3)
-                {output.innerHTML = "You travel south through the forest until you arrive at a wooded <span>shoreline</span>, where a half-sunk <span>boat</span> is tied to a mooring."}
+                {output.innerHTML = "You travel south through the forest until you arrive at a wooded shoreline, where a half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
             else if (boatFixed === false && ropeTaken === false)
-                {output.innerHTML = "You arrive at the wooded point where the half-sunk <span>boat</span> is tied to a mooring."}
+                {output.innerHTML = "You arrive at the wooded point where the half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
             else if (boatFixed === false && ropeTaken === true)
-                {output.innerHTML = "You arrive at the wooded point where the half-sunk <span>boat</span> sits in the water."}
+                {output.innerHTML = "You arrive at the wooded point where the half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> sits in the water."}
             else if (boatFixed === true && ropeTaken === false)
-                {output.innerHTML = "You arrive at the wooded point where the <span>boat</span> is tied to a mooring."}
+                {output.innerHTML = "You arrive at the wooded point where the <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
             else
-                {output.innerHTML = "You arrive at the wooded point where the <span>boat</span> sits in the water."};
+                {output.innerHTML = "You arrive at the wooded point where the <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> sits in the water."};
         roomVisited[6] = true;
         mapArrow.style.top = "73%";
         mapArrow.style.left = "55.3%";
@@ -1174,9 +1178,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     }; 
     const room7Switch = () => {
         if (firefliesReleased === false) {
-            output.innerHTML = "You make your way inside the <span>cave</span>. The light slowly fades behind you until you find yourself in almost complete <span>darkness</span>.<br><br>Soon you can barely see your hands in front of you.";
+            output.innerHTML = "You make your way inside the cave. The light slowly fades behind you until you find yourself in almost complete darkness.<br><br>Soon you can barely see your hands in front of you.";
         } else {
-            output.innerHTML = "The <span>cave</span> is filled with the light of countless <span>fireflies</span>. The strange <span>crystals</span> glow faintly.";
+            output.innerHTML = "The cave is filled with the light of countless fireflies. The strange <span><button onclick='spanClick(\"inspect crystals\")'>crystals</button></span> glow faintly.";
         };
         roomVisited[7] = true;
         mapArrow.style.top = "16%";
@@ -1207,7 +1211,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     }; 
     const room8Switch = () => {
         if (roomVisited[8] === false) {
-            output.innerHTML = "You make your way <span>west</span> through the dimly-lit cave and arrive at large grotto. A single beam of light from far above illuminates an island in the center of an underground lake.";
+            output.innerHTML = "You make your way west through the dimly-lit cave and arrive at large grotto. A single beam of light from far above illuminates an island in the center of an underground lake.";
         } else {
             output.innerHTML = "You arrive at large grotto, where single beam of light from far above illuminates an island in the center of an underground lake.";
         };
@@ -1229,9 +1233,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room9Switch = () => {
         if (roomVisited[9] === false) {
-            output.innerHTML = "A narrow path leads you <span>east</span> through the forest. The air grows stale as dried and rotting tree branches grab at your clothes.<br><br>You arrive at a murky hollow and a circle of <span>mushrooms</span>.";
+            output.innerHTML = "A narrow path leads you east through the forest. The air grows stale as dried and rotting tree branches grab at your clothes.<br><br>You arrive at a murky hollow and a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms</button></span>";
         } else {
-            output.innerHTML = "A narrow path leads you <span>east</span> through the forest.<br><br>You arrive at a murky hollow and a circle of <span>mushrooms</span>.";
+            output.innerHTML = "A narrow path leads you east through the forest.<br><br>You arrive at a murky hollow and a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms</button></span>.";
         };
         roomVisited[9] = true;
         mapArrow.style.top = "32%";
@@ -1254,22 +1258,22 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     const room10Switch = () => {
         if (roomVisited[10] === false) { 
             if (roomNum === 1) {
-                output.innerHTML = "You travel west, making your way along a wooded trail until you arrive at a <span>stone well</span>.<br><br>You wonder who made this <span>well</span>, and how long ago.";
+                output.innerHTML = "You travel west, making your way along a wooded trail until you arrive at a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.<br><br>You wonder who made this well, and how long ago.";
             } else if (roomNum === 13) {
                 output.innerHTML = "You climb back out of the well."
             } else {
-                output.innerHTML = "You arrive at a <span>stone well</span>.<br><br>You wonder who made this <span>well</span>, and how long ago.";
+                output.innerHTML = "You arrive at a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.<br><br>You wonder who made this well, and how long ago.";
             };
         } 
         else {
             if (roomNum === 1) {
-                output.innerHTML = "You travel west and find a <span>stone well</span>.";
+                output.innerHTML = "You travel west and find a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.";
             } else if (roomNum === 12) {
-                output.innerHTML = "You travel north and find a <span>stone well</span>.";
+                output.innerHTML = "You travel north and find a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.";
             } else if (roomNum === 11) {
-                output.innerHTML = "You travel south and find a <span>stone well</span>.";
+                output.innerHTML = "You travel south and find a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.";
             } else {
-                output.innerHTML = "You find yourself in front of the <span>stone well</span>."
+                output.innerHTML = "You find yourself in front of the <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>."
             };
         };
         roomVisited[10] = true;
@@ -1292,11 +1296,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     }; 
     const room11Switch = () => {
         if (roomVisited[11] === false) {
-            output.innerHTML = "You find yourself at the mouth of a large <span>cave<span>.";
+            output.innerHTML = "You find yourself at the mouth of a large cave.";
         } else if (roomNum === 7) {
-            output.innerHTML = "You follow the light back to the entrance of the <span>cave<span>."
+            output.innerHTML = "You follow the light back to the entrance of the cave."
         } else {
-            output.innerHTML = "You find yourself at the mouth of the large <span>cave</span>.";
+            output.innerHTML = "You find yourself at the mouth of the large cave.";
         };
         roomVisited[11] = true;
         mapArrow.style.top = "32%";
@@ -1314,6 +1318,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             500
         );
     };
+
     const room12Switch = () => {
         if (newGame === true) {
                 output.innerHTML = "You travel east along the narrow path until you arrive at a <span><button onclick='spanClick(\"look lake\")'>lake shore</button></span>, where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying against a large willow tree."
@@ -1372,7 +1377,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     }; 
     const room14Switch = () => { 
         if (newGame === false) {
-            output.innerHTML = "You travel <span>west</span> and return to the glade where you awoke.";
+            output.innerHTML = "You travel west and return to the glade where you awoke.";
         } else {
             output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself.<br><br>The woods around you are dense and dark. There is a narrow path leading <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
         };
@@ -1393,7 +1398,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
 
     const room15Switch = () => { 
-        output.innerHTML = "You ride the <span>boat</span> out into the lake, and arrive at an island.";
+        output.innerHTML = "You ride the boat out into the lake, and arrive at an island.";
         mapArrow.style.top = "63%";
         mapArrow.style.left = "74.5%";
         setTimeout(  ()=> {
@@ -2359,7 +2364,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 5 &&   (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))    &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')) && haveBoxKey === false  && waterSearchedOnce === false   :
                 waterSearchedOnce = true;
                 rocksZoom();
-                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy <span>something</span> shining under the water near the <span>rocks</span>.";
+                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy something shining under the water near the <span>rocks</span>.";
                 break;
             case roomNum === 5 &&  haveBoxKey === false && boxSmashed < 3 && (inp('search')||inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    (inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')||inp('water')||inp('rock')||inp("debris")||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
                 output.innerHTML = "You find a <span>key</span> in the <span>rocks</span> by the shore. You put the <span>key</span> in your <span>pocket</span>.";
@@ -2886,6 +2891,9 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 12 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
+                break;
+            case roomNum === 12  &&  robotAwake === false  &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('shore'))     :
+                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.<br><br>The <span><button onclick='spanClick(\"talk robot\")'>metallic figure</button></span> catches your eye.";
                 break;
 
             // ROOM 15
@@ -3611,10 +3619,8 @@ const spanClick = (whatToDo) => {
     const pressEnter = () => {
         // clear placeholder on input form
         userInput.placeholder = "";
-        // bring back placeholder after 20 seconds
-        setTimeout(function() {userInput.placeholder = "type something"}, 20000)
         // new placeholder after a bit
-        setTimeout(function() {userInput.placeholder = "type: get hint"}, 40000)
+        setTimeout(function() {userInput.placeholder = "type: get hint"}, 50000)
         // make button flash
         whiteButtonFlash(enterButton);
         let fem = document.getElementById('userinput').value;
