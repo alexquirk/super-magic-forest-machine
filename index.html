@@ -273,12 +273,18 @@ document.onkeydown = e => {
             inputArea.style.display = "flex";
             output.style.display = 'block';
             output.style.opacity = "0";
+            outputArea.style.zIndex = "-1";
+            // bring the output back to the top (we pushed it to the back above because it looked weird over the viewbox while stuff was moving around)
+            setTimeout(function() { 
+                outputArea.style.zIndex = "0";
+                }, 
+                2000);
                 // how long till the text appears
             setTimeout(function() { 
                 output.style.opacity = "1";
                 output.classList.add('textfadein'); 
                 }, 
-                1500);
+                1400);
             // move the viewbox around
             viewbox.style.top = "0%";
             viewbox.style.transform = "translate(0, 0%)";
