@@ -1658,63 +1658,63 @@ const spanClick = (whatToDo) => {
         // GET HINT
                 // initial hints
             case (inp("hint") || inp("help") || inp("clue")) && firstHint === false && haveBox === false && ropeTaken === false && haveBoxKey === false && roomVisited[5] === false && roomVisited[3] === false && roomVisited[10] === false && roomVisited[4] === false    :
-                output.innerHTML = "There is something strange about this place...<br><br>You can type commands like \"<span>look around</span>\", \"<span>walk</span>\" in a direction, or \"<span>look</span>\" at something.<br><br>You can also try to put some objects in your pockets, or type \"<span>pockets</span>\" to see what you've picked up so far. Important items are often highligheted <span>in red</span>.";
+                output.innerHTML = "There is something strange about this place...<br><br>You can type commands like <span><button onclick='spanClick(\"look around\")'>look around</button></span>, <span><button onclick='spanClick(\"walk east\")'>walk east</button></span>, or interact with things around you.";
                 firstHint = true;
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && thingsTriedSinceLastBigThing < 6 && haveBox === false && ropeTaken === false && haveBoxKey === false && roomVisited[5] === false && roomVisited[3] === false && roomVisited[10] === false && roomVisited[4] === false :
-                output.innerHTML = "You can type commands like \"<span>look around</span>\", \"<span>walk</span>\" in a direction, or \"<span>look</span>\" at something.<br><br>You can also try to put some objects in your pockets, or type \"<span>pockets</span>\" to see what you've picked up so far. Important items are often highligheted in <span>this shade of red</span>";
+                output.innerHTML = "You can type commands like <span><button onclick='spanClick(\"look around\")'>look around</button></span>, <span><button onclick='spanClick(\"walk east\")'>walk east</button></span>, or interact with things around you.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) &&  roomVisited[10] === false  && roomVisited [5] === false:
-                output.innerHTML = "There's a lot of forest to explore! You can type to walk in a direction, or click the arrows in the corners of the screen above.";
+                output.innerHTML = "There's a lot of forest to explore... you can travel quickly by clicking the arrows in the corners of the screen above.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && inventory.length === 0 :
-                output.innerHTML = "The objects around you can be interacted with. Try typing \"<span>pick up rock</span>\".<br><br>You can also type \"<span>check pockets</span>\" to see what items you've picked up so far.";
+                output.innerHTML = "The objects around you can be interacted with. Try typing <span><button onclick='spanClick(\"take rock\")'>pick up a rock</button></span>, then type <span><button onclick='spanClick(\"check pockets\")'>check pockets</button></span> to see what items you've picked up so far.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === false &&  boxUnlocked === false && roomNum !== 12 && roomNum !== 5 && roomNum !== 6:
-                output.innerHTML = "You can travel around the forest by typing things like <span>go north</span>.<br><br>You can also get around by clicking on the triangles in the corners of the screen above.";
+                output.innerHTML = "You can travel around the forest by typing things like <span><button onclick='spanClick(\"go north\")'>go north</button></span>.<br><br>You can also move around quickly by clicking on the triangles in the corners of the screen above.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === false &&  boxUnlocked === false :
-                output.innerHTML = "It's always helpful to <span>look around</span> any time you arrive in a new area.<br><br>You can move around the forest quickly by clicking on triangles in the corners of the screen above.";
+                output.innerHTML = "It's always helpful to <span><button onclick='spanClick(\"look around\")'>look around</button></span> any time you arrive in a new area.<br><br>You can move around the forest quickly by clicking on triangles in the corners of the screen above.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === true && haveBox === false && triedKeyOnDoor === false &&  boxUnlocked === false:
-                output.innerHTML = "You found a <span>key</span>!<br><br>I bet it unlocks something nearby.";
+                output.innerHTML = "You found a key!<br><br>Maybe it unlocks something nearby.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === true && haveBox === false && triedKeyOnDoor === true &&  boxUnlocked === false:
-                output.innerHTML = "Welp, looks like this is the wrong <span>key</span> for the <span>door</span>...<br><br>Maybe this <span>key</span> fits something else nearby<br><br>You can type \"<span>hint</span>\" if you get stuck.";
+                output.innerHTML = "Looks like this is key doesn't fit the lock on the door...<br><br>Maybe it fits something else nearby.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === true &&  boxUnlocked === false && thingsTriedSinceLastBigThing < 80 :
-                output.innerHTML = "You can hear something inside the <span>box</span> when you shake it. There has to be a way to open it! Maybe the <span>key</span> is nearby.";
+                output.innerHTML = "You shake the box, and can hear something inside. There has to be a way to open it...";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === true &&  boxUnlocked === false && thingsTriedSinceLastBigThing < 100 :
-                output.innerHTML = "I'm sure you can get this <span>box</span> open somehow!";
+                output.innerHTML = "I'm sure you can get this box open somehow!";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === true &&  boxUnlocked === false :
-                output.innerHTML = "There has to be a way to open this <span>box</span>...";
+                output.innerHTML = "There has to be a way to open this box...";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === false && haveBox === true && haveBoxKey === true:
-                output.innerHTML = "Type \"<span>pockets</span>\" to see what you have with you.";
+                output.innerHTML = "Try checking your <span><button onclick='spanClick(\"check pockets\")'>pockets</button></span> to see what you have with you.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && boxSmashed < 3 && haveFireflies === false && firefliesReleased === false && thingsTriedSinceLastBigThing < 20:
-                output.innerHTML = "You used the key to open <span>box</span>, but there was only a <span>red ribbon</span> inside.";
+                output.innerHTML = "You used the key to open box, and there was a red ribbon inside.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && haveFireflies === false && firefliesReleased === false && boxSmashed > 2 && (thingsTriedSinceLastBigThing < 10 || sassyHint === false):
-                output.innerHTML = "You really think I'm gonna give you a hint after you smashed the <span>box</span> like that? HA.<br><br>This one's on you.";
+                output.innerHTML = "You really think I'm gonna give you a hint after you smashed the box like that? HA.<br><br>This one's on you.";
                 sassyHint = true;
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && haveFireflies === false && firefliesReleased === false && boxSmashed > 2  && thingsTriedSinceLastBigThing < 20:
-                output.innerHTML = "I told you I wasn't gonna give you a hint.<br><br>Shouldn't've smashed the <span>box</span>";
+                output.innerHTML = "I told you I wasn't gonna give you a hint.<br><br>Shouldn't've smashed the box.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && haveFireflies === false && firefliesReleased === false && boxSmashed > 2  && thingsTriedSinceLastBigThing > 19:
-                output.innerHTML = "Ok fine. Here's a hint: something in your pockets can be used to help explore an <span>area</span>. That's all I'm gonna say.";
+                output.innerHTML = "Ok fine. Here's a hint: something in your pockets can be used to help explore an area nearby. That's all I'm gonna say.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && boxSmashed < 3 && haveFireflies === false && firefliesReleased === false && thingsTriedSinceLastBigThing > 19 && roomVisited[7] === false:
                 output.innerHTML = "Try exploring!";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && boxSmashed < 3 && haveFireflies === false && firefliesReleased === false && thingsTriedSinceLastBigThing > 19:
-                output.innerHTML = "There is something strange about that <span>cave</span>... Maybe you can find a way to <span>light it up</span>?";
+                output.innerHTML = "There is something strange about that cave... Maybe you can find a way to light it up?";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && firefliesReleased === true && robotAwake === false :
-                output.innerHTML = "You used the <span>fireflies</span> to light up the <span>cave</span>, and found it was full of <span>strange crystals</span>.";
+                output.innerHTML = "You used the fireflies to light up the cave, and found it was full of strange crystals.";
                 break;
             case (inp("hint") || inp("help") || inp("clue"))  :
                 output.innerHTML = "You got this!";
@@ -1723,12 +1723,14 @@ const spanClick = (whatToDo) => {
         // MAP CHECKING
             case inp('map') :
                 if (haveMap === true) {
-                    output.innerHTML = "You open your <span>map</span>.<br><br>Press 'ENTER' to return."
+                    output.innerHTML = "You open your map.<br><br>Press 'ENTER' to return."
                     userInput.value = "";
+                    endCutscene();
+                    closeInventory();
                     checkMap();
                     break;
                 } else {
-                    output.innerHTML = "Don't have a <span>map</span>."
+                    output.innerHTML = "Don't have a map."
                     userInput.value = "";
                     break;
                 };
@@ -1796,7 +1798,7 @@ const spanClick = (whatToDo) => {
                         break;
                     case 7:
                         if (firefliesReleased === false) {
-                            output.innerHTML = "If you go any further you will lose yourself in the <span>darkness</span>."
+                            output.innerHTML = "If you go any further you'll get lost in the darkness."
                         } else {
                             output.innerHTML = "There's nowhere to go that way."
                         };
@@ -1845,7 +1847,7 @@ const spanClick = (whatToDo) => {
                         break;
                     case 7:
                         if (firefliesReleased === false) {
-                            output.innerHTML = "If you go any further you will lose yourself in the <span>darkness</span>."
+                            output.innerHTML = "If you go any further you'll get lost in the darkness."
                         } else {
                             output.innerHTML = "There's nowhere to go that way."
                         };
@@ -1875,7 +1877,7 @@ const spanClick = (whatToDo) => {
                     case 12:
                         room14Switch();
                         goWestAnimation();
-                        output.innerHTML = "You travel <span>west</span> and return to the glade where you awoke.";
+                        output.innerHTML = "You travel west and return to the glade where you awoke.";
                         break;
                     case 3:
                         room1Switch();
@@ -1907,7 +1909,7 @@ const spanClick = (whatToDo) => {
                         break;
                     case 7:
                         if (firefliesReleased === false) {
-                            output.innerHTML = "If you go any further you will lose yourself in the <span>darkness</span>."
+                            output.innerHTML = "If you go any further you'll get lost in the darkness."
                         } else {
                             room8Switch();
                             goWestAnimation();
@@ -1967,7 +1969,7 @@ const spanClick = (whatToDo) => {
 
             // SPECIAL CASE FOR ROOM 10 BECAUSE OF GOING "DOWN" THE WELL
             case roomNum === 10 && inp("go")   &&    inp('down')  && ropeSet === true  :
-                output.innerHTML = "You test the <span>rope</span>, and then carefully lower yourself into the <span>well</span>...";
+                output.innerHTML = "You test the rope, and then carefully lower yourself into the well...";
                 room13Switch();
                 break;
             case roomNum === 10 && ((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    (inp('down')))  || inp('south')  :
@@ -1985,20 +1987,20 @@ const spanClick = (whatToDo) => {
             
             // ROOM 14
             case  inp('where') && inp('am') && inp(' i') && roomNum === 14 :
-                output.innerHTML = "It's twilight. You're standing in a forest clearing, but you're not sure how you got here.<br><br>The ground is littered with beautiful <span>blue flowers</span>, and there is a narrow path leading <span>east</span>.";
+                output.innerHTML = "It's twilight. You're standing in a forest clearing, but you're not sure how you got here.<br><br>The ground is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span>, and there is a narrow path leading <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
                 break;
             case roomNum === 1 && doorInspected === false && (inp('door')||inp('open')||inp('lock')||inp('frame')||inp('handle')||inp('knob')):
                 doorInspected = true;
                 playOwlCutscene();
                 break;
             case roomNum === 14 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))  && (newGame === true || inventory.length === 0 ) :
-                output.innerHTML = "The glade is littered with beautiful <span>blue flowers</span>.<br><br>Type \"<span>pick flower</span>\" to put one in your <span>pockets</span>.<br><br>A narrow path leads <span>east</span> out of the glade.";
+                output.innerHTML = "The glade is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span>.<br><br>A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> out of the glade.";
                 break;
             case roomNum === 14 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around')) :
-                output.innerHTML = "The glade is littered with beautiful <span>blue flowers</span>.<br><br>A narrow path leads <span>east</span> out of the glade.";
+                output.innerHTML = "The glade is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span>.<br><br>A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> out of the glade.";
                 break;
             case roomNum === 14 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
-                output.innerHTML = "The ground is covered in <span>blue flowers>. There are some <span>rocks</span> strewn about too.";
+                output.innerHTML = "The ground is covered in <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span>. There are some <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> strewn about too.";
                 break;
             case roomNum === 14 &&   ( inp('jump') || inp('hop'))|| inp('fence') :
                 output.innerHTML = "You start to jump the fence, but you suddenly realize that there's literally nothing on the other side, because nothing was programmed there, and you would simply float through a spaceless void for eternity.<br><br>You decide to stay on this side of the fence.";
@@ -2011,24 +2013,24 @@ const spanClick = (whatToDo) => {
                     // playFirstCutscene();
                     firstCutscene = true;
                 }
-                output.innerHTML = "It's twilight. The <span>strange door</span> is standing in a grassy clearing surrounded by <span>trees</span> and scattered <span>rocks</span> and <span>flowers</span>.<br><br>To the <span>north</span> and <span>east</span> the forest grows dark and dense. To the <span>south</span>, you can hear the distant sound of water. To the <span>northwest</span> you can see a rocky outcropping.<br><br>Type \"<span>hint</span>\" if you get stuck.";
+                output.innerHTML = "It's twilight. The <span><button onclick='spanClick(\"inspect door\")'>strange door</button></span> is standing in a grassy clearing surrounded by trees.<br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span> and <span><button onclick='spanClick(\"go east\")'>east</button></span> the forest grows dark and dense. To the <span><button onclick='spanClick(\"go south\")'>south</button></span>, you can hear the distant sound of water.";
                 break;
             case roomNum === 1 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass, with scattered <span>rocks</span> and <span>flowers</span>.";
                 break;
                 // try to open door
             case roomNum === 1 && doorUnlocked === false && haveBoxKey === false &&    (inp('open')||inp('try')||inp('use'))    &&    (inp('door')||inp('handle')||inp("knob"))  :
-                output.innerHTML = "The <span>door</span> is locked.";
+                output.innerHTML = "The door is locked.";
                 doorZoom();
                 break;
             case roomNum === 1   &&  doorUnlocked === false  && haveBoxKey === true && triedKeyOnDoor === false&&    (inp('unlock')||inp('key')||inp('open')||inp('try')||inp('use'))   &&    (inp('door')||inp('handle')||inp('knob'))  :
-                output.innerHTML = "You try to unlock the <span>door</span> with the <span>key</span> you found down by the lake... but it doesn't fit the lock.<br><br>Darn it! Guess it isn't going to be that easy.<br><br>Maybe this <span>key</span> fits something else.";
+                output.innerHTML = "You try to unlock the door with the key you found down by the lake...<br><br>but it doesn't fit the lock.<br><br>Maybe this key fits something else.";
                 triedKeyOnDoor = true;
                 doorZoom();
                 break;
             case roomNum === 1    &&  doorUnlocked === false  && haveBoxKey === true  &&    (inp('unlock')||inp('key')||inp('open')||inp('try')||inp('use'))   &&    (inp('door')||inp('handle')||inp('knob'))  :
                 doorZoom();
-                output.innerHTML = "You try to unlock the <span>door</span> with the <span>key</span> you found down by the lake, but it doesn't fit the lock.<br><br>Now that you look closer, the <span>key</span> is shiny silver, but the lock on the <span>door</span> is a dull iron.<br><br>Maybe this <span>key</span> fits something else nearby.";
+                output.innerHTML = "You try to unlock the door with the key you found down by the lake, but it doesn't fit the lock.<br><br>Now that you look closer, the key is shiny silver, but the lock on the door is a dull iron.<br><br>Maybe this key fits something else nearby.";
                 break;
             case roomNum === 1    &&  doorUnlocked === false  &&    inp('unlock')   &&    (inp('door')||inp('handle'))   :
                 output.innerHTML = "You don't have the <span>key</span>. Maybe it's nearby?";
@@ -2040,11 +2042,11 @@ const spanClick = (whatToDo) => {
                 doorZoom();
                 break;
             case roomNum === 1 &&    (inp('beyond'))    &&    (inp('door')||inp('frame'))     :
-                output.innerHTML = "You press your hand against the <span>door</span> and a chill goes up your spine.<br><br>There must be a way to open it...<br><br>Type commands below to explore the forest. You can move around quicker by tapping the corners of the screen above.<br><br>Don't forget to type<span>look around</span> when you enter a new area.";
+                output.innerHTML = "You press your hand against the door, and a chill goes up your spine.<br><br>There must be a way to open it...";
                 doorZoom();
                 break;
             case roomNum === 1 &&    (inp('behind')||inp('other side'))    &&    (inp('door')||inp('frame'))     :
-                output.innerHTML = "You walk all the way around the <span>door frame</span>, but it's not connected to anything.";
+                output.innerHTML = "You walk all the way around the door frame, but it's not connected to anything besides the ground.";
                 doorZoom();
                 break;
             case roomNum === 1 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('try')||inp('what'))   &&    (inp('lock')||inp('handle')||inp('knob'))     :
@@ -2053,7 +2055,7 @@ const spanClick = (whatToDo) => {
                 break;
                 // weird attemps
             case roomNum === 1 &&  inp ("ask") && inp('please') :
-                output.innerHTML = "You ask the <span>door</span> nicely to open, but nothing happens. You feel kind of silly for talking to a door.";
+                output.innerHTML = "You ask the door nicely to open, but nothing happens. You feel kind of silly for talking to a door.";
                 doorZoom();
                 break;
             case roomNum === 1 &&  inp ("sesame") :
@@ -2064,7 +2066,7 @@ const spanClick = (whatToDo) => {
                 doorZoom();
                 break;
             case roomNum === 1 &&  inp ("flower") && inp('door'):
-                output.innerHTML = "You offer the <span>door</span> a <span>flower</span>, but it doesn't seem interested.";
+                output.innerHTML = "You offer the door a flower, but it doesn't seem interested.";
                 doorZoom();
                 break;
             case roomNum === 1 &&    inp('knock') :
@@ -2075,14 +2077,14 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "Lol you thought";
                 break;
             case roomNum === 1  && doorUnlocked === false&&    (inp('take')||inp('grab')||inp('pocket'))    &&    (inp('door')||inp('handle')||inp("knob"))    :
-                output.innerHTML = "You don't have magical pockets, just regular ones. so the <span>door</span> probably isn't going to fit. Besides, it's pretty solid and doesn't look like it's going to be easily moved.";
+                output.innerHTML = "You don't have magical pockets, just regular ones. so the door probably isn't going to fit. Besides, it's pretty solid and doesn't look like it's going to be easily moved.";
                 break;
             case roomNum === 1  && doorUnlocked === false &&    (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('kick')||inp('ram ')||inp('bust')||inp('bash')||inp('punch'))    &&    (inp('door')||inp('handle')||inp("knob"))   :
-                output.innerHTML = "You pick up a <span>rock</span> and give the <span>door</span> a real good whack. Seriously, you wind up and really lean into it.<br><br>But the <span>door</span> doesn't budge. You didn't even really dent the wood. That's a bummer.<br><br>Can doors can be angry? This <span>door</span> seems angry.";
+                output.innerHTML = "You pick up a rock and give the door a real good whack. Seriously, you wind up and really lean into it.<br><br>But the door doesn't budge. You didn't even really dent the wood. That's a bummer.<br><br>Can doors can be angry? This door seems angry.";
                 doorZoom();
                 break;
             case roomNum === 1 &&    (inp('thru') || inp('through') || inp('walk') || inp('into') || (inp('in')&&inp('to'))) && inp('door'):
-                output.innerHTML = "The <span>door</span> is closed. You try the handle, but it's locked.";
+                output.innerHTML = "The door is closed. You try the handle, but it's locked.";
                 doorZoom();
                 break;
             case roomNum === 1 && inp('pick') && inp('lock') :
@@ -2091,51 +2093,51 @@ const spanClick = (whatToDo) => {
                 break;
                 // catch-all for door
             case roomNum === 1 && inp('door') :
-                output.innerHTML = "The <span>door</span> is made of a dark wood, and it's <span>handle</span> and <span>lock</span> are iron. It's worn, but sturdy. Something tells you it's been here a long time.";
+                output.innerHTML = "The door is made of a dark wood, and it's handle and lock are iron. It's worn, but sturdy. Something tells you it's been here a long time.";
                 doorZoom();
                 break;
             case roomNum === 1 && doorUnlocked === false && (inp('knob')||inp('handle')) :
-                output.innerHTML = "You try the <span>door knob</span>, but it's locked.";
+                output.innerHTML = "You try the door knob, but it's locked.";
                 doorZoom();
                 break;
             case roomNum === 1 && inp('lock') && haveBoxKey === false:
-                output.innerHTML = "You wiggle the handle, but the <span>door</span> is securely locked.";
+                output.innerHTML = "You wiggle the handle, but the door is securely locked.";
                 doorZoom();
                 break;
             case roomNum === 1 && inp('lock') && haveBoxKey === true:
-                output.innerHTML = "You try to use the <span>silver key</span> to unlock the door, but it doesn't fit. Drat.";
+                output.innerHTML = "You try to use the silver key to unlock the door, but it doesn't fit. Drat.";
                 doorZoom();
                 break;
 
             // ROOM 3
             case roomNum === 3 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "The forest is a bit darker here. There is a <span>stump</span> in the middle of the clearing with an old discarded <span>notebook</span> alongside.<br><br>To the <span>north</span>, an overgrown path leads deeping into the forest. To the <span>south</span> you can hear the sound of running water.<br><br>The forest is too dense to travel any further east from here.";
+                output.innerHTML = "The forest is a bit darker here. There is a <span><button onclick='spanClick(\"inspect stump\")'>stump</button></span> in the middle of the clearing with an old discarded <span><button onclick='spanClick(\"read journal\")'>notebook</button></span> alongside.<br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, an overgrown path leads deeping into the forest. To the <span><button onclick='spanClick(\"go south\")'>south</button></span> you can hear the sound of running water.<br><br>The forest is too dense to travel any further east from here.";
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('behind')||inp('under')||inp('what'))    &&    (inp('stump'))   && foundBook === true  :
                 output.innerHTML = "Looks like a good place to sit and rest. You wonder how long ago the tree was cut down, but you're stumped.";
                 stumpZoom();
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))    &&    (inp('book')||inp('journal')||inp('diary'))   && foundBook === true  :
-                output.innerHTML = "The <span>journal</span> has a worn leather cover.<br><br>The pages inside are water damaged, but the hand-written ink is still legibled.<br><br>There's no title, and no author.";
+                output.innerHTML = "The journal has a worn leather cover.<br><br>The pages inside are water damaged, but the hand-written ink is still legibled.<br><br>There's no title, and no author.";
                 showBookButton("> Read Journal?");
                 stumpZoom();
                 readingAsk = true;
                 break;
             case roomNum === 3 &&    (inp('read') ||inp('pick'))   &&    (inp('book')||inp('journal')||inp('diary'))   :
-                output.innerHTML = "You reach for the <span>journal</span>."
+                output.innerHTML = "You reach for the journal."
                 showBookButton("> Read Journal?");
                 stumpZoom();
                 readingAsk = true;
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))    &&    (inp('book')||inp('journal')||inp('diary'))   && foundBook === false  :
-                output.innerHTML = "There's a <span>book</span> on the ground in front of the stump. It looks like somebody used this spot to sit and read or write.";
+                output.innerHTML = "There's a book on the ground in front of the stump. It looks like somebody used this spot to sit and read or write.";
                 showBookButton("> Read Journal?");
                 stumpZoom();
                 readingAsk = true;
                 foundBook = true;
                 break;
             case roomNum === 3 &&    (inp('take')||inp('grab')||inp('pocket'))    &&    (inp('book')||inp('journal')||inp('diary'))   :
-                output.innerHTML = "The <span>book</span> seems rather personal. You decide to leave it here in case somebody comes back for it.";
+                output.innerHTML = "The book seems rather personal. You decide to leave it here in case somebody comes back for it.";
                 showBookButton("> Read Journal?");
                 readingAsk = true;
                 foundBook = true;
@@ -2146,31 +2148,31 @@ const spanClick = (whatToDo) => {
                 stumpZoom();
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
-                output.innerHTML = "The ground is covered in grass, with scattered rocks and flowers.<br><br>There is a <span>old book</span> on the ground near the stump.";
+                output.innerHTML = "The ground is covered in grass, with scattered rocks and flowers.<br><br>There is an <span><button onclick='spanClick(\"read journal\")'>old book</button></span> on the ground near the stump.";
                 break;
             case roomNum === 3 &&    inp('stump')  :
-                output.innerHTML = "There's a <span>book</span> on the ground in front of the stump. It looks like somebody used this spot to sit and read or write.";
+                output.innerHTML = "There's a <span><button onclick='spanClick(\"read journal\")'>book</button></span> on the ground in front of the stump. It looks like somebody used this spot to sit and read or write.";
                 foundBook = true;
                 stumpZoom();
                 break;
 
             // ROOM 2
             case roomNum === 2 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "The forest is dark and overgrown here, and the the air is filled with <span>fireflies</span> that bathe the woods in a warm light.<br><br>To the <span>east</span>, a narrow path leads down into a murky hollow. A wooded glen lies to the <span>west</span>.";
+                output.innerHTML = "The forest is dark and overgrown here, and the the air is filled with fireflies that bathe the woods in a warm light.<br><br>To the <span><button onclick='spanClick(\"go east\")'>east</button></span>, a narrow path leads down into a murky hollow. A wooded glen lies to the <span><button onclick='spanClick(\"go west\")'>west</button></span>.";
                 if (firefliesSeen === false) {
                     //playFireflyCutscene();
                     firefliesSeen = true;
                 };
                 break;
             case roomNum === 2 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('what'))    &&    (inp('fire'))     :
-                output.innerHTML = "You've never seen <span>fireflies</span> this bright before! They illuminate the whole forest.";
+                output.innerHTML = "You've never seen fireflies this bright before! They illuminate the whole forest.";
                 if (firefliesSeen === false) {
                     //playFireflyCutscene();
                     firefliesSeen = true;
                 };
                 break;
             case roomNum === 2 && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
-                output.innerHTML = 'You catch a <span>firefly</span>, and very carefully put it in the <span>box</span> and close the lid.<br><br>You catch another, and another... and pretty soon the <span>box</span> is full of <span>fireflies</span>!';
+                output.innerHTML = 'You catch a firefly, and very carefully put it in your box and close the lid.<br><br>You catch another, and another... and pretty soon the box is full of fireflies!';
                 removeItem("a <span>wooden box</span>");
                 removeItem("a <span>smashed-up box</span>");
                 inventory.push("a <span>box of fireflies</span>");
@@ -2178,16 +2180,16 @@ const spanClick = (whatToDo) => {
                 switchChestRopeImage();
                 break;
             case roomNum === 2 && (inp('box')||inp('chest')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  haveFireflies === true :
-                output.innerHTML = 'The <span>box</span> is already full of <span>fireflies</span>!';
+                output.innerHTML = 'The box is already full of fireflies!';
                 break;
             case (roomNum === 2 || (roomNum === 7 && firefliesReleased === true)) && (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire') && (inp('mug')||inp('cup')) && haveMug === true  :
-                output.innerHTML = 'You catch a <span>firefly</span> and put it in the <span>mug</span>, but as soon as you take your hand away it flies away.<br><br>Maybe there is something else nearby you can keep the <span>fireflies</span> in.';
+                output.innerHTML = 'You catch a firefly and put it in the mug, but as soon as you take your hand away it flies away.<br><br>Maybe there is something else nearby you can keep the fireflies in.';
                 break;
             case roomNum === 2 && (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === false  :
-                output.innerHTML = 'After a couple attempts, you catch a <span>firefly</span> in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"If only I had somewhere to keep it," you think.';
+                output.innerHTML = 'After a couple attempts, you catch a firefly in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"If only I had somewhere to keep it," you think.';
                 break;
             case roomNum === 2 && (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === true  :
-                output.innerHTML = 'After a couple attempts, you catch a <span>firefly</span> in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"I bet I could keep some of them in this <span>box</span> if I get it open," you think.';
+                output.innerHTML = 'After a couple attempts, you catch a firefly in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"I bet I could keep some of them in this box if I get it open," you think.';
                 break;
             case roomNum === 2 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
@@ -2196,13 +2198,13 @@ const spanClick = (whatToDo) => {
             // ROOM 4
                 // look around
             case roomNum === 4   && catDiscovered === false   &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around')) :
-                output.innerHTML = "A big tree stands in the middle of a wooded glade.<br><br><span>Something</span> is rustling around up in the tree's branches...<br><br>To the <span>south</span>, you can see the clearing with the <span>strange door</span>. Paths going <span>west</span> and <span>east</span> lead deeper into the forest.<br><br>The forest is too dense to go further north.";
+                output.innerHTML = "A big tree stands in the middle of a wooded glade.<br><br><span><button onclick='spanClick(\"search tree\")'>Something</button></span> is rustling around up in the tree's branches...<br><br>To the <span><button onclick='spanClick(\"go south\")'>south</button></span>, you can see the clearing with a strange door. Paths going <span><button onclick='spanClick(\"go west\")'>west</button></span> and <span><button onclick='spanClick(\"go east\")'>east</button></span> lead deeper into the forest.<br><br>The forest is too dense to go further north.";
                 break;
             case roomNum === 4    && marbleDown === false   &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))  :
-                output.innerHTML = "A big tree with a <span>cat</span> in it standing the middle of the glade.";
+                output.innerHTML = "A big tree with a cat in it standing the middle of the glade.";
                 break;
             case roomNum === 4 &&   marbleReunited === false &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))   :
-                output.innerHTML = "The black and white <span>cat</span> is playing with the <span>ribbon</span> under the big tree.";
+                output.innerHTML = "The black and white cat is playing with the ribbon under the big tree.";
                 break;
             case roomNum === 4 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))   :
                 output.innerHTML = "A big tree stands in the middle of the glade.";
@@ -2219,29 +2221,29 @@ const spanClick = (whatToDo) => {
                 haveRibbon = false;
                 removeItem("a <span>red ribbon</span>");
                 room4Switch();
-                output.innerHTML = "The moment you pull the <span>red ribbon</span> out of your pocket, the <span>cat</span> perks up.<br><br>You start to wave the <span>ribbon</span> around, and the <span>cat</span> leaps from the tree!";
+                output.innerHTML = "The moment you pull the red ribbon out of your pocket, the cat perks up.<br><br>You start to wave the ribbon around, and the cat leaps from the tree!";
                 break;
             case ( (roomNum === 4 && marbleDown === true) || ( roomNum === 12 && marbleReunited === true ) ) &&  (   inp('play')  ||  (inp('cat')||inp('use')) && inp('ribbon')   ) :
-                output.innerHTML = "You grab the <span>ribbon</span> and wave it around for the <span>cat</span>. Is there anything better than this?";
+                output.innerHTML = "You grab the ribbon and wave it around for the cat. Is there anything better than this?";
                 break;
             case roomNum === 4 && marbleDown === true && marbleReunited === false && (inp('pet')||inp('stroke')||inp('purr')||inp('scratch')||inp('rub')||inp('scritch'))  :
-                output.innerHTML = "The <span>cat</span> leans up against you leg and begins to purr.<br><br>+40 points";
+                output.innerHTML = "The cat leans up against you leg and begins to purr.<br><br>+40 points";
                 break;
                 // attempts at play
             case roomNum === 4  && marbleDown === false && haveFlower === true  &&    (inp('play')||inp('cat') )  &&    inp('flower')   :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "You use the <span>flower</span> to try to get the <span>cat's</span> attention. It seems vaguely interested for a moment, but quickly loses interest.<br><br>Maybe you can find something it likes more to play with.";
+                output.innerHTML = "You use the flower to try to get the cat's attention. It seems vaguely interested for a moment, but quickly loses interest.<br><br>Maybe you can find something it likes more to play with.";
                 break;
             case roomNum === 4   && marbleDown === false  && haveRibbon === true   &&    inp('play')   &&    inp('cat')    :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "You try to get the attention of the <span>cat</span>, but it doesn't seem that interested in you.<br><br>Maybe you have <span>something</span> in your pockets it would like to play with?";
+                output.innerHTML = "You try to get the attention of the cat, but it doesn't seem that interested in you.<br><br>Maybe you have something in your pockets it would like to play with?";
                 break;
             case roomNum === 4    && marbleDown === false   &&    inp('play')   &&    inp('cat')  :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "You try to get the attention of the <span>cat</span>, but it doesn't seem that interested in you.<br><br>Maybe you can find <span>something</span> to play with...";
+                output.innerHTML = "You try to get the attention of the cat, but it doesn't seem that interested in you.<br><br>Maybe you can find something to play with...";
                 break;
             case roomNum === 4 && marbleDown === false &&  (inp('pet')||inp('stroke')||inp('purr')||inp('scratch')||inp('rub')||inp('scritch'))  :
                 output.innerHTML = "If only you could reach :(";
@@ -2251,22 +2253,22 @@ const spanClick = (whatToDo) => {
             case roomNum === 4    && marbleDown === false && haveRope === true  &&    inp('rope')   :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "You toss one end of the <span>rope</span> up to the <span>cat</span>, but it doesn't really seem interested.";
+                output.innerHTML = "You toss one end of the rope up to the cat, but it doesn't really seem interested.";
                 break;
             case roomNum === 4    && marbleDown === false && haveRope === true  &&  (  inp('call') || inp('here kitt') || (inp('come')&&inp('down')) ) :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "Your best efforts at summoning the <span>cat</span> are entirely in vain.";
+                output.innerHTML = "Your best efforts at summoning the cat< are entirely in vain.";
                 break;
             case roomNum === 4    && marbleDown === false && haveRope === true  &&   ( inp('get')||inp('take')) && inp('cat')  :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "The <span>cat</span> doesn't seem like it wants to go anywhere.";
+                output.innerHTML = "The cat doesn't seem like it wants to go anywhere.";
                 break;
             case roomNum === 4    && marbleDown === false && haveRope === true  &&   ( inp('ask')||inp('please')||inp('plead')||inp('beg') ) :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "You ask the <span>cat</span> nicely to come down. It just rolls it's eyes.";
+                output.innerHTML = "You ask the cat nicely to come down. It just rolls it's eyes.";
                 break;
             case roomNum === 4    && marbleDown === false && haveRope === true  &&    (inp('shake') ||inp('push') ||inp('jostle')) :
                 catDiscovered = true;
@@ -2276,17 +2278,17 @@ const spanClick = (whatToDo) => {
             case roomNum === 4    && marbleDown === false && haveRope === true  &&    inp('sneak')   :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "You tip-toe towards the tree and, quietly as you can, start to climb, but your foot snaps a twig.<br><br>The <span>cat</span> swats at you and you lose your footing and come crashing down. Ouch!";
+                output.innerHTML = "You tip-toe towards the tree and, quietly as you can, start to climb, but your foot snaps a twig.<br><br>The cat swats at you and you lose your footing and come crashing down. Ouch!";
                 break;
             case roomNum === 4 &&   marbleDown === false  && marbleReunited === false && inp('talk')  :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "The <span>cat</span> doesn't really seem interested in talking.";
+                output.innerHTML = "The cat doesn't really seem interested in talking.";
                 break;
             case roomNum === 4  && marbleDown === false &&  (inp('throw')||inp('toss')||inp('hit')||inp('kill'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "You throw a <span>rock</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.<br><br>-50 points";
+                output.innerHTML = "You throw a rock at the cat like the big jerk you are. The cat dodges out of the way and hisses, while the universe silently judges you.<br><br>-50 points";
                 break;
             case roomNum === 4  && marbleDown === false &&  (inp('throw')||inp('toss')||inp('hit')||inp('chuck'))   ||    (inp('stick')) && inp('branch')   :
                 catDiscovered = true;
@@ -2295,48 +2297,48 @@ const spanClick = (whatToDo) => {
                     removeItem("a <span>stick</span>")
                 };
                 haveStick = false;
-                output.innerHTML = "You throw a <span>stick</span> at the <span>cat</span> like the big jerk you are. The <span>cat</span> dodges out of the way and hisses, while the universe silently judges you.<br><br>-50 points";
+                output.innerHTML = "You throw a stick at the cat like the big jerk you are. The cat dodges out of the way and hisses, while the universe silently judges you.<br><br>-50 points";
                 break;
             case roomNum === 4  && marbleDown === false &&  (inp('pull')||inp('grab')||inp('hit')||inp('ask')||inp('lure')||inp('tease')||inp('take')) && inp('cat')   :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "The <span>cat</span> isn't interested in cooperating.";
+                output.innerHTML = "The cat isn't interested in cooperating.";
                 break;
             case roomNum === 4  && marbleDown === false &&  (inp('fight')||inp('punch')) && inp('cat')   :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "The <span>cat</span> gives you a look, like \"Come at me, bro.\".";
+                output.innerHTML = "The cat gives you a look, like \"Come at me, bro.\".";
                 break;
                 // inspecting cat
             case roomNum === 4   &&  marbleDown === false  && marbleReunited === false &&  (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && inp('cat')  :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "The <span>cat</span> eyes you casually. It's relaxing on one of the tallest branches of the tree. It seems perfectly content where it is.";
+                output.innerHTML = "The cat eyes you casually. It's relaxing on one of the tallest branches of the tree. It seems perfectly content where it is.";
                 break;
             case roomNum === 4   &&  marbleDown === true  && marbleReunited === false &&  (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check'))  && inp('cat')  :
                 catDiscovered = true;
-                output.innerHTML = "The black and white <span>cat</span> is preocuppied with the <span>red ribbon</span>.";
+                output.innerHTML = "The black and white cat is preocuppied with the red ribbon.";
                 break;
                 // searching the tree
             case roomNum === 4  &&  marbleDown === false  && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('behind')||inp('under')||inp('what'))   &&    (inp('tree')||inp('branch'))     :
-                output.innerHTML = "You look up into the tree... There's a <span>cat</span> up there! ...it doesn't seem to want to come down.";
+                output.innerHTML = "You look up into the tree... There's a cat up there! ...it doesn't seem to want to come down.";
                 catDiscovered = true;
                 catTreeZoom();
                 break;
             case roomNum === 4  && marbleDown === false   && catDiscovered === true   && inp('climb')  &&    inp('tree') :
-                output.innerHTML = "You start to climb the tree, but the <span>cat</span> hisses and swipes a paw at you. Rude!";
+                output.innerHTML = "You start to climb the tree, but the cat hisses and swipes a paw at you. Rude!";
                 catTreeZoom();
                 break;
             case roomNum === 4  && marbleDown === false  &&  inp('climb')  &&    inp('tree')  :
                 catTreeZoom();
-                output.innerHTML = "You start to climb the tree... but there's a <span>cat</span> in the tree! It hisses and swipes a paw at you. Rude!";
+                output.innerHTML = "You start to climb the tree... but there's a cat in the tree! It hisses and swipes a paw at you. Rude!";
                 catDiscovered = true;
                 break;
                 // psp       XXX it would be funny if this worked
             case roomNum === 4  && marbleDown === false &&  inp('psp')   :
                 catDiscovered = true;
                 catTreeZoom();
-                output.innerHTML = "The <span>cat</span> eyes you curiously...";
+                output.innerHTML = "The cat eyes you curiously...";
                 break;
             case roomNum === 4  && marbleReunited === false &&  inp('psp')   :
                 catDiscovered = true;
@@ -2359,53 +2361,53 @@ const spanClick = (whatToDo) => {
 
             // ROOM 5
             case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "The lakeshore is scattered with large <span>rocks</span>. Small pieces of driftwood and other debris have washed in on the tide.<br><br>The lake is really wide... You can't see the other side.";
+                output.innerHTML = "The lakeshore is scattered with large <span><button onclick='spanClick(\"take rock\")'>rocks</button></span>. Small pieces of driftwood and other debris have washed in on the tide.<br><br>The lake is really wide... You can't see the other side.";
                 break;
             case roomNum === 5 &&   (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))    &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')) && haveBoxKey === false  && waterSearchedOnce === false   :
                 waterSearchedOnce = true;
                 rocksZoom();
-                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy something shining under the water near the <span>rocks</span>.";
+                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy something shining under the water near the <span><button onclick='spanClick(\"search rocks\")'>rocks</button></span>.";
                 break;
             case roomNum === 5 &&  haveBoxKey === false && boxSmashed < 3 && (inp('search')||inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    (inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')||inp('water')||inp('rock')||inp("debris")||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
-                output.innerHTML = "You find a <span>key</span> in the <span>rocks</span> by the shore. You put the <span>key</span> in your <span>pocket</span>.";
+                output.innerHTML = "You find a key in the rocks by the shore. You put the key in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 haveBoxKey = true;
                 rocksZoom();
                 inventory.push("a <span>silver key</span>");
                 break;
             case roomNum === 5 &&  haveBoxKey === false &&  (inp('search')||inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    (inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')||inp('water')||inp('rock')||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
-                output.innerHTML = "You find a <span>key</span> in the rocks by the shore! Too bad you already smashed the open <span>box</span>, so now it's worthless.<br><br>...Or is it...?<br><br>...It is.";
+                output.innerHTML = "You find a key in the rocks by the shore! Too bad you already smashed the open box, so now it's worthless.<br><br>...Or is it...?<br><br>...It is.";
                 haveBoxKey = true;
                 rocksZoom();
                 inventory.push("a <span>silver key</span>");
                 break;
             case roomNum === 5 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
-                output.innerHTML = "The ground is covered in grass, with scattered <span>rocks</span> and <span>flowers</span>. The lakeshore is scattered with driftwood and other <span>debris</span> washed in on the tide.";
+                output.innerHTML = "The ground is covered in grass, with scattered <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> and <span><button onclick='spanClick(\"take flower\")'>flowers</button></span>. The lakeshore is scattered with driftwood and other <span><button onclick='spanClick(\"search rocks\")'>debris</button></span> washed in on the tide.";
                 rocksZoom();
                 break;
 
             // ROOM 6
                 // Looking Around
             case roomNum === 6 &&  ropeTaken === false && boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('shore')||inp('beach'))     :
-                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>There is an old half-sunk <span>boat</span> tied up near the shore.";
+                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>There is an old half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> tied up near the shore.";
                 break;
             case roomNum === 6 &&  ropeTaken === true && boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('shore')||inp('beach'))     :
-                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>There is an old half-sunk <span>boat</span> near the shore.";
+                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>There is an old half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> near the shore.";
                 break;
             case roomNum === 6 &&  ropeTaken === false &&  boatFixed === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "You find yourself on the eastern shore of a lake. The <span>boat</span> is tied to the mooring with a thick <span>rope</span>.";
+                output.innerHTML = "You find yourself on the eastern shore of a lake. The <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to the mooring with a thick <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>.";
                 break;
             case roomNum === 6 &&  ropeTaken === false &&  boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "You find yourself on the eastern shore of a lake. A half-sunk <span>boat</span> is tied to a mooring with a thick <span>rope</span>.";
+                output.innerHTML = "You find yourself on the eastern shore of a lake. A half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring with a thick <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>.";
                 break;
             case roomNum === 6 &&  ropeTaken === true &&  boatFixed === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "You're standing on the shore of a lake. The <span>boat</span> has been pulled up onto the lakeshore.";
+                output.innerHTML = "You're standing on the shore of a lake. The <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> has been pulled up onto the lakeshore.";
                 break
             case roomNum === 6 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such.";
                 break;
                 // Attempting to Ride The Boat
             case roomNum === 6    && haveBox === false  &&  boatFixed === false && (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))  :
-                output.innerHTML = "The <span>boat</span> has a fist-size hole in the bottom and is filled with water. Maybe you can find something to plug the hole with.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
+                output.innerHTML = "The <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> has a fist-size hole in the bottom and is filled with water. Maybe you can find something to plug the hole with.<br><br>You find a locked wooden box in the bottom of the boat, and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 haveBox = true;
                 switchChestRopeImage();
                 inventory.push("a <span>wooden box</span>");
@@ -2413,7 +2415,7 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 6    && haveBox === true  && boatFixed === false && (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))  :
                 boatZoom();
-                output.innerHTML = "The <span>boat</span> has a fist-sized hole in the bottom. Maybe you can plug it with something.";
+                output.innerHTML = "The <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> has a fist-sized hole in the bottom. Maybe you can plug it with something.";
                 break;
             case roomNum === 6   && boatFixed === true  && ropeTaken === false && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
                 ropeTaken = true;
@@ -2423,17 +2425,17 @@ const spanClick = (whatToDo) => {
                 currentCutscene = "riding boat";
                 playCutscene();
                 room15Switch();
-                output.innerHTML = "You untie the <span>rope</span> and put it in your pockets, then push the <span>boat</span> out into the lake and hop in. You don't have any paddles, and allow the tide to take you where it will.<br><br>Soon, the <span>boat</span> lands on the shore of an island.";
+                output.innerHTML = "You untie the rope and put it in your pockets, then push the boat out into the lake and hop in. You don't have any paddles, and allow the tide to take you where it will.<br><br>Soon, the boat lands on the shore of an island.";
                 break;
             case roomNum === 6   && boatFixed === true  && ropeTaken === true && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
                 currentCutscene = "riding boat";
                 playCutscene();
                 room15Switch();
-                output.innerHTML = "You push the <span>boat</span> out into the lake and hop in. You don't have any paddles, and allow the tide to take you where it will.<br><br>Soon the boat lands on the shore of an island.";
+                output.innerHTML = "You push the boat out into the lake and hop in. You don't have any paddles, and allow the tide to take you where it will.<br><br>Soon the boat lands on the shore of an island.";
                 break;
                 // Fixing The Boat
             case roomNum === 6   && boatFixed === false && inventory.length === 0 && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
-                output.innerHTML = "You don't have anything in  your <span>pockets</span> to fix the boat with. Try looking around for something.";
+                output.innerHTML = "You don't have anything in  your pockets to fix the boat with. Try looking around for something.";
                 break;
             case roomNum === 6   && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
                 displayInventory();
@@ -2453,11 +2455,11 @@ const spanClick = (whatToDo) => {
                 boatFixed = true;
                 boatZoom();
                 room6Switch();
-                output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span>rock</span>. You spend a few minutes bailing water out, and soon it starts to float again.";
+                output.innerHTML = "You plug the hole in the bottom of the boat with a rock. You spend a few minutes bailing water out, and soon it starts to float again.";
                 break;
                 // Searching The Boat
             case roomNum === 6 &&   haveBox === false  &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))   &&    (inp('boat')||inp('moor'))     :
-                output.innerHTML = "You look into the bottom of the <span>boat</span> and find a <span>locked wooden box</span>.<br><br>You put the <span>box</span> in your <span>pocket</span>.<br><br>Type \"<span>pockets</span>\" to see what you have with you.";
+                output.innerHTML = "You look into the bottom of the boat and find a locked wooden box.<br><br>You put the box in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 haveBox = true;
                 boatZoom();
                 switchChestRopeImage();
@@ -2465,28 +2467,28 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 6   && ropeTaken === false  && boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))  &&    (inp('boat')||inp('moor'))  :
                 boatZoom();
-                output.innerHTML = "The <span>boat</span> is half-sunk, and tied to the shore with a thick <span>rope</span>. You look closer, and realize there is a fist-sized hole in the botom.";
+                output.innerHTML = "The <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is half-sunk, and tied to the shore with a thick rope. You look closer, and realize there is a fist-sized hole in the bottom.";
                 break;
             case roomNum === 6   && ropeTaken === true  && boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))  &&    (inp('boat')||inp('moor'))  :
                 boatZoom();
-                output.innerHTML = "The <span>boat</span> is half-sunk. You look closer, and realize there is a fist-sized hole in the botom.";
+                output.innerHTML = "The <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is half-sunk. You look closer, and realize there is a fist-sized hole in the botom.";
                 break;
             case roomNum === 6   && ropeTaken === false  && boatFixed === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))  &&    (inp('boat')||inp('moor'))  :
                 boatZoom();
-                output.innerHTML = "The <span>boat</span> is tied to the shore with a thick <span>rope</span>.";
+                output.innerHTML = "The <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to the shore with a thick rope.";
                 break;
             case roomNum === 6   && ropeTaken === true  && boatFixed === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))  &&    (inp('boat')||inp('moor'))  :
                 boatZoom();
-                output.innerHTML = "What a nice <span>boat</span>!";
+                output.innerHTML = "What a nice <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span>!";
                 break;
 
                 //rope
             case roomNum === 6 &&   ropeTaken === false &&  boatFixed === false &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('rope'))     :
-                output.innerHTML = "The <span>rope</span> seems to be the only thing about the boat that is still in decent condition.";
+                output.innerHTML = "The rope seems to be the only thing about the <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> that is still in decent condition.";
                 boatZoom();
                 break;
             case roomNum === 6 &&   ropeTaken === false &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('rope'))     :
-                output.innerHTML = "The <span>rope</span> seems to be in decent condition.";
+                output.innerHTML = "The rope seems to be in decent condition.";
                 boatZoom();
                 break;
             case roomNum === 6    && ropeTaken === false && (    ((inp('take')||inp('grab')||inp('pocket')||inp('remove')||inp('get')||inp('use')||inp('tie'))   &&    (inp('rope')))  ||  (inp('tie') &&  inp('boat'))  ):
@@ -2496,16 +2498,19 @@ const spanClick = (whatToDo) => {
                 room6Switch();
                 boatZoom();
                 switchChestRopeImage();
-                output.innerHTML = "You untie the <span>rope</span> and put it in your <span>pocket</span>.<br><br>Type \"<span>pockets</span>\" to see what you have with you.";
+                output.innerHTML = "You untie the rope and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 break;
-            case roomNum === 6 && ropeTaken === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('rope'))     :
-                output.innerHTML = "The <span>rope</span> is gone. You took it, remember?";
+            case roomNum === 6 && ropeSet === true   &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('rope'))     :
+                output.innerHTML = "The rope that was tied to the <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is back at the well.";
+                break;
+            case roomNum === 6 && haveRope === true   &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('rope'))     :
+                output.innerHTML = "You took the rope that was tied to the <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 break;
             case roomNum === 6 &&   ropeTaken === true && (inp('take')||inp('grab')||inp('pocket')||inp('get'))   &&    (inp('rope'))     :
-                output.innerHTML = "You already took the <span>rope</span>.";
+                output.innerHTML = "You already took the rope.";
                 break;    
             case roomNum === 6 && haveRope === true && inp('rope'):
-                output.innerHTML = "You don't need to use the <span>rope</span> here.";
+                output.innerHTML = "You don't need to use the rope here.";
                 break;
 
             // ROOM 7
@@ -2513,45 +2518,45 @@ const spanClick = (whatToDo) => {
             case roomNum === 7  && firefliesReleased === false &&  (inp('look'))   &&    (inp('cave')||inp('around')) :
                 output.innerHTML = "You strain your eyes against the dark, but you can barely see your hand when you wave it in front of your eyes.";
                 break;
-            case roomNum === 7 && (inp('rope'))  && firefliesReleased === false && haveRope === true :
-                output.innerHTML = "You tie one end of the <span>rope</span> to a rock near the <span>cave</span> entrance and hold the other end as you walk into the darkness.<br><br>With your hands out in front of you, you slowly feel your way through through the maze of rock. Some of the walls around you feel rough and stoney, while others feel smooth and glassy.<br><br>Eventually you reach the end of the <span>rope</span>. Before you turn back, you fumble around the ground and grab a strange <span>glassy rock</span> and put it in your <span>pockets</span>.";
+            case roomNum === 7 && (inp('rope'))  && firefliesReleased === false && haveRope === true && haveCrystal === false :
+                output.innerHTML = "You tie one end of the rope to a rock near the cave entrance and hold the other end as you walk into the darkness.<br><br>With your hands out in front of you, you slowly feel your way through through the maze of rock. Some of the walls around you feel rough and stoney, while others feel smooth and glassy.<br><br>Eventually you reach the end of the rope. Before you turn back, you fumble around the ground and grab a strange smooth rock and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 inventory.push("a <span>strange crystal</span>");
                 haveCrystal = true;
                 break;
             case roomNum === 7 && (inp('rope'))  && firefliesReleased === true && haveRope === true :
-                output.innerHTML = "You check around the cave, but it doesn't seem like the <span>rope</span> will be much help right now.";
+                output.innerHTML = "You check around the cave, but it doesn't seem like the rope will be much help right now.";
                 break;
             case roomNum === 7 &&  (inp('feel'))   &&    (inp('cave')||inp('around')||inp('wall')) && firefliesReleased === false :
-                output.innerHTML = "The walls of the <span>cave</span> are rough rock. You feel your way forward as far as you can, but the light starts to disappear behind you, so you turn around and head back.";
+                output.innerHTML = "The walls of the cave are rough rock. You feel your way forward as far as you can, but the light starts to disappear behind you, so you turn around and head back.";
                 break;
             case roomNum === 7 &&  (inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('look')||inp('what'))   &&    (inp('cave')||inp('around')||inp('there')) && firefliesReleased === false :
-                output.innerHTML = "You feel your way around the <span>cave</span>. The ground is rocky and the walls smooth. It's much too dark to see anything...<br><br>You fumble around for a while, until you smash your shin against something hard and abandon your search.";
+                output.innerHTML = "You feel your way around the cave. The ground is rocky and the walls smooth. It's much too dark to see anything...<br><br>You fumble around for a while, until you smash your shin against something hard and abandon your search.";
                 break;
                 
                 // inspect / explore light
             case roomNum === 7 &&  (inp('look'))   &&    (inp('cave')||inp('around')) && firefliesReleased === true :
-                output.innerHTML = "The cave is full of glowing <span>crystals</span>! The light from the <span>fireflies</span> catches every surface and facet of the magnificent gems.<br><br>There is another passageway leading <span>west</span>.";
+                output.innerHTML = "The cave is full of glowing <span><button onclick='spanClick(\"take crystal\")'>crystals</button></span>! The light from the fireflies catches every surface and facet of the magnificent gems.<br><br>There is another passageway leading <span><button onclick='spanClick(\"go west\")'>west</button></span>.";
                 break;
             case roomNum === 7 &&  (inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('cave')||inp('around')) && firefliesReleased === true :
-                output.innerHTML = "The cave is full of magnificent glowing <span>crystals</span> protruding from the walls and littering the ground.<br><br>There is another passageway leading <span>west</span>";
+                output.innerHTML = "The cave is full of magnificent glowing <span><button onclick='spanClick(\"take crystal\")'>crystals</button></span> protruding from the walls and littering the ground.<br><br>There is another passageway leading <span><button onclick='spanClick(\"go west\")'>west</button></span>";
                 break;
             case roomNum === 7 &&  inp('stala') && firefliesReleased === true :
                 output.innerHTML = "The cave is full of dripping stalactites and stalagmites. You used to have a hard time telling them apart, until you learned this helpful mnemonic device:<br><br>'Satactites' hang TIGHT from the ceiling, but be careful of stalagmites: you MIGHT trip over them!";
                 break;
                 // interact with crystal
             case roomNum === 7 &&  (inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('look')||inp('behind')||inp('what'))   &&    (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
-                output.innerHTML = "There are abudnances of <span>crystals</span> in every corner of the cave.";
+                output.innerHTML = "There are abudnances of <span><button onclick='spanClick(\"take crystal\")'>crystals</button></span> in every corner of the cave.";
                 break;
             case (roomNum === 7 || roomNum === 8) &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
-                output.innerHTML = "You pick up a small piece of <span>crystal</span> off the ground. Your fingers tingle when you touch it, and it's surprisingly warm in your hand. It seems to magnify the light from the <span>fireflies</span>.<br><br>You put the <span>crystal</span>in your <span>pocket</span>.";
+                output.innerHTML = "You pick up a small piece of crystal off the ground. Your fingers tingle when you touch it, and it's surprisingly warm in your hand. It seems to magnify the light from the fireflies.<br><br>You put the crystal in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 inventory.push("a <span>strange crystal</span>");
                 haveCrystal = true;
                 break;
             case (roomNum === 7 || roomNum === 8) &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true  && haveCrystal === true  :
-                output.innerHTML = "You already have a <span>crystal</span> in your <span>pocket</span>.";
+                output.innerHTML = "You already have a crystal in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 break;
             case roomNum === 7 && firefliesReleased===true && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
-                output.innerHTML = 'You catch a <span>firefly</span>, and very carefully put it in the <span>box</span> and close the lid.<br><br>You catch another, and another... and pretty soon the <span>box</span> is full of <span>fireflies</span>!';
+                output.innerHTML = 'You catch a firefly, and very carefully put it in the box and close the lid.<br><br>You catch another, and another, and pretty soon the box is full of fireflies!';
                 removeItem("a <span>wooden box</span>");
                 removeItem("a <span>smashed-up box</span>");
                 inventory.push("a <span>box of fireflies</span>");
@@ -2559,7 +2564,7 @@ const spanClick = (whatToDo) => {
                 switchChestRopeImage();
                 break;
             case roomNum === 7 &&  firefliesReleased===true &&  (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
-                output.innerHTML = "The cave floor is a rough stone, and covered in stalagmites and <span>crystals</span>";
+                output.innerHTML = "The cave floor is a rough stone, and covered in stalagmites and <span><button onclick='spanClick(\"take crystal\")'>crystals</button></span>";
                 break;
             case roomNum === 7 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "It's too dark to see anything.";
@@ -2574,10 +2579,10 @@ const spanClick = (whatToDo) => {
             // ROOM 9
                 // look around
             case roomNum === 9  && (ghostDiscovered === false || ghostGivenMug === true)  &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))  :
-                output.innerHTML = "You find yourself in what be one of the most ancient parts of the forest. The trees here look like they haven't seen sunlight in years.<br><br>There is a circle of <span>mushrooms</span> in the middle of the hollow, surrounded by old and rotting trees.";
+                output.innerHTML = "You find yourself in what be one of the most ancient parts of the forest. The trees here look like they haven't seen sunlight in years.<br><br>There is a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms</button></span> in the middle of the hollow, surrounded by old and rotting trees.";
                 break;
             case roomNum === 9 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))   :
-                output.innerHTML = "There is a <span>ghostly figure</span> hovering in a circle of mushrooms<br><br>This must be the oldest part of the forest. The trees here look like they haven't seen sunlight in years.";
+                output.innerHTML = "There is a <span><button onclick='spanClick(\"ask ghost\")'>ghostly figure</button></span> hovering in a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms</button></span><br><br>This must be the oldest part of the forest. The trees here look like they haven't seen sunlight in years.";
                 break;
                 // take / inspect mushrooms & discover ghost
             case roomNum === 9 && ghostDiscovered === false   &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('take')||inp('grab')||inp('pocket')||inp('eat')||inp('behind')||inp('what'))   &&    (inp('mushroom')||inp('circle'))  :
@@ -2586,23 +2591,23 @@ const spanClick = (whatToDo) => {
                 ghostDiscovered = true;
                 room9Switch();
                 ghostZoom();
-                output.innerHTML = "You reach for a <span>mushroom</span>...<br><br>but a <span>ghost</span> appears!!<br><br>It seems like it's guarding the mushrooms.";
+                output.innerHTML = "You reach for a mushroom...<br><br>but a <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> appears!!<br><br>It seems like it's guarding the mushrooms.";
                 break;
                 // take mushrooms after ghost given mug
             case roomNum === 9 && ghostGivenMug === true && ( (inp('take')||inp('grab')||inp('pocket')||inp('gather')||inp('pick'))  || (inp('eat')&&haveMushy === false)   )  &&    (inp('mushroom')||inp('circle'))  :
-                output.innerHTML = 'You pick a nice looking <span>mushroom</span> and put it in your pocket.';
+                output.innerHTML = "You pick a nice looking mushroom and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 haveMushy = true;
                 inventory.push('a <span>wild mushroom</span>');
                 document.getElementById("inventory3").src="./inventoryimages/mushy.png";
                 break;
                 // ghost interupts mushroom picking
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false  &&  (inp('search')||inp('take')||inp('grab')||inp('pocket')||inp('eat')||inp('gather')||inp('pick'))   &&    (inp('mushroom')||inp('circle'))  :
-                output.innerHTML = 'You take a step towards the mushrooms, but the <span>ghostly figure</span> gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br>"<span class="journal">Moon... cactus...</span>"<br><br>What could that mean?';
+                output.innerHTML = 'You take a step towards the mushrooms, but the ghostly figure gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br>"<span class="journal">Moon... cactus...</span>"<br><br>What could that mean?';
                 ghostZoom();
                 break;
                 // look at mushrooms
             case roomNum === 9 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('check')||inp('what'))   &&    (inp('mushroom')||inp('circle')) :
-                output.innerHTML = 'The <span>mushrooms</span> are red with white spots. You can\'t decide whether they look delicious, or deadly.';
+                output.innerHTML = 'The mushrooms are red with white spots. You can\'t decide whether they look delicious, or deadly.';
                 break;
                 // give ghost mug
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false && haveMug === true  && ( (inp('give')||inp('hand')||inp('offer')||inp('return')||inp('show')||inp('use'))   &&   ( inp('mug')||inp('cup') ) ) ||  ( ( inp('mug')||inp('cup') ) && ( (inp('ghost')||inp('figure'))) ) :
@@ -2611,10 +2616,10 @@ const spanClick = (whatToDo) => {
                 playGhostMugCutscene();
                 room9Switch();
                 removeItem("an <span>old mug</span>");
-                output.innerHTML = 'The <span>ghost</span> fades away, and you catch a faint whisper in the wind:<br><br>"<span class="journal">Thanks for caring...</span>"<br><br>Maybe it\'s just your imagination, but it suddenly seems like the forest around you is a bit brighter.<br><br>+75 points'
+                output.innerHTML = 'The ghost fades away, and you catch a faint whisper in the wind:<br><br>"<span class="journal">Thanks for caring...</span>"<br><br>Maybe it\'s just your imagination, but it suddenly seems like the forest around you is a bit brighter.<br><br>+75 points'
                 break;
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false && haveMug === true  &&  inp('mug')  :
-                output.innerHTML = "What do you want to do with the <span>mug</span>?"
+                output.innerHTML = "What do you want to do with the mug?"
                 ghostZoom();
                 break;
                 // interact with ghost
@@ -2627,7 +2632,7 @@ const spanClick = (whatToDo) => {
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('flirt')||inp('compliment')||inp('flatter')||inp('charm')) :
-                output.innerHTML = 'The <span>ghost</span> seems to blush...<br><br><span class="journal">"Sorry... I don\'t like you like that.</span>"';
+                output.innerHTML = 'The ghost seems to blush...<br><br><span class="journal">"Sorry... I don\'t like you like that.</span>"';
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  inp('flower') && (inp('give')||inp('offer')||inp('hand')) :
@@ -2635,15 +2640,15 @@ const spanClick = (whatToDo) => {
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  inp('boo') || inp('scare') ||  inp('frighten') ||  inp('shoo') ||  inp('curse') :
-                output.innerHTML = 'The <span>ghost</span> doesn\'t seem scared of you...';
+                output.innerHTML = 'The ghost doesn\'t seem scared of you...';
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false &&  (inp('hit')||inp('push')||inp('punch')||inp('beat')||inp('fight')||(inp('throw')&&inp('rock')))  &&    (inp('ghost')||inp('figure'))  :
-                output.innerHTML = 'It\'s a freaking <span>ghost</span> yo! It would probably whip your butt.<br><br>Besides, doesn\'t look solid.';
+                output.innerHTML = 'It\'s a freaking ghost yo! It would probably whip your butt.<br><br>Besides, doesn\'t look solid.';
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false &&  (inp('touch')||inp('move'))  &&    (inp('ghost')||inp('figure'))  :
-                output.innerHTML = 'The <span>ghost</span> is totally freaking you out... there\'s no way you\'re getting close enought to do that.';
+                output.innerHTML = 'The ghost is totally freaking you out... there\'s no way you\'re getting close enought to do that.';
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && inp('run') :
@@ -2660,35 +2665,35 @@ const spanClick = (whatToDo) => {
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveRibbon === true && inp('ribbon')  :
-                output.innerHTML = "You offer the <span>ribbon</span> to the ghost.<br><br><span class='journal'>\"No... thanks...\"</span>";
+                output.innerHTML = "You offer the ribbon to the ghost.<br><br><span class='journal'>\"No... thanks...\"</span>";
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveRibbon === true && inp('rope')  :
-                output.innerHTML = "I don't think the <span>ghost</span> can use that.";
+                output.innerHTML = "I don't think the ghost can use that.";
                 ghostZoom();
                 reak;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveCrystal === true && (inp('crystal')||inp('gem'))  :
-                output.innerHTML = "You offer the <span>crystal</span> to the <span>ghost</span>.<br><br><span class='journal'>\"Jen... would love that...\"</span><br><br>Who could 'Jen' be?";
+                output.innerHTML = "You offer the crystal to the ghost.<br><br><span class='journal'>\"Jen... would love that...\"</span><br><br>Who could 'Jen' be?";
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveCrystal === true && inp('key') && haveBoxKey === true && haveBox === false  :
-                output.innerHTML = "You show the <span>key</span> to the <span>ghost</span>.<br><br><span class='journal'>\"Box... boat...\"</span>";
+                output.innerHTML = "You show the key to the ghost.<br><br><span class='journal'>\"Box... boat...\"</span>";
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveCrystal === true && inp('key') && haveBox === true && haveBoxKey === true :
-                output.innerHTML = "You offer the <span>key</span> to the <span>ghost</span>.<br><br><span class='journal'>\"No... thanks...\"</span>";
+                output.innerHTML = "You offer the key to the ghost.<br><br><span class='journal'>\"No... thanks...\"</span>";
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveCrystal === true && inp('box') && haveBox === true :
-                output.innerHTML = "You offer the <span>box</span> to the <span>ghost</span>.<br><br><span class='journal'>\"Not... mine...\"</span>";
+                output.innerHTML = "You offer the box to the ghost.<br><br><span class='journal'>\"Not... mine...\"</span>";
                 ghostZoom();
                 break;
                 // catch-all for ghosts and mushrooms
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && inp('ghost') :
-                output.innerHTML = "The <span>ghost</span> hovers eerily over the <span>mushrooms</span>.";
+                output.innerHTML = "The ghost hovers eerily over the mushrooms.";
                 break;
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug && inp('ghost') :
-                output.innerHTML = "The <span>ghost</span> is gone.";
+                output.innerHTML = "The ghost is gone, and all that's left in its place is a lingering feeling of gratitude.";
                 break;
             case roomNum === 9 &&  inp('mushroom') && ghostDiscovered === false:
                 currentCutscene = "ghost appearing";
@@ -2696,10 +2701,10 @@ const spanClick = (whatToDo) => {
                 ghostDiscovered = true;
                 room9Switch();
                 ghostZoom();
-                output.innerHTML = "You reach for a <span>mushroom</span>...<br><br>but a <span>ghost</span> appears!!<br><br>It seems like it's guarding the mushrooms.";
+                output.innerHTML = "You reach for a mushroom...<br><br>but a <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> appears!!<br><br>It seems like it's guarding the mushrooms.";
                 break;
             case roomNum === 9 &&  inp('mushroom') :
-                output.innerHTML = "The circle of <span>mushrooms</span> looks rather enticing.";
+                output.innerHTML = "The circle of mushrooms looks rather enticing.";
                 ghostZoom();
                 break;
 
@@ -2710,76 +2715,76 @@ const spanClick = (whatToDo) => {
                 removeItem("a <span>rope</span>");
                 room10Switch();
                 switchChestRopeImage();
-                output.innerHTML = "You tie the <span>rope</span> to the top of the <span>well</span>. It seems pretty secure... fingers crossed!";
+                output.innerHTML = "You tie the rope to the top of the well. It seems pretty secure...";
                 break;
             case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "You find yourself standing on front of a stone <span>well</span> in the middle of the clearing. From here a rocky path leads <span>north</span>. You can hear the sound of water to the <span>south</span>.";
+                output.innerHTML = "You find yourself standing on front of a stone <span><button onclick='spanClick(\"inspect well\")'>well</button></span> in the middle of the clearing. From here a rocky path leads <span><button onclick='spanClick(\"go north\")'>north</button></span>. You can hear the sound of water to the <span><button onclick='spanClick(\"go south\")'>south</button></span>.";
                 break;
             case roomNum === 10 && haveRope === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('peer')||inp('behind')||inp('what'))   &&    (inp('well'))     :
-                output.innerHTML = "You peer down into the <span>well</span>. It's too deep to see the bottom.<br><br>It seems out and out of use. You look around for a bucket or rope, but don't find one.<br><br>";
+                output.innerHTML = "You peer down into the well. It's too deep to see the bottom.<br><br>It seems out and out of use. You look around for a bucket or rope, but don't find one.";
                 wellZoom();
                 break;
             case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('peer')||inp('behind')||inp('what'))   &&    (inp('well'))     :
-                output.innerHTML = "You peer down into the <span>well</span>. It's too deep to see the bottom.<br><br>It seems out and out of use. You look around for a bucket, but don't find one.<br><br>";
+                output.innerHTML = "You peer down into the well. It's too deep to see the bottom.<br><br>It seems out and out of use. You look around for a bucket, but don't find one.";
                 wellZoom();
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('rock')    :
-                output.innerHTML = "You drop a rock into the <span>well</span>. It clatters off the walls for a few seconds before falling silent.<br><br>No splash... it must be dry.";
+                output.innerHTML = "You drop a rock into the well. It clatters off the walls for a few seconds before falling silent.<br><br>No splash... it must be dry.";
                 wellZoom();
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss')||inp('chuck'))  &&  inp('stick')    :
-                output.innerHTML = "You throw a stick into the <span>well</span>. It clatters off the walls for a few seconds before falling silent.<br><br>No splash... it must be dry.";
+                output.innerHTML = "You throw a stick into the well. It clatters off the walls for a few seconds before falling silent.<br><br>No splash... it must be dry.";
                 wellZoom();
                 if (haveStick === true) {
-                    output.innerHTML = "You throw your stick into the <span>well</span>. It clatters off the walls for a few seconds before falling silent.<br><br>No splash... it must be dry.";
+                    output.innerHTML = "You throw your stick into the well. It clatters off the walls for a few seconds before falling silent.<br><br>No splash... it must be dry.";
                     removeItem("a <span>stick</span>");
                     haveStick = false;
                 };
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  (inp('money')||inp('coin')||inp('penny')||inp('quarter')||inp('dime')||inp('nickel')) :
-                output.innerHTML = "You search your <span>pockets</span> for a coin to throw in the well, but no luck.";
+                output.innerHTML = "You search your pockets for a coin to throw in the well, but no luck.";
                 wellZoom();
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('flower')  && haveFlower === true   :
-                output.innerHTML = "You drop a <span>flower</span> into the <span>well</span>. It drifts lazily down into the darkness until you lose sight of it.";
+                output.innerHTML = "You drop a flower into the well. It drifts lazily down into the darkness until you lose sight of it.";
                 haveFlower = false;
                 removeItem("a <span>blue flower</span>");
                 wellZoom();
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('flower')  && haveFlower === false   :
-                output.innerHTML = "You don't have a <span>flower</span> to drop!";
+                output.innerHTML = "You don't have a flower to drop!";
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('crystal') && haveCrystal === true   :
-                output.innerHTML = "You throw the <span>crystal</span> down the <span>well</span>. It hits the side and breaks apart before falling out of sight.";
+                output.innerHTML = "You throw the crystal down the well. It hits the side and breaks apart before falling out of sight.";
                 removeItem("a <span>strange crystal</span>");
                 wellZoom();
                 haveCrystal = false;
                 break;
-            case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('box') && haveBox === true  && ropeTaken === true && haveBoxKey === false :
-                output.innerHTML = "Ok that's a good idea ngl. The box wouuld probably break when it hit the bottom. So +10 points for ingenuity.<br><br>But you're gonna need the box later, ok? So you can't do that.<br><br>Try checking the <span>rocks</span> down by the lake, there's a <span>key</span> down there you can open the box with.";
+            case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('box') && haveBox === true  && ropeTaken === true && haveBoxKey === false && boxUnlocked === false :
+                output.innerHTML = "Ok that's a good idea ngl. The box wouuld probably break when it hit the bottom. So +10 points for ingenuity.<br><br>But you're gonna need the box later, ok? So you can't do that.<br><br>Try checking the rocks down by the lake, there's a key down there you can open the box with.";
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('box') && haveBox === true  :
                 output.innerHTML = "The box would probably break, which would be kind of a shame.";
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('mug') && haveMug === true   :
-                output.innerHTML = "You just brought the <span>mug</span> up!";
+                output.innerHTML = "You just brought the mug up! Better not drop it again.";
                 break;
             case roomNum === 10 &&  (inp('jump')||inp('fall')||(inp('get')&&inp('well')))   &&    (inp('well'))     :
                 wellZoom();
-                output.innerHTML = "For a moment you imagine jumping into the <span>well</span>... What's that old phrase? \"L'appel du vide...\"<br><br>You decide to keep your feet on the ground.";
+                output.innerHTML = "For a moment you imagine jumping into the well... What's that old phrase? \"L'appel du vide...\"<br><br>You decide to keep your feet on the ground.";
                 break;
             case roomNum === 10 &&  inp('use') &&   inp('well')  && ropeSet === false :
                 wellZoom();
-                output.innerHTML = "The <span>well</span> doesn't have a bucket or rope.";
+                output.innerHTML = "The well doesn't have a bucket or rope.";
                 break;
             case roomNum === 10  && ropeSet === true   &&  (  (inp('go')&& inp('down'))   ||  (inp('use') && (inp('well')|| inp('rope'))) || inp('climb')) :
-                output.innerHTML = "You test the <span>rope</span>, and then carefully lower yourself into the <span>well</span>...";
+                output.innerHTML = "You test the rope, and then carefully lower yourself into the well...";
                 room13Switch();
                 roomNum = 13;
                 break;
             case roomNum === 10 &&  (inp('climb')||inp('use')) &&   (inp('well')||inp('down')||inp('rope'))  && ropeSet === false :
                 wellZoom();
-                output.innerHTML = "You consider trying to climb down the <span>well</span>, but the walls are slippery and you're not sure if you'd be able to get back up again...";
+                output.innerHTML = "You consider trying to climb down the well, but the walls are slippery and you're not sure if you'd be able to get back up again...";
                 break;
             case roomNum === 10 &&  ropeSet === true &&  (inp('take')||inp('grab')||inp('pocket')||inp('untie')||inp('remove')||inp('get'))   &&    (inp('rope'))     :
                 haveRope = true;
@@ -2787,7 +2792,7 @@ const spanClick = (whatToDo) => {
                 inventory.push("a <span>rope</span>");
                 room10Switch();
                 switchChestRopeImage();
-                output.innerHTML = "You untie the <span>rope</span> and put it in your <span>pocket</span>.";
+                output.innerHTML = "You untie the rope and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 break;
             case roomNum === 10 && inp('wish') :
                 output.innerHTML = "You make a wish.... but it's secret!";
@@ -2802,7 +2807,7 @@ const spanClick = (whatToDo) => {
                 // default well
             case roomNum === 10 && inp('in ') && inp('well') :
                 wellZoom();
-                output.innerHTML = "You peer down into the <span>well</span>, but you can't see the bottom.";
+                output.innerHTML = "You peer down into the well, but you can't see the bottom.";
                 break;
             case roomNum === 10 && inp('well') :
                 wellZoom();
