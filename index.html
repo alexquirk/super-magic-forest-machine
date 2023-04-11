@@ -334,7 +334,7 @@ document.onkeydown = e => {
         
     }
 
-    
+
 
 //DECLARE VARIABLES
 
@@ -1407,29 +1407,67 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             triangleButtonFlash(northTriangle)
             userInput.value = "go north";
             processInput();
-            // userInput.focus(); 
+            // focus on input if on desktop
+            if (!( 
+                   navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                )) {
+            userInput.focus(); 
+                }
         };
     const goSouth = () =>
         {
             triangleButtonFlash(southTriangle)
             userInput.value = "go south";
             processInput();
-            // userInput.focus(); 
-        };
+            if (!( 
+                   navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                )) {
+            userInput.focus(); 
+                }        };
     const goEast = () =>
         {
             triangleButtonFlash(eastTriangle);
             userInput.value = "go east";
             processInput();
-            // userInput.focus(); 
-        };
+            if (!( 
+                   navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                )) {
+            userInput.focus(); 
+                }        };
     const goWest = () =>
         {
             triangleButtonFlash(westTriangle);
             userInput.value = "go west";
             processInput();
-            // userInput.focus(); 
-        };
+            if (!( 
+                   navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                )) {
+            userInput.focus(); 
+                }        };
 
     const triangleButtonFlash = (triangleID) => {
         triangleID.classList.add('brightfadeoutfortriangles');
@@ -3416,6 +3454,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
 
             // DEFAULT "LOOK"
+            case (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('search')||inp('find')) && inp('for')  :
+                output.innerHTML = "Where do you want to look?";
+                break;
             case (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('search')||inp('find'))   :
                 output.innerHTML = "What do you want to look at?";
                 break;
@@ -3442,10 +3483,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 output.innerHTML = "Really old.";
                 break;
             case  inp('where') && (inp('go')) && haveMap === true:
-                output.innerHTML = "You can type things like \"<span>walk left</span>\" or \"<span>go north</span>\" to explore other parts of the forest. You can type \"<span>map</span>\" to get your bearings.";
+                output.innerHTML = "You can type things like <span>walk left</span> or <span>go north</span>, or you can click the arrows in the corner of the screen above, to explore the forest.<br><br>You can type <span>\"map\"</span> to get your bearings.";
                 break;
             case  inp('where') && (inp('go')):
-                output.innerHTML = "You can type things like \"<span>walk left</span>\" or \"<span>go north</span>\" to explore other parts of the forest.";
+                output.innerHTML = "You can type things like <span>walk left</span> or <span>go north</span>, or you can click the arrows in the corner of the screen above, to explore the forest.";
                 break;
             case  inp('where') && inp('am') && inp(' i') && roomNum !== 8 && roomNum !== 7 && roomNum !== 15 && roomNum !== 13:
                 output.innerHTML = "You're standing in a forest clearing.";
