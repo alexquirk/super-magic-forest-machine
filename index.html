@@ -835,7 +835,7 @@ const createRobotConversation = () => {
     if (haveCrystal === true) 
         {robotConversationMap[13][0] = 16; };
     
-    // play cutscene if robot conversation is 6
+    // play cutscenes
     if (currentRobotConversation === 6) {
         currentCutscene = "robot scanning";
         playCutscene();
@@ -852,20 +852,15 @@ const createRobotConversation = () => {
     // make "leave" button visible
     leaveButton.style.display = "block";
 
-    // hide first button on -1 map value
     if (robotConversationMap[currentRobotConversation][0] > -1) {
         d1.innerHTML = robotDialogueButtonTexts[robotConversationMap[currentRobotConversation][0]];
         d1.style.display = "block";
     } else {d1.style.display = "none"};
-    //hide second button on -1 map value
     if (robotConversationMap[currentRobotConversation][1] > -1) {
         d2.innerHTML = robotDialogueButtonTexts[robotConversationMap[currentRobotConversation][1]];
         d2.style.display = "block";
     } else {d2.style.display = "none"};
-
-    // give player map at 7
     if (currentRobotConversation === 7) {haveMap = true};
-
     outputArea.scroll(0,0);
 };
 
@@ -883,13 +878,6 @@ continueRobotConversation2 = () => {
 
 d2.addEventListener('click', continueRobotConversation2);
 
-setCurrentRobotConversation = () => {
-    if (haveMap === false) {currentRobotConversation = 0}
-    else (currentRobotConversation = 9);
-};
-
-// leave button
-leaveButton.addEventListener('click', leaveRobotConversation);
 leaveRobotConversation = () => {
     dialogueAsk = false;
     inDialogue = false;
@@ -898,19 +886,14 @@ leaveRobotConversation = () => {
     leaveButton.style.display = "none";
     output.innerHTML = "";
     setCurrentRobotConversation();
-    robotUnZoom();
-    if (!( 
-                   navigator.userAgent.match(/Android/i)
-                || navigator.userAgent.match(/webOS/i)
-                || navigator.userAgent.match(/iPhone/i)
-                || navigator.userAgent.match(/iPad/i)
-                || navigator.userAgent.match(/iPod/i)
-                || navigator.userAgent.match(/BlackBerry/i)
-                || navigator.userAgent.match(/Windows Phone/i)
-                )) {
-            userInput.focus(); 
-                }
 };
+
+setCurrentRobotConversation = () => {
+    if (haveMap === false) {currentRobotConversation = 0}
+    else (currentRobotConversation = 9);
+};
+
+leaveButton.addEventListener('click', leaveRobotConversation);
 
 
 // BOOK BUTTONS
