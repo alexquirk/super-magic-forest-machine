@@ -83,7 +83,7 @@
     </div>
 
     <!-- OUTPUT AREA -->
-    <div id="outputarea" onclick="clearMap()">
+    <div id="outputarea" onclick="clearMap();closeInventory()">
         <div id="output">
 
                 <!-- READ THIS :) -->
@@ -499,8 +499,8 @@ const rocksUnZoom = () => {
 }
 const catTreeZoom = () => {
     document.getElementById("room4").style.width = "150%";
-    document.getElementById("room4").style.bottom = "-24%";
-    document.getElementById("room4").style.left = "-50%";
+    document.getElementById("room4").style.bottom = "-54%";
+    document.getElementById("room4").style.left = "-20%";
 }
 const catTreeUnZoom = () => {
     document.getElementById("room4").style.width = "100%";
@@ -750,6 +750,22 @@ const ghostUnZoom = () => {
         document.getElementById('map').classList.remove('blur');
         document.getElementById("inventory1").style.zIndex = "-2";document.getElementById("inventory2").style.zIndex = "-2";document.getElementById("inventory3").style.zIndex = "-2";document.getElementById("inventory4").style.zIndex = "-2";document.getElementById("inventory5").style.zIndex = "-2";document.getElementById("inventory6").style.zIndex = "-2";document.getElementById("inventory7").style.zIndex = "-2";document.getElementById("inventory8").style.zIndex = "-2";
     };
+
+    // finding the key animation
+    const findKey = () => {
+        document.getElementById("inventory4").style.zIndex = "104";
+        document.getElementById("inventory4").style.bottom = "10%";
+        document.getElementById("inventory4").style.left = "-4%";
+        document.getElementById("inventory4").classList.add('findkey');
+        setTimeout(function() {
+            document.getElementById("inventory4").style.bottom = "0%";
+            document.getElementById("inventory4").style.left = "0%";
+            document.getElementById("inventory4").classList.remove('findkey');
+            if (checkingInventory === false) {document.getElementById("inventory4").style.zIndex = "-2"};
+        },
+            2500,
+        )
+    }
 
 // ROBOT DIALOGUE BUTTONS
     // your dialoge
@@ -1116,7 +1132,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         if (roomNum === 1) {
             output.innerHTML = "You travel south until you arrive at at rocky <span><button onclick='spanClick(\"search lake\")'>lake shore</button></span>. The fading sunlight glistens on the calm surface.";
         } else if (roomNum === 12) {
-            output.innerHTML = "You travel east until you arrive at at rocky <span><button onclick='spanClick(\"search lake\")'>lake shore</button></span>. The fading sunlight glistens on the calm surface.";
+            output.innerHTML = "You travel east until you arrive at at rocky <span><button onclick='spanClick(\"search lake\")'>lake shore</button></span>. The fading sunlight glistens on the calm surface.<br><br>The forest opens up to the clearing to the <span><button onclick='spanClick(\"go north\")'>north</button></span>, and the lake shore continues to the <span><button onclick='spanClick(\"go east\")'>east</button></span>";
         } else if (roomNum ===6 ) {
             output.innerHTML = "You travel west until you arrive at at rocky <span><button onclick='spanClick(\"search lake\")'>lake shore</button></span>. The fading sunlight glistens on the calm surface.";
         } else {
@@ -1140,7 +1156,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room6Switch = () => {
         if (ropeTaken === false && boatFixed === false && roomNum === 5)
-                {output.innerHTML = "You travel east along the lake shore until you arrive at a wooded point, where a half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
+                {output.innerHTML = "You travel east along the lake shore until you arrive at a wooded point, where a half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring.<br><br>The forest grows darker and denser to the <span><button onclick='spanClick(\"go north\")'>north</button></span>"}
             else if (ropeTaken === false && boatFixed === false && roomNum === 3)
                 {output.innerHTML = "You travel south through the forest until you arrive at a wooded shoreline, where a half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
             else if (boatFixed === false && ropeTaken === false)
@@ -1262,7 +1278,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             } else if (roomNum === 13) {
                 output.innerHTML = "You climb back out of the well."
             } else {
-                output.innerHTML = "You arrive at a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.<br><br>You wonder who made this well, and how long ago.";
+                output.innerHTML = "You arrive at a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.<br><br>You wonder who made this well, and how long ago.<br><br>You can see a stony outcropping rising above the trees to the <span><button onclick='spanClick(\"go north\")'>north</button></span>. The forest opens to a grassy meadow to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
             };
         } 
         else {
@@ -1296,11 +1312,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     }; 
     const room11Switch = () => {
         if (roomVisited[11] === false) {
-            output.innerHTML = "You find yourself at the mouth of a large cave.";
+            output.innerHTML = "You find yourself at the mouth of a large <span><button onclick='spanClick(\"inspect cave\")'>cave</button></span>.";
         } else if (roomNum === 7) {
             output.innerHTML = "You follow the light back to the entrance of the cave."
         } else {
-            output.innerHTML = "You find yourself at the mouth of the large cave.";
+            output.innerHTML = "You find yourself at the mouth of the large <span><button onclick='spanClick(\"inspect cave\")'>cave</button></span>.";
         };
         roomVisited[11] = true;
         mapArrow.style.top = "32%";
@@ -1321,7 +1337,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 
     const room12Switch = () => {
         if (newGame === true) {
-                output.innerHTML = "You travel east along the narrow path until you arrive at a <span><button onclick='spanClick(\"look lake\")'>lake shore</button></span>, where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying against a large willow tree."
+                output.innerHTML = "You travel east along the narrow path until you arrive at a <span><button onclick='spanClick(\"look lake\")'>lake shore</button></span>, where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying against a large willow tree.<br><br>The lake shore stretches to the <span><button onclick='spanClick(\"go east\")'>east</button></span>, and a stony path leads deeper into the forest to the <span><button onclick='spanClick(\"go north\")'>north</button></span>."
         } else if (robotAwake === false) {
             if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
                 output.innerHTML = "You travel west along the lakeshore until you arrive at at a large willow tree where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying.";
@@ -1561,6 +1577,7 @@ const spanClick = (whatToDo) => {
         boatUnZoom();
         rocksUnZoom();
         ghostUnZoom();
+        catTreeUnZoom();
 
         // GET INPUT
         switch (true) {
@@ -2369,14 +2386,16 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>You think you spy something shining under the water near the <span><button onclick='spanClick(\"search rocks\")'>rocks</button></span>.";
                 break;
             case roomNum === 5 &&  haveBoxKey === false && boxSmashed < 3 && (inp('search')||inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    (inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')||inp('water')||inp('rock')||inp("debris")||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
-                output.innerHTML = "You find a key in the rocks by the shore. You put the key in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
+                output.innerHTML = "You find a key in the rocks by the shore! You put the key in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 haveBoxKey = true;
+                findKey();
                 rocksZoom();
                 inventory.push("a <span>silver key</span>");
                 break;
             case roomNum === 5 &&  haveBoxKey === false &&  (inp('search')||inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    (inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')||inp('water')||inp('rock')||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
                 output.innerHTML = "You find a key in the rocks by the shore! Too bad you already smashed the open box, so now it's worthless.<br><br>...Or is it...?<br><br>...It is.";
                 haveBoxKey = true;
+                findKey();
                 rocksZoom();
                 inventory.push("a <span>silver key</span>");
                 break;
@@ -2898,7 +2917,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "The ground is covered in grass with scattered <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> and such. You don't find anything of use.";
                 break;
             case roomNum === 12  &&  robotAwake === false  &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('shore'))     :
-                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.<br><br>The <span><button onclick='spanClick(\"talk robot\")'>metallic figure</button></span> resting under the tree catches your eye.";
+                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.<br><br>The <span><button onclick='spanClick(\"talk robot\")'>strange metallic figure</button></span> resting under the tree catches your eye.";
                 break;
 
             // ROOM 15

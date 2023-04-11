@@ -550,6 +550,22 @@ body {
     z-index: 205;
 }
 
+.findkey {
+    animation: findKey .6s linear;
+    animation-iteration-count: 1;
+}
+
+@keyframes findKey {
+    0% {
+        transform: rotate(-500deg) scaleX(.1) scaleY(.1);
+        
+    }
+    100% {
+        transform: rotate(0deg) scaleX(1) scaleY(1);
+    }
+    
+}
+
 /* OUTPUT TEXT AREA */
 
 #outputarea {
@@ -643,23 +659,27 @@ span > button:hover {
     display: none;
     margin: 30px auto 0;
     max-width: 95%;
+    color: rgb(255, 152, 152);
 }
 
 #dialogue2 {
     display: none;
     margin: 10px auto 0;
     max-width: 95%;
+    color: rgb(255, 152, 152);
 }
 
 #leavebutton {
     display: none;
     margin: 10px auto 5px;
     max-width: 98.5%;
+    color: rgb(255, 152, 152);
 }
 
 #bookbutton {
     display: none;
     margin: 5px auto 5px;
+    color: rgb(255, 152, 152);
 }
 
 .textfadein {
