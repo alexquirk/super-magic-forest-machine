@@ -649,11 +649,11 @@ body {
 }
 
 .textfadein {
-    animation: textFadeIn 1.6s ease-in;
+    animation: fadeIn 1.6s ease-in;
     animation-iteration-count: 1;
 }
 
-@keyframes textFadeIn {
+@keyframes fadeIn {
     0% { 
         opacity: 0;
     }

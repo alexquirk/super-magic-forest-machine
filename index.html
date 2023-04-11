@@ -136,14 +136,15 @@ let introCutsceneDonePlaying = false;
 
 //start game
 const startGame = () => {
+    // hide the title card
     titleCard.classList.add('fadeout');
+    setTimeout(function() {titleCard.style.display = "none"}, 1000);
+    // make the machine appear
     theMachine.style.display = "flex";
-    let makeTitleCardGoAway = () => {titleCard.style.display = "none"};
-    setTimeout(makeTitleCardGoAway, 1000);
+    // play the cutscene
     playCutscene();
-    let setIntroCutscenePlayedToTrue = () => {introCutscenePlayed = true;};
     // how much time after pressing space on the title card must pass before pressing space again will skip the first cutscene?
-    setTimeout(setIntroCutscenePlayedToTrue, 1000);
+    setTimeout(function() {introCutscenePlayed = true}, 1000);
     };
     
 //start game if enter is pressed
@@ -289,6 +290,9 @@ document.onkeydown = e => {
             viewbox.style.top = "0%";
             viewbox.style.transform = "translate(0, 0%)";
             viewbox.classList.add('movetheviewbox');
+            // fade the 'e' in
+            document.getElementById('easttriangle').classList.add('textfadein');
+            setTimeout(function() {document.getElementById('easttriangle').classList.remove('textfadein')}, 2000)
             // get the game started
             room14Switch();
             room14.style.zIndex = "0";
@@ -500,6 +504,16 @@ const catTreeUnZoom = () => {
     document.getElementById("room4").style.width = "100%";
     document.getElementById("room4").style.bottom = "0%";
     document.getElementById("room4").style.left = "0%";
+}
+const ghostZoom = () => {
+    document.getElementById("room9").style.width = "200%";
+    document.getElementById("room9").style.bottom = "-50%";
+    document.getElementById("room9").style.left = "-45%";
+}
+const ghostUnZoom = () => {
+    document.getElementById("room9").style.width = "100%";
+    document.getElementById("room9").style.bottom = "0%";
+    document.getElementById("room9").style.left = "0%";
 }
 
 // INVENTORY
@@ -1536,6 +1550,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         stumpUnZoom();
         boatUnZoom();
         rocksUnZoom();
+        ghostUnZoom();
 
         // GET INPUT
         switch (true) {
@@ -1640,7 +1655,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 output.innerHTML = "You can type commands like \"<span>look around</span>\", \"<span>walk</span>\" in a direction, or \"<span>look</span>\" at something.<br><br>You can also try to put some objects in your pockets, or type \"<span>pockets</span>\" to see what you've picked up so far. Important items are often highligheted in <span>this shade of red</span>";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) &&  roomVisited[10] === false  && roomVisited [5] === false:
-                output.innerHTML = "There's a lot of forest to explore! You can type to walk in a direction, or click the corners of the screen above.";
+                output.innerHTML = "There's a lot of forest to explore! You can type to walk in a direction, or click the arrows in the corners of the screen above.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && inventory.length === 0 :
                 output.innerHTML = "The objects around you can be interacted with. Try typing \"<span>pick up rock</span>\".<br><br>You can also type \"<span>check pockets</span>\" to see what items you've picked up so far.";
@@ -2557,6 +2572,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 playCutscene();
                 ghostDiscovered = true;
                 room9Switch();
+                ghostZoom();
                 output.innerHTML = "You reach for a <span>mushroom</span>...<br><br>but a <span>ghost</span> appears!!<br><br>It seems like it's guarding the mushrooms.";
                 break;
                 // take mushrooms after ghost given mug
@@ -2569,6 +2585,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 // ghost interupts mushroom picking
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false  &&  (inp('search')||inp('take')||inp('grab')||inp('pocket')||inp('eat')||inp('gather')||inp('pick'))   &&    (inp('mushroom')||inp('circle'))  :
                 output.innerHTML = 'You take a step towards the mushrooms, but the <span>ghostly figure</span> gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br>"<span class="journal">Moon... cactus...</span>"<br><br>What could that mean?';
+                ghostZoom();
                 break;
                 // look at mushrooms
             case roomNum === 9 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('check')||inp('what'))   &&    (inp('mushroom')||inp('circle')) :
@@ -2576,7 +2593,6 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
                 // give ghost mug
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false && haveMug === true  && ( (inp('give')||inp('hand')||inp('offer')||inp('return')||inp('show')||inp('use'))   &&   ( inp('mug')||inp('cup') ) ) ||  ( ( inp('mug')||inp('cup') ) && ( (inp('ghost')||inp('figure'))) ) :
-                output.innerHTML = 'You take a step towards the mushrooms, but the <span>ghostly figure</span> gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br>"<span class="journal">Moon... cactus...</span>"<br><br>What could that mean?';
                 ghostGivenMug = true;
                 haveMug = false;
                 playGhostMugCutscene();
@@ -2586,55 +2602,73 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false && haveMug === true  &&  inp('mug')  :
                 output.innerHTML = "What do you want to do with the <span>mug</span>?"
+                ghostZoom();
                 break;
                 // interact with ghost
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('ask')||inp('question')):
                 output.innerHTML = 'You gather the courage to ask the ghost what it wants.<br><br>A voice whispers...<br><br><span class="journal">"Moon... cactus... well...</span>"<br><br>What could that mean?';
+                ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('talk')||inp('chat')||inp('hello')||inp('say')||inp(' hi')):
                 output.innerHTML = 'A voice whispers...<br><br><span class="journal">"Moon... cactus...</span>"<br><br>What could that mean?';
+                ghostZoom();
                 break;
-            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('flirt')||inp('compliment')||inp('flatter')||inp('cham')) :
-                output.innerHTML = 'You sly dog.<br><br>The <span>ghost</span> seems to blush... or maybe it\'s just a trick of the light.';
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('flirt')||inp('compliment')||inp('flatter')||inp('charm')) :
+                output.innerHTML = 'The <span>ghost</span> seems to blush...<br><br><span class="journal">"Sorry... I don\'t like you like that.</span>"';
+                ghostZoom();
+                break;
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  inp('flower') && (inp('give')||inp('offer')||inp('hand')) :
+                output.innerHTML = 'You offer the ghost a flower.<br><br><span class="journal">"Pretty... keep it."';
+                ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  inp('boo') || inp('scare') ||  inp('frighten') ||  inp('shoo') ||  inp('curse') :
                 output.innerHTML = 'The <span>ghost</span> doesn\'t seem scared of you...';
+                ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false &&  (inp('hit')||inp('push')||inp('punch')||inp('beat')||inp('fight')||(inp('throw')&&inp('rock')))  &&    (inp('ghost')||inp('figure'))  :
                 output.innerHTML = 'It\'s a freaking <span>ghost</span> yo! It would probably whip your butt.<br><br>Besides, doesn\'t look solid.';
+                ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false &&  (inp('touch')||inp('move'))  &&    (inp('ghost')||inp('figure'))  :
                 output.innerHTML = 'The <span>ghost</span> is totally freaking you out... there\'s no way you\'re getting close enought to do that.';
+                ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && inp('run') :
+                goWestAnimation();
                 room2Switch();
                 output.innerHTML = "Got away safely!";
-                roomNum = 2;
                 break;
             case roomNum === 9 && inp('leave') && !inp('leaves') :
+                goWestAnimation();
                 room2Switch();
-                roomNum = 2;
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && (inp('cast')||inp('spell')||inp('magic')||inp('exorcis')||inp('incantation')||inp('enchant')||inp('hypno')||inp('tranc')) :
                 output.innerHTML = "You've never been very good at spells and encantations, especially not when standing in front of a real <span>ghost</span>.";
+                ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveRibbon === true && inp('ribbon')  :
                 output.innerHTML = "You offer the <span>ribbon</span> to the ghost.<br><br><span class='journal'>\"No... thanks...\"</span>";
+                ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveRibbon === true && inp('rope')  :
                 output.innerHTML = "I don't think the <span>ghost</span> can use that.";
-                break;
+                ghostZoom();
+                reak;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveCrystal === true && (inp('crystal')||inp('gem'))  :
                 output.innerHTML = "You offer the <span>crystal</span> to the <span>ghost</span>.<br><br><span class='journal'>\"Jen... would love that...\"</span><br><br>Who could 'Jen' be?";
+                ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveCrystal === true && inp('key') && haveBoxKey === true && haveBox === false  :
                 output.innerHTML = "You show the <span>key</span> to the <span>ghost</span>.<br><br><span class='journal'>\"Box... boat...\"</span>";
+                ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveCrystal === true && inp('key') && haveBox === true && haveBoxKey === true :
                 output.innerHTML = "You offer the <span>key</span> to the <span>ghost</span>.<br><br><span class='journal'>\"No... thanks...\"</span>";
+                ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && haveCrystal === true && inp('box') && haveBox === true :
-                output.innerHTML = "You offer the <span>key</span> to the <span>ghost</span>.<br><br><span class='journal'>\"Not... mine...\"</span>";
+                output.innerHTML = "You offer the <span>box</span> to the <span>ghost</span>.<br><br><span class='journal'>\"Not... mine...\"</span>";
+                ghostZoom();
                 break;
                 // catch-all for ghosts and mushrooms
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && inp('ghost') :
@@ -2644,13 +2678,16 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 output.innerHTML = "The <span>ghost</span> is gone.";
                 break;
             case roomNum === 9 &&  inp('mushroom') && ghostDiscovered === false:
-                playGhostCutscene();
+                currentCutscene = "ghost appearing";
+                playCutscene();
                 ghostDiscovered = true;
                 room9Switch();
+                ghostZoom();
                 output.innerHTML = "You reach for a <span>mushroom</span>...<br><br>but a <span>ghost</span> appears!!<br><br>It seems like it's guarding the mushrooms.";
                 break;
             case roomNum === 9 &&  inp('mushroom') :
                 output.innerHTML = "The circle of <span>mushrooms</span> looks rather enticing.";
+                ghostZoom();
                 break;
 
             // ROOM 10
@@ -3466,7 +3503,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 output.innerHTML = "What do you want to take?";
                 break;
             case inp('something')   :
-                output.innerHTML = "Try looking around you, or interacting with objects.<br><br>You can move around the forest quickly by clicking in the corners of the screen above.";
+                output.innerHTML = "Try typing different commands to interact with things in the forest.<br><br>You can also move around the forest by tpying commands or clicking in the corners of the screen above.";
                 break;
 
             // DEFAULT QUESTION WORDS
@@ -3566,8 +3603,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     const pressEnter = () => {
         // clear placeholder on input form
         userInput.placeholder = "";
-        // bring back placeholder after 15 seconds
+        // bring back placeholder after 20 seconds
         setTimeout(function() {userInput.placeholder = "type something"}, 20000)
+        // new placeholder after a bit
+        setTimeout(function() {userInput.placeholder = "type: get hint"}, 40000)
         // make button flash
         whiteButtonFlash(enterButton);
         let fem = document.getElementById('userinput').value;
