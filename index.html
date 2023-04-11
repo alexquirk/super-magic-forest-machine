@@ -785,7 +785,7 @@ const robotDialogueButtonTexts = ["", //0
     
     //robot responses
     const robotDialogueTexts = ["You approach the strange figure, and it suddenly lights up! It stands, and speaks in a metallic voice:<br><br><span class='robot'>Wow! How long was I asleep for?</span>", //0
-                                "<span class='robot'>Oh. In that case, welcome! I must have been asleep for a while. Time is hard to tell around here.</span>", //1
+                                "<span class='robot'>Huh. I must have slept for a while. Time is hard to tell around here.</span>", //1
                                 "<span class='robot'>Are you lost? …That’s not too surprising. A lot of lost things tend to end up here. This forest is a strange place.</span>", //2
                                 "<span class='robot'>My name is Analysis Robot TK421. But you can call me ‘Alys’ for short. A long time ago I helped the humans do some work in this forest.</span>", //3
                                 "<span class='robot'>Oh, the same thing humans are always doing, I suppose. Industry. Building. Burning. Digging things out of the ground. Using Javascript. Humans are always so busy. I think they were here studying something, but I was asleep for such a long time, I can’t quite remember.</span>", //4
@@ -835,7 +835,7 @@ const createRobotConversation = () => {
     if (haveCrystal === true) 
         {robotConversationMap[13][0] = 16; };
     
-    // play cutscenes
+    // play cutscene if robot conversation is 6
     if (currentRobotConversation === 6) {
         currentCutscene = "robot scanning";
         playCutscene();
@@ -852,15 +852,20 @@ const createRobotConversation = () => {
     // make "leave" button visible
     leaveButton.style.display = "block";
 
+    // hide first button on -1 map value
     if (robotConversationMap[currentRobotConversation][0] > -1) {
         d1.innerHTML = robotDialogueButtonTexts[robotConversationMap[currentRobotConversation][0]];
         d1.style.display = "block";
     } else {d1.style.display = "none"};
+    //hide second button on -1 map value
     if (robotConversationMap[currentRobotConversation][1] > -1) {
         d2.innerHTML = robotDialogueButtonTexts[robotConversationMap[currentRobotConversation][1]];
         d2.style.display = "block";
     } else {d2.style.display = "none"};
+
+    // give player map at 7
     if (currentRobotConversation === 7) {haveMap = true};
+
     outputArea.scroll(0,0);
 };
 
@@ -878,22 +883,34 @@ continueRobotConversation2 = () => {
 
 d2.addEventListener('click', continueRobotConversation2);
 
+setCurrentRobotConversation = () => {
+    if (haveMap === false) {currentRobotConversation = 0}
+    else (currentRobotConversation = 9);
+};
+
+// leave button
+leaveButton.addEventListener('click', leaveRobotConversation);
 leaveRobotConversation = () => {
     dialogueAsk = false;
     inDialogue = false;
     d1.style.display = "none";
     d2.style.display = "none";
     leaveButton.style.display = "none";
-    // output.innerHTML = "<span class='robot'>Bye!</span>";
+    output.innerHTML = "";
     setCurrentRobotConversation();
+    robotUnZoom();
+    if (!( 
+                   navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                )) {
+            userInput.focus(); 
+                }
 };
-
-setCurrentRobotConversation = () => {
-    if (haveMap === false) {currentRobotConversation = 0}
-    else (currentRobotConversation = 9);
-};
-
-leaveButton.addEventListener('click', leaveRobotConversation);
 
 
 // BOOK BUTTONS
@@ -1081,9 +1098,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room4Switch = () => {
         if (roomNum === 1 && marbleDown === false) {
-            output.innerHTML = "You travel <span>north</span> until you arrive at glade with a large <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
+            output.innerHTML = "You travel north until you arrive at glade with a large <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
         } else if (roomNum === 2 && marbleDown === false) {
-            output.innerHTML = "You travel <span>west</span> until you arrive at glade with a large <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
+            output.innerHTML = "You travel west until you arrive at glade with a large <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
         } else if (marbleDown === false) {
             output.innerHTML = "You arrive at a glade with a large <span>tree</span> in the middle.<br><br><span>Something</span> is rustling up in the tree's branches...";
         } else if (marbleDown === true) {
@@ -1110,11 +1127,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room5Switch = () => { 
         if (roomNum === 1) {
-            output.innerHTML = "You travel <span>south</span> until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
+            output.innerHTML = "You travel south until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
         } else if (roomNum === 12) {
-            output.innerHTML = "You travel <span>east</span> until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
+            output.innerHTML = "You travel east until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
         } else if (roomNum ===6 ) {
-            output.innerHTML = "You travel <span>west</span> until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
+            output.innerHTML = "You travel west until you arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface.";
         } else {
             output.innerHTML = "You arrive at at rocky <span>lake shore</span>. The fading sunlight glistens on the calm surface."
         };
@@ -1136,9 +1153,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room6Switch = () => {
         if (ropeTaken === false && boatFixed === false && roomNum === 5)
-                {output.innerHTML = "You travel <span>east</span> along the lake shore until you arrive at a wooded point, where a half-sunk <span>boat</span> is tied to a mooring."}
+                {output.innerHTML = "You travel east along the lake shore until you arrive at a wooded point, where a half-sunk <span>boat</span> is tied to a mooring."}
             else if (ropeTaken === false && boatFixed === false && roomNum === 3)
-                {output.innerHTML = "You travel <span>south</span> through the forest until you arrive at a wooded <span>shoreline</span>, where a half-sunk <span>boat</span> is tied to a mooring."}
+                {output.innerHTML = "You travel south through the forest until you arrive at a wooded <span>shoreline</span>, where a half-sunk <span>boat</span> is tied to a mooring."}
             else if (boatFixed === false && ropeTaken === false)
                 {output.innerHTML = "You arrive at the wooded point where the half-sunk <span>boat</span> is tied to a mooring."}
             else if (boatFixed === false && ropeTaken === true)
@@ -1254,7 +1271,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     const room10Switch = () => {
         if (roomVisited[10] === false) { 
             if (roomNum === 1) {
-                output.innerHTML = "You travel <span>west</span>, making your way along a wooded trail until you arrive at a <span>stone well</span>.<br><br>You wonder who made this <span>well</span>, and how long ago.";
+                output.innerHTML = "You travel west, making your way along a wooded trail until you arrive at a <span>stone well</span>.<br><br>You wonder who made this <span>well</span>, and how long ago.";
             } else if (roomNum === 13) {
                 output.innerHTML = "You climb back out of the well."
             } else {
@@ -1263,11 +1280,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         } 
         else {
             if (roomNum === 1) {
-                output.innerHTML = "You travel <span>west</span> and find a <span>stone well</span>.";
+                output.innerHTML = "You travel west and find a <span>stone well</span>.";
             } else if (roomNum === 12) {
-                output.innerHTML = "You travel <span>north</span> and find a <span>stone well</span>.";
+                output.innerHTML = "You travel north and find a <span>stone well</span>.";
             } else if (roomNum === 11) {
-                output.innerHTML = "You travel <span>south</span> and find a <span>stone well</span>.";
+                output.innerHTML = "You travel south and find a <span>stone well</span>.";
             } else {
                 output.innerHTML = "You find yourself in front of the <span>stone well</span>."
             };
@@ -1316,22 +1333,22 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room12Switch = () => {
         if (newGame === true) {
-                output.innerHTML = "You travel <span>east</span> along the narrow path until you arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree."
+                output.innerHTML = "You travel east along the narrow path until you arrive at a <span><button onclick='spanClick(\"look lake\")'>lake shore</button></span>, where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying against a large willow tree."
         } else if (robotAwake === false) {
             if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
-                output.innerHTML = "You travel <span>west</span> along the lakeshore until you arrive at at a large willow tree where a <span>strange figure</span> is laying.";
+                output.innerHTML = "You travel west along the lakeshore until you arrive at at a large willow tree where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying.";
             } else if (roomNum === 14) { 
-                output.innerHTML = "You walk <span>east</span> and arrive at a <span>lake shore</span>, where a <span>strange figure</span> is laying against a large willow tree." 
+                output.innerHTML = "You walk east and arrive at a <span><button onclick='spanClick(\"look lake\")'>lake shore</button></span>, where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying against a large willow tree." 
             } else {
-                output.innerHTML = "You walk <span>south</span> until you arrive at a <span>lake shore</span>. where a <span>strange figure</span> is laying against a large willo tree.";
+                output.innerHTML = "You walk south until you arrive at a <span><button onclick='spanClick(\"look lake\")'>lake shore</button></span>, where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying against a large willo tree.";
             }
         } else {
             if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
-                output.innerHTML = "You travel <span>west</span> along the lakeshore until you arrive at the lakeshore, where the <span>robot</span> is standing under a large willow tree.";
+                output.innerHTML = "You travel west along the lakeshore until you arrive at the lakeshore, where the <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a large willow tree.";
             } else if (roomNum === 14) { 
-                output.innerHTML = "You travel <span>east</span> and  you arrive at the lakeshore, where the <span>robot</span> is standing under a large willow tree." 
+                output.innerHTML = "You travel east and  you arrive at the lakeshore, where the <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a large willow tree." 
             } else {
-                output.innerHTML = "You walk <span>south</span> and arrive at the lakeshore, where the <span>robot</span> is standing under a large willow tree.";
+                output.innerHTML = "You walk south and arrive at the lakeshore, where the <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a large willow tree.";
             }
         };
         roomVisited[12] = true;
@@ -1354,7 +1371,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         newGame = false;
     }; 
     const room13Switch = () => {
-        output.innerHTML = "You carefully climb down the rope to the bottom of the <span>well</span>.";
+        output.innerHTML = "You carefully climb down the rope to the bottom of the well.";
         roomVisited[13] = true;
         setTimeout(  ()=> {
             moveAllRoomsBack();
@@ -1374,7 +1391,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         if (newGame === false) {
             output.innerHTML = "You travel <span>west</span> and return to the glade where you awoke.";
         } else {
-            output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself.<br><br>The woods around you are dense and dark. There is a narrow path leading <span>east</span>.";
+            output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself.<br><br>The woods around you are dense and dark. There is a narrow path leading <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
         };
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
@@ -1416,7 +1433,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 
     const goNorth = () =>
         {
-            triangleButtonFlash(northTriangle)
+            triangleButtonFlash(northTriangle);
             userInput.value = "go north";
             processInput();
             // focus on input if on desktop
@@ -1434,7 +1451,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         };
     const goSouth = () =>
         {
-            triangleButtonFlash(southTriangle)
+            triangleButtonFlash(southTriangle);
             userInput.value = "go south";
             processInput();
             if (!( 
@@ -1511,6 +1528,13 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 // };
 
 
+
+// SPAN CLICK
+
+const spanClick = (whatToDo) => {
+    userInput.value = whatToDo;
+    processInput();
+}
 
 // USER INPUT
 
@@ -1646,7 +1670,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         // GET HINT
                 // initial hints
             case (inp("hint") || inp("help") || inp("clue")) && firstHint === false && haveBox === false && ropeTaken === false && haveBoxKey === false && roomVisited[5] === false && roomVisited[3] === false && roomVisited[10] === false && roomVisited[4] === false    :
-                output.innerHTML = "There is something strange about this place...<br><br>You can type commands like \"<span>look around</span>\", \"<span>walk</span>\" in a direction, or \"<span>look</span>\" at something.<br><br>You can also try to put some objects in your pockets, or type \"<span>pockets</span>\" to see what you've picked up so far. Important items are often highligheted <span>in red</span>.<br><br>You can type \"<span>map</span>\" to see where you've been.";
+                output.innerHTML = "There is something strange about this place...<br><br>You can type commands like \"<span>look around</span>\", \"<span>walk</span>\" in a direction, or \"<span>look</span>\" at something.<br><br>You can also try to put some objects in your pockets, or type \"<span>pockets</span>\" to see what you've picked up so far. Important items are often highligheted <span>in red</span>.";
                 firstHint = true;
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && thingsTriedSinceLastBigThing < 6 && haveBox === false && ropeTaken === false && haveBoxKey === false && roomVisited[5] === false && roomVisited[3] === false && roomVisited[10] === false && roomVisited[4] === false :
@@ -1659,10 +1683,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 output.innerHTML = "The objects around you can be interacted with. Try typing \"<span>pick up rock</span>\".<br><br>You can also type \"<span>check pockets</span>\" to see what items you've picked up so far.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === false &&  boxUnlocked === false && roomNum !== 12 && roomNum !== 5 && roomNum !== 6:
-                output.innerHTML = "You can travel around the forest by typing things like <span>go north</span>.<br><br>You can also get around by clicking on the triangles in the corners of the screen above, or by typing <span>map</span> and clicking on an area you've already been to.";
+                output.innerHTML = "You can travel around the forest by typing things like <span>go north</span>.<br><br>You can also get around by clicking on the triangles in the corners of the screen above.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === false && haveBox === false &&  boxUnlocked === false :
-                output.innerHTML = "It's always helpful to <span>look around</span> any time you arrive in a new area.<br><br>You can move around the forest quickly by clicking on triangles in the corners of the screen above, or by typing <span>map</span> and clicking on an area you've already been to.";
+                output.innerHTML = "It's always helpful to <span>look around</span> any time you arrive in a new area.<br><br>You can move around the forest quickly by clicking on triangles in the corners of the screen above.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && haveBoxKey === true && haveBox === false && triedKeyOnDoor === false &&  boxUnlocked === false:
                 output.innerHTML = "You found a <span>key</span>!<br><br>I bet it unlocks something nearby.";
@@ -1696,7 +1720,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 output.innerHTML = "Ok fine. Here's a hint: something in your pockets can be used to help explore an <span>area</span>. That's all I'm gonna say.";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && boxSmashed < 3 && haveFireflies === false && firefliesReleased === false && thingsTriedSinceLastBigThing > 19 && roomVisited[7] === false:
-                output.innerHTML = "Try exploring the map a bit more!";
+                output.innerHTML = "Try exploring!";
                 break;
             case (inp("hint") || inp("help") || inp("clue")) && boxUnlocked === true && boxSmashed < 3 && haveFireflies === false && firefliesReleased === false && thingsTriedSinceLastBigThing > 19:
                 output.innerHTML = "There is something strange about that <span>cave</span>... Maybe you can find a way to <span>light it up</span>?";
@@ -1928,7 +1952,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                         goSouthAnimation();
                         break;
                     case 5:
-                        output.innerHTML = "You can't go any farther south - the water seems to go on forever.";
+                        output.innerHTML = "You can't go any farther south.";
                         break;
                     case 14:
                         output.innerHTML = "There is a fence blocking you from going any further south.";
@@ -1937,10 +1961,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                         output.innerHTML = "There's nowhere to go!";
                         break;
                     case 6:
-                        output.innerHTML = "You can't go any farther south - the water seems to go on forever.";
+                        output.innerHTML = "You can't go any farther south.";
                         break;
                     case 12:
-                        output.innerHTML = "You can't go any farther south - the water seems to go on forever.";
+                        output.innerHTML = "You can't go any farther south.";
                         break;
                     case 7:
                         room11Switch();
@@ -2860,7 +2884,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 playCutscene();
                 robotAwake = true;
                 room12Switch();
-                output.innerHTML = "You approach the figure under the tree...";
+                output.innerHTML = "...";
                 // createRobotConversation();
                 break;
                 // talk to the robot
@@ -2869,13 +2893,13 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 break;
                 // looking around
             case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what')) && robotAwake === false  &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "A <span>strange figure</span> is lying under a tree by the lake shore.<br><br>To the west, a narrow path leads back the the glade where you awoke. To the north, a wooded path cuts into the forest. ";
+                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is lying under a tree by the lake shore.<br><br>To the west, a narrow path leads back the the glade where you awoke. To the north, a wooded path cuts into the forest. ";
                 break;
             case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what')) && robotAwake === true  &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "A <span>robot</span> is standing under a tree by the lake shore. <br><br>To the north, a wooded trail leads into the forest. The lake shore continues eastward.";
+                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a tree by the lake shore. <br><br>To the north, a wooded trail leads into the forest. The lake shore continues eastward.";
                 break;
             case roomNum === 12  && robotAwake === false &&     (inp('tree')||inp('branch'))     :
-                output.innerHTML = "There's a <span>robot</span> lying under a tree by the lake shore. It looks like it's sleeping, or powered down.";
+                output.innerHTML = "There's a <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> lying under a tree by the lake shore. It looks like it's sleeping, or powered down.";
                 break;
             case roomNum === 12 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
@@ -3524,7 +3548,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 output.innerHTML = "You can type things like <span>walk left</span> or <span>go north</span>, or you can click the arrows in the corner of the screen above, to explore the forest.<br><br>You can type <span>\"map\"</span> to get your bearings.";
                 break;
             case  inp('where') && (inp('go')):
-                output.innerHTML = "You can type things like <span>walk left</span> or <span>go north</span>, or you can click the arrows in the corner of the screen above, to explore the forest.";
+                output.innerHTML = "You can type things like <span><button onclick='spanClick(\"walk right\")'>walk right</button></span> or <span><button onclick='spanClick(\"go east\")'>go east</button></span>, or you can click the arrows in the corner of the screen above, to explore the forest.";
                 break;
             case  inp('where') && inp('am') && inp(' i') && roomNum !== 8 && roomNum !== 7 && roomNum !== 15 && roomNum !== 13:
                 output.innerHTML = "You're standing in a forest clearing.";

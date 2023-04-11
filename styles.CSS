@@ -594,6 +594,30 @@ body {
     color: rgb(255, 152, 152);
 }
 
+span > button {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    margin: 0;
+    padding: 0;
+    color: rgb(255, 152, 152);
+}
+
+span > button:active {
+    background: none;
+    border: none;
+    color: rgb(255, 208, 208);
+    font-family: inherit;
+    font-size: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+span > button:hover {
+    cursor: pointer;
+}
+
 #output > .journal {
     color: rgb(201, 255, 212);
 }
