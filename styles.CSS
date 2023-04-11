@@ -229,7 +229,8 @@ body {
 
 /* VIEWER AREA */
 
-.viewbox {
+#viewbox {
+    position: relative;
     display: flex;
     /* border: 1px pink dashed; */
     width: 100%;
@@ -565,6 +566,7 @@ body {
     display: none;
     border: 1px solid white;
     position: relative;
+    z-index: -1;
     max-height: 600px;
     width: 93%;
     height: 35%;
@@ -576,6 +578,22 @@ body {
     -webkit-overflow-scrolling: touch;
     text-align: center;
 } 
+
+.movetheviewbox {
+    animation: moveTheViewbox 2s ease-in-out;
+    animation-iteration-count: 1;
+}
+
+@keyframes moveTheViewbox {
+    0% {
+        top: 50%;
+        transform: translate(0, -50%)
+    }
+    100% {
+        top: 0%;
+        transform: translate(0, 0%);
+    }
+}
 
 #output {
     padding-bottom: 5px;
@@ -645,7 +663,7 @@ body {
 }
 
 .boxfadein {
-    animation: boxFadeIn 1.3s ease-out;
+    animation: boxFadeIn 2s ease-out;
     animation-iteration-count: 1;
 }
 

@@ -35,7 +35,7 @@
 <article id="themachine">
     
     <!-- VIEWER -->
-    <div class="viewbox">
+    <div id="viewbox">
 
         <!-- border 1 -->
         <img class="border1" src="./roomimages/border 1.png">
@@ -129,6 +129,8 @@ const titleCard = document.getElementById('titlecard');
 
 const theMachine = document.getElementById('themachine');
 
+const viewbox = document.getElementById('viewbox');
+
 let introCutscenePlayed = false;
 let introCutsceneDonePlaying = false;
 
@@ -193,6 +195,9 @@ document.onkeydown = e => {
             case currentCutscene === "intro":
                 //make cutscene visible
                 cutsceneViewer.style.display = "flex";
+                // put it in the middle
+                viewbox.style.top = "50%";
+                viewbox.style.transform = "translate(0, -50%)";
                 //set source to correct video file
                 cutsceneVideo.src="./cutscenes/introcutscene.mp4";
                 // pause it to let it load
@@ -261,17 +266,24 @@ document.onkeydown = e => {
         switch (true) {
         //intro cutscene
         case currentCutscene === "intro":
+            //move the input and output around
             outputArea.classList.add('boxfadein');
             inputArea.classList.add('textfadein');
             outputArea.style.display = "block";
             inputArea.style.display = "flex";
+            output.style.display = 'block';
             output.style.opacity = "0";
+                // how long till the text appears
             setTimeout(function() { 
                 output.style.opacity = "1";
                 output.classList.add('textfadein'); 
                 }, 
-                900)
-            output.style.display = 'block';
+                1500);
+            // move the viewbox around
+            viewbox.style.top = "0%";
+            viewbox.style.transform = "translate(0, 0%)";
+            viewbox.classList.add('movetheviewbox');
+            // get the game started
             room14Switch();
             room14.style.zIndex = "0";
             document.getElementById("room14tile").src="./maptiles/room14tile.png";
