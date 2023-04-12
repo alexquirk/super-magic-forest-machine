@@ -459,6 +459,8 @@ body {
 
 .inventorybutton {
     position: relative;
+    appearance: none;
+    -webkit-appearance: none;
     min-width: 0px;
     width: 10%;
     height: 10%;
@@ -467,14 +469,14 @@ body {
 
 .inventorybutton:focus {
     opacity: 0;
+    appearance: none;
+    -webkit-appearance: none;
 }
 
 .inventorybutton:active {
     opacity: 0;
-}
-
-.inventorybutton:focus {
-    opacity: 0;
+    appearance: none;
+    -webkit-appearance: none;
 }
 
 #rockbutton {

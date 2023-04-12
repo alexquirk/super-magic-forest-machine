@@ -83,7 +83,7 @@
     </div>
 
     <!-- OUTPUT AREA -->
-    <div id="outputarea" onclick="clearMap();closeInventory()">
+    <div id="outputarea" onclick="clearMap()">
         <div id="output">
 
                 <!-- READ THIS :) -->
@@ -340,6 +340,7 @@ document.onkeydown = e => {
 
 // the evil button
 //                       <span><button onclick='spanClick(\"XOXOX\")'>XOXOX</button></span>
+//                       <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>
 
 
 //DECLARE VARIABLES
@@ -734,14 +735,14 @@ const ghostUnZoom = () => {
         if (fixingBoat === true) {
             haveBox = true;
             boatFixed = true;
-            removeItem("a <span>rock</span>");
+            removeItem("a <span><button onclick='spanClick(\"inspect rock\")'>rock</button></span>");
             haveRock = false;
             boatZoom();
             switchChestRopeImage();
             room6Switch();
             closeInventory();
             output.innerHTML = "You plug the hole in the bottom of the boat with a rock. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a locked wooden box in the bottom of the boat, and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
-            if (haveBox === false ) {inventory.push("a <span>wooden box</span>")};
+            if (haveBox === false ) {inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>")};
         };
     };
 
@@ -2190,9 +2191,9 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 2 && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
                 output.innerHTML = 'You catch a firefly, and very carefully put it in your box and close the lid.<br><br>You catch another, and another... and pretty soon the box is full of fireflies!';
-                removeItem("a <span>wooden box</span>");
-                removeItem("a <span>smashed-up box</span>");
-                inventory.push("a <span>box of fireflies</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect box\")'>smashed-up box</button></span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>box of fireflies</button></span>");
                 haveFireflies = true;
                 switchChestRopeImage();
                 break;
@@ -2236,7 +2237,7 @@ const spanClick = (whatToDo) => {
                 catDiscovered = true;
                 marbleDown = true;
                 haveRibbon = false;
-                removeItem("a <span>red ribbon</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span>");
                 room4Switch();
                 output.innerHTML = "The moment you pull the red ribbon out of your pocket, the cat perks up.<br><br>You start to wave the ribbon around, and the cat leaps from the tree!";
                 break;
@@ -2311,7 +2312,7 @@ const spanClick = (whatToDo) => {
                 catDiscovered = true;
                 catTreeZoom();
                 if (haveStick === true) {
-                    removeItem("a <span>stick</span>")
+                    removeItem("a <span><button onclick='spanClick(\"inspect stick\")'>stick</button></span>")
                 };
                 haveStick = false;
                 output.innerHTML = "You throw a stick at the cat like the big jerk you are. The cat dodges out of the way and hisses, while the universe silently judges you.<br><br>-50 points";
@@ -2390,14 +2391,14 @@ const spanClick = (whatToDo) => {
                 haveBoxKey = true;
                 findKey();
                 rocksZoom();
-                inventory.push("a <span>silver key</span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect key\")'>silver key</button></span>");
                 break;
             case roomNum === 5 &&  haveBoxKey === false &&  (inp('search')||inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    (inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')||inp('water')||inp('rock')||inp('stone')||inp('pebble')||inp("shore")||(inp('drift')&&inp('wood')))    :
                 output.innerHTML = "You find a key in the rocks by the shore! Too bad you already smashed the open box, so now it's worthless.<br><br>...Or is it...?<br><br>...It is.";
                 haveBoxKey = true;
                 findKey();
                 rocksZoom();
-                inventory.push("a <span>silver key</span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect key\")'>silver key</button></span>");
                 break;
             case roomNum === 5 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass, with scattered <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> and <span><button onclick='spanClick(\"take flower\")'>flowers</button></span>. The lakeshore is scattered with driftwood and other <span><button onclick='spanClick(\"search rocks\")'>debris</button></span> washed in on the tide.";
@@ -2429,7 +2430,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "The <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> has a fist-size hole in the bottom and is filled with water. Maybe you can find something to plug the hole with.<br><br>You find a locked wooden box in the bottom of the boat, and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 haveBox = true;
                 switchChestRopeImage();
-                inventory.push("a <span>wooden box</span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
                 boatZoom();
                 break;
             case roomNum === 6    && haveBox === true  && boatFixed === false && (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))  :
@@ -2439,7 +2440,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 6   && boatFixed === true  && ropeTaken === false && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
                 ropeTaken = true;
                 haveRope = true;
-                inventory.push("a <span>rope</span>")
+                inventory.push("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>")
                 switchChestRopeImage();
                 currentCutscene = "riding boat";
                 playCutscene();
@@ -2467,8 +2468,8 @@ const spanClick = (whatToDo) => {
             //     boatZoom();
             //     switchChestRopeImage();
             //     room6Switch();
-            //     output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span>rock</span>. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
-            //     inventory.push("a <span>wooden box</span>");
+            //     output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span><button onclick='spanClick(\"inspect rock\")'>rock</button></span>. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
+            //     inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
             //     break;
             case roomNum === 6    && haveBox === true  && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
                 boatFixed = true;
@@ -2482,7 +2483,7 @@ const spanClick = (whatToDo) => {
                 haveBox = true;
                 boatZoom();
                 switchChestRopeImage();
-                inventory.push("a <span>wooden box</span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
                 break;
             case roomNum === 6   && ropeTaken === false  && boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))  &&    (inp('boat')||inp('moor'))  :
                 boatZoom();
@@ -2513,7 +2514,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 6    && ropeTaken === false && (    ((inp('take')||inp('grab')||inp('pocket')||inp('remove')||inp('get')||inp('use')||inp('tie'))   &&    (inp('rope')))  ||  (inp('tie') &&  inp('boat'))  ):
                 haveRope = true;
                 ropeTaken = true;
-                inventory.push("a <span>rope</span>")
+                inventory.push("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>")
                 room6Switch();
                 boatZoom();
                 switchChestRopeImage();
@@ -2539,7 +2540,7 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 7 && (inp('rope'))  && firefliesReleased === false && haveRope === true && haveCrystal === false :
                 output.innerHTML = "You tie one end of the rope to a rock near the cave entrance and hold the other end as you walk into the darkness.<br><br>With your hands out in front of you, you slowly feel your way through through the maze of rock. Some of the walls around you feel rough and stoney, while others feel smooth and glassy.<br><br>Eventually you reach the end of the rope. Before you turn back, you fumble around the ground and grab a strange smooth rock and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
-                inventory.push("a <span>strange crystal</span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect crystal\")'>strange crystal</button></span>");
                 haveCrystal = true;
                 break;
             case roomNum === 7 && (inp('rope'))  && firefliesReleased === true && haveRope === true :
@@ -2568,7 +2569,7 @@ const spanClick = (whatToDo) => {
                 break;
             case (roomNum === 7 || roomNum === 8) &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
                 output.innerHTML = "You pick up a small piece of crystal off the ground. Your fingers tingle when you touch it, and it's surprisingly warm in your hand. It seems to magnify the light from the fireflies.<br><br>You put the crystal in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
-                inventory.push("a <span>strange crystal</span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect crystal\")'>strange crystal</button></span>");
                 haveCrystal = true;
                 break;
             case (roomNum === 7 || roomNum === 8) &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true  && haveCrystal === true  :
@@ -2576,9 +2577,9 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 7 && firefliesReleased===true && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
                 output.innerHTML = 'You catch a firefly, and very carefully put it in the box and close the lid.<br><br>You catch another, and another, and pretty soon the box is full of fireflies!';
-                removeItem("a <span>wooden box</span>");
-                removeItem("a <span>smashed-up box</span>");
-                inventory.push("a <span>box of fireflies</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect box\")'>smashed-up box</button></span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>box of fireflies</button></span>");
                 haveFireflies = true;
                 switchChestRopeImage();
                 break;
@@ -2616,7 +2617,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 9 && ghostGivenMug === true && ( (inp('take')||inp('grab')||inp('pocket')||inp('gather')||inp('pick'))  || (inp('eat')&&haveMushy === false)   )  &&    (inp('mushroom')||inp('circle'))  :
                 output.innerHTML = "You pick a nice looking mushroom and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 haveMushy = true;
-                inventory.push('a <span>wild mushroom</span>');
+                inventory.push("a <span><button onclick='spanClick(\"inspect mushroom\")'>wild mushroom</button></span>");
                 document.getElementById("inventory3").src="./inventoryimages/mushy.png";
                 break;
                 // ghost interupts mushroom picking
@@ -2634,7 +2635,7 @@ const spanClick = (whatToDo) => {
                 haveMug = false;
                 playGhostMugCutscene();
                 room9Switch();
-                removeItem("an <span>old mug</span>");
+                removeItem("an <span><button onclick='spanClick(\"inspect mug\")'>old mug</button></span>");
                 output.innerHTML = 'The ghost fades away, and you catch a faint whisper in the wind:<br><br>"<span class="journal">Thanks for caring...</span>"<br><br>Maybe it\'s just your imagination, but it suddenly seems like the forest around you is a bit brighter.<br><br>+75 points'
                 break;
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false && haveMug === true  &&  inp('mug')  :
@@ -2731,7 +2732,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 10 &&  (inp('use')||inp('tie')||inp('attach')||inp('set')||inp('throw')||inp('drop')||inp('toss'))   &&    (inp('rope')||inp('well'))   &&  haveRope === true  && ropeSet === false :
                 ropeSet = true;
                 haveRope = false;
-                removeItem("a <span>rope</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>");
                 room10Switch();
                 switchChestRopeImage();
                 output.innerHTML = "You tie the rope to the top of the well. It seems pretty secure...";
@@ -2756,7 +2757,7 @@ const spanClick = (whatToDo) => {
                 wellZoom();
                 if (haveStick === true) {
                     output.innerHTML = "You throw your stick into the well. It clatters off the walls for a few seconds before falling silent.<br><br>No splash... it must be dry.";
-                    removeItem("a <span>stick</span>");
+                    removeItem("a <span><button onclick='spanClick(\"inspect stick\")'>stick</button></span>");
                     haveStick = false;
                 };
                 break;
@@ -2767,7 +2768,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('flower')  && haveFlower === true   :
                 output.innerHTML = "You drop a flower into the well. It drifts lazily down into the darkness until you lose sight of it.";
                 haveFlower = false;
-                removeItem("a <span>blue flower</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect flower\")'>blue flower</button></span>");
                 wellZoom();
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('flower')  && haveFlower === false   :
@@ -2775,7 +2776,7 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('crystal') && haveCrystal === true   :
                 output.innerHTML = "You throw the crystal down the well. It hits the side and breaks apart before falling out of sight.";
-                removeItem("a <span>strange crystal</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect crystal\")'>strange crystal</button></span>");
                 wellZoom();
                 haveCrystal = false;
                 break;
@@ -2808,7 +2809,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 10 &&  ropeSet === true &&  (inp('take')||inp('grab')||inp('pocket')||inp('untie')||inp('remove')||inp('get'))   &&    (inp('rope'))     :
                 haveRope = true;
                 ropeSet = false;
-                inventory.push("a <span>rope</span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>");
                 room10Switch();
                 switchChestRopeImage();
                 output.innerHTML = "You untie the rope and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
@@ -2858,7 +2859,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 11 && (inp('rock')||inp('stone')||inp('pebble')) && (inp('throw')||inp('chuck')||inp('toss')) && haveRock === true   :
                 output.innerHTML = "You throw your rock into the cave. It disappears into the dark with a clatter.";
                 haveRock = false;
-                removeItem("a <span>rock</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect rock\")'>rock</button></span>");
                 break;
             case roomNum === 11 && (inp('rock')||inp('stone')||inp('pebble')) && (inp('throw')||inp('chuck')||inp('toss')) && haveRock === false   :
                 output.innerHTML = "You throw a rock into the cave. It disappears into the dark with a clatter.";
@@ -2866,7 +2867,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 11 && (inp('stick')||inp('branch')) && (inp('throw')||inp('chuck')||inp('toss')) && haveStick === true   :
                 output.innerHTML = "You throw your stick into the cave. It disappears into the dark with a clatter.";
                 haveStick = false;
-                removeItem("a <span>stick</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect stick\")'>stick</button></span>");
                 break;
             case roomNum === 11 && (inp('stick')||inp('branch')) && (inp('throw')||inp('chuck')||inp('toss')) && haveStick === false   :
                 output.innerHTML = "You throw a stick into the cave. It disappears into the dark with a clatter.";
@@ -2972,7 +2973,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 13 &&  (inp('take')||inp('grab')||inp('pocket')||inp('get'))   &&    (inp('mug'))  && mugTaken === false   :
                 haveMug =true;
                 mugTaken = true;
-                inventory.push("an <span>old mug</span>");
+                inventory.push("an <span><button onclick='spanClick(\"inspect mug\")'>old mug</button></span>");
                 room13Switch();
                 output.innerHTML = "You put the mug in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 break;
@@ -2988,15 +2989,15 @@ const spanClick = (whatToDo) => {
             case roomNum === 2 && haveFireflies=== true && (inp('release')||inp('open'))   &&    (inp('box')||inp('chest')||inp('fireflies'))  :
                 output.innerHTML = 'You release the fireflies into the air. They linger for a moment before rejoining their friends.';
                 haveFireflies = false;
-                removeItem("a <span>box of fireflies</span>");
-                inventory.push("a <span>wooden box</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect box\")'>box of fireflies</button></span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
                 switchChestRopeImage();
                 break;
             case roomNum !== 7 && haveFireflies=== true && (inp('release')||inp('open'))   &&    (inp('box')||inp('chest')||inp('fireflies'))  :
                 output.innerHTML = 'You release the fireflies into the air. They linger for a moment, glimmering quietly, before floating up and away.<br><br>"Maybe they\'re going back to join their friends", you think.';
                 haveFireflies = false;
-                removeItem("a <span>box of fireflies</span>");
-                inventory.push("a <span>wooden box</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect box\")'>box of fireflies</button></span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
                 switchChestRopeImage();
                 break;
             case roomNum === 7 && haveFireflies=== true && (inp('release')||inp('open'))   &&    (inp('box')||inp('chest')||inp('fireflies'))  :
@@ -3005,8 +3006,8 @@ const spanClick = (whatToDo) => {
                 switchChestRopeImage();
                 playCaveCutscene2();
                 document.getElementById("room7").src="./roomimages/smfmroom7a.png";
-                removeItem("a <span>box of fireflies</span>");
-                inventory.push("a <span>wooden box</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect box\")'>box of fireflies</button></span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
                 room7Switch();
                 thingsTriedSinceLastBigThing = 0;
                 output.innerHTML = 'You open the box, and the fireflies fill the cave with a brilliant light!';
@@ -3095,7 +3096,7 @@ const spanClick = (whatToDo) => {
             case (roomNum === 1 || roomNum === 3 || roomNum === 5  || roomNum === 14 || roomNum === 12  || roomNum === 15)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === false   :
                 output.innerHTML = "You pick one of the blue flowers and carefully put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 haveFlower = true;
-                inventory.push("a <span>blue flower</span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect flower\")'>blue flower</button></span>");
                 break;
             case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === true   :
                 output.innerHTML = "You already have a flower in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
@@ -3107,7 +3108,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "Lovely :)<br><br>+10 points";
                 break;
             case  haveFlower === true &&    inp('flower') && (inp('drop')||inp('leave')||inp('throw')||inp('toss'))  :
-                removeItem("a <span>blue flower</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect flower\")'>blue flower</button></span>");
                 haveFlower = false;
                 output.innerHTML = "You drop your flower.";
                 break;
@@ -3118,7 +3119,7 @@ const spanClick = (whatToDo) => {
             // INTERACT WITH ROCKS
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "There's an art to rock collecting. You find a nice one and put it in your <span><button onclick='spanClick(\"check pocket\")'>pocket</button></span>.";
-                inventory.push("a <span>rock</span>")
+                inventory.push("a <span><button onclick='spanClick(\"inspect rock\")'>rock</button></span>")
                 haveRock = true;
                 break;
             case (inp('under')||inp('search')||inp('check'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
@@ -3132,12 +3133,12 @@ const spanClick = (whatToDo) => {
                 break;
             case (inp('rock')||inp('stone')||inp('pebble')) && inp('throw') && haveRock === true   :
                 output.innerHTML = "You wind up and throw your rock as far as you can.";
-                removeItem("a <span>rock</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect rock\")'>rock</button></span>");
                 haveRock = false;
                 break;
             case (inp('rock')||inp('stone')||inp('pebble')) && (inp('drop') ||inp('leave'))&& haveRock === true   :
                 output.innerHTML = "You drop your rock.";
-                removeItem("a <span>rock</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect rock\")'>rock</button></span>");
                 haveRock = false;
                 break;
             case (inp('rock')||inp('stone')||inp('pebble')) && inp('throw') && haveRock === false   :
@@ -3167,12 +3168,12 @@ const spanClick = (whatToDo) => {
             // STICKS
             case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && haveStick === false && (inp('stick')||inp('branch'))&& (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')) :
                 output.innerHTML = "You find a nice stick and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
-                inventory.push("a <span>stick</span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect stick\")'>stick</button></span>");
                 haveStick = true;
                 break;
             case (roomNum === 5||roomNum === 6||roomNum === 12) && haveStick === true && (inp('throw')||inp('toss')||inp('chuck')) && inp('stick') :
                 output.innerHTML = "You throw your stick out into the water and watch it float away.";
-                removeItem("a <span>stick</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect stick\")'>stick</button></span>");
                 haveStick = false;
                 break;
             case (roomNum === 5||roomNum === 6||roomNum === 12) && (inp('throw')||inp('toss')||inp('chuck')) && inp('stick') :
@@ -3180,12 +3181,12 @@ const spanClick = (whatToDo) => {
                 break;
             case haveStick === true && (inp('throw')||inp('toss')||inp('chuck')) && inp('stick') :
                 output.innerHTML = "You throw your stick into the forest, startling some birds.";
-                removeItem("a <span>stick</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect stick\")'>stick</button></span>");
                 haveStick = false;
                 break;
             case haveStick === true && inp('drop') && inp('stick') :
                 output.innerHTML = "You drop your stick.";
-                removeItem("a <span>stick</span>");
+                removeItem("a <span><button onclick='spanClick(\"inspect stick\")'>stick</button></span>");
                 haveStick = false;
                 break;
             case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && haveStick === true && (inp('stick')||inp('branch'))&& (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')) :
@@ -3222,7 +3223,7 @@ const spanClick = (whatToDo) => {
                 boxUnlocked = true;
                 haveRibbon = true;
                 thingsTriedSinceLastBigThing = 0;
-                inventory.push("a <span>red ribbon</span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span>");
                 switchChestRopeImage();
                 if (checkingInventory === true) {
                     displayInventory();
@@ -3274,8 +3275,8 @@ const spanClick = (whatToDo) => {
                 haveRibbon = true;
                 boxSmashed = 4;
                 removeItem("a <span>wooden box</span");
-                inventory.push("a <span>smashed-up box</span>");
-                inventory.push("a <span>red ribbon</span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>smashed-up box</button></span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span>");
                 switchChestRopeImage();
                 if (checkingInventory === true) {
                     displayInventory();
