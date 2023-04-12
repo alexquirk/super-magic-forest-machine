@@ -290,8 +290,12 @@ document.onkeydown = e => {
             viewbox.style.transform = "translate(0, 0%)";
             viewbox.classList.add('movetheviewbox');
             // fade the 'e' in
+            document.getElementById('easttriangle').style.display = "none";
             document.getElementById('easttriangle').classList.add('textfadein');
-            setTimeout(function() {document.getElementById('easttriangle').classList.remove('textfadein')}, 2000)
+            setTimeout(function() {
+                document.getElementById('easttriangle').classList.remove('textfadein');
+                document.getElementById('easttriangle').style.display = "inline";
+                }, 2000)
             // get the game started
             room14Switch();
             room14.style.zIndex = "0";
@@ -331,7 +335,8 @@ document.onkeydown = e => {
             break;
         }       
         //generic
-        cutsceneViewer.style.display = "none";
+        cutsceneViewer.classList.add = "fadeout";
+        setTimeout(function(){cutsceneViewer.style.display = "none";}, 1000);
         theMachine.style.display = "flex";
         currentCutscene = "";
         
@@ -3090,6 +3095,9 @@ const spanClick = (whatToDo) => {
                 break;
 
             // GET FLOWER
+            case  haveFlower === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('flower'))  && !(inp('flowers'))   :
+                output.innerHTML = "It's a rather pretty blue flower :)";
+                break;
             case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15)   &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('flower'))     :
                 output.innerHTML = "You look at the flowers. Nice :)<br><br>+1 point";
                 break;
@@ -3178,6 +3186,9 @@ const spanClick = (whatToDo) => {
                 break;
             case (roomNum === 5||roomNum === 6||roomNum === 12) && (inp('throw')||inp('toss')||inp('chuck')) && inp('stick') :
                 output.innerHTML = "You throw a stick out into the water and watch it float away.";
+                break;
+            case haveStick === true && (inp('look')||inp('inspect')||inp('check')||inp('examine')) && inp('stick') :
+                output.innerHTML = "It's a pretty normal looking stick.";
                 break;
             case haveStick === true && (inp('throw')||inp('toss')||inp('chuck')) && inp('stick') :
                 output.innerHTML = "You throw your stick into the forest, startling some birds.";
