@@ -570,7 +570,7 @@ body {
 }
 
 .findobject {
-    animation: findObject 2s ease-in-out;
+    animation: findObject 2.1s ease-in-out;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
@@ -579,10 +579,10 @@ body {
     0% {
         opacity: 0;
         filter: blur(10px);
-        transform: translate(0, -10%);
+        transform: translate(0, 10%);
 
     }
-    10% {
+    20% {
         opacity: 1;
         filter: blur(0px);
         transform: translate(0, 0);

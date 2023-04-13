@@ -536,9 +536,9 @@ const ghostUnZoom = () => {
                 inventoryText.push(" " + inventory[i] + ",");
             };
             if (inventory.length > 1) {
-                inventoryText.push(" and " + inventory[inventory.length -1]+ " in your pocket.<br><br>Press 'ENTER' to return.")
+                inventoryText.push(" and " + inventory[inventory.length -1]+ " in your pocket.")
             } else {
-                inventoryText.push(" " + inventory[inventory.length -1]+ " in your pocket.<br><br>Press 'ENTER' to return.")
+                inventoryText.push(" " + inventory[inventory.length -1]+ " in your pocket.")
             };
             return inventoryText.join('');
         };
@@ -831,6 +831,20 @@ const ghostUnZoom = () => {
                 document.getElementById("inventory6").style.bottom = "0%"; 
                 document.getElementById("inventory6").style.left = "0%";
                 document.getElementById("inventory6").classList.remove('findobject');
+            },
+            2500
+            )
+        };
+        if (objectFound === "crystal") {
+            document.getElementById("inventory5").style.zIndex = "105";
+            document.getElementById("inventory5").style.bottom = "18%"; 
+            document.getElementById("inventory5").style.left = "-17%";
+            document.getElementById("inventory5").classList.add('findobject');
+            setTimeout(function() {
+                document.getElementById("inventory5").style.zIndex = "-2";
+                document.getElementById("inventory5").style.bottom = "0%"; 
+                document.getElementById("inventory5").style.left = "0%";
+                document.getElementById("inventory5").classList.remove('findobject');
             },
             2500
             )
@@ -1226,7 +1240,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room6Switch = () => {
         if (ropeTaken === false && boatFixed === false && roomNum === 5)
-                {output.innerHTML = "You travel east along the lake shore until you arrive at a wooded point, where a half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring.<br><br>The forest grows darker and denser to the <span><button onclick='spanClick(\"go north\")'>north</button></span>"}
+                {output.innerHTML = "You travel east along the lake shore until you arrive at a wooded point, where a half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring.<br><br>The forest grows darker and denser to the <span><button onclick='spanClick(\"go north\")'>north</button></span>."}
             else if (ropeTaken === false && boatFixed === false && roomNum === 3)
                 {output.innerHTML = "You travel south through the forest until you arrive at a wooded shoreline, where a half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
             else if (boatFixed === false && ropeTaken === false)
@@ -2547,7 +2561,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You plug the hole in the bottom of the boat with a rock. You spend a few minutes bailing water out, and soon it starts to float again.";
                 break;
                 // Searching The Boat
-            case roomNum === 6 &&   haveBox === false  &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))   &&    (inp('boat')||inp('moor'))     :
+            case roomNum === 6 &&   haveBox === false  &&  (inp('look')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))   &&    (inp('boat')||inp('moor'))     :
                 output.innerHTML = "You look into the bottom of the boat and find a locked wooden box.<br><br>You put the box in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 haveBox = true;
                 boatZoom();
@@ -2556,7 +2570,7 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 6   && ropeTaken === false  && boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))  &&    (inp('boat')||inp('moor'))  :
                 boatZoom();
-                output.innerHTML = "The <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is half-sunk, and tied to the shore with a thick rope. You look closer, and realize there is a fist-sized hole in the bottom.";
+                output.innerHTML = "The <span><button onclick='spanClick(\"search boat\")'>boat</button></span> is half-sunk, and tied to the shore with a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>. You look closer, and realize there is a fist-sized hole in the bottom.";
                 break;
             case roomNum === 6   && ropeTaken === true  && boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))  &&    (inp('boat')||inp('moor'))  :
                 boatZoom();
@@ -2564,20 +2578,20 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 6   && ropeTaken === false  && boatFixed === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))  &&    (inp('boat')||inp('moor'))  :
                 boatZoom();
-                output.innerHTML = "The <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to the shore with a thick rope.";
+                output.innerHTML = "The boat is tied to the shore with a thick <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>.";
                 break;
             case roomNum === 6   && ropeTaken === true  && boatFixed === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))  &&    (inp('boat')||inp('moor'))  :
                 boatZoom();
-                output.innerHTML = "What a nice <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span>!";
+                output.innerHTML = "What a nice boat!";
                 break;
 
                 //rope
             case roomNum === 6 &&   ropeTaken === false &&  boatFixed === false &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('rope'))     :
-                output.innerHTML = "The rope seems to be the only thing about the <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> that is still in decent condition.";
+                output.innerHTML = "The <span><button onclick='spanClick(\"take rope\")'>rope</button></span> seems to be the only thing about the <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> that is still in decent condition.";
                 boatZoom();
                 break;
             case roomNum === 6 &&   ropeTaken === false &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('rope'))     :
-                output.innerHTML = "The rope seems to be in decent condition.";
+                output.innerHTML = "The <span><button onclick='spanClick(\"take rope\")'>rope</button></span> seems to be in decent condition.";
                 boatZoom();
                 break;
             case roomNum === 6    && ropeTaken === false && (    ((inp('take')||inp('grab')||inp('pocket')||inp('remove')||inp('get')||inp('use')||inp('tie'))   &&    (inp('rope')))  ||  (inp('tie') &&  inp('boat'))  ):
@@ -2591,9 +2605,6 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 6 && ropeSet === true   &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('rope'))     :
                 output.innerHTML = "The rope that was tied to the <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is back at the well.";
-                break;
-            case roomNum === 6 && haveRope === true   &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('rope'))     :
-                output.innerHTML = "You took the rope that was tied to the <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 break;
             case roomNum === 6 &&   ropeTaken === true && (inp('take')||inp('grab')||inp('pocket')||inp('get'))   &&    (inp('rope'))     :
                 output.innerHTML = "You already took the rope.";
@@ -2611,6 +2622,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You tie one end of the rope to a rock near the cave entrance and hold the other end as you walk into the darkness.<br><br>With your hands out in front of you, you slowly feel your way through through the maze of rock. Some of the walls around you feel rough and stoney, while others feel smooth and glassy.<br><br>Eventually you reach the end of the rope. Before you turn back, you fumble around the ground and grab a strange smooth rock and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 inventory.push("a <span><button onclick='spanClick(\"inspect crystal\")'>strange crystal</button></span>");
                 haveCrystal = true;
+                findObject("crystal");
                 break;
             case roomNum === 7 && (inp('rope'))  && firefliesReleased === true && haveRope === true :
                 output.innerHTML = "You check around the cave, but it doesn't seem like the rope will be much help right now.";
@@ -2639,6 +2651,7 @@ const spanClick = (whatToDo) => {
             case (roomNum === 7 || roomNum === 8) &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
                 output.innerHTML = "You pick up a small piece of crystal off the ground. Your fingers tingle when you touch it, and it's surprisingly warm in your hand. It seems to magnify the light from the fireflies.<br><br>You put the crystal in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 inventory.push("a <span><button onclick='spanClick(\"inspect crystal\")'>strange crystal</button></span>");
+                objectFound("crystal");
                 haveCrystal = true;
                 break;
             case (roomNum === 7 || roomNum === 8) &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true  && haveCrystal === true  :
@@ -3243,12 +3256,12 @@ const spanClick = (whatToDo) => {
                 break;
             
             // MUSHROOMS
-            case roomNum !== 9 && haveMushroom === false && inp('mushroom')  :
+            case roomNum !== 9 && haveMushy === false && inp('mushroom')  :
                 output.innerHTML = "There aren't any mushrooms around.";
                 break;
 
             // STICKS
-            case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && haveStick === false && (inp('stick')||inp('branch'))&& (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')) :
+            case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && haveStick === false && (inp('stick')||inp('branch'))  && (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')) :
                 output.innerHTML = "You find a nice stick and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 inventory.push("a <span><button onclick='spanClick(\"inspect stick\")'>stick</button></span>");
                 haveStick = true;
@@ -3731,8 +3744,6 @@ const spanClick = (whatToDo) => {
     const pressEnter = () => {
         // clear placeholder on input form
         userInput.placeholder = "";
-        // new placeholder after a bit
-        setTimeout(function() {userInput.placeholder = "type: get hint"}, 50000)
         // make button flash
         whiteButtonFlash(enterButton);
         let fem = document.getElementById('userinput').value;
