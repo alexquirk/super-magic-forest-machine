@@ -168,9 +168,9 @@ document.onkeydown = e => {
         
     let currentCutscene = "intro";
 
-    let cutsceneVideo = document.getElementById("cutscenevideo");
+    const cutsceneVideo = document.getElementById("cutscenevideo");
 
-    let cutsceneViewer = document.getElementById('cutsceneviewer');
+    const cutsceneViewer = document.getElementById('cutsceneviewer');
 
     //skip cutscene if spacebar is pressed
     document.addEventListener('keyup', event => {
@@ -335,8 +335,10 @@ document.onkeydown = e => {
             break;
         }       
         //generic
-        cutsceneViewer.classList.add = "fadeout";
-        setTimeout(function(){cutsceneViewer.style.display = "none";}, 1000);
+        setTimeout(function(){
+            cutsceneViewer.style.display = "none";
+            }, 
+            100);
         theMachine.style.display = "flex";
         currentCutscene = "";
         
@@ -1401,7 +1403,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         if (newGame === false) {
             output.innerHTML = "You travel west and return to the glade where you awoke.";
         } else {
-            output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself.<br><br>The woods around you are dense and dark. There is a narrow path leading <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
+            output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself. \"Maybe I should <span><button onclick='spanClick(\"look around\")'>look around</button></span>\".<br><br>The woods around you are dense and dark. There is a narrow path leading <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
         };
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
@@ -2014,13 +2016,13 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 1 && doorInspected === false && (inp('door')||inp('open')||inp('lock')||inp('frame')||inp('handle')||inp('knob')):
                 doorInspected = true;
-                playOwlCutscene();
+                // playOwlCutscene();
                 break;
             case roomNum === 14 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))  && (newGame === true || inventory.length === 0 ) :
-                output.innerHTML = "The glade is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span>.<br><br>A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> out of the glade.";
+                output.innerHTML = "It's twilight. The forest is dark and dense. The glade where you awoke is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span> and scattered <span><button onclick='spanClick(\"take rock\")'>rocks</button></span>.<br><br>A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> out of the glade.";
                 break;
             case roomNum === 14 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around')) :
-                output.innerHTML = "The glade is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span>.<br><br>A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> out of the glade.";
+                output.innerHTML = "The glade is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span> and scattered <span><button onclick='spanClick(\"take rock\")'>rocks</button></span>.<br><br>A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> out of the glade.";
                 break;
             case roomNum === 14 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span>. There are some <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> strewn about too.";
