@@ -557,6 +557,7 @@ body {
     animation-iteration-count: 1;
 }
 
+
 @keyframes findKey {
     0% {
         transform: rotate(-500deg) scaleX(.1) scaleY(.1);
@@ -566,6 +567,32 @@ body {
         transform: rotate(0deg) scaleX(1) scaleY(1);
     }
     
+}
+
+.findobject {
+    animation: findObject 2s ease-in-out;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes findObject {
+    0% {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translate(0, -10%);
+
+    }
+    10% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translate(0, 0);
+    }
+    65% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(0, 100%);
+    }
 }
 
 /* OUTPUT TEXT AREA */
@@ -619,13 +646,13 @@ span > button {
     font-size: inherit;
     margin: 0;
     padding: 0;
-    /* color: rgb(255, 152, 152); */
+    color: rgb(255, 152, 152);
 }
 
 span > button:active {
     background: none;
     border: none;
-    /* color: rgb(255, 208, 208); */
+    color: rgb(255, 208, 208);
     font-family: inherit;
     font-size: inherit;
     margin: 0;
@@ -661,27 +688,27 @@ span > button:hover {
     display: none;
     margin: 30px auto 0;
     max-width: 95%;
-    color: rgb(255, 152, 152);
+    /* color: rgb(255, 152, 152); */
 }
 
 #dialogue2 {
     display: none;
     margin: 10px auto 0;
     max-width: 95%;
-    color: rgb(255, 152, 152);
+    /* color: rgb(255, 152, 152); */
 }
 
 #leavebutton {
     display: none;
     margin: 10px auto 5px;
     max-width: 98.5%;
-    color: rgb(255, 152, 152);
+    /* color: rgb(255, 152, 152); */
 }
 
 #bookbutton {
     display: none;
     margin: 5px auto 5px;
-    color: rgb(255, 152, 152);
+    /* color: rgb(255, 152, 152); */
 }
 
 .textfadein {

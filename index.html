@@ -776,7 +776,7 @@ const ghostUnZoom = () => {
         document.getElementById("inventory1").style.zIndex = "-2";document.getElementById("inventory2").style.zIndex = "-2";document.getElementById("inventory3").style.zIndex = "-2";document.getElementById("inventory4").style.zIndex = "-2";document.getElementById("inventory5").style.zIndex = "-2";document.getElementById("inventory6").style.zIndex = "-2";document.getElementById("inventory7").style.zIndex = "-2";document.getElementById("inventory8").style.zIndex = "-2";
     };
 
-    // finding the key animation
+    // Finding Things Animations
     const findKey = () => {
         document.getElementById("inventory4").style.zIndex = "104";
         document.getElementById("inventory4").style.bottom = "10%";
@@ -790,6 +790,51 @@ const ghostUnZoom = () => {
         },
             2500,
         )
+    }
+    const findObject = (objectFound) => {
+        if (objectFound === "rock") {
+            document.getElementById("inventory7").style.zIndex = "107";
+            document.getElementById("inventory7").style.bottom = "20%"; 
+            document.getElementById("inventory7").style.left = "28%";
+            document.getElementById("inventory7").classList.add('findobject');
+            setTimeout(function() {
+                document.getElementById("inventory7").style.zIndex = "-2";
+                document.getElementById("inventory7").style.bottom = "0%"; 
+                document.getElementById("inventory7").style.left = "0%";
+                document.getElementById("inventory7").classList.remove('findobject');
+
+            },
+            2500
+            )
+        };
+        if (objectFound === "stick") {
+            document.getElementById("inventory8").style.zIndex = "108";
+            document.getElementById("inventory8").style.bottom = "25%"; 
+            document.getElementById("inventory8").style.left = "-22%";
+            document.getElementById("inventory8").classList.add('findobject');
+            setTimeout(function() {
+                document.getElementById("inventory8").style.zIndex = "-2";
+                document.getElementById("inventory8").style.bottom = "0%"; 
+                document.getElementById("inventory8").style.left = "0%";
+                document.getElementById("inventory8").classList.remove('findobject');
+            },
+            2500
+            )
+        };
+        if (objectFound === "flower") {
+            document.getElementById("inventory6").style.zIndex = "106";
+            document.getElementById("inventory6").style.bottom = "10%"; 
+            document.getElementById("inventory6").style.left = "13%";
+            document.getElementById("inventory6").classList.add('findobject');
+            setTimeout(function() {
+                document.getElementById("inventory6").style.zIndex = "-2";
+                document.getElementById("inventory6").style.bottom = "0%"; 
+                document.getElementById("inventory6").style.left = "0%";
+                document.getElementById("inventory6").classList.remove('findobject');
+            },
+            2500
+            )
+        };
     }
 
 // ROBOT DIALOGUE BUTTONS
@@ -3123,6 +3168,7 @@ const spanClick = (whatToDo) => {
             case (roomNum === 1 || roomNum === 3 || roomNum === 5  || roomNum === 14 || roomNum === 12  || roomNum === 15)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === false   :
                 output.innerHTML = "You pick one of the blue flowers and carefully put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 haveFlower = true;
+                findObject("flower");
                 inventory.push("a <span><button onclick='spanClick(\"inspect flower\")'>blue flower</button></span>");
                 break;
             case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === true   :
@@ -3148,6 +3194,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "There's an art to rock collecting. You find a nice one and put it in your <span><button onclick='spanClick(\"check pocket\")'>pocket</button></span>.";
                 inventory.push("a <span><button onclick='spanClick(\"inspect rock\")'>rock</button></span>")
                 haveRock = true;
+                findObject("rock");
                 break;
             case (inp('under')||inp('search')||inp('check'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "You search under some of the rocks, but don't find anything other than some very confused bugs.";
@@ -3195,11 +3242,17 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "...why??";
                 break;
             
+            // MUSHROOMS
+            case roomNum !== 9 && haveMushroom === false && inp('mushroom')  :
+                output.innerHTML = "There aren't any mushrooms around.";
+                break;
+
             // STICKS
             case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && haveStick === false && (inp('stick')||inp('branch'))&& (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')) :
                 output.innerHTML = "You find a nice stick and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 inventory.push("a <span><button onclick='spanClick(\"inspect stick\")'>stick</button></span>");
                 haveStick = true;
+                findObject("stick");
                 break;
             case (roomNum === 5||roomNum === 6||roomNum === 12) && haveStick === true && (inp('throw')||inp('toss')||inp('chuck')) && inp('stick') :
                 output.innerHTML = "You throw your stick out into the water and watch it float away.";
@@ -3225,6 +3278,7 @@ const spanClick = (whatToDo) => {
             case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && haveStick === true && (inp('stick')||inp('branch'))&& (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')) :
                 output.innerHTML = "You already have a stick in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 break;
+            
             // BUSHES
             case roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && inp('bush') && (inp('search')||inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what')) :
                 output.innerHTML = "You search the bushes, but don't find anything.";
@@ -3406,7 +3460,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You toss the rope over the nearest branch, tie it up, and let-er-rip. Best thing ever :) <br><br>+20 points";
                 break;
 
-                // crytal
+                // crystal
             case (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    (inp('crystal')||inp('gem'))  && haveCrystal === true  :
                 output.innerHTML = "The piece of crystal is about the size of your hand and soft pink in color. It feels oddly warm, and catches the light in an unusual way.";
                 if (checkingInventory === true) {
