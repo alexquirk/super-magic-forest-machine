@@ -699,47 +699,62 @@ const ghostUnZoom = () => {
 
     // clicking inventory items / fixing boat
     const stickClick = () => {
-        if (fixingBoat === true) {
+        if (fixingBoat === true && haveStick === true) {
             output.innerHTML = "You push the stick into the hole, but it's too small, and water continues to leak into the boat."
         }
     };
     const mugClick = () => {
-        if (fixingBoat === true) {
+        if (fixingBoat === true && haveMug === true) {
             output.innerHTML = "You push the mug into the hole, but it's a bit too big and the handle is in the way. Maybe something else will fit better."
+        }
+        if (fixingBoat === true && haveMushy === true) {
+            haveBox = true;
+            boatFixed = true;
+            removeItem("a <span><button onclick='spanClick(\"inspect mushroom\")'>wild mushroom</button></span>");
+            haveMushy = false;
+            boatZoom();
+            switchChestRopeImage();
+            room6Switch();
+            closeInventory();
+            output.innerHTML = "You push the mushroom into the hole, and it's a perfect fit. You spend a few minutes bailing water out, and soon it starts to float again."
+            if (haveBox === false ) {
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
+                output.innerHTML = "You push the mushroom into the hole, and it's a perfect fit. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a locked wooden box in the bottom of the boat, and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>."
+            };
         }
     };
     const chestClick = () => {
-        if (fixingBoat === true) {
+        if (fixingBoat === true && haveBox === true) {
             output.innerHTML = "You try to stick the chest into the hole, but it's much too big."
         }
     };
     const ropeClick = () => {
-        if (fixingBoat === true) {
+        if (fixingBoat === true && haveRope === true) {
             output.innerHTML = "You try to cram the rope into the hole, but there's too much if it and water keeps leaking through the cracks."
         }
     };
     const crystalClick = () => {
-        if (fixingBoat === true) {
+        if (fixingBoat === true && haveCrystal === true) {
             output.innerHTML = "You push the crystal into the hole, but it's too smooth and slides right out."
         }
     };
     const flowerClick = () => {
-        if (fixingBoat === true) {
+        if (fixingBoat === true && haveFlower === true) {
             output.innerHTML = "You try to plug the hole with the flower, but it's too small and fragile."
         }
     };
     const keyClick = () => {
-        if (fixingBoat === true) {
+        if (fixingBoat === true && haveBoxKey === true) {
             output.innerHTML = "You try to plug the hole with the key, but it's too small."
         }
     };
     const ribbonClick = () => {
-        if (fixingBoat === true) {
+        if (fixingBoat === true && haveRibbon === true) {
             output.innerHTML = "You try to plug the hole with the ribbon, but it's much too small."
         };
     };
     const rockClick = () => {
-        if (fixingBoat === true) {
+        if (fixingBoat === true && haveRock === true) {
             haveBox = true;
             boatFixed = true;
             removeItem("a <span><button onclick='spanClick(\"inspect rock\")'>rock</button></span>");
@@ -748,8 +763,10 @@ const ghostUnZoom = () => {
             switchChestRopeImage();
             room6Switch();
             closeInventory();
-            output.innerHTML = "You plug the hole in the bottom of the boat with a rock. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a locked wooden box in the bottom of the boat, and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
-            if (haveBox === false ) {inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>")};
+            output.innerHTML = "You plug the hole in the bottom of the boat with a rock. You spend a few minutes bailing water out, and soon it starts to float again.";
+            if (haveBox === false ) {
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
+            };
         };
     };
 
@@ -1403,7 +1420,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         if (newGame === false) {
             output.innerHTML = "You travel west and return to the glade where you awoke.";
         } else {
-            output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself. \"Maybe I should <span><button onclick='spanClick(\"look around\")'>look around</button></span>\".<br><br>The woods around you are dense and dark. There is a narrow path leading <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
+            output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself. \"Maybe I should <span><button onclick='spanClick(\"look around\")'>look around</button></span>.\"<br><br>The woods around you are dense and dark. There is a narrow path leading <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
         };
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
@@ -2748,11 +2765,11 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You find yourself standing on front of a stone <span><button onclick='spanClick(\"inspect well\")'>well</button></span> in the middle of the clearing. From here a rocky path leads <span><button onclick='spanClick(\"go north\")'>north</button></span>. You can hear the sound of water to the <span><button onclick='spanClick(\"go south\")'>south</button></span>.";
                 break;
             case roomNum === 10 && haveRope === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('peer')||inp('behind')||inp('what'))   &&    (inp('well'))     :
-                output.innerHTML = "You peer down into the well. It's too deep to see the bottom.<br><br>It seems out and out of use. You look around for a bucket or rope, but don't find one.";
+                output.innerHTML = "You peer down into the well. It's too deep to see the bottom.<br><br>It seems old and out of use. You look around for a bucket or rope, but don't find one.";
                 wellZoom();
                 break;
             case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('peer')||inp('behind')||inp('what'))   &&    (inp('well'))     :
-                output.innerHTML = "You peer down into the well. It's too deep to see the bottom.<br><br>It seems out and out of use. You look around for a bucket, but don't find one.";
+                output.innerHTML = "You peer down into the well. It's too deep to see the bottom.<br><br>It seems old and out of use. You look around for a bucket, but don't find one.";
                 wellZoom();
                 break;
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('rock')    :
@@ -3134,6 +3151,9 @@ const spanClick = (whatToDo) => {
                 break;
             case (inp('under')||inp('search')||inp('check'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "You search under some of the rocks, but don't find anything other than some very confused bugs.";
+                break;
+            case haveRock === true && (inp('inspect')||inp('examine')||inp('see ')||inp('look'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
+                output.innerHTML = "The rock is round and about the size of your fist. It's a nice rock.";
                 break;
             case (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('under')||inp('behind'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "You look at the rocks. They look rocky.";
