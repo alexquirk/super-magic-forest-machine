@@ -3648,7 +3648,7 @@ const spanClick = (whatToDo) => {
                 break;
 
             // WHERE DO I GO
-            case  inp('where') && (inp('go')) && haveMap === true:
+            case  inp('where') && (inp('go')) :
                 switch (true) {
                     case roomNum === 1 :
                         output.innerHTML = "You are surrounded by forest to the <span><button onclick='spanClick(\"go north\")'>north</button></span>, <span><button onclick='spanClick(\"go west\")'>west</button></span>, and <span><button onclick='spanClick(\"east\")'>east</button></span>. You can hear the sound of running water to the <span><button onclick='spanClick(\"go south\")'>south</button></span>.";
@@ -3712,9 +3712,6 @@ const spanClick = (whatToDo) => {
                 break;
             case  inp('how') && (inp('long')||inp('old')) && inp('door'):
                 output.innerHTML = "Really old.";
-                break;
-            case  inp('where') && (inp('go')):
-                output.innerHTML = "You can type things like <span><button onclick='spanClick(\"walk right\")'>walk right</button></span> or <span><button onclick='spanClick(\"go east\")'>go east</button></span>, or you can click the arrows in the corner of the screen above, to explore the forest.";
                 break;
             case  inp('where') && inp('am') && inp(' i') && roomNum !== 8 && roomNum !== 7 && roomNum !== 15 && roomNum !== 13:
                 output.innerHTML = "You're standing in a forest clearing.";
