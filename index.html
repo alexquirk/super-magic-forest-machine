@@ -2087,9 +2087,6 @@ const spanClick = (whatToDo) => {
                 break;
             
             // ROOM 14
-            case  inp('where') && inp('am') && inp(' i') && roomNum === 14 :
-                output.innerHTML = "It's twilight. You're standing in a forest clearing, but you're not sure how you got here.<br><br>The ground is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span>, and there is a narrow path leading <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
-                break;
             case roomNum === 1 && doorInspected === false && (inp('door')||inp('open')||inp('lock')||inp('frame')||inp('handle')||inp('knob')):
                 doorInspected = true;
                 // playOwlCutscene();
@@ -2114,7 +2111,7 @@ const spanClick = (whatToDo) => {
                     // playFirstCutscene();
                     firstCutscene = true;
                 }
-                output.innerHTML = "It's twilight. The <span><button onclick='spanClick(\"inspect door\")'>strange door</button></span> is standing in a grassy clearing surrounded by trees.<br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span> and <span><button onclick='spanClick(\"go east\")'>east</button></span> the forest grows dark and dense. To the <span><button onclick='spanClick(\"go south\")'>south</button></span>, you can hear the distant sound of water.";
+                output.innerHTML = "It's twilight. There is a <span><button onclick='spanClick(\"inspect door\")'>strange door</button></span> standing in a grassy clearing surrounded by trees.<br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span> and <span><button onclick='spanClick(\"go east\")'>east</button></span> the forest grows dark and dense. To the <span><button onclick='spanClick(\"go south\")'>south</button></span>, you can hear the distant sound of water.";
                 break;
             case roomNum === 1 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass, with scattered <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> and <span><button onclick='spanClick(\"take flower\")'>flowers</button></span>.";
@@ -2212,7 +2209,7 @@ const spanClick = (whatToDo) => {
 
             // ROOM 3
             case roomNum === 3 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "The forest is a bit darker here. There is a <span><button onclick='spanClick(\"inspect stump\")'>stump</button></span> in the middle of the clearing with an old discarded <span><button onclick='spanClick(\"read journal\")'>notebook</button></span> alongside.<br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, an overgrown path leads deeping into the forest. To the <span><button onclick='spanClick(\"go south\")'>south</button></span> you can hear the sound of running water.<br><br>The forest is too dense to travel any further east from here.";
+                output.innerHTML = "The forest is dark here. There is a <span><button onclick='spanClick(\"inspect stump\")'>stump</button></span> in the middle of the clearing with an old discarded <span><button onclick='spanClick(\"read journal\")'>notebook</button></span> alongside.<br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, an overgrown path leads deeper into the forest. To the <span><button onclick='spanClick(\"go south\")'>south</button></span> you can hear the sound of running water.<br><br>The forest is too dense to travel any further east from here.";
                 break;
             case roomNum === 3 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('behind')||inp('under')||inp('what'))    &&    (inp('stump'))   && foundBook === true  :
                 output.innerHTML = "Looks like a good place to sit and rest. You wonder how long ago the tree was cut down, but you're stumped.";
@@ -2820,7 +2817,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You tie the rope to the top of the well. It seems pretty secure...";
                 break;
             case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "You find yourself standing on front of a stone <span><button onclick='spanClick(\"inspect well\")'>well</button></span> in the middle of the clearing. From here a rocky path leads <span><button onclick='spanClick(\"go north\")'>north</button></span>. You can hear the sound of water to the <span><button onclick='spanClick(\"go south\")'>south</button></span>.";
+                output.innerHTML = "You find yourself standing in front of a stone <span><button onclick='spanClick(\"inspect well\")'>well</button></span> in the middle of a clearing. From here, a rocky path leads <span><button onclick='spanClick(\"go north\")'>north</button></span>. You can hear the sound of water to the <span><button onclick='spanClick(\"go south\")'>south</button></span>.";
                 break;
             case roomNum === 10 && haveRope === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('peer')||inp('behind')||inp('what'))   &&    (inp('well'))     :
                 output.innerHTML = "You peer down into the well. It's too deep to see the bottom.<br><br>It seems old and out of use. You look around for a bucket or rope, but don't find one.";
@@ -2922,7 +2919,7 @@ const spanClick = (whatToDo) => {
                     //playCaveCutscene();
                     caveInspected = true;
                 };
-                output.innerHTML = "You're standing in front of a large cave shrouded in darkness.<br><br>A stony path cuts through the forest to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and <span><button onclick='spanClick(\"go east\")'>east</button></span>";
+                output.innerHTML = "You're standing in front of a large cave shrouded in darkness.<br><br>A stony path cuts through the forest to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
                 break;
             case roomNum === 11 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('behind')||inp('what'))   &&    (inp('cave')) :
                 if (caveInspected === false) {
@@ -2988,10 +2985,10 @@ const spanClick = (whatToDo) => {
                 break;
                 // looking around
             case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what')) && robotAwake === false  &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is lying under a tree by the lake shore.<br><br>To the west, a narrow path leads back the the glade where you awoke. To the north, a wooded path cuts into the forest. ";
+                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is lying under a tree by the lake shore.<br><br>To the <span><button onclick='spanClick(\"go west\")'>west</button></span>, a narrow path leads back the the glade where you awoke. To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, a wooded path cuts into the forest.";
                 break;
             case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what')) && robotAwake === true  &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a tree by the lake shore. <br><br>To the north, a wooded trail leads into the forest. The lake shore continues eastward.";
+                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a tree by the lake shore. <br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, a wooded trail leads into the forest. The lake shore continues <span><button onclick='spanClick(\"go east\")'>eastward</button></span>.";
                 break;
             case roomNum === 12  && robotAwake === false &&     (inp('tree')||inp('branch'))     :
                 output.innerHTML = "There's a <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> lying under a tree by the lake shore. It looks like it's sleeping, or powered down.";
@@ -3005,9 +3002,6 @@ const spanClick = (whatToDo) => {
 
             // ROOM 15
                 // looking around and inspecting things
-            case  inp('where') && inp('am') && inp(' i') && roomNum === 15:
-                output.innerHTML = "You're on an island in the middle of a lake.";
-                break;
             case roomNum === 15  && haveHook === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    inp('around') :
                 output.innerHTML = "You're on a island! That's pretty cool.<br><br>There's a large palm tree, a few rocks, and a big thing washed up on the shore that looks like the wing of an aircraft.<br><br>There's an old <span><button onclick='spanClick(\"take hook\")'>pirate's hook</button></span> on the ground next to the big wing thing.";
                 break;
@@ -3040,9 +3034,6 @@ const spanClick = (whatToDo) => {
                 break;
 
             // ROOM 13
-            case  inp('where') && inp('am') && inp(' i') && roomNum === 13:
-                output.innerHTML = "You climbed the rope down to the bottom of the well.";
-                break;
             case roomNum === 13 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('well')||inp('around')||inp('ground')||inp('floor')||inp('dirt'))  && mugTaken === false  :
                 output.innerHTML = "It's dark... there's just enough light to see around you. The ground is dry and littered with rocks and grass. A <span><button onclick='spanClick(\"take mug\")'>dusty mug</button></span> is lying in the dirt.";
                 break;
@@ -3237,7 +3228,7 @@ const spanClick = (whatToDo) => {
 
             // INTERACT WITH GRASS
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get'))   &&    inp('grass')    :
-                output.innerHTML = "You probably won't need that.";
+                output.innerHTML = "You won't need that.";
                 break;
             case (inp('search')||inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    inp('grass')    :
                 output.innerHTML = "You search the grass, but don't find anything.";
@@ -3308,7 +3299,7 @@ const spanClick = (whatToDo) => {
 
             // LEAVES
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get'))   &&   (inp('leaves')||inp('leaf'))    :
-                output.innerHTML = "There are plenty of leaves around, and your pockets are only so big. You probably won't need to take any along with you.";
+                output.innerHTML = "There are plenty of leaves around, and your pockets are only so big. You won't need to take any along with you.";
                 break;
             case  (inp('leaves')||inp('leaf')) && (inp('search')||inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what')) :
                 output.innerHTML = "You search the leaves, but don't find anything (other than some nice leaves.)";
@@ -3467,7 +3458,7 @@ const spanClick = (whatToDo) => {
                 break;
                 // rope
             case (inp('where')  || inp('how') || inp('what') ) && inp('rope')   :
-                output.innerHTML = "The rope could be helpful in reaching a new place.";
+                output.innerHTML = "The rope could be helpful reaching a new place.";
                 break;
             case inp('swing') && haveRope === true &&  roomNum !== 7 && roomNum !== 8 && roomNum !== 13   :   // XXX I could animate this
                 output.innerHTML = "You toss the rope over the nearest branch, tie it up, and let-er-rip. Best thing ever :) <br><br>+20 points";
@@ -3654,13 +3645,13 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "You are surrounded by forest to the <span><button onclick='spanClick(\"go north\")'>north</button></span>, <span><button onclick='spanClick(\"go west\")'>west</button></span>, and <span><button onclick='spanClick(\"east\")'>east</button></span>. You can hear the sound of running water to the <span><button onclick='spanClick(\"go south\")'>south</button></span>.";
                         break;
                     case roomNum === 2 :
-                        output.innerHTML = "A stale wind blows from the <span><button onclick='spanClick(\"go east\")'>east</button></span>. The forest feels a bit more lush and bright to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and <span><button onclick='spanClick(\"go west\")'>west</button></span.";
+                        output.innerHTML = "A stale wind blows from the <span><button onclick='spanClick(\"go east\")'>east</button></span>. The forest feels a bit more lush and bright to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and <span><button onclick='spanClick(\"go west\")'>west</button></span>.";
                         break;
                     case roomNum === 3 :
                         output.innerHTML = "You can see the shore of a lake to the <span><button onclick='spanClick(\"go south\")'>south</button></span>. The forest opens up to a clearing to the <span><button onclick='spanClick(\"go west\")'>west</button></span>.<br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span> the woods grow darker.";
                         break;
                     case roomNum === 4 :
-                        output.innerHTML = "You can see a rocky outcropping above the trees to the <span><button onclick='spanClick(\"go west\")'>west</button></span>. The forest opens to the clearing to the <span><button onclick='spanClick(\"go south\")'>south</button></span.<br><br>To the <span><button onclick='spanClick(\"go east\")'>east</button></span> the woods grow darker.";
+                        output.innerHTML = "You can see a rocky outcropping above the trees to the <span><button onclick='spanClick(\"go west\")'>west</button></span>. The forest opens to the clearing to the <span><button onclick='spanClick(\"go south\")'>south</button></span>.<br><br>To the <span><button onclick='spanClick(\"go east\")'>east</button></span> the woods grow darker.";
                         break;
                     case roomNum === 5 :
                         output.innerHTML = "The lakeshore stretches to the <span><button onclick='spanClick(\"go east\")'>east</button></span> and <span><button onclick='spanClick(\"go west\")'>west</button></span>. To the <span><button onclick='spanClick(\"go north\")'>north</button></span> there is a clearing im the forest.";
@@ -3669,7 +3660,7 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "The woods to the <span><button onclick='spanClick(\"go north\")'>north</button></span> seem a bit foreboding. The lakeshore stretches to the <span><button onclick='spanClick(\"go west\")'>west</button></span>.";
                         break;
                     case roomNum === 7 && firefliesReleased === false:
-                        output.innerHTML = "The only was out of the cave is <span><button onclick='spanClick(\"go south\")'>back</button></span> the way you came.";
+                        output.innerHTML = "The only way out of the cave is <span><button onclick='spanClick(\"go south\")'>back</button></span> the way you came.";
                         break;
                     case roomNum === 7 && firefliesReleased === true:
                         output.innerHTML = "There is a passageway leading to the <span><button onclick='spanClick(\"go west\")'>west</button></span>. The only way out of the cave is <span><button onclick='spanClick(\"go south\")'>back</button></span> the way you came.";
@@ -3681,7 +3672,7 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "The only way out of the the hollow is <span><button onclick='spanClick(\"go west\")'>back</button></span> the way you came.";
                         break;
                     case roomNum === 10 :
-                        output.innerHTML = "You can hear running water to the <span><button onclick='spanClick(\"go south\")'>back</button></span>. The forest opens to the clearing to the <span><button onclick='spanClick(\"go east\")'>east</button></span.<br><br> You can see a rocky outcropping above the trees to the <span><button onclick='spanClick(\"go north\")'>north</button></span>.";
+                        output.innerHTML = "You can hear running water to the <span><button onclick='spanClick(\"go south\")'>back</button></span>. The forest opens to the clearing to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.<br><br>You can see a rocky outcropping above the trees to the <span><button onclick='spanClick(\"go north\")'>north</button></span>.";
                         break;
                     case roomNum === 11 :
                         output.innerHTML = "The darkness of the <span><button onclick='spanClick(\"go north\")'>cave</button></span> beckons to you...";
@@ -3690,7 +3681,7 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "A stony path leads <span><button onclick='spanClick(\"go north\")'>north</button></span> into the woods. The lakeshore stretches to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.<br><br>The clearing where to awoke lies to the <span><button onclick='spanClick(\"go west\")'>west</button></span>.";
                         break;
                     case roomNum === 13 :
-                        output.innerHTML = "The only way out of the well is back <span><button onclick='spanClick(\"go up\")'>up the rope</button></span>.";
+                        output.innerHTML = "The only way out of the well is <span><button onclick='spanClick(\"go up\")'>back up</button></span> the rope.";
                         break;
                     case roomNum === 14 :
                         output.innerHTML = "A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> into the woods.";
@@ -3699,6 +3690,57 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "The only way off the island is via the <span><button onclick='spanClick(\"ride boat\")'>boat</button></span>.";
                         break;
                 }
+                break;
+
+            // WHERE AM I
+            case  inp('where') && inp('am') && inp(' i'):
+                switch (true) {
+                    case roomNum === 1 :
+                        output.innerHTML = "It's twilight. There is a <span><button onclick='spanClick(\"inspect door\")'>strange door</button></span> standing in a grassy clearing surrounded by trees.<br><br>You are surrounded by forest to the <span><button onclick='spanClick(\"go north\")'>north</button></span>, <span><button onclick='spanClick(\"go west\")'>west</button></span>, and <span><button onclick='spanClick(\"east\")'>east</button></span>. You can hear the sound of running water to the <span><button onclick='spanClick(\"go south\")'>south</button></span>.";
+                        break;
+                    case roomNum === 2 :
+                        output.innerHTML = "The forest is dark and overgrown here, and the the air is filled with fireflies that bathe the woods in a warm light.<br><br>To the <span><button onclick='spanClick(\"go east\")'>east</button></span>, a narrow path leads down into a murky hollow. The forest feels a bit more lush and bright to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and <span><button onclick='spanClick(\"go west\")'>west</button></span>.";
+                        break;
+                    case roomNum === 3 :
+                        output.innerHTML = "The forest is dark here. There is a <span><button onclick='spanClick(\"inspect stump\")'>stump</button></span> in the middle of the clearing with an old discarded <span><button onclick='spanClick(\"read journal\")'>notebook</button></span> alongside.<br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, an overgrown path leads deeper into the forest. To the <span><button onclick='spanClick(\"go south\")'>south</button></span> you can hear the sound of running water. The forest opens up to a clearing to the <span><button onclick='spanClick(\"go west\")'>west</button></span>.";
+                        break;
+                    case roomNum === 4 :
+                        output.innerHTML = "A big tree with a cat in it standing the middle of a wooded glade. You can see a rocky outcropping above the trees to the <span><button onclick='spanClick(\"go west\")'>west</button></span>.<br><br>The forest opens to the clearing to the <span><button onclick='spanClick(\"go south\")'>south</button></span>. To the <span><button onclick='spanClick(\"go east\")'>east</button></span> the woods grow darker.";
+                        break;
+                    case roomNum === 5 :
+                        output.innerHTML = "The lakeshore is scattered with large <span><button onclick='spanClick(\"take rock\")'>rocks</button></span>. Small pieces of driftwood and other debris have washed in on the tide.<br><br>The lake is really wide... You can't see the other side.<br><br>The lakeshore stretches to the <span><button onclick='spanClick(\"go east\")'>east</button></span> and <span><button onclick='spanClick(\"go west\")'>west</button></span>. To the <span><button onclick='spanClick(\"go north\")'>north</button></span> there is a clearing im the forest.";
+                        break;
+                    case roomNum === 6 :
+                        output.innerHTML = "The water is cool and clear, and a few fish drift lazily along.<br><br>There is an old <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> near the shore.<br><br>The woods to the <span><button onclick='spanClick(\"go north\")'>north</button></span> seem a bit foreboding. The lakeshore stretches to the <span><button onclick='spanClick(\"go west\")'>west</button></span>.";
+                        break;
+                    case roomNum === 7 :
+                        output.innerHTML = "You are standing in a large, dark cavern. The only way out of the cave is <span><button onclick='spanClick(\"go south\")'>back</button></span> the way you came.";
+                        break;
+                    case roomNum === 8 :
+                        output.innerHTML = "";
+                        break;
+                    case roomNum === 9 :
+                        output.innerHTML = "You find yourself in what be one of the most ancient parts of the forest. The trees here look like they haven't seen sunlight in years.<br><br>There is a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms</button></span> in the middle of the hollow, surrounded by old and rotting trees. The only way out of the the hollow is <span><button onclick='spanClick(\"go west\")'>back</button></span> the way you came.";
+                        break;
+                    case roomNum === 10 :
+                        output.innerHTML = "You're standing in front of a stone <span><button onclick='spanClick(\"inspect well\")'>well</button></span> in the middle of a clearing. You can hear running water to the <span><button onclick='spanClick(\"go south\")'>back</button></span>. The forest opens to a clearing to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.<br><br>You can see a rocky outcropping above the trees to the <span><button onclick='spanClick(\"go north\")'>north</button></span>.";
+                        break;
+                    case roomNum === 11 :
+                        output.innerHTML = "You're standing in front of a large <span><button onclick='spanClick(\"go north well\")'>cave</button></span> shrouded in darkness.<br><br>A stony path cuts through the forest to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
+                        break;
+                    case roomNum === 12 :
+                        output.innerHTML = "There is a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> lying under a tree by the lake shore.<br><br>To the <span><button onclick='spanClick(\"go west\")'>west</button></span>, a narrow path leads back the the glade where you awoke. To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, a wooded path cuts into the forest.";
+                        break;
+                    case roomNum === 13 :
+                        output.innerHTML = "It's dark... there's just enough light to see around you. The ground is dry and littered with rocks and grass. The only way out is <span><button onclick='spanClick(\"go west\")'>west</button></span>, a narrow path leads back the the glade where you awoke. To the <span><button onclick='spanClick(\"go up\")'>back up</button></span> the rope.";
+                        break;
+                    case roomNum === 14 :
+                        output.innerHTML = "It's twilight. You're standing in a forest clearing, but you're not sure how you got here.<br><br>The ground is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span>, and there is a narrow path leading <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
+                        break;
+                    case roomNum === 15 :
+                        output.innerHTML = "You're on an island! That's pretty cool.<br><br>The only way off the island is via the <span><button onclick='spanClick(\"ride boat\")'>boat</button></span>.";
+                        break;
+                };
                 break;
                 
             // DEFAULT QUESTION WORDS
@@ -3713,12 +3755,6 @@ const spanClick = (whatToDo) => {
                 break;
             case  inp('how') && (inp('long')||inp('old')) && inp('door'):
                 output.innerHTML = "Really old.";
-                break;
-            case  inp('where') && inp('am') && inp(' i') && roomNum !== 8 && roomNum !== 7 && roomNum !== 15 && roomNum !== 13:
-                output.innerHTML = "You're standing in a forest clearing.";
-                break;
-            case  inp('where') && inp('am') && inp(' i') && (roomNum === 7 || roomNum === 8):
-                output.innerHTML = "You're in a mysterious cave.";
                 break;
             case  inp('who') && inp('am') && inp(' i'):
                 output.innerHTML = "You're a traveller in a strange place.";
