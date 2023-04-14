@@ -3698,7 +3698,8 @@ const spanClick = (whatToDo) => {
                     case roomNum === 15 :
                         output.innerHTML = "The only way off the island is via the <span><button onclick='spanClick(\"ride boat\")'>boat</button></span>.";
                         break;
-                };
+                }
+                break;
                 
             // DEFAULT QUESTION WORDS
             case  inp('what') && ((inp('going') && inp('on')) || inp('happen')):
