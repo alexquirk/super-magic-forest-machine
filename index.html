@@ -202,6 +202,10 @@ document.onkeydown = e => {
                 cutsceneVideo.src="./cutscenes/introcutscene.mp4";
                 // pause it to let it load
                 cutsceneVideo.pause();
+                // test user's wifi
+                setTimeout(function() { 
+                    
+                    }, 26*1000 );
                 // unpause after 2.5 seconds
                 setTimeout(()=> {
                     cutsceneVideo.play();
@@ -531,6 +535,13 @@ const ghostUnZoom = () => {
         if (inventory.length === 0) {
             return "You don't have anything in your pockets yet.<br><br>Maybe there is something useful nearby you can take with you."
         } else {
+            // undo finding objects animations
+            document.getElementById("inventory4").classList.remove('findkey');
+            document.getElementById("inventory5").classList.remove('findobject');
+            document.getElementById("inventory6").classList.remove('findobject');
+            document.getElementById("inventory7").classList.remove('findobject');
+            document.getElementById("inventory8").classList.remove('findobject');
+            // display text
             let inventoryText = ["You have "];
             for (var i = 0; i < inventory.length - 1; i++) {
                 inventoryText.push(" " + inventory[i] + ",");
@@ -650,6 +661,36 @@ const ghostUnZoom = () => {
                 document.getElementById("flowerbutton").style.top = "36%"; 
                 document.getElementById("flowerbutton").style.left = "55%";
                 document.getElementById("flowerbutton").style.zIndex = "206";
+            } else if (inventory.length === 2 && haveFlower === true && haveStick === true) {
+                // move flower
+                document.getElementById("inventory6").style.bottom = "14%"; 
+                document.getElementById("inventory6").style.left = "23%";
+                // move stick
+                document.getElementById("inventory8").style.bottom = "5%"; 
+                document.getElementById("inventory8").style.left = "-15%";
+                // move flower button
+                document.getElementById("flowerbutton").style.top = "36%"; 
+                document.getElementById("flowerbutton").style.left = "55%";
+                document.getElementById("flowerbutton").style.zIndex = "206";
+                // move stick button
+                document.getElementById("stickbutton").style.top = "55%"; 
+                document.getElementById("stickbutton").style.left = "57%";
+                document.getElementById("stickbutton").style.zIndex = "208";
+            } else if (inventory.length === 2 && haveRock === true && haveStick === true) {
+                // move rock
+                document.getElementById("inventory7").style.bottom = "10%"; 
+                document.getElementById("inventory7").style.left = "20%";
+                // move stick
+                document.getElementById("inventory8").style.bottom = "5%"; 
+                document.getElementById("inventory8").style.left = "-15%";
+                // move rock button
+                document.getElementById("rockbutton").style.top = "60%"; 
+                document.getElementById("rockbutton").style.left = "40%";
+                document.getElementById("rockbutton").style.zIndex = "207";
+                // move stick button
+                document.getElementById("stickbutton").style.top = "55%"; 
+                document.getElementById("stickbutton").style.left = "57%";
+                document.getElementById("stickbutton").style.zIndex = "208";
             } else if (inventory.length < 4 && haveFlower === true && haveRock === true && haveStick === true) {
                 // move rock
                 document.getElementById("inventory7").style.bottom = "10%"; 
@@ -783,14 +824,15 @@ const ghostUnZoom = () => {
         document.getElementById("inventory4").style.left = "-4%";
         document.getElementById("inventory4").classList.add('findkey');
         setTimeout(function() {
-            document.getElementById("inventory4").style.bottom = "0%";
-            document.getElementById("inventory4").style.left = "0%";
-            document.getElementById("inventory4").classList.remove('findkey');
-            if (checkingInventory === false) {document.getElementById("inventory4").style.zIndex = "-2"};
-        },
-            2500,
-        )
-    }
+            if (!checkingInventory && !inventoryAsk) {
+                document.getElementById("inventory4").style.bottom = "0%";
+                document.getElementById("inventory4").style.left = "0%";
+                document.getElementById("inventory4").classList.remove('findkey');
+                document.getElementById("inventory4").style.zIndex = "-2"}
+            },
+                2500
+        )};
+
     const findObject = (objectFound) => {
         if (objectFound === "rock") {
             document.getElementById("inventory7").style.zIndex = "107";
@@ -798,58 +840,58 @@ const ghostUnZoom = () => {
             document.getElementById("inventory7").style.left = "28%";
             document.getElementById("inventory7").classList.add('findobject');
             setTimeout(function() {
-                document.getElementById("inventory7").style.zIndex = "-2";
-                document.getElementById("inventory7").style.bottom = "0%"; 
-                document.getElementById("inventory7").style.left = "0%";
-                document.getElementById("inventory7").classList.remove('findobject');
+                if (!checkingInventory && !inventoryAsk) {
+                    document.getElementById("inventory7").style.zIndex = "-2";
+                    document.getElementById("inventory7").style.bottom = "0%"; 
+                    document.getElementById("inventory7").style.left = "0%";
+                    document.getElementById("inventory7").classList.remove('findobject');}
 
-            },
-            2500
-            )
-        };
+                },
+                    2500
+        )}
         if (objectFound === "stick") {
             document.getElementById("inventory8").style.zIndex = "108";
             document.getElementById("inventory8").style.bottom = "25%"; 
             document.getElementById("inventory8").style.left = "-22%";
             document.getElementById("inventory8").classList.add('findobject');
             setTimeout(function() {
+                if (!checkingInventory && !inventoryAsk) {
                 document.getElementById("inventory8").style.zIndex = "-2";
                 document.getElementById("inventory8").style.bottom = "0%"; 
                 document.getElementById("inventory8").style.left = "0%";
-                document.getElementById("inventory8").classList.remove('findobject');
+                document.getElementById("inventory8").classList.remove('findobject');}
             },
-            2500
-            )
-        };
+                2500
+        )}
         if (objectFound === "flower") {
             document.getElementById("inventory6").style.zIndex = "106";
             document.getElementById("inventory6").style.bottom = "10%"; 
             document.getElementById("inventory6").style.left = "13%";
             document.getElementById("inventory6").classList.add('findobject');
             setTimeout(function() {
+                if (!checkingInventory && !inventoryAsk) {
                 document.getElementById("inventory6").style.zIndex = "-2";
                 document.getElementById("inventory6").style.bottom = "0%"; 
                 document.getElementById("inventory6").style.left = "0%";
-                document.getElementById("inventory6").classList.remove('findobject');
+                document.getElementById("inventory6").classList.remove('findobject');}
             },
-            2500
-            )
-        };
+                2500
+        )}
         if (objectFound === "crystal") {
             document.getElementById("inventory5").style.zIndex = "105";
             document.getElementById("inventory5").style.bottom = "18%"; 
             document.getElementById("inventory5").style.left = "-17%";
             document.getElementById("inventory5").classList.add('findobject');
             setTimeout(function() {
+                if (!checkingInventory && !inventoryAsk) {
                 document.getElementById("inventory5").style.zIndex = "-2";
                 document.getElementById("inventory5").style.bottom = "0%"; 
                 document.getElementById("inventory5").style.left = "0%";
-                document.getElementById("inventory5").classList.remove('findobject');
+                document.getElementById("inventory5").classList.remove('findobject');}
             },
-            2500
-            )
+                2500
+        )}
         };
-    }
 
 // ROBOT DIALOGUE BUTTONS
     // your dialoge
