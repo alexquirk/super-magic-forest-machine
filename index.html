@@ -26,11 +26,15 @@
 
 <img id="titlecard" src="./extraimages/titlecard.png" onclick="startGame()">
 
-<!-- <div id="cutsceneviewer">
-    <video poster="./cutscenes/loadingleaf.gif"  id="cutscene" autoplay="autoplay" muted playsinline>
-        <source src="./cutscenes/intro.mp4" type="video/mp4" control="none">
-    </video>
-</div> -->
+<div id="loadingscreen">
+    <div>
+        <!-- <div id="loadingword">Loading...</div> -->
+        <img src="./cutscenes/smallloading.gif" id="loadingword">
+        <div id="loadingbarcontainer">
+            <div id="loadingbar"></div>
+        </div>
+    </div>
+</div>
 
 <article id="themachine">
     
@@ -153,6 +157,7 @@ document.onkeydown = e => {
         startGame();
         }
 };
+
 
 // CUTSCENES
 

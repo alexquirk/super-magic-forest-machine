@@ -32,10 +32,9 @@ body {
     max-width: 100vw;
 }
 
-/* #wificard {
+#loadingscreen {
     position: absolute;
     color: gray;
-    text-align: center;
     z-index: 99;
     left: 50%;
     transform: translateX(-50%);  
@@ -50,7 +49,30 @@ body {
     align-items: center;
     justify-content: center;
     display: flex;
-} */
+}
+
+#loadingword {
+    display: block;
+    width: 114px;
+    text-align: center;
+    margin: 0px auto 4px;
+}
+
+
+#loadingbarcontainer {
+    display: block;
+    border: rgb(216, 216, 216) solid 1px;
+    z-index: 99;
+    margin: auto 7px;
+    width: 150px;
+    height: 10px;  
+}
+
+#loadingbar {
+    background-color: gray;
+    height: 100%;
+    width: 2px;
+}
 
 .fadeout { 
     animation: fadeOut 1s; 
