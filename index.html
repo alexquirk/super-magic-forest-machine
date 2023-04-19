@@ -26,10 +26,13 @@
 
 <img id="titlecard" src="./extraimages/titlecard.png" onclick="startGame()">
 
-<!-- <div id="cutsceneviewer">
-    <video poster="./cutscenes/loadingleaf.gif"  id="cutscene" autoplay="autoplay" muted playsinline>
-        <source src="./cutscenes/intro.mp4" type="video/mp4" control="none">
-    </video>
+<!-- <div id="loadingscreen">
+    <div>
+        <img src="./cutscenes/smallloading.gif" id="loadingword">
+        <div id="loadingbarcontainer">
+            <div id="loadingbar"></div>
+        </div>
+    </div>
 </div> -->
 
 <article id="themachine">
@@ -154,6 +157,7 @@ document.onkeydown = e => {
         }
 };
 
+
 // CUTSCENES
 
     // list of cutscenes:
@@ -165,6 +169,8 @@ document.onkeydown = e => {
         // "owl appearing"
         // "cat jumping"
         // "fireflies emerging"
+        // "tree climb"
+        // "well fall"
         
     let currentCutscene = "intro";
 
@@ -262,6 +268,22 @@ document.onkeydown = e => {
                 cutsceneVideo.src="./cutscenes/marblecutscene.mp4";
                 break;
 
+            // tree climb
+            case currentCutscene === "tree climb":
+                //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+                //set source to correct video file
+                cutsceneVideo.src="./cutscenes/treeclimbcutscene.mp4";
+                break;
+
+            // well fall
+            case currentCutscene === "well fall":
+                //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+                //set source to correct video file
+                cutsceneVideo.src="./cutscenes/wellfallcutscene.mp4";
+                break;
+
             }
         };
 
@@ -337,6 +359,17 @@ document.onkeydown = e => {
         case currentCutscene === "cat jumping":
                 
             break;
+
+        // tree climb
+        case currentCutscene === "tree climb":
+                
+                break;
+
+        // well fall
+        case currentCutscene === "well fall":
+                
+                break;
+
         }       
         //generic
         setTimeout(function(){
@@ -1174,7 +1207,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "75%";
             },
-            500
+            400
         );
     };
     const room2Switch = () => {
@@ -1196,7 +1229,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "75%";
             },
-            500
+            400
         );
     };
     const room3Switch = () => {
@@ -1222,7 +1255,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "16%";
             westTriangle.style.opacity = "75%";
             },
-            500
+            400
         );
     };
     const room4Switch = () => {
@@ -1251,7 +1284,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "75%";
             },
-            500
+            400
         );
     };
     const room5Switch = () => { 
@@ -1277,7 +1310,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "75%";
             },
-            500
+            400
         );
     };
     const room6Switch = () => {
@@ -1315,7 +1348,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "16%";
             westTriangle.style.opacity = "75%";
             },
-            500
+            400
         );
     }; 
     const room7Switch = () => {
@@ -1348,7 +1381,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 westTriangle.style.opacity = "75%";
             }
             },
-            500
+            400
         );
     }; 
     const room8Switch = () => {
@@ -1370,7 +1403,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "16%";
             },
-            500
+            400
         );
     };
     const room9Switch = () => {
@@ -1394,7 +1427,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "16%";
             westTriangle.style.opacity = "75%";
             },
-            500
+            400
         );
     }; 
     const room10Switch = () => {
@@ -1433,7 +1466,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "16%";
             },
-            500
+            400
         );
     }; 
     const room11Switch = () => {
@@ -1457,7 +1490,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "16%";
             },
-            500
+            400
         );
     };
 
@@ -1496,7 +1529,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "75%";
             },
-            500
+            400
         );
         newGame = false;
     }; 
@@ -1514,7 +1547,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "16%";
             westTriangle.style.opacity = "16%";
             },
-            500
+            400
         );
     }; 
     const room14Switch = () => { 
@@ -1535,7 +1568,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "16%";
             },
-            500
+            400
         );
     };
 
@@ -1555,7 +1588,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             eastTriangle.style.opacity = "16%";
             westTriangle.style.opacity = "16%";
             },
-            500
+            400
         );
     };
 
@@ -3169,11 +3202,21 @@ const spanClick = (whatToDo) => {
                 break;
             case (inp('climb')|| (inp('rope')&&haveRope===true) )  &&    (inp('tree')||inp('branch'))  &&  ( roomNum === 5 || roomNum === 6 || roomNum === 12 )  :
                 output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch to look out over the forest.<br><br>Trees stretch as far as the eye can see. The lake seems endless too.<br><br>You enjoy the view for a minute, then climb down.";
-                playTreeClimbCutscene();
+                currentCutscene = "tree climb";
+                playCutscene();
                 break;
-            case (inp('climb')|| (inp('rope')&&haveRope===true) )  &&    (inp('tree')||inp('branch')) :
+            case (inp('climb')|| (inp('rope')&&haveRope===true) )  &&    (inp('tree')||inp('branch'))  &&  ( roomNum === 5 || roomNum === 6 || roomNum === 12 )  :
+                output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch to look out over the forest.<br><br>Trees stretch as far as the eye can see. The lake seems endless too.<br><br>You enjoy the view for a minute, then climb down.";
+                currentCutscene = "tree climb";
+                playCutscene();
+                break;
+            case (inp('climb')|| (inp('rope')&&haveRope===true) )  &&    (inp('tree')||inp('branch')) && roomNum !== 9    :
                 output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch to look out over the forest.<br><br>There is a lake to the <span><button onclick='spanClick(\"go south\")'>south</button></span>, but besides that the trees stretch as far as the eye can see.<br><br>You enjoy the view for a minute, then climb down.";
-                playTreeClimbCutscene();
+                currentCutscene = "tree climb";
+                playCutscene();
+                break;
+            case (inp('climb')|| (inp('rope')&&haveRope===true) )  &&    (inp('tree')||inp('branch')) && roomNum === 9    :
+                output.innerHTML = "The trees here look too old and brittle to climb.";
                 break;
                 // look
             case (roomNum === 9)  &&    (inp('tree')||inp('branch'))   &&   (inp('look'))  :

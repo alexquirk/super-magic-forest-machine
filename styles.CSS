@@ -32,7 +32,7 @@ body {
     max-width: 100vw;
 }
 
-#loadingscreen {
+/* #loadingscreen {
     position: absolute;
     color: gray;
     z-index: 99;
@@ -72,7 +72,7 @@ body {
     background-color: gray;
     height: 100%;
     width: 2px;
-}
+} */
 
 .fadeout { 
     animation: fadeOut 1s; 
@@ -86,22 +86,22 @@ body {
   }
 
 .goeast {
-    animation: goEast 1s ease-out;
+    animation: goEast 1s ease-in-out;
     animation-iteration-count: 1;
 }
 
 .gosouth {
-    animation: goSouth 1s ease-out;
+    animation: goSouth 1s ease-in-out;
     animation-iteration-count: 1;
 }
 
 .gonorth {
-    animation: goNorth 1s ease-out;
+    animation: goNorth 1s ease-in-out;
     animation-iteration-count: 1;
 }
 
 .gowest {
-    animation: goWest 1s ease-out;
+    animation: goWest 1s ease-in-out;
     animation-iteration-count: 1;
 }
 
@@ -109,12 +109,12 @@ body {
     0% { 
         opacity: 1;
     }
-    50% {
+    40% {
         opacity: 0;
         transform: translate(-16.7%, 10%); 
         filter: blur(2px);
     }
-    51% {
+    41% {
         opacity: 0;
         transform: translate(16.7%, -10%); 
         filter: blur(0px);
@@ -129,12 +129,12 @@ body {
     0% { 
         opacity: 1;
     }
-    50% {
+    40% {
         opacity: 0;
         transform: translate(16.7%, 10%);
         filter: blur(2px);
     }
-    51% {
+    41% {
         opacity: 0;
         transform: translate(-16.7%, -10%); 
         filter: blur(0px);
@@ -149,12 +149,12 @@ body {
     0% {  
         opacity: 1;
     }
-    50% {
+    40% {
         opacity: 0;
         transform: translate(-16.7%, -10%);
         filter: blur(2px);
     }
-    51% {
+    41% {
         opacity: 0;
         transform: translate(16.7%, 10%); 
         filter: blur(0px);
@@ -169,12 +169,12 @@ body {
     0% { 
         opacity: 1;
     }
-    50% {
+    40% {
         opacity: 0;
         transform: translate(16.7%, -10%); 
         filter: blur(2px);
     }
-    51% {
+    41% {
         opacity: 0;
         transform: translate(-16.7%, 10%); 
         filter: blur(0px);
@@ -655,6 +655,7 @@ body {
 #output {
     padding-bottom: 5px;
     display: none;
+    cursor: default;
 }
 
 #output > span {
