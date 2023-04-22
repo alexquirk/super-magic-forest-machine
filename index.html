@@ -936,7 +936,7 @@ const ghostUnZoom = () => {
 
 
 
-        
+
 // OWL DIALOGUE
     // your dialogue
 const owlDialogueButtonTexts = ["", //1
@@ -1806,6 +1806,17 @@ const takeMushy = () => {
 const spanClick = (whatToDo) => {
     userInput.value = whatToDo;
     processInput();
+    if (!( 
+                   navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                )) {
+            userInput.focus(); 
+                }   
 }
 
 // USER INPUT
@@ -1901,7 +1912,7 @@ const spanClick = (whatToDo) => {
             case inp("sexy") :
                 output.innerHTML = ";)";
                 break;
-            case (inp('poop')||inp("fuck")||inp("sex")||inp("shit")||inp("cunt")||inp("pussy")||inp("dick")||inp("penis"))||inp('cock')||inp('boner')||inp('crap')||inp('wank')||inp("piss")||inp('shart')||inp('balls')||inp('vagina')||inp('gooch')||inp('retard')||inp('asshole')||inp('ass hole')||inp('bitch')||inp('you die')||inp('hate')||(inp('flesh')&&inp('light'))  :
+            case (inp('poop')||(inp('butt')&&!inp('butte')&&!inp('butto'))||inp("fuck")||inp("sex")||inp("shit")||inp("cunt")||inp("pussy")||inp("dick")||inp("penis"))||inp('cock')||inp('boner')||inp('crap')||inp('wank')||inp("piss")||inp('shart')||inp('balls')||inp('vagina')||inp('gooch')||inp('retard')||inp('asshole')||inp('ass hole')||inp('bitch')||inp('you die')||inp('hate')||(inp('flesh')&&inp('light'))  :
                 if (profanityCounter < 21) {
                     output.innerHTML = profanityResponse[profanityCounter];
                     profanityCounter++;
@@ -3396,7 +3407,7 @@ const spanClick = (whatToDo) => {
                 break;
 
             // INTERACT WITH ROCKS
-            case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
+            case haveRock === false &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "There's an art to rock collecting. You find a nice one and put it in your <span><button onclick='spanClick(\"check pocket\")'>pocket</button></span>.";
                 inventory.push("a <span><button onclick='spanClick(\"inspect rock\")'>rock</button></span>")
                 haveRock = true;
