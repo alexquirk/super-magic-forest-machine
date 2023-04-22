@@ -616,6 +616,11 @@ const ghostUnZoom = () => {
     };
 
     const displayInventory = () => {
+            // if still in the animatio to find, it removes it
+            document.getElementById("inventory5").classList.remove('findobject');
+            document.getElementById("inventory6").classList.remove('findobject');
+            document.getElementById("inventory7").classList.remove('findobject');
+            document.getElementById("inventory8").classList.remove('findobject');
             if (inventory.length > 0) {
                 checkingInventory = true;
                 inventoryAsk = true;
@@ -789,7 +794,11 @@ const ghostUnZoom = () => {
             output.innerHTML = "You push the mug into the hole, but it's a bit too big and the handle is in the way. Maybe something else will fit better."
         }
         if (fixingBoat === true && haveMushy === true) {
-            haveBox = true;
+            if (haveBox === false ) {
+                haveBox = true;
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
+                output.innerHTML = "You push the mushroom into the hole, and it's a perfect fit. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a locked wooden box in the bottom of the boat, and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>."
+            };
             boatFixed = true;
             removeItem("a <span><button onclick='spanClick(\"inspect mushroom\")'>wild mushroom</button></span>");
             haveMushy = false;
@@ -798,10 +807,6 @@ const ghostUnZoom = () => {
             room6Switch();
             closeInventory();
             output.innerHTML = "You push the mushroom into the hole, and it's a perfect fit. You spend a few minutes bailing water out, and soon it starts to float again."
-            if (haveBox === false ) {
-                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
-                output.innerHTML = "You push the mushroom into the hole, and it's a perfect fit. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a locked wooden box in the bottom of the boat, and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>."
-            };
         }
     };
     const chestClick = () => {
@@ -836,7 +841,11 @@ const ghostUnZoom = () => {
     };
     const rockClick = () => {
         if (fixingBoat === true && haveRock === true) {
-            haveBox = true;
+            if (haveBox === false ) {
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
+                haveBox = true;
+                output.innerHTML = "You plug the hole in the bottom of the boat with a rock. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span> in the bottom of the boat, and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
+            };
             boatFixed = true;
             removeItem("a <span><button onclick='spanClick(\"inspect rock\")'>rock</button></span>");
             haveRock = false;
@@ -845,9 +854,6 @@ const ghostUnZoom = () => {
             room6Switch();
             closeInventory();
             output.innerHTML = "You plug the hole in the bottom of the boat with a rock. You spend a few minutes bailing water out, and soon it starts to float again.";
-            if (haveBox === false ) {
-                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
-            };
         };
     };
 
@@ -867,8 +873,8 @@ const ghostUnZoom = () => {
             if (!checkingInventory && !inventoryAsk) {
                 document.getElementById("inventory4").style.bottom = "0%";
                 document.getElementById("inventory4").style.left = "0%";
-                document.getElementById("inventory4").classList.remove('findkey');
                 document.getElementById("inventory4").style.zIndex = "-2"}
+                document.getElementById("inventory4").classList.remove('findkey');
             },
                 2500
         )};
@@ -885,7 +891,6 @@ const ghostUnZoom = () => {
                     document.getElementById("inventory7").style.bottom = "0%"; 
                     document.getElementById("inventory7").style.left = "0%";
                     document.getElementById("inventory7").classList.remove('findobject');}
-
                 },
                     2500
         )}

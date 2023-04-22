@@ -330,7 +330,7 @@ body {
     z-index: -1;
 }
 
-#mapbox, #map, #cutsceneviewer, .inventorybutton, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8, #book, #maptiles, #blackbackground {
+#map, #mapbox, #cutsceneviewer, .inventorybutton, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8, #book, #maptiles, #blackbackground {
     max-height: 100%;
     max-width: 100%;
     grid-row: 1;
@@ -357,7 +357,7 @@ body {
             transform: skew(-1.5deg, -1.5deg);
         }
             25% {
-                filter: hue-rotate(90deg);
+                filter: hue-rotate(105deg);
                 transform: skew(-3deg, -3deg);
             }
         37.5% {
@@ -373,7 +373,7 @@ body {
             transform: skew(1.5deg, 1.5deg);
         }
             75% {
-                filter: hue-rotate(270deg);
+                filter: hue-rotate(255deg);
                 transform: skew(3deg, 3deg);
             }
         87.5% {
