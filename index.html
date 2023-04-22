@@ -50,12 +50,13 @@
             <!-- navigation arrows -->
             <img class="compasstriangles" id="northtriangle" src="./compasstriangles/north.png" onclick="goNorth()"><img class="compasstriangles" id="westtriangle" src="./compasstriangles/west.png" onclick="goWest()"><img class="compasstriangles" id="southtriangle" src="./compasstriangles/south.png" onclick="goSouth()"><img class="compasstriangles" id="easttriangle" src="./compasstriangles/east.png" onclick="goEast();">
             <!-- main viewer -->
-            <div id="cutsceneviewer">
-                <video poster="./cutscenes/loadingleaf.gif"  id="cutscenevideo" autoplay="autoplay" muted playsinline>
-                    <source src="./cutscenes/intro.mp4" type="video/mp4" control="none">
-                </video>
-            </div>
+            
             <div id="mapbox">
+                <div id="cutsceneviewer">
+                    <video poster="./cutscenes/loadingleaf.gif"  id="cutscenevideo" autoplay="autoplay" muted playsinline>
+                        <source src="./cutscenes/intro.mp4" type="video/mp4" control="none">
+                    </video>
+                </div>
                 <div id= "map">
                     <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png">
                 </div>       
@@ -430,7 +431,8 @@ document.onkeydown = e => {
     let checkingMap = false;
     let mapAsk = false;
 
-    let currentRobotConversation = 0; // xxxxxxxxxx needs to be 0
+    let currentRobotConversation = 0;
+    let currentOwlConversation = 0; // xxxxxxxxxx needs to be 0
     let dialogueAsk = false;
     let inDialogue = false;
 
@@ -732,7 +734,7 @@ const ghostUnZoom = () => {
             } else if (inventory.length < 4 && haveFlower === true && haveRock === true && haveStick === true) {
                 // move rock
                 document.getElementById("inventory7").style.bottom = "10%"; 
-                document.getElementById("inventory7").style.left = "20%";
+                document.getElementById("inventory7").style.left = "12%";
                 // move flower
                 document.getElementById("inventory6").style.bottom = "14%"; 
                 document.getElementById("inventory6").style.left = "23%";
@@ -740,7 +742,7 @@ const ghostUnZoom = () => {
                 document.getElementById("inventory8").style.bottom = "5%"; 
                 document.getElementById("inventory8").style.left = "-15%";
                 // move rock button
-                document.getElementById("rockbutton").style.top = "60%"; 
+                document.getElementById("rockbutton").style.top = "32%"; 
                 document.getElementById("rockbutton").style.left = "40%";
                 document.getElementById("rockbutton").style.zIndex = "207";
                 // move flower button
@@ -931,7 +933,96 @@ const ghostUnZoom = () => {
         )}
         };
 
-// ROBOT DIALOGUE BUTTONS
+
+
+
+        
+// OWL DIALOGUE
+    // your dialogue
+const owlDialogueButtonTexts = ["", //1
+                             "", //2
+                             "", //3
+                             "", //4
+                             "", //5
+                             "", //6
+                             "", //7
+                             "", //8
+                             "", //9
+                             "", //10
+                             "", //11
+                             "", //12
+                             "", //13
+                            ];
+
+    // owl responses
+const owlDialogueTexts = [""
+
+                            ];
+
+const owlConversationMap = [[],[],[],[],[],[],[],[],[]];
+
+const createOwlConversation = () => {
+    // zoom
+    owlZoom();
+
+    // show the owl's speech
+    output.innerHTML = owlDialogueTexts[currentOwlConversation];
+
+    // let the rest of the game know you're in dialogue
+    dialogueAsk = true;
+    inDialogue = true;
+
+    // make "leave" button visible
+    leaveButton.style.display = "block";
+
+    if (owlConversationMap[currentOwlConversation][0] > -1) {
+        d1.innerHTML = owlDialogueButtonTexts[owlConversationMap[currentowlConversation][0]];
+        d1.style.display = "block";
+    } else {d1.style.display = "none"};
+    if (owlConversationMap[currentOwlConversation][1] > -1) {
+        d2.innerHTML = owlDialogueButtonTexts[owlConversationMap[currentowlConversation][1]];
+        d2.style.display = "block";
+    } else {d2.style.display = "none"};
+    if (currentOwlConversation === 7) {haveMap = true};
+    outputArea.scroll(0,0);
+};
+
+continueOwlConversation1 = () => {
+    currentOwlConversation = owlConversationMap[currentOwlConversation][0];
+    createOwlConversation();
+};
+
+d1.addEventListener('click', continueOwlConversation1);
+
+continueOwlConversation2 = () => {
+    currentOwlConversation = owlConversationMap[currentOwlConversation][1];
+    createOwlConversation();
+};
+
+d2.addEventListener('click', continueOwlConversation2);
+
+leaveOwlConversation = () => {
+    dialogueAsk = false;
+    inDialogue = false;
+    d1.style.display = "none";
+    d2.style.display = "none";
+    leaveButton.style.display = "none";
+    output.innerHTML = "";
+    setCurrentOwlConversation();
+    owlUnZoom();
+};
+
+setCurrentOwlConversation = () => {
+    currentOwlConversation = 0;
+};
+
+leaveButton.addEventListener('click', leaveOwlConversation);
+
+
+
+
+
+// ROBOT DIALOGUE
     // your dialoge
 const robotDialogueButtonTexts = ["", //0
                              "> I'm not sure, I just got here.", //1
@@ -999,7 +1090,7 @@ const robotDialogueButtonTexts = ["", //0
                                 "<span class='robot'>My name is Analysis Robot TK421. But you can call me ‘Alys’ for short. A long time ago I helped the humans do some work in this forest.</span>", //29
                                 ];
     
-                        //      0     1     2     3     4     5      6      7       8       9       10      11      12      13      14      15      16      17      18      19      20      21      22      23      24      25      26      27       28     29
+                        //      0     1     2     3      4      5      6      7      8       9       10      11      12      13      14      15      16      17      18      19      20      21      22      23      24      25      26      27       28     29
 const robotConversationMap = [[1,2],[3,2],[3,5],[5,4],[5,-1],[6,-1],[7,-1],[8,-1],[-1,-1],[-1,10],[-1,-1],[12,-1],[-1,-1],[14,-1],[15,29],[-1,-1],[17,-1],[18,-1],[19,20],[20,21],[21,22],[22,-1],[23,25],[24,26],[26,25],[15,26],[-1,-1],[28,-1],[-1,-1],[15,-1]];                      
 
 const createRobotConversation = () => {
