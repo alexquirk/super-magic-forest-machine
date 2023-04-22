@@ -26,15 +26,15 @@
 
 <img id="titlecard" src="./extraimages/titlecard.png" onclick="startGame()">
 
-<div id="loadingscreen">
+<!-- <div id="loadingscreen">
     <div>
-        <!-- <div id="loadingword">Loading...</div> -->
+        <div id="loadingword">Loading...</div>
         <img src="./cutscenes/smallloading.gif" id="loadingword">
         <div id="loadingbarcontainer">
             <div id="loadingbar"></div>
         </div>
     </div>
-</div>
+</div> -->
 
 <article id="themachine">
     
@@ -55,9 +55,11 @@
                     <source src="./cutscenes/intro.mp4" type="video/mp4" control="none">
                 </video>
             </div>
-            <div id= "map">
-                <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png">
-            </div>            
+            <div id="mapbox">
+                <div id= "map">
+                    <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png">
+                </div>       
+            </div>     
             <img id= "inventory1" src="">
                 <button class="inventorybutton" id= "ropebutton" onclick="chestClick()" ></button>
                 <button class="inventorybutton" id= "chestbutton" onclick="ropeClick()" ></button>
@@ -464,6 +466,8 @@ document.onkeydown = e => {
     let waterSearchedOnce = false;
     let boatFixed = false;
     let haveHook = false;
+    let mushyTaken = false;
+    let mushyTimePassed = 0;
 
     let haveMap = false; 
     let caveInspected = false;
@@ -1193,6 +1197,22 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         )
     };
 
+    const climbDownAnimation = () => {
+        map.classList.add('climbdown');
+        setTimeout( 
+            function() {map.classList.remove('climbdown')}, 
+            1000
+        )
+    };
+
+    const climbUpAnimation = () => {
+        map.classList.add('climbup');
+        setTimeout( 
+            function() {map.classList.remove('climbup')}, 
+            1000
+        )
+    };
+
     const room1Switch = () => {
         mapArrow.style.top = "53%";
         mapArrow.style.left = "42.6%";
@@ -1432,25 +1452,16 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         );
     }; 
     const room10Switch = () => {
-        if (roomVisited[10] === false) { 
-            if (roomNum === 1) {
-                output.innerHTML = "You travel west, making your way along a wooded trail until you arrive at a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.<br><br>You wonder who made this well, and how long ago.";
-            } else if (roomNum === 13) {
-                output.innerHTML = "You climb back out of the well."
-            } else {
-                output.innerHTML = "You arrive at a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.<br><br>You wonder who made this well, and how long ago.<br><br>You can see a stony outcropping rising above the trees to the <span><button onclick='spanClick(\"go north\")'>north</button></span>. The forest opens to a grassy meadow to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
-            };
-        } 
-        else {
-            if (roomNum === 1) {
-                output.innerHTML = "You travel west and find a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.";
-            } else if (roomNum === 12) {
-                output.innerHTML = "You travel north and find a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.";
-            } else if (roomNum === 11) {
-                output.innerHTML = "You travel south and find a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.";
-            } else {
-                output.innerHTML = "You find yourself in front of the <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>."
-            };
+        if (roomNum === 1) {
+            output.innerHTML = "You travel west and find a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.";
+        } else if (roomNum === 12) {
+            output.innerHTML = "You travel north and find a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.";
+        } else if (roomNum === 11) {
+            output.innerHTML = "You travel south and find a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>.";
+        } else if (roomNum === 13) {
+            output.innerHTML = "You climb back out of the well."
+        } else {
+            output.innerHTML = "You find yourself in front of a <span><button onclick='spanClick(\"inspect well\")'>stone well</button></span>."
         };
         roomVisited[10] = true;
         mapArrow.style.top = "53%";
@@ -1691,7 +1702,13 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 //     userInput.focus()
 // };
 
+// TAKE MUSHROOM
 
+const takeMushy = () => {
+    document.getElementById('mapbox').classList.add('mushytaken');
+    mushyTaken = true;
+    mushyTimePassed = 7;
+}
 
 // SPAN CLICK
 
@@ -1707,6 +1724,7 @@ const spanClick = (whatToDo) => {
     };
 
     const processInput = () => {
+
         //clear inventory / close inventory / hide inventory
         closeInventory();
 
@@ -1743,6 +1761,9 @@ const spanClick = (whatToDo) => {
         switch (true) {
     
         // GLOBAL
+            case inp('mushy test'):
+                takeMushy();
+                break;
             case inp('get inventory length'):
                 output.innerHTML = inventory.length;
                 break;
@@ -2147,6 +2168,7 @@ const spanClick = (whatToDo) => {
             // SPECIAL CASE FOR ROOM 10 BECAUSE OF GOING "DOWN" THE WELL
             case roomNum === 10 && inp("go")   &&    inp('down')  && ropeSet === true  :
                 output.innerHTML = "You test the rope, and then carefully lower yourself into the well...";
+                climbDownAnimation();
                 room13Switch();
                 break;
             case roomNum === 10 && ((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    (inp('down')))  || inp('south')  :
@@ -2157,6 +2179,7 @@ const spanClick = (whatToDo) => {
             // SPECIAL CASE FOR ROOM 13
             case roomNum === 13 && inp("go")   &&    inp('up') :
                 room10Switch();
+                climbUpAnimation();
                 break;
             case roomNum === 13 && (inp("walk")||inp('go')||inp('travel'))   &&    (inp('up')||inp('forward')||inp('straight')||inp('north'))   :  // XXX supposedly this doesn't return a value to output
                 output.innerHTML = "There's nowhere to go!";
@@ -2769,7 +2792,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You reach for a mushroom...<br><br>but a <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> appears!!<br><br>It seems like it's guarding the mushrooms.";
                 break;
                 // take mushrooms after ghost given mug
-            case roomNum === 9 && ghostGivenMug === true && ( (inp('take')||inp('grab')||inp('pocket')||inp('gather')||inp('pick'))  || (inp('eat')&&haveMushy === false)   )  &&    (inp('mushroom')||inp('circle'))  :
+            case roomNum === 9 && ghostGivenMug === true && haveMushy === false  &&  ( (inp('take')||inp('grab')||inp('pocket')||inp('gather')||inp('pick'))|inp('eat')   )  &&    (inp('mushroom')||inp('circle'))  :
                 output.innerHTML = "You pick a nice looking mushroom and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
                 haveMushy = true;
                 inventory.push("a <span><button onclick='spanClick(\"inspect mushroom\")'>wild mushroom</button></span>");
@@ -2954,6 +2977,7 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 10  && ropeSet === true   &&  (  (inp('go')&& inp('down'))   ||  (inp('use') && (inp('well')|| inp('rope'))) || inp('climb')) :
                 output.innerHTML = "You test the rope, and then carefully lower yourself into the well...";
+                climbDownAnimation();
                 room13Switch();
                 roomNum = 13;
                 break;
@@ -3129,9 +3153,10 @@ const spanClick = (whatToDo) => {
             case roomNum === 13 &&  (inp('take')||inp('grab')||inp('pocket')||inp('get'))   &&    (inp('mug'))  && mugTaken === true   :
                 output.innerHTML = "You already took the mug.";
                 break;
-            case roomNum === 13 &&  (inp('climb')||inp('go')||inp('use')) && (inp('up')||inp('rope')) :
+            case roomNum === 13 && ( inp('climb') || ( (inp('go')||inp('use')) && (inp('up')||inp('rope')) )):
                 room10Switch();
-                roomNum = 10;
+                climbUpAnimation();
+                // roomNum = 10;
                 break;
 
             // RELEASE FIREFLIES
@@ -3335,6 +3360,12 @@ const spanClick = (whatToDo) => {
             // MUSHROOMS
             case roomNum !== 9 && haveMushy === false && inp('mushroom')  :
                 output.innerHTML = "There aren't any mushrooms around.";
+                break;
+            case  haveMushy === true && inp('mush') && (inp('eat')||inp('consume')||inp('swallow') ) :
+                output.innerHTML = "You eat one of the mushrooms...";
+                haveMushy = false;
+                removeItem("a <span><button onclick='spanClick(\"inspect mushroom\")'>wild mushroom</button></span>");
+                takeMushy();
                 break;
 
             // STICKS
@@ -3628,31 +3659,25 @@ const spanClick = (whatToDo) => {
 
             // DEFAULT "GO"
             case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')) && (roomNum === 8 || roomNum === 7):
-                userInput.value = "";
                 room11Switch();
                 break;
             case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')||inp('firefl')) && (roomNum === 9):
-                userInput.value = "";
                 room2Switch();
                 break;
             case (inp("walk")||inp('go')||inp('travel')) && inp('firefl') && roomVisited[2] === true:
-                userInput.value = "";
                 room2Switch();
                 break;
             case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')) && roomNum === 12 :
-                userInput.value = "";
                 room10Switch();
                 break;
             case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')) && roomNum === 5 :
-                userInput.value = "";
                 room1Switch();
                 break;
             case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')) && roomNum === 6 :
-                userInput.value = "";
                 room3Switch();
                 break;
             case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')||inp(' up')) && roomNum === 13 :
-                userInput.value = "";
+                climbUpAnimation();
                 room10Switch();
                 break;
 
@@ -3703,6 +3728,9 @@ const spanClick = (whatToDo) => {
                 break;
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('rock')||inp('stone')||inp('pebble'))  && haveRock=== true  :
                 output.innerHTML = "You already have a rock in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span>.";
+                break;
+            case (inp('rock') && inp('climb')||inp('cave'))    :
+                output.innerHTML = "Looks much too steep!";
                 break;
             case (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "What about the rocks?";
@@ -3899,6 +3927,19 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "Nothing happened.";
                 break;
         };
+
+        // // SPEW GIBBERISH IF ON MUSHROOMS
+
+        // if (mushyTaken === true && mushyTimePassed < 7) {
+        //     output.innerHTML = "Klgh lkhgl akxlv. Lgl lkjgqozo kglkxj."
+        // };
+
+        // subtract mushy count, remove mushy thing if less than 1
+        mushyTimePassed = mushyTimePassed - 1;
+                if (mushyTimePassed < 1) {
+                    setTimeout( function(){document.getElementById('mapbox').classList.remove('mushytaken')}, 400);
+                    mushyTaken = false;
+                }
 
         // INCREASE "THINGS TRIED"
         thingsTriedSinceLastBigThing++; // resets when the box is unlocked, fireflies released, and robot awakened.
