@@ -86,32 +86,32 @@ body {
   }
 
 .goeast {
-    animation: goEast 1s ease-in-out;
+    animation: goEast 1s ease-out;
     animation-iteration-count: 1;
 }
 
 .gosouth {
-    animation: goSouth 1s ease-in-out;
+    animation: goSouth 1s ease-out;
     animation-iteration-count: 1;
 }
 
 .gonorth {
-    animation: goNorth 1s ease-in-out;
+    animation: goNorth 1s ease-out;
     animation-iteration-count: 1;
 }
 
 .gowest {
-    animation: goWest 1s ease-in-out;
+    animation: goWest 1s ease-out;
     animation-iteration-count: 1;
 }
 
 .climbup {
-    animation: climbUp 1s ease-in-out;
+    animation: climbUp 1s ease-out;
     animation-iteration-count: 1;
 }
 
 .climbdown {
-    animation: climbDown 1s ease-in-out;
+    animation: climbDown 1s ease-out;
     animation-iteration-count: 1;
 }
 

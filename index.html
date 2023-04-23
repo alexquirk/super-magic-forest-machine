@@ -285,7 +285,7 @@ document.onkeydown = e => {
                 //make cutscene visible
                 cutsceneViewer.style.display = "flex";
                 //set source to correct video file
-                cutsceneVideo.src="./cutscenes/wellfallcutscene.mp4";
+                cutsceneVideo.src="./cutscenes/welljumpcutscene.mp4";
                 break;
 
             }
@@ -367,12 +367,12 @@ document.onkeydown = e => {
         // tree climb
         case currentCutscene === "tree climb":
                 
-                break;
+            break;
 
         // well fall
         case currentCutscene === "well fall":
-                
-                break;
+            output.innerHTML = "You find yourself standing in front of the stone <span><button onclick='spanClick(\"inspect well\")'>well</button></span>.";
+            break;
 
         }       
         //generic
@@ -474,7 +474,7 @@ document.onkeydown = e => {
     let haveMap = false; 
     let caveInspected = false;
     let doorInspected = false;
-    
+
     let firstHint = false;
     let thingsTried = 0;
     let thingsTriedSinceLastBigThing = 0;
@@ -2731,13 +2731,13 @@ const spanClick = (whatToDo) => {
                 currentCutscene = "riding boat";
                 playCutscene();
                 room15Switch();
-                output.innerHTML = "You untie the rope and put it in your pockets, then push the boat out into the lake and hop in. You don't have any paddles, and allow the tide to take you where it will.<br><br>Soon, the boat lands on the shore of an island.";
+                output.innerHTML = "You untie the rope and put it in your pockets, then push the boat out into the lake and hop in. Without paddles, you allow the tide to take you where it will.<br><br>Soon, the boat lands on the shore of an island.";
                 break;
             case roomNum === 6   && boatFixed === true  && ropeTaken === true && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
                 currentCutscene = "riding boat";
                 playCutscene();
                 room15Switch();
-                output.innerHTML = "You push the boat out into the lake and hop in. You don't have any paddles, and allow the tide to take you where it will.<br><br>Soon the boat lands on the shore of an island.";
+                output.innerHTML = "You push the boat out into the lake and hop in. Without paddles, you allow the tide to take you where it will.<br><br>Soon the boat lands on the shore of an island.";
                 break;
                 // Fixing The Boat
             case roomNum === 6   && boatFixed === false && inventory.length === 0 && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
@@ -3075,8 +3075,9 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You just brought the mug up! Better not drop it again.";
                 break;
             case roomNum === 10 &&  (inp('jump')||inp('fall')||(inp('get')&&inp('well')))   &&    (inp('well'))     :
-                wellZoom();
-                output.innerHTML = "For a moment you imagine jumping into the well... What's that old phrase? \"L'appel du vide...\"<br><br>You decide to keep your feet on the ground.";
+                output.innerHTML = "...you climb into the well...";
+                currentCutscene = "well fall";
+                playCutscene();
                 break;
             case roomNum === 10 &&  inp('use') &&   inp('well')  && ropeSet === false :
                 wellZoom();
@@ -3089,8 +3090,9 @@ const spanClick = (whatToDo) => {
                 roomNum = 13;
                 break;
             case roomNum === 10 &&  (inp('climb')||inp('use')) &&   (inp('well')||inp('down')||inp('rope'))  && ropeSet === false :
-                wellZoom();
-                output.innerHTML = "You consider trying to climb down the well, but the walls are slippery and you're not sure if you'd be able to get back up again...";
+                output.innerHTML = "...you climb into the well...";
+                currentCutscene = "well fall";
+                playCutscene();
                 break;
             case roomNum === 10 &&  ropeSet === true &&  (inp('take')||inp('grab')||inp('pocket')||inp('untie')||inp('remove')||inp('get'))   &&    (inp('rope'))     :
                 haveRope = true;
