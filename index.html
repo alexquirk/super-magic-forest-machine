@@ -175,6 +175,7 @@ document.onkeydown = e => {
         // "fireflies emerging"
         // "tree climb"
         // "well fall"
+        // "swimming"
         
     let currentCutscene = "intro";
 
@@ -283,6 +284,15 @@ document.onkeydown = e => {
                 cutsceneVideo.src="./cutscenes/treeclimbcutscene.mp4";
                 break;
 
+            // swimming
+            case currentCutscene === "swimming":
+                //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+                //set source to correct video file
+                cutsceneVideo.src="./cutscenes/swimmingcutscene.mp4";
+                break;
+
+
             // well fall
             case currentCutscene === "well fall":
                 //make cutscene visible
@@ -371,6 +381,12 @@ document.onkeydown = e => {
         case currentCutscene === "tree climb":
                 
             break;
+
+        // tree climb
+        case currentCutscene === "swimming":
+                
+            break;
+    
 
         // well fall
         case currentCutscene === "well fall":
@@ -3304,7 +3320,8 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.";
                 break;
             case (roomNum === 5 || roomNum === 6 || roomNum === 12  || roomNum === 15) &&    (inp('swim')||inp('dive')||inp('jump')||inp('cross')||inp('get'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach'))     :
-                output.innerHTML = "You didn't bring a swim suit! The water seems cold anyway.";
+                currentCutscene = "swimming";
+                playCutscene();
                 break;
             case (roomNum === 5 || roomNum === 6 || roomNum === 12  || roomNum === 15) &&    (inp('catch')||inp('grab')||inp('take')||inp('lure')||inp('get'))   &&    (inp('fish'))     :
                 output.innerHTML = "You try to catch a fish, but they are way too fast! They probably prefer the water anyway.";
@@ -3322,7 +3339,8 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You search around the driftwood on the shore but don't find anything particularly useful.";
                 break;
             case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8  || roomNum === 15) &&    inp('swim')  :
-                output.innerHTML = "Brrr... the water is cold!";
+                currentCutscene = "swimming";
+                playCutscene();
                 break;
             
             // INTERACT WITH TREES
