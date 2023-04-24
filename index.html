@@ -222,6 +222,17 @@ document.onkeydown = e => {
                     },
                     2500
                     );
+
+                // move the viewbox around
+                setTimeout(()=> {
+                viewbox.style.top = "0%";
+                viewbox.style.transform = "translate(0, 0%)";
+                viewbox.classList.add('movetheviewbox');
+                    },
+                    22*1000
+                    );
+
+
                 break;
 
             // robot waking
@@ -315,10 +326,10 @@ document.onkeydown = e => {
                 output.classList.add('textfadein'); 
                 }, 
                 1400);
-            // move the viewbox around
-            viewbox.style.top = "0%";
-            viewbox.style.transform = "translate(0, 0%)";
-            viewbox.classList.add('movetheviewbox');
+            // // move the viewbox around
+            // viewbox.style.top = "0%";
+            // viewbox.style.transform = "translate(0, 0%)";
+            // viewbox.classList.add('movetheviewbox');
             // fade the 'e' in
             document.getElementById('easttriangle').style.display = "none";
             document.getElementById('easttriangle').classList.add('textfadein');
@@ -371,7 +382,7 @@ document.onkeydown = e => {
 
         // well fall
         case currentCutscene === "well fall":
-            output.innerHTML = "You find yourself standing in front of the stone <span><button onclick='spanClick(\"inspect well\")'>well</button></span>.";
+            output.innerHTML = "Oops...<br><br>You find yourself standing in front of the stone <span><button onclick='spanClick(\"inspect well\")'>well</button></span>.";
             break;
 
         }       
