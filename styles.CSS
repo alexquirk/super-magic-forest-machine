@@ -26,7 +26,19 @@ body {
     height: 100vh;  
     /* height: -webkit-fill-available; */
     object-fit: cover;
+    /* animation: titleCardFadeIn 4s ease-out;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards; */
 }
+
+/* @keyframes titleCardFadeIn {
+    0% {
+        filter: brightness(0) blur(2px)
+    }
+    100% {
+        filter: brightness(1) blur(0px)
+    }
+} */
 
 #titlecard > img {
     max-width: 100vw;
@@ -81,8 +93,14 @@ body {
 }
 
 @keyframes fadeOut {
-    0% { opacity: 1;  }
-    100% { opacity: 0; }
+    0% { 
+        opacity: 1; 
+        filter: blur(0px) 
+    }
+    100% { 
+        opacity: 0; 
+        filter: blur(2px)
+    }
   }
 
 .goeast {
@@ -412,7 +430,15 @@ body {
 }
 
 .blurless { 
-    filter: blur(20px); 
+    animation: blurLess .5s forwards 1;
+}
+
+@keyframes blurLess {
+    0% {
+        filter: blur(0px); 
+    } 100% {
+        filter: blur(20px); 
+    }
 }
 
 .darken { 
@@ -458,6 +484,25 @@ body {
 
 #book {
     z-index: 9;
+    position: relative;
+}
+
+.bookgrab {
+    animation: bookGrab .5s 1;
+}
+
+@keyframes bookGrab {
+    0% {
+        top: 50%;
+        opacity: 0;
+        left: 10%;
+        transform: rotate(-20deg);
+    } 100% {
+        top: 0%;
+        left: 0%;
+        opacity: 1;
+        transform: rotate(0);
+    }
 }
 
 #maptiles {
