@@ -58,7 +58,7 @@
                     </video>
                 </div>
                 <div id= "map">
-                    <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png">
+                    <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png"><img class="room" id="room16" src="./roomimages/smfmroom16a.png">
                 </div>       
             </div>     
             <img id= "inventory1" src="">
@@ -470,6 +470,7 @@ document.onkeydown = e => {
     let catDiscovered = false;
     let marbleDown = false;
     let marbleReunited = false;
+    let fenceJumped = false;
     let ropeTaken = false;
     let haveRope = false;
     let ropeSet = false;
@@ -1289,8 +1290,9 @@ const room12 = document.getElementById("room12");
 const room13 = document.getElementById("room13");
 const room14 = document.getElementById("room14");
 const room15 = document.getElementById("room15");
+const room16 = document.getElementById("room16");
 
-allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15]
+allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15, room16]
 
     const moveAllRoomsBack = () => {
         allRooms[roomNum-1].style.zIndex = "-2";
@@ -1707,7 +1709,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             document.getElementById("room14tile").src="./maptiles/room14tile.png";
             roomNum = 14;
             northTriangle.style.opacity = "16%";
-            southTriangle.style.opacity = "16%";
+            if (fenceJumped === false) {
+                southTriangle.style.opacity = "16%";
+            } else {
+                southTriangle.style.opacity = "75%";
+            };
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "16%";
             },
@@ -1735,6 +1741,24 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         );
     };
 
+    const room16Switch = () => { 
+        output.innerHTML = "You hop the fence and cimb down a shallow berm. Soon, you arrive at the edge of a creek with a large stone dam looming over a wooden <span><button onclick='spanClick(\"inspect water mill\")'>watermill</button></span>.<br><br>The watermill is motionless.";
+        mapArrow.style.top = "73%";
+        mapArrow.style.left = "16.9%";
+        setTimeout(  ()=> {
+            moveAllRoomsBack();
+            room16.style.zIndex = "0";
+            document.getElementById("room14tile").src="./maptiles/room14tile.png";
+            roomNum = 16;
+            northTriangle.style.opacity = "75%";
+            southTriangle.style.opacity = "16%";
+            eastTriangle.style.opacity = "16%";
+            westTriangle.style.opacity = "16%";
+            },
+            400
+        );
+    };
+
     // CHEATER MAP CLICKING FUNCTIONS
 
     const goNorth = () =>
@@ -1745,6 +1769,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             triangleButtonFlash(northTriangle);
             userInput.value = "go north";
             processInput();
+        }
             // focus on input if on desktop
             if (!( 
                    navigator.userAgent.match(/Android/i)
@@ -1756,7 +1781,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 || navigator.userAgent.match(/Windows Phone/i)
                 )) {
             userInput.focus(); 
-                }}
+                }
         };
     const goSouth = () =>
         { if (currentlyMoving === false) {
@@ -1766,6 +1791,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             triangleButtonFlash(southTriangle);
             userInput.value = "go south";
             processInput();
+        }
             if (!( 
                    navigator.userAgent.match(/Android/i)
                 || navigator.userAgent.match(/webOS/i)
@@ -1776,7 +1802,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 || navigator.userAgent.match(/Windows Phone/i)
                 )) {
             userInput.focus(); 
-                }}
+                }
         };
     const goEast = () =>
         { if (currentlyMoving === false) {
@@ -1786,6 +1812,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             triangleButtonFlash(eastTriangle);
             userInput.value = "go east";
             processInput();
+        }
             if (!( 
                    navigator.userAgent.match(/Android/i)
                 || navigator.userAgent.match(/webOS/i)
@@ -1796,7 +1823,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 || navigator.userAgent.match(/Windows Phone/i)
                 )) {
             userInput.focus(); 
-                }}
+                }
         };
     const goWest = () =>
         { if (currentlyMoving === false) {
@@ -1806,6 +1833,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             triangleButtonFlash(westTriangle);
             userInput.value = "go west";
             processInput();
+        }
             if (!( 
                    navigator.userAgent.match(/Android/i)
                 || navigator.userAgent.match(/webOS/i)
@@ -1816,7 +1844,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 || navigator.userAgent.match(/Windows Phone/i)
                 )) {
             userInput.focus(); 
-                }}
+                }
         };
 
     const triangleButtonFlash = (triangleID) => {
@@ -2129,6 +2157,9 @@ const spanClick = (whatToDo) => {
                     case 6:
                         output.innerHTML = "The forest is too dense to go any further east.";
                         break;
+                    case 16:
+                        output.innerHTML = "The dam is too steep and impossible to climb.";
+                        break;
                     case 11:
                         room4Switch();
                         goEastAnimation();
@@ -2213,6 +2244,10 @@ const spanClick = (whatToDo) => {
                         room7Switch();
                         goNorthAnimation();
                         break;
+                    case 16:
+                        room14Switch();
+                        goNorthAnimation();
+                        break;
                 };
                 break;
 
@@ -2230,6 +2265,9 @@ const spanClick = (whatToDo) => {
                         break;
                     case 13:
                         output.innerHTML = "There's nowhere to go!";
+                        break;
+                    case 16:
+                        output.innerHTML = "The forest is too dense to go any further west.";
                         break;
                     case 12:
                         room14Switch();
@@ -2302,10 +2340,18 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "You can't go any farther south.";
                         break;
                     case 14:
-                        output.innerHTML = "There is a fence blocking you from going any further south.";
+                        if (fenceJumped === false) {
+                            output.innerHTML = "There is a fence blocking the way south.";
+                        } else {
+                            room16Switch();
+                            goSouthAnimation();
+                        };
                         break;
                     case 13:
                         output.innerHTML = "There's nowhere to go!";
+                        break;
+                    case 16:
+                        output.innerHTML = "There's isn't a way to cross the water.";
                         break;
                     case 6:
                         output.innerHTML = "You can't go any farther south.";
@@ -2358,8 +2404,11 @@ const spanClick = (whatToDo) => {
             case roomNum === 14 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in <span><button onclick='spanClick(\"take flower\")'>blue flowers.</button></span> There are some <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> strewn about too.";
                 break;
-            case roomNum === 14 &&   ( inp('jump') || inp('hop'))|| inp('fence') :
-                output.innerHTML = "You start to jump the fence, but you suddenly realize that there's literally nothing on the other side, because nothing was programmed there, and you would simply float through a spaceless void for eternity.<br><br>You decide to stay on this side of the fence.";
+            case roomNum === 14 &&  ( inp('jump') || inp('hop'))|| inp('fence') :
+                // output.innerHTML = "You start to jump the fence, but you suddenly realize that there's literally nothing on the other side, because nothing was programmed there, and you would simply float through a spaceless void for eternity.<br><br>You decide to stay on this side of the fence.";
+                room16Switch();
+                goSouthAnimation();
+                fenceJumped = true;
                 break;
 
             // ROOM 1
