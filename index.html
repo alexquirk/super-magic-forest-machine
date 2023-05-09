@@ -496,6 +496,8 @@ document.onkeydown = e => {
     let mushyTaken = false;
     let mushyTimePassed = 0;
 
+    let currentlyMoving = false;
+
     let haveMap = false; 
     let caveInspected = false;
     let doorInspected = false;
@@ -1736,7 +1738,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     // CHEATER MAP CLICKING FUNCTIONS
 
     const goNorth = () =>
-        {
+        { if (currentlyMoving === false) {
+            currentlyMoving = true;
+            setTimeout(function() {currentlyMoving = false},1000);
             reading = false;
             triangleButtonFlash(northTriangle);
             userInput.value = "go north";
@@ -1752,10 +1756,12 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 || navigator.userAgent.match(/Windows Phone/i)
                 )) {
             userInput.focus(); 
-                }
+                }}
         };
     const goSouth = () =>
-        {
+        { if (currentlyMoving === false) {
+            currentlyMoving = true;
+            setTimeout(function() {currentlyMoving = false},1000);
             reading = false;
             triangleButtonFlash(southTriangle);
             userInput.value = "go south";
@@ -1770,9 +1776,12 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 || navigator.userAgent.match(/Windows Phone/i)
                 )) {
             userInput.focus(); 
-                }        };
+                }}
+        };
     const goEast = () =>
-        {
+        { if (currentlyMoving === false) {
+            currentlyMoving = true;
+            setTimeout(function() {currentlyMoving = false},1000);
             reading = false;
             triangleButtonFlash(eastTriangle);
             userInput.value = "go east";
@@ -1787,9 +1796,12 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 || navigator.userAgent.match(/Windows Phone/i)
                 )) {
             userInput.focus(); 
-                }        };
+                }}
+        };
     const goWest = () =>
-        {
+        { if (currentlyMoving === false) {
+            currentlyMoving = true;
+            setTimeout(function() {currentlyMoving = false},1000);
             reading = false;
             triangleButtonFlash(westTriangle);
             userInput.value = "go west";
@@ -1804,7 +1816,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 || navigator.userAgent.match(/Windows Phone/i)
                 )) {
             userInput.focus(); 
-                }        };
+                }}
+        };
 
     const triangleButtonFlash = (triangleID) => {
         triangleID.classList.add('brightfadeoutfortriangles');
