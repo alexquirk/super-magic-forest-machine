@@ -234,6 +234,8 @@ document.onkeydown = e => {
                 cutsceneViewer.style.display = "flex";
                 //set source to correct video file
                 cutsceneVideo.src="./cutscenes/robotcutscene.mp4";
+                //change map image
+                room12.src="./roomimages/smfmroom12c.png";
                 break;
 
             // robot scanning
@@ -1123,7 +1125,10 @@ const robotConversationMap = [[1,2],[3,2],[3,5],[5,4],[5,-1],[6,-1],[7,-1],[8,-1
 
 const createRobotConversation = () => {
     // zoom
-    robotZoom();
+    // robotZoom();
+
+    // change image
+    room12.src="./roomimages/smfmroom12c.png";
 
     // change dialogue map if certain criteria are met
     if (roomVisited[7] === true || caveInspected === true) 
@@ -1188,7 +1193,9 @@ leaveRobotConversation = () => {
     leaveButton.style.display = "none";
     output.innerHTML = "";
     setCurrentRobotConversation();
-    robotUnZoom();
+    // robotUnZoom();
+    room12.src="./roomimages/smfmroom12b.png";
+    
 };
 
 setCurrentRobotConversation = () => {
@@ -1730,6 +1737,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 
     const goNorth = () =>
         {
+            reading = false;
             triangleButtonFlash(northTriangle);
             userInput.value = "go north";
             processInput();
@@ -1748,6 +1756,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         };
     const goSouth = () =>
         {
+            reading = false;
             triangleButtonFlash(southTriangle);
             userInput.value = "go south";
             processInput();
@@ -1764,6 +1773,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 }        };
     const goEast = () =>
         {
+            reading = false;
             triangleButtonFlash(eastTriangle);
             userInput.value = "go east";
             processInput();
@@ -1780,6 +1790,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 }        };
     const goWest = () =>
         {
+            reading = false;
             triangleButtonFlash(westTriangle);
             userInput.value = "go west";
             processInput();
@@ -1882,7 +1893,8 @@ const spanClick = (whatToDo) => {
         leaveButton.style.display = "none";
         
         // clear zoom / unzoon
-        robotUnZoom();
+        // robotUnZoom();
+        if (inDialogue === false && robotAwake === true) {room12.src="./roomimages/smfmroom12b.png";}
         wellUnZoom();
         doorUnZoom();
         stumpUnZoom();
