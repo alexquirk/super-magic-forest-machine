@@ -523,82 +523,93 @@ const robotZoom = () => {
     document.getElementById("room12").style.width = "200%";
     document.getElementById("room12").style.bottom = "-42%";
     document.getElementById("room12").style.left = "-15%";
-}
+};
 const robotUnZoom = () => {
     document.getElementById("room12").style.width = "100%";
     document.getElementById("room12").style.bottom = "0%";
     document.getElementById("room12").style.left = "0%";
-}
+};
 const wellZoom = () => {
     document.getElementById("room10").style.width = "180%";
     document.getElementById("room10").style.bottom = "-38%";
     document.getElementById("room10").style.left = "-38%";
-}
+};
 const wellUnZoom = () => {
     document.getElementById("room10").style.width = "100%";
     document.getElementById("room10").style.bottom = "0%";
     document.getElementById("room10").style.left = "0%";
-}
+};
 const doorZoom = () => {
     document.getElementById("room1").style.width = "160%";
     document.getElementById("room1").style.bottom = "-30%";
     document.getElementById("room1").style.left = "-32%";
-}
+};
 const doorUnZoom = () => {
     document.getElementById("room1").style.width = "100%";
     document.getElementById("room1").style.bottom = "0%";
     document.getElementById("room1").style.left = "0%";
-}
+};
 const stumpZoom = () => {
     document.getElementById("room3").style.width = "180%";
     document.getElementById("room3").style.bottom = "-28%";
     document.getElementById("room3").style.left = "-38%";
-}
+};
 const stumpUnZoom = () => {
     document.getElementById("room3").style.width = "100%";
     document.getElementById("room3").style.bottom = "0%";
     document.getElementById("room3").style.left = "0%";
-}
+};
 const boatZoom = () => {
     document.getElementById("room6").style.width = "210%";
     document.getElementById("room6").style.bottom = "-47%";
     document.getElementById("room6").style.left = "-103%";
-}
+};
+const watermillZoom = () => {
+    document.getElementById("room16").style.width = "180%";
+    document.getElementById("room16").style.bottom = "-20%";
+    document.getElementById("room16").style.left = "-76%";
+};
 const boatUnZoom = () => {
     document.getElementById("room6").style.width = "100%";
     document.getElementById("room6").style.bottom = "0%";
     document.getElementById("room6").style.left = "0%";
-}
+};
 const rocksZoom = () => {
     document.getElementById("room5").style.width = "180%";
     document.getElementById("room5").style.bottom = "-6%";
     document.getElementById("room5").style.left = "-49%";
-}
+};
 const rocksUnZoom = () => {
     document.getElementById("room5").style.width = "100%";
     document.getElementById("room5").style.bottom = "0%";
     document.getElementById("room5").style.left = "0%";
-}
+};
 const catTreeZoom = () => {
     document.getElementById("room4").style.width = "150%";
     document.getElementById("room4").style.bottom = "-54%";
     document.getElementById("room4").style.left = "-20%";
-}
+};
 const catTreeUnZoom = () => {
     document.getElementById("room4").style.width = "100%";
     document.getElementById("room4").style.bottom = "0%";
     document.getElementById("room4").style.left = "0%";
-}
+};
 const ghostZoom = () => {
     document.getElementById("room9").style.width = "200%";
     document.getElementById("room9").style.bottom = "-50%";
     document.getElementById("room9").style.left = "-45%";
-}
+};
 const ghostUnZoom = () => {
     document.getElementById("room9").style.width = "100%";
     document.getElementById("room9").style.bottom = "0%";
     document.getElementById("room9").style.left = "0%";
-}
+};
+const watermillUnZoom = () => {
+    document.getElementById("room16").style.width = "100%";
+    document.getElementById("room16").style.bottom = "0%";
+    document.getElementById("room16").style.left = "0%";
+};
+
 
 // INVENTORY
     const checkInventory = () => {
@@ -777,8 +788,8 @@ const ghostUnZoom = () => {
                 document.getElementById("inventory8").style.bottom = "5%"; 
                 document.getElementById("inventory8").style.left = "-15%";
                 // move rock button
-                document.getElementById("rockbutton").style.top = "32%"; 
-                document.getElementById("rockbutton").style.left = "40%";
+                document.getElementById("rockbutton").style.top = "60%"; 
+                document.getElementById("rockbutton").style.left = "32%";
                 document.getElementById("rockbutton").style.zIndex = "207";
                 // move flower button
                 document.getElementById("flowerbutton").style.top = "36%"; 
@@ -819,13 +830,13 @@ const ghostUnZoom = () => {
             output.innerHTML = "You push the stick into the hole, but it's too small, and water continues to leak into the boat."
         };
         if (fixingMill === true && haveStick === true) {
-            output.innerHTML = "You push the stick into the hole, and you feel something click..."
+            output.innerHTML = "You push the stick into the spot where the switch used to be, and you feel something click..."
         };
     };
     const mugClick = () => {
         if (fixingBoat === true && haveMug === true) {
             output.innerHTML = "You push the mug into the hole, but it's a bit too big and the handle is in the way. Maybe something else will fit better."
-        }
+        };
         if (fixingBoat === true && haveMushy === true) {
             if (haveBox === false ) {
                 haveBox = true;
@@ -840,36 +851,57 @@ const ghostUnZoom = () => {
             room6Switch();
             closeInventory();
             output.innerHTML = "You push the mushroom into the hole, and it's a perfect fit. You spend a few minutes bailing water out, and soon it starts to float again."
-        }
+        };
+        if (fixingMill === true && haveMug === true) {
+            output.innerHTML = "You don't see how that's going to work."
+        };
     };
     const chestClick = () => {
         if (fixingBoat === true && haveBox === true) {
             output.innerHTML = "You try to stick the chest into the hole, but it's much too big."
-        }
+        };
+        if (fixingMill === true && haveBox === true) {
+            output.innerHTML = "That's not going to work."
+        };
     };
     const ropeClick = () => {
         if (fixingBoat === true && haveRope === true) {
             output.innerHTML = "You try to cram the rope into the hole, but there's too much if it and water keeps leaking through the cracks."
-        }
+        };
+        if (fixingMill === true && haveRope === true) {
+            output.innerHTML = "You tie the rope to the wheel and give it a pull to try to jump-start it, but it remains idle."
+        };
     };
     const crystalClick = () => {
         if (fixingBoat === true && haveCrystal === true) {
             output.innerHTML = "You push the crystal into the hole, but it's too smooth and slides right out."
-        }
+        };
+        if (fixingMill === true && haveCrystal === true) {
+            output.innerHTML = "You don't see a way to use that here."
+        };
     };
     const flowerClick = () => {
         if (fixingBoat === true && haveFlower === true) {
             output.innerHTML = "You try to plug the hole with the flower, but it's too small and fragile."
-        }
+        };
+        if (fixingMill === true && haveFlower === true) {
+            output.innerHTML = "That's not going to be of any use here."
+        };
     };
     const keyClick = () => {
         if (fixingBoat === true && haveBoxKey === true) {
             output.innerHTML = "You try to plug the hole with the key, but it's too small."
-        }
+        };
+        if (fixingMill === true && haveBoxKey === true) {
+            output.innerHTML = "You push the key into the hole where the switch used to be, but it's not a very good fit."
+        };
     };
     const ribbonClick = () => {
         if (fixingBoat === true && haveRibbon === true) {
             output.innerHTML = "You try to plug the hole with the ribbon, but it's much too small."
+        };
+        if (fixingMill === true && haveRibbon === true) {
+            output.innerHTML = "You can't find a way to use that here."
         };
     };
     const rockClick = () => {
@@ -887,6 +919,9 @@ const ghostUnZoom = () => {
                 output.innerHTML = "You plug the hole in the bottom of the boat with a rock. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span> in the bottom of the boat, and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
                 switchChestRopeImage();
             };
+        };
+        if (fixingMill === true && haveRock === true) {
+            output.innerHTML = "That won't work."
         };
     };
 
@@ -1747,13 +1782,14 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
 
     const room16Switch = () => { 
-        output.innerHTML = "You hop the fence and cimb down a shallow berm. Soon, you arrive at the edge of a creek with a large stone dam looming over a wooden <span><button onclick='spanClick(\"inspect water mill\")'>watermill</button></span>.<br><br>The watermill is motionless.";
+        output.innerHTML = "You hop the fence and cimb down a shallow berm. Soon, you arrive at the edge of a creek with a large stone <span><button onclick='spanClick(\"inspect dam\")'>dam</button></span> looming over a wooden <span><button onclick='spanClick(\"inspect water mill\")'>watermill</button></span>.<br><br>The watermill is motionless.";
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
         setTimeout(  ()=> {
             moveAllRoomsBack();
-            if (millSwitchOn === false) {room16.src="./roomimages/smfmroom16a.png"}
-            else {room16.src="./roomimages/smfmroom16b.png"};
+            if (millSwitchOn === false && haveStick === false) {room16.src="./roomimages/smfmroom16a.png"}
+            else if (millSwitchOn === false) {room16.src="./roomimages/smfmroom16b.png"}
+            else {room16.src="./roomimages/smfmroom16c.png"};
             room16.style.zIndex = "0";
             document.getElementById("room14tile").src="./maptiles/room14tile.png";
             roomNum = 16;
@@ -1951,6 +1987,7 @@ const spanClick = (whatToDo) => {
         rocksUnZoom();
         ghostUnZoom();
         catTreeUnZoom();
+        watermillUnZoom();
 
         // GET INPUT
         switch (true) {
@@ -3400,11 +3437,13 @@ const spanClick = (whatToDo) => {
             case roomNum === 16 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around')) :
                 output.innerHTML = "A large stone <span><button onclick='spanClick(\"inspect dam\")'>dam</button></span> looms to the north, from which a spout of water pours into a creek. An old <span><button onclick='spanClick(\"inspect water mill\")'>watermill</button></span> is spinning busily on the bank of the creek.<br><br>You can feel the low rumble of machinery beneath your feet.";
                 break;
-            case roomNum === 16 &&    millSwitchOn === false &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('mill')||inp('wheel')||inp('thing')) :
+            case roomNum === 16 &&    millSwitchOn === false &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('mill')||inp('wheel')||inp('thing')||inp('paddle')) :
                 output.innerHTML = "The watermill looks old, but the wood is still sturdy. There's some sort of mechanism attached to the axle, but the switch has been broken off.";
+                watermillZoom();
                 break;
-            case roomNum === 16  &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('mill')||inp('wheel')||inp('thing')) :
+            case roomNum === 16  &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('mill')||inp('wheel')||inp('thing')||inp('paddle')) :
                 output.innerHTML = "The watermill is spinning busily. You can feel a distant rumble of machinery beneath your feet.";
+                watermillZoom();
                 break;
             case roomNum === 16 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('dam')) :
                 output.innerHTML = "The dam is huge. It's a bit creepy standing near it, knowing how much water is above you...";
@@ -3412,7 +3451,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 16 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is muddy, with some <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> and <span><button onclick='spanClick(\"take stick\")'>sticks</button></span> strewn about.";
                 break;
-            case roomNum === 16   && millSwitchOn === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('mill')||inp('machine')||inp('contraption')||inp('thing')))  ):
+            case roomNum === 16   && millSwitchOn === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('mill')||inp('machine')||inp('contraption')||inp('thing')||inp('paddle')||inp('switch')))  ):
                 displayInventory();
                 fixingMill = true;
                 output.innerHTML = "What do you want to use to fix the mill?";
@@ -3658,6 +3697,7 @@ const spanClick = (whatToDo) => {
                 inventory.push("a <span><button onclick='spanClick(\"inspect stick\")'>stick</button></span>");
                 haveStick = true;
                 findObject("stick");
+                if (millSwitchOn === false) {room16.src="./roomimages/smfmroom16b.png"}
                 break;
             case (roomNum === 5||roomNum === 6||roomNum === 12) && haveStick === true && (inp('throw')||inp('toss')||inp('chuck')) && inp('stick') :
                 output.innerHTML = "You throw your stick out into the water and watch it float away.";
