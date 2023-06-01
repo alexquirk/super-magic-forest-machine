@@ -58,7 +58,7 @@
                     </video>
                 </div>
                 <div id= "map">
-                    <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png"><img class="room" id="room16" src="./roomimages/smfmroom16a.png">
+                    <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png"><img class="room" id="room16" src="./roomimages/smfmroom16a.png"><img class="room" id="room17" src="./roomimages/smfmroom17.png"><img class="room" id="room18" src="./roomimages/smfmroom18.png">
                 </div>       
             </div>     
             <img id= "inventory1" src="">
@@ -176,6 +176,7 @@ document.onkeydown = e => {
         // "tree climb"
         // "well fall"
         // "swimming"
+        // "basket"
         
     let currentCutscene = "intro";
 
@@ -305,6 +306,14 @@ document.onkeydown = e => {
                 cutsceneViewer.style.display = "flex";
                 //set source to correct video file
                 cutsceneVideo.src="./cutscenes/welljumpcutscene.mp4";
+                break;
+
+            // basket
+            case currentCutscene === "basket":
+                //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+                //set source to correct video file
+                cutsceneVideo.src="./cutscenes/basketcutscene.mp4";
                 break;
 
             }
@@ -830,7 +839,11 @@ const watermillUnZoom = () => {
             output.innerHTML = "You push the stick into the hole, but it's too small, and water continues to leak into the boat."
         };
         if (fixingMill === true && haveStick === true) {
-            output.innerHTML = "You push the stick into the spot where the switch used to be, and you feel something click..."
+            millSwitchOn = true;
+            room16Switch();
+            currentCutscene = "basket";
+            playCutscene();
+            output.innerHTML = "You push the stick into the broken part of the mechanism, and you hear something click. After a few moments, the water mill begins to spin on it's axle.<br><br>Apparently set in motion by the watermill's mechanism, a rope with a basket large enough to sit in is lowered from the top of the wall.";
         };
     };
     const mugClick = () => {
@@ -921,7 +934,7 @@ const watermillUnZoom = () => {
             };
         };
         if (fixingMill === true && haveRock === true) {
-            output.innerHTML = "That won't work."
+            output.innerHTML = "You  don't see how to make that work."
         };
     };
 
@@ -1331,8 +1344,10 @@ const room13 = document.getElementById("room13");
 const room14 = document.getElementById("room14");
 const room15 = document.getElementById("room15");
 const room16 = document.getElementById("room16");
+const room17 = document.getElementById("room17");
+const room18 = document.getElementById("room18");
 
-allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15, room16]
+allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15, room16, room17, room18]
 
     const moveAllRoomsBack = () => {
         allRooms[roomNum-1].style.zIndex = "-2";
@@ -2437,7 +2452,7 @@ const spanClick = (whatToDo) => {
             
             // ROOM 14
             case roomNum === 14 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))  && (newGame === true || inventory.length === 0 ) :
-                output.innerHTML = "It's twilight. The forest is dark and dense. The glade where you awoke is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span> and scattered <span><button onclick='spanClick(\"take rock\")'>rocks.</button></span><br><br>A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> out of the glade.";
+                output.innerHTML = "It's twilight. The forest is dark and dense. The glade where you awoke is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span> and scattered <span><button onclick='spanClick(\"take rock\")'>rocks. A wooden fence blocks the way south.</button></span><br><br>A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> out of the glade.";
                 break;
             case roomNum === 14 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around')) :
                 output.innerHTML = "The glade is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span> and scattered <span><button onclick='spanClick(\"take rock\")'>rocks.</button></span><br><br>A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> out of the glade.";
@@ -3431,6 +3446,7 @@ const spanClick = (whatToDo) => {
                 break;
 
             // ROOM 16
+                // looking around
             case roomNum === 16 &&  millSwitchOn === false &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around')) :
                 output.innerHTML = "A large stone <span><button onclick='spanClick(\"inspect dam\")'>dam</button></span> looms to the north, from which a spout of water pours into a creek. An old <span><button onclick='spanClick(\"inspect water mill\")'>watermill</button></span> stands motionless on the bank of the creek.";
                 break;
@@ -3438,20 +3454,47 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "A large stone <span><button onclick='spanClick(\"inspect dam\")'>dam</button></span> looms to the north, from which a spout of water pours into a creek. An old <span><button onclick='spanClick(\"inspect water mill\")'>watermill</button></span> is spinning busily on the bank of the creek.<br><br>You can feel the low rumble of machinery beneath your feet.";
                 break;
             case roomNum === 16 &&    millSwitchOn === false &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('mill')||inp('wheel')||inp('thing')||inp('paddle')) :
-                output.innerHTML = "The watermill looks old, but the wood is still sturdy. There's some sort of mechanism attached to the axle, but the switch has been broken off.";
+                output.innerHTML = "The watermill looks old, but the wood is still sturdy. There's some sort of <span><button onclick='spanClick(\"inspect mechanism\")'>mechanism</button></span> attached to the axle, but the switch has been broken off.";
                 watermillZoom();
                 break;
             case roomNum === 16  &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('mill')||inp('wheel')||inp('thing')||inp('paddle')) :
                 output.innerHTML = "The watermill is spinning busily. You can feel a distant rumble of machinery beneath your feet.";
                 watermillZoom();
                 break;
-            case roomNum === 16 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('dam')) :
-                output.innerHTML = "The dam is huge. It's a bit creepy standing near it, knowing how much water is above you...";
+            case roomNum === 16 &&  millSwitchOn === false &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('dam')||inp('wall')) :
+                output.innerHTML = "The dam is huge. It's a bit creepy standing near it, knowing how much water is above you.<br><br>Water spills out of a pipe in the dam to feed a creek. The current drifts around the paddles of a <span><button onclick='spanClick(\"inspect water mill\")'>watermill</button></span>, but the wheel does not move.";
                 break;
             case roomNum === 16 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is muddy, with some <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> and <span><button onclick='spanClick(\"take stick\")'>sticks</button></span> strewn about.";
                 break;
-            case roomNum === 16   && millSwitchOn === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('mill')||inp('machine')||inp('contraption')||inp('thing')||inp('paddle')||inp('switch')))  ):
+            case roomNum === 16 && millSwitchOn === false &&   (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('mechanism')||inp('machine')||inp('lever')) :
+                output.innerHTML = "The watermill's heavy axle is supported by a wooden housing. There's a part on the outside of the housing where a lever used to be, but it's been broken off.";
+                break;
+            case roomNum === 16 && millSwitchOn === true &&   (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('mechanism')||inp('machine')||inp('lever')) :
+                output.innerHTML = "The watermill's heavy axle is supported by a wooden housing. You replaced the broken lever with a stick, and now the watermill is spinning busily.";
+                break;
+                // attempts
+            case roomNum === 16 && millSwitchOn === false &&   (inp('open')||inp('pry')||inp('take apart')||inp('unlock'))  && (inp('mechanism')||inp('machine')||inp('lever')||inp('mill')||inp('wheel')||inp('thing')||inp('paddle')) :
+                output.innerHTML = "The mechanism's wooden housing is well made and sturdy. You can't figure out how to open it.<br><br>It looks like there's a place where a lever used to be, but it's broken. Maybe you can find something nearby to replace it.";
+                break;
+            case roomNum === 16 && millSwitchOn === false &&   (inp('start')||inp('spin')||inp('pull'))  && (inp('mechanism')||inp('machine')||inp('lever')||inp('mill')||inp('wheel')||inp('thing')||inp('paddle')) :
+                output.innerHTML = "The mechanism is jammed. It looks like there used to be a switch to start it, but it's been broken off.<br><br>There might be something nearby you can use to replace it.";
+                break;
+            case roomNum === 16 &&  millSwitchOn === false &&  (inp('climb')||inp('scale')||inp('jump')||inp('hop'))   &&    (inp('dam')||inp('wall')) :
+                output.innerHTML = "The featureless walls of the dam are to steep to climb.";
+                break;
+            case roomNum === 16 &&  millSwitchOn === false && haveRope == true && inp('rope') && (inp('climb')||inp('scale')||inp('dam')||inp('wall')||inp('throw')||inp('toss')||inp('sling')) :
+                output.innerHTML = "You attempt to toss the rope to the top of the dam, but it's much too high.";
+                break;
+                // fixing the thing
+            case roomNum === 16   && millSwitchOn === false && (((inp('stick')||inp('branch'))   &&    (inp('mill')||inp('machine')||inp('contraption')||inp('thing')||inp('paddle')||inp('switch')||inp('mechanism')||inp('lever')))  ):
+                millSwitchOn = true;
+                room16Switch();
+                currentCutscene = "basket";
+                playCutscene();
+                output.innerHTML = "You push the stick into the broken part of the mechanism, and you hear something click. After a few moments, the water mill begins to spin on it's axle.<br><br>Apparently set in motion by the watermill's mechanism, a rope with a basket large enough to sit in is lowered from the top of the wall.";
+                break;
+            case roomNum === 16   && millSwitchOn === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug')||inp('open'))   &&    (inp('mill')||inp('machine')||inp('contraption')||inp('thing')||inp('paddle')||inp('switch')||inp('mechanism')||inp('lever')))  ):
                 displayInventory();
                 fixingMill = true;
                 output.innerHTML = "What do you want to use to fix the mill?";
