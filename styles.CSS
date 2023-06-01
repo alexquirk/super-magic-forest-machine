@@ -133,6 +133,11 @@ body {
     animation-iteration-count: 1;
 }
 
+.entershrine {
+    animation: enterShrine 1s ease-out;
+    animation-iteration-count: 1;
+}
+
 @keyframes goEast {
     0% { 
         opacity: 1;
@@ -250,6 +255,21 @@ body {
     100% { 
         transform: translate(0, 0); 
         opacity: 1;
+    }
+}
+
+@keyframes enterShrine {
+    0% { 
+        filter: brightness(1);
+    }
+    40% {
+        filter: brightness(0) blur(2px);
+    }
+    41% {
+        filter: brightness(0) blur(0px);
+    }
+    100% { 
+        filter: brightness(1);
     }
 }
 
