@@ -2277,7 +2277,7 @@ const spanClick = (whatToDo) => {
                             {output.innerHTML = "The dam is too steep to climb."}
                         else 
                             {room17Switch();
-                            goEastAnimation(); 
+                            climbUpAnimation(); 
                             };
                         break;
                     case 11:
@@ -2369,8 +2369,12 @@ const spanClick = (whatToDo) => {
                         goNorthAnimation();
                         break;
                     case 16:
-                        room14Switch();
-                        goNorthAnimation();
+                        if (millSwitchOn === true) {
+                            room17Switch();
+                            climbUpAnimation();
+                        } else {
+                            output.innerHTML = "The featureless walls of the dam are to steep to climb.";
+                        }
                         break;
                 };
                 break;
@@ -2428,7 +2432,7 @@ const spanClick = (whatToDo) => {
                         break;
                     case 17:
                         room16Switch();
-                        goWestAnimation();
+                        climbDownAnimation();
                         break;
                     case 18:
                         room17Switch();
@@ -3579,7 +3583,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 16   && millSwitchOn === false && ( inp('pipe')||inp('spout')):
                 output.innerHTML = "Water is pouring from the pipe into the creek.";
                 break;
-            case roomNum === 16   &&   ( inp('pipe')||inp('spout')||inp('water'))  && (inp('jam')||inp('clog')||inp('block')||inp('rock')):
+            case roomNum === 16   &&   ( inp('pipe')||inp('spout')||inp('water'))  && (inp('jam')||inp('clog')||inp('block')||inp('rock')||inp('stop')):
                 output.innerHTML = "You push a rock into the pipe, but the pressure is too great and it is pushed out.";
                 break;
 
@@ -3606,7 +3610,7 @@ const spanClick = (whatToDo) => {
                 // ride the basket
             case roomNum === 16   && millSwitchOn === true && (inp('ride')||inp('go up')||inp('take')||inp('climb')||inp('get in')||inp('basket'))     :
                 room17Switch();
-                goEastAnimation();
+                climbUpAnimation();
                 break;
 
             // ROOM 17 
@@ -3634,7 +3638,7 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 17  && (inp('ride')||inp('down')||inp('take')||inp('climb')||inp('get in')||inp('basket'))     :
                 room16Switch();
-                goWestAnimation();
+                climbDownAnimation();
                 break;
                 
             case inp('shrine test')   :
