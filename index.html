@@ -563,6 +563,12 @@ const stumpZoom = () => {
     document.getElementById("room3").style.bottom = "-28%";
     document.getElementById("room3").style.left = "-38%";
 };
+const bellZoom = () => {
+    document.getElementById("room18").style.width = "200%";
+    document.getElementById("room18").style.bottom = "-40%";
+    document.getElementById("room18").style.left = "-47.5%";
+};
+
 const stumpUnZoom = () => {
     document.getElementById("room3").style.width = "100%";
     document.getElementById("room3").style.bottom = "0%";
@@ -617,6 +623,11 @@ const watermillUnZoom = () => {
     document.getElementById("room16").style.width = "100%";
     document.getElementById("room16").style.bottom = "0%";
     document.getElementById("room16").style.left = "0%";
+};
+const bellUnZoom = () => {
+    document.getElementById("room18").style.width = "100%";
+    document.getElementById("room18").style.bottom = "0%";
+    document.getElementById("room18").style.left = "0%";
 };
 
 
@@ -1759,8 +1770,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         );
     }; 
     const room14Switch = () => { 
-        if (newGame === false) {
+        if (newGame === false && roomNum === 12) {
             output.innerHTML = "You travel west and return to the glade where you awoke.";
+        } else if (newGame === false && roomNum === 16) {
+            output.innerHTML = "You climb back up the berm and return to the glade where you awoke.";
         } else {
             output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself. \"Maybe I should <span><button onclick='spanClick(\"look around\")'>look around.</button></span>\"<br><br>The woods around you are dense and dark. There is a narrow path leading <span><button onclick='spanClick(\"go east\")'>east.</button></span>";
         };
@@ -1808,7 +1821,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         if (roomNum === 17) {
             output.innerHTML = "You ride the basket back down the side of the dam and return to the watermill.";
         } else  {
-            output.innerHTML = "You hop the fence and cimb down a shallow berm. Soon, you arrive at the edge of a creek with a large stone <span><button onclick='spanClick(\"inspect dam\")'>dam</button></span> looming over a wooden <span><button onclick='spanClick(\"inspect water mill\")'>watermill</button></span>.";
+            output.innerHTML = "You hop the fence and cimb down a shallow berm. Soon, you arrive at the edge of a creek with a large stone <span><button onclick='spanClick(\"inspect dam\")'>dam</button></span> looming over a wooden <span><button onclick='spanClick(\"inspect water mill\")'>watermill.</button></span>";
         };
         if(millSwitchOn === true ) {output.innerHTML = "You hop the fence and cimb down a shallow berm. Soon, you arrive at the edge of a creek with a large stone <span><button onclick='spanClick(\"inspect dam\")'>dam</button></span> looming over a wooden <span><button onclick='spanClick(\"inspect water mill\")'>watermill</button></span>, which spins busily.<br><br>A basket large enough to sit rest at the base of the dam. One end of a thick rope is tied to the basket's handle, and the other end disppears over the tall edge of the dam above.";}
         mapArrow.style.top = "73%";
@@ -1832,11 +1845,12 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             },
             400
         );
+        newGame = false;
     };
 
     const room17Switch = () => { 
         if (roomNum === 16) {
-            output.innerHTML = "You ride the basket up the side of the dam, and arrive at a platform at the top.<br><br>An elevated wooden walkway leads over the lake to an <span><button onclick='spanClick(\"enter shrine\")'>old shrine</button></span>. Light shines from within the shrine's windows.";
+            output.innerHTML = "You ride the basket up the side of the dam, and arrive at a platform at the top.<br><br>An elevated wooden walkway leads over the lake to an <span><button onclick='spanClick(\"enter shrine\")'>old shrine.</button></span> Light shines from within the shrine's windows.";
         } else {
             output.innerHTML = "You exit the shrine.";
         };
@@ -1856,7 +1870,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
 
     const room18Switch = () => { 
-        output.innerHTML = "You enter the shrine.<br><br>The inside of the shrine is dimly lit. In the center, a large <span><button onclick='spanClick(\"inspect bell\")'>golden bell</button></span> hangs above a <span><button onclick='spanClick(\"inspect dias\")'>wooden platform.</button></span>.";
+        output.innerHTML = "You enter the shrine.<br><br>The inside of the shrine is dimly lit. In the center, a large <span><button onclick='spanClick(\"inspect bell\")'>golden bell</button></span> hangs above a <span><button onclick='spanClick(\"inspect dias\")'>wooden dias.</button></span>";
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
         setTimeout(  ()=> {
@@ -2058,6 +2072,7 @@ const spanClick = (whatToDo) => {
         ghostUnZoom();
         catTreeUnZoom();
         watermillUnZoom();
+        bellUnZoom();
 
         // GET INPUT
         switch (true) {
@@ -2245,8 +2260,17 @@ const spanClick = (whatToDo) => {
             
         // TRAVEL
 
+            // SPECIAL CASE FOR 16 BECAUSE OF THE DAM
+            case roomNum === 16 && inp(' up') && (inp('dam')||inp('wall')) &&  millSwitchOn === false :
+                output.innerHTML = "The featureless walls of the dam are to steep to climb.";
+                break;
+            case roomNum === 16 && inp(' up') && (inp('dam')||inp('wall')||inp('go ')) &&  millSwitchOn === true :
+                room17Switch();
+                climbUpAnimation();
+                break;
+
             // GOING EAST
-            case ((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    inp('right'))  || inp('east') :
+            case ((inp("walk")||inp('go ')||inp('travel')||(inp('take')&&inp('me')))   &&    inp('right'))  || inp('east') :
                 switch (roomNum) {
                     case 9:
                         output.innerHTML = "The forest is too dark and dense to go any further east.";
@@ -2319,7 +2343,7 @@ const spanClick = (whatToDo) => {
                 break;
 
             // GOING NORTH
-            case roomNum !== 13 && ((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    inp('up')||inp('straight')||inp('forward'))  || inp('north')  :
+            case roomNum !== 13 && ((inp("walk")||inp('go ')||inp('travel')||(inp('take')&&inp('me')))   &&    inp('up')||inp('straight')||inp('forward'))  || inp('north')  :
                 switch (roomNum) {
                     case 3:
                         room2Switch();
@@ -2369,18 +2393,14 @@ const spanClick = (whatToDo) => {
                         goNorthAnimation();
                         break;
                     case 16:
-                        if (millSwitchOn === true) {
-                            room17Switch();
-                            climbUpAnimation();
-                        } else {
-                            output.innerHTML = "The featureless walls of the dam are to steep to climb.";
-                        }
+                        room14Switch();
+                        goNorthAnimation();
                         break;
                 };
                 break;
 
             // GOING WEST
-            case ((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    inp('left'))  || inp('west')  :
+            case ((inp("walk")||inp('go ')||inp('travel')||(inp('take')&&inp('me')))   &&    inp('left'))  || inp('west')  :
                 switch (roomNum) {
                     case 14:
                         output.innerHTML = "The forest is too dense to go west.";
@@ -2450,7 +2470,7 @@ const spanClick = (whatToDo) => {
                 break;
 
             // GOING SOUTH
-            case roomNum !== 10 && (((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    (inp('down'))) || inp('south'))  :
+            case roomNum !== 10 && (((inp("walk")||inp('go ')||inp('travel')||(inp('take')&&inp('me')))   &&    (inp('down'))) || inp('south'))  :
                 switch (roomNum) {
                     case 9:
                         userInput.value = "";
@@ -2528,7 +2548,7 @@ const spanClick = (whatToDo) => {
             
             // ROOM 14
             case roomNum === 14 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))  && (newGame === true || inventory.length === 0 ) :
-                output.innerHTML = "It's twilight. The forest is dark and dense. The glade where you awoke is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span> and scattered <span><button onclick='spanClick(\"take rock\")'>rockst</button></span>. A wooden fence blocks the way south.</button></span><br><br>A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> out of the glade.";
+                output.innerHTML = "It's twilight. The forest is dark and dense. The glade where you awoke is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span> and scattered <span><button onclick='spanClick(\"take rock\")'>rockst.</button></span> A wooden fence blocks the way south.</button></span><br><br>A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> out of the glade.";
                 break;
             case roomNum === 14 &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around')) :
                 output.innerHTML = "The glade is littered with beautiful <span><button onclick='spanClick(\"take flower\")'>blue flowers</button></span> and scattered <span><button onclick='spanClick(\"take rock\")'>rocks.</button></span><br><br>A narrow path leads <span><button onclick='spanClick(\"go east\")'>east</button></span> out of the glade.";
@@ -3540,16 +3560,16 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "The dam is huge. It's a bit creepy standing near it, knowing how much water is above you.<br><br>Water spills out of a pipe in the dam to feed a creek. The current drifts around the paddles of a <span><button onclick='spanClick(\"inspect water mill\")'>watermill</button></span>, but the wheel does not move.";
                 break;
             case roomNum === 16 &&  millSwitchOn === true &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('dam')||inp('wall')) :
-                output.innerHTML = "The dam is huge. It's a bit creepy standing near it, knowing how much water is above you.<br><br>Water spills out of a pipe in the dam to feed a creek. The current drifts around the paddles of a spinning <span><button onclick='spanClick(\"inspect water mill\")'>watermill</button></span>.";
+                output.innerHTML = "The dam is huge. It's a bit creepy standing near it, knowing how much water is above you.<br><br>Water spills out of a pipe in the dam to feed a creek. The current drifts around the paddles of a spinning <span><button onclick='spanClick(\"inspect water mill\")'>watermill.</button></span>";
                 break;
             case roomNum === 16 &&    (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "You search the ground around the mechanism. There are some <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> and <span><button onclick='spanClick(\"take stick\")'>sticks</button></span> stewn about.";
                 break;
-            case roomNum === 16 && millSwitchOn === false &&   (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('mechanism')||inp('machine')||inp('lever')) :
+            case roomNum === 16 && millSwitchOn === false &&   (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('mechanism')||inp('machine')) :
                 output.innerHTML = "The watermill's heavy axle is supported by a wooden housing. There's a part on the outside of the housing where a lever used to be, but it's been broken off.";
                 watermillZoom();
                 break;
-            case roomNum === 16 && millSwitchOn === true &&   (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('mechanism')||inp('machine')||inp('lever')) :
+            case roomNum === 16 && millSwitchOn === true &&   (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('mechanism')||inp('machine')||inp('lever')||inp('switch')) :
                 output.innerHTML = "The watermill's heavy axle is supported by a wooden housing. You replaced the broken lever with a stick, and now the watermill is spinning busily.";
                 watermillZoom();
                 break;
@@ -3569,7 +3589,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You attempt to toss the rope to the top of the dam, but it's much too high.";
                 break;
             case roomNum === 16 &&  millSwitchOn === false  && (inp('lever')||inp('switch') ) :
-                output.innerHTML = "You look around for the missing lever, but all you find are some  <span><button onclick='spanClick(\"take stick\")'>sticks</button></span> and <span><button onclick='spanClick(\"take rocks\")'>rocks</button></span>.";
+                output.innerHTML = "You look around for the missing lever, but all you find are some  <span><button onclick='spanClick(\"take stick\")'>sticks</button></span> and <span><button onclick='spanClick(\"take rocks\")'>rocks.</button></span>";
                 break;
             case roomNum === 16 &&  millSwitchOn === false  && haveStick === true &&(  ( inp('how') && (inp('fix') ||inp('use')))  || (inp('what'))    )      :
                 output.innerHTML = "You might have something in your <span><button onclick='spanClick(\"check pockets\")'>pockets</button></span> that you can use to fix the machine.";
@@ -3585,6 +3605,9 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 16   &&   ( inp('pipe')||inp('spout')||inp('water'))  && (inp('jam')||inp('clog')||inp('block')||inp('rock')||inp('stop')):
                 output.innerHTML = "You push a rock into the pipe, but the pressure is too great and it is pushed out.";
+                break;
+            case roomNum === 16   && millSwitchOn === false && ((inp('tool')||inp('hammer'))  ):
+                output.innerHTML = "You don't have any tools with you.";
                 break;
 
                 // fixing the thing
@@ -3602,10 +3625,10 @@ const spanClick = (whatToDo) => {
                 break;
                 // inspecting the basket
             case roomNum === 16   && millSwitchOn === true && (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what')) && (inp('basket')||inp('bucket')||inp('barrel')||inp('rope'))     :
-                output.innerHTML = "The basket is fastened secruely to a sturdy rope, which leads up to the top of the dam.<br><br>The basket looks large enough to <span><button onclick='spanClick(\"ride basket\")'>sit in</button></span>.";
+                output.innerHTML = "The basket is fastened secruely to a sturdy rope, which leads up to the top of the dam.<br><br>The basket looks large enough to <span><button onclick='spanClick(\"ride basket\")'>sit in.</button></span>";
                 break;
             case roomNum === 16   && millSwitchOn === true && (inp('rope'))     :
-                output.innerHTML = "The rope is securely fastened to the <span><button onclick='spanClick(\"inspect basket\")'>basket</button></span>.";
+                output.innerHTML = "The rope is securely fastened to the <span><button onclick='spanClick(\"inspect basket\")'>basket.</button></span>";
                 break;
                 // ride the basket
             case roomNum === 16   && millSwitchOn === true && (inp('ride')||inp('go up')||inp('take')||inp('climb')||inp('get in')||inp('basket'))     :
@@ -3615,24 +3638,42 @@ const spanClick = (whatToDo) => {
 
             // ROOM 17 
             case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&   inp('around') :
-                output.innerHTML = "You're standing on a wooden platform at the top of the dam. A wooden pier extends over the crystal clear water of a lake towards an <span><button onclick='spanClick(\"inspect shrine\")'>old shrine</button></span>. A dim light glows through the shrine's windows from within.";
+                output.innerHTML = "You're standing on a wooden platform at the top of the dam. A wooden pier extends over the crystal clear water of a lake towards an <span><button onclick='spanClick(\"inspect shrine\")'>old shrine.</button></span> A dim light glows through the shrine's windows from within.";
                 break;
             case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('crane')||inp('basket')||inp('hoist')||inp('winch')||inp('machine')) :
-                output.innerHTML = "The mechanism must be powered by the watermill below. The basket is waiting to take you <span><button onclick='spanClick(\"ride basket\")'>back down</button></span>.";
+                output.innerHTML = "The mechanism must be powered by the watermill below. The basket is waiting to take you <span><button onclick='spanClick(\"ride basket\")'>back down.</button></span>";
                 break;
-            case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&   inp('shrine') :
+            case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&   (inp('shrine')||inp('shack')||inp('building')) :
                 output.innerHTML = "The shrine is standing on wooden pilings above the lake. A <span><button onclick='spanClick(\"open door\")'>door</button></span> leads inside.";
                 break;
-            case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&   inp('water') :
+            case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('pier')||inp('walkway')||inp('wood')) :
+                output.innerHTML = "The pier leads from the top of the dam to the <span><button onclick='spanClick(\"inspect shrine\")'>shrine.</button></span><br><br>You search the pier, but don't find anything useful.";
+                break;
+            case roomNum === 17 &&   (inp('look')||inp('see ')||inp('search'))   &&  ( inp('water')||inp('lake')) :
                 output.innerHTML = "The lakewater is crystal clear.";
                 break;
-            case roomNum === 17   &&  (inp('rope'))     :
-                output.innerHTML = "The rope is securely fastened to the <span><button onclick='spanClick(\"inspect basket\")'>basket</button></span>.";
+            case roomNum === 17 &&   (inp('inspect')||inp('examine')||inp('search')||inp('what'))   &&  ( inp('water')||inp('lake')) :
+                output.innerHTML = "The lakewater is crystal clear. You peer into the depths, but don't find anything particularly useful.";
                 break;
-            case roomNum === 17   &&   (  inp('jump')  ||  inp('dive') )   :
+            case roomNum === 17   &&  (inp('rope'))     :
+                output.innerHTML = "The rope is securely fastened to the <span><button onclick='spanClick(\"inspect basket\")'>basket.</button></span>";
+                break;
+            case roomNum === 17   &&   ( ( (inp('jump')||inp('go ')||inp('leap'))&&( inp('water')||inp('lake') ) )||  inp('dive') || inp('swim'))   :
+                output.innerHTML = "There's no way to climb back out of the water.";
+                break;
+            case roomNum === 17   &&   inp('jump')  :
                 output.innerHTML = "It would be unsafe to jump from this height.";
                 break;
-            case roomNum === 17   && (  ( ( inp('shrine')|| inp('across') ) &&  (inp('go')||inp('walk')||inp('explore')||inp('open'))  )  ||  ( inp('inside')||inp('enter')||inp('go in')||inp('open the door')||inp('open the shrine')||inp('open door') )  )   :
+            case roomNum === 17   &&  ( inp('lamp')||inp('lantern')||  ((inp('take')||inp('remove') )   &&inp('light'))   ) :
+                output.innerHTML = "The lantern is securely attached to a sturdy wooden post.";
+                break;
+            case roomNum === 17   &&  inp('knock')  :
+                output.innerHTML = "You knock on the door, but there is no response.";
+                break;
+            case roomNum === 17   && ( inp('window') ||(inp('look')   && inp('in ')  && (inp('shrine')||inp('shack')||inp('building')))  ) :
+                output.innerHTML = "You peer into the windows. There is something shining inside...";
+                break;
+            case roomNum === 17   && (  ( ( (inp('shrine')||inp('shack')||inp('building'))|| inp('across') ) &&  (inp('go')||inp('walk')||inp('explore')||inp('open'))  )  ||  ( inp('inside')||inp('enter')||inp('go in')||inp('open the door')||inp('open the shrine')||inp('open door') )  )   :
                 room18Switch();
                 enterShrineAnimation();
                 break;
@@ -3650,6 +3691,18 @@ const spanClick = (whatToDo) => {
                 room17Switch();
                 enterShrineAnimation();
                 break;
+            case roomNum === 18 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&   inp('around') :
+                output.innerHTML = "Sunlight filters through the windows and casts dusty beams of light through the small interior of the shrine. <span><button onclick='spanClick(\"inspect bell\")'>golden bell</button></span> hangs above a <span><button onclick='spanClick(\"inspect dias\")'>wooden dias.</button></span>, glowing faintly in the dim light.";
+                break;
+            case roomNum === 18 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('bell')||inp('gold') ):
+                output.innerHTML = "";
+                bellZoom();
+                break;
+            case roomNum === 18 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('dias')||inp('table')||inp('platform') ):
+                output.innerHTML = "";
+                bellZoom();
+                break;
+               
 
 
             // RELEASE FIREFLIES
@@ -3702,7 +3755,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 16  &&    (inp('swim')||inp('dive')||inp('jump')||inp('cross')||inp('get'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('stream')||inp('ocean')||inp('bank')||inp('beach'))     :
                 output.innerHTML = "The water is muddy, and doesn't seem good for swimming.";
                 break;
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12  || roomNum === 15) &&    (inp('catch')||inp('grab')||inp('take')||inp('lure')||inp('get'))   &&    (inp('fish'))     :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12  || roomNum === 15 || roomNum === 16) &&    (inp('catch')||inp('grab')||inp('take')||inp('lure')||inp('get'))   &&    (inp('fish'))     :
                 output.innerHTML = "You try to catch a fish, but they are way too fast! They probably prefer the water anyway.";
                 break;
             case (roomNum === 5 || roomNum === 6 || roomNum === 12  || roomNum === 15 || roomNum === 16) &&    (inp('skip')||inp('throw')||inp('toss'))   &&    (inp('rock')||inp('pebble')||inp('stone'))     :
@@ -3717,10 +3770,13 @@ const spanClick = (whatToDo) => {
             case roomNum === 16 &&    (inp('drink')||inp('sip'))   :
                 output.innerHTML = "The water here is murky and gross. Drinking it seems like a bad idea.";
                 break;
+            case roomNum === 15 &&    inp('swim')  :
+                output.innerHTML = "The current is too strong.";
+                break;
             case ((roomNum === 6 || roomNum === 12) || (roomNum === 5 && haveBoxKey === true))&&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('grab')||inp('take')||inp('pocket')||inp('get')||inp('under')||inp('behind')||inp('what'))   &&    (inp('drift')||inp('wood')):
                 output.innerHTML = "You search around the driftwood on the shore but don't find anything particularly useful.";
                 break;
-            case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8  || roomNum === 15) &&    inp('swim')  :
+            case (roomNum === 5 || roomNum === 6 || roomNum === 12 || roomNum === 8 ) &&    inp('swim')  :
                 currentCutscene = "swimming";
                 playCutscene();
                 if (haveBoxKey === true) {
@@ -3796,22 +3852,22 @@ const spanClick = (whatToDo) => {
             case  haveFlower === true && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('flower'))  && !(inp('flowers'))   :
                 output.innerHTML = "It's a rather pretty blue flower :)";
                 break;
-            case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15)   &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('flower'))     :
+            case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15 || roomNum === 18)   &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('flower'))     :
                 output.innerHTML = "You look at the flowers. Nice :)<br><br>+1 point";
                 break;
-            case (roomNum === 1 || roomNum === 3 || roomNum === 5  || roomNum === 14 || roomNum === 12  || roomNum === 15)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === false   :
+            case (roomNum === 1 || roomNum === 3 || roomNum === 5  || roomNum === 14 || roomNum === 12  || roomNum === 15 || roomNum === 18)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === false   :
                 output.innerHTML = "You pick one of the blue flowers and carefully put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
                 haveFlower = true;
                 findObject("flower");
                 inventory.push("a <span><button onclick='spanClick(\"inspect flower\")'>blue flower</button></span>");
                 break;
-            case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === true   :
+            case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15 || roomNum === 18)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === true   :
                 output.innerHTML = "You already have a flower in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
                 break;
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get'))   &&    (inp('flower')) :
                 output.innerHTML = "There aren't any flowers around here.";
                 break;
-            case inp('smell') &&    (inp('flower')) &&  (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15)   :
+            case inp('smell') &&    (inp('flower')) &&  (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15 || roomNum === 18)   :
                 output.innerHTML = "Lovely :)<br><br>+10 points";
                 break;
             case  haveFlower === true &&    inp('flower') && (inp('drop')||inp('leave')||inp('throw')||inp('toss'))  :
@@ -3819,24 +3875,24 @@ const spanClick = (whatToDo) => {
                 haveFlower = false;
                 output.innerHTML = "You drop your flower.";
                 break;
-            case ((roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12)  || roomNum === 15 ||  haveFlower === true) &&    inp('flower')  :
+            case ((roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12)  || roomNum === 15 || roomNum === 18 ||  haveFlower === true) &&    inp('flower')  :
                 output.innerHTML = "Lovely :)";
                 break;
 
             // INTERACT WITH ROCKS
-            case haveRock === false &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
+            case haveRock === false &&  roomNum !== 17 && (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "There's an art to rock collecting. You find a nice one and put it in your <span><button onclick='spanClick(\"check pocket\")'>pocket.</button></span>";
                 inventory.push("a <span><button onclick='spanClick(\"inspect rock\")'>rock</button></span>")
                 haveRock = true;
                 findObject("rock");
                 break;
-            case (inp('under')||inp('search')||inp('check'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
+            case (inp('under')||inp('search')||inp('check'))   &&    (inp('rock')||inp('stone')||inp('pebble')) &&  roomNum !== 17  :
                 output.innerHTML = "You search under some of the rocks, but don't find anything other than some very confused bugs.";
                 break;
             case haveRock === true && (inp('inspect')||inp('examine')||inp('see ')||inp('look'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
                 output.innerHTML = "The rock is round and about the size of your fist. It's a nice rock.";
                 break;
-            case (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('under')||inp('behind'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
+            case (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('under')||inp('behind'))   &&    (inp('rock')||inp('stone')||inp('pebble'))   &&  roomNum !== 17   :
                 output.innerHTML = "You look at the rocks. They look rocky.";
                 break;
             case inp('eat')  &&    (inp('rock')||inp('stone')||inp('pebble'))    :
@@ -3852,8 +3908,11 @@ const spanClick = (whatToDo) => {
                 removeItem("a <span><button onclick='spanClick(\"inspect rock\")'>rock</button></span>");
                 haveRock = false;
                 break;
-            case (inp('rock')||inp('stone')||inp('pebble')) && inp('throw') && haveRock === false   :
+            case (inp('rock')||inp('stone')||inp('pebble')) && inp('throw') && haveRock === false  &&  roomNum !== 17   :
                 output.innerHTML = "You wind up and throw your rock as far as you can.";
+                break;
+            case inp('rock') && haveRock === false && roomNum === 17 :
+                output.innerHTML = "There aren't any rocks within reach.";
                 break;
 
             // INTERACT WITH GRASS
