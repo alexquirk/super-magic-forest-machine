@@ -478,9 +478,9 @@ body {
     display: inline;
 }
 
-.compasstriangles:hover, #enterbutton:hover {
+/* .compasstriangles:hover, #enterbutton:hover {
     cursor: pointer;
-}
+} */
 
 #southtriangle {
     bottom: 0;
@@ -841,9 +841,9 @@ span > button:active {
     padding: 0;
 }
 
-span > button:hover {
+/* span > button:hover {
     cursor: pointer;
-}
+} */
 
 #output > .journal {
     color: rgb(201, 255, 212);
