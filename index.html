@@ -1856,13 +1856,13 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     const room17Switch = () => { 
         document.getElementById("room17").src="./roomimages/smfmroom17.png";
         if (roomNum === 16 && bellRung === false) {
-            output.innerHTML = "You ride the basket up the side of the dam, and arrive at a platform at the top.<br><br>An elevated wooden walkway leads over the lake to an <span><button onclick='spanClick(\"enter shrine\")'>old shrine.</button></span> Light shines from within the shrine's windows.";
+            output.innerHTML = "You ride the basket up the side of the dam, and arrive at a platform at the top.<br><br>An elevated wooden walkway leads over the lake to an <span><button onclick='spanClick(\"inspect shrine\")'>old shrine.</button></span> Light shines from within the shrine's windows.";
         } else if (discoveringLadder === true && roomNum === 18) {
             output.innerHTML = "You exit the shrine.<br><br>You notice a <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine that you didn't see before.";
         } else if (discoveringLadder === true && roomNum === 16) {
-            output.innerHTML = "You ride the basket up the side of the dam, and arrive at a platform at the top.<br><br>An elevated wooden walkway leads over the lake to an <span><button onclick='spanClick(\"enter shrine\")'>old shrine.</button></span> Light shines from within the shrine's windows.<br><br>You notice a <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine that you didn't see before.";
+            output.innerHTML = "You ride the basket up the side of the dam, and arrive at a platform at the top.<br><br>An elevated wooden walkway leads over the lake to an <span><button onclick='spanClick(\"inspect shrine\")'>old shrine.</button></span> Light shines from within the shrine's windows.<br><br>You notice a <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine that you didn't see before.";
         } else if (roomNum === 16 && bellRung === true) {
-            output.innerHTML = "You ride the basket up the side of the dam, and arrive at a platform at the top.<br><br>An elevated wooden walkway leads over the lake to an <span><button onclick='spanClick(\"enter shrine\")'>old shrine.</button></span> Light shines from within the shrine's windows.<br><br>A <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine leads down to the water.";
+            output.innerHTML = "You ride the basket up the side of the dam, and arrive at a platform at the top.<br><br>An elevated wooden walkway leads over the lake to an <span><button onclick='spanClick(\"inspect shrine\")'>old shrine.</button></span> Light shines from within the shrine's windows.<br><br>A <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine leads down to the water.";
         } else if (roomNum === 18 && bellRung === true) {
             output.innerHTML = "You exit the shrine.<br><br>A <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine leads down to the water.";
         } else {
