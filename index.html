@@ -523,7 +523,7 @@ document.onkeydown = e => {
     let sassyHint = false;
     let boxSmashed = 0;
 
-    const roomVisited = ["", false, false, false, false, false, false, false, false, false, false, false, false, false, true, false];
+    const roomVisited = ["", false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false];
     const inventory = [];
 
     profanityResponse = ["Hey now! This is a nice game.", "Oh c'mon.", ".....Alright...", "Seriously...?", "Okay, I'm gonna need you to stop that.", "This is getting old now.", "This is getting old now.", "This is getting REAALY old now.", "STOOOPPPPP", "I'M GONNA RESET THE GAME", "I'LL DO IT", "I'LL RESET THE GAME DON'T MAKE ME DO IT", "...", "...", "...", ">:(", "Okay I'm seriously done this time.", "Okay I'm seriously done this time.", "Okay for real I'm seriously done this time.", "I said I'M DONE THIS TIME", "Can't say I didn't warn you :P"]
@@ -1779,6 +1779,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         } else {
             output.innerHTML = "You open your eyes and find yourself in a forest clearing.<br><br>You try to remember how you got here, but your mind is fuzzy. \"I guess I fell asleep,\" you think to yourself. \"Maybe I should <span><button onclick='spanClick(\"look around\")'>look around.</button></span>\"<br><br>The woods around you are dense and dark. There is a narrow path leading <span><button onclick='spanClick(\"go east\")'>east.</button></span>";
         };
+        roomVisited[14] = true;
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
         setTimeout(  ()=> {
@@ -1801,6 +1802,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 
     const room15Switch = () => { 
         output.innerHTML = "You ride the boat out into the lake, and arrive at an island.";
+        roomVisited[15] = true;
         mapArrow.style.top = "63%";
         mapArrow.style.left = "74.5%";
         setTimeout(  ()=> {
@@ -1825,6 +1827,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         } else  {
             output.innerHTML = "You hop the fence and cimb down a shallow berm. Soon, you arrive at the edge of a creek with a large stone <span><button onclick='spanClick(\"inspect dam\")'>dam</button></span> looming over a wooden <span><button onclick='spanClick(\"inspect water mill\")'>watermill.</button></span>";
         };
+        roomVisited[16] = true;
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
         document.getElementById("room17").src="./roomimages/smfmroom17.png";
@@ -1865,6 +1868,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         } else {
             output.innerHTML = "You exit the shrine.";
         };
+        roomVisited[17] = true;
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
         setTimeout(  ()=> {
@@ -1882,6 +1886,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 
     const room18Switch = () => { 
         output.innerHTML = "You enter the shrine.<br><br>The inside of the shrine is dimly lit. In the center, a large <span><button onclick='spanClick(\"inspect bell\")'>golden bell</button></span> hangs above a <span><button onclick='spanClick(\"inspect dias\")'>wooden dias.</button></span>";
+        roomVisited[18] = true;
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
         setTimeout(  ()=> {
