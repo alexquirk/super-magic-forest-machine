@@ -3607,11 +3607,11 @@ const spanClick = (whatToDo) => {
             case roomNum === 16   && millSwitchOn === false && ( inp('pipe')||inp('spout')) && (inp('climb')||inp('jump')||inp('get on')||inp('stand on')):
                 output.innerHTML = "You climb onto the water pipe, but the top of the wall is still much too high to reach.";
                 break;
+            case roomNum === 16   && millSwitchOn === false &&  ( inp('pipe')||inp('spout')||inp('water'))  &&( (inp('jam')||inp('clog')||inp('block')||inp('stop'))   || ((inp('push')||inp('put'))&&(inp('rock')||inp('dirt')))):
+                output.innerHTML = "You push a rock into the pipe, but the pressure is too great and it is pushed out.";
+                break;
             case roomNum === 16   && millSwitchOn === false && ( inp('pipe')||inp('spout')):
                 output.innerHTML = "Water pours from the pipe into the creek.";
-                break;
-            case roomNum === 16   && millSwtichOn === false &&  ( inp('pipe')||inp('spout')||inp('water'))  && (inp('jam')||inp('clog')||inp('block')||inp('rock')||inp('stop')):
-                output.innerHTML = "You push a rock into the pipe, but the pressure is too great and it is pushed out.";
                 break;
             case roomNum === 16   && millSwitchOn === false && ((inp('tool')||inp('hammer'))  ):
                 output.innerHTML = "You don't have any tools with you.";
@@ -3657,9 +3657,9 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "The mechanism must be powered by the watermill below. The basket is waiting to take you <span><button onclick='spanClick(\"ride basket\")'>back down.</button></span>";
                 break;
             case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&   (inp('shrine')||inp('shack')||inp('building')) :
-                output.innerHTML = "The shrine is standing on wooden pilings above the lake. A <span><button onclick='spanClick(\"open door\")'>door</button></span> leads inside.";
+                output.innerHTML = "The shrine is standing on wooden pilings above the lake. It looks old.<br><br> A <span><button onclick='spanClick(\"open door\")'>door</button></span> leads inside.";
                 break;
-            case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('pier')||inp('walkway')||inp('wood')) :
+            case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('pier')||inp('walkway')||inp('wood')||inp('platform')) :
                 output.innerHTML = "The pier leads from the top of the dam to the <span><button onclick='spanClick(\"inspect shrine\")'>shrine.</button></span><br><br>You search the pier, but don't find anything useful.";
                 break;
             case roomNum === 17 &&   (inp('look')||inp('see ')||inp('search'))   &&  ( inp('water')||inp('lake')) :
@@ -3703,22 +3703,34 @@ const spanClick = (whatToDo) => {
                 break;
 
             // ROOM 18
+                // looking around
             case roomNum === 18   && (inp('exit')||inp('leave')||inp('go back')||inp('outside') )   :
                 room17Switch();
                 enterShrineAnimation();
                 break;
             case roomNum === 18 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&   inp('around') :
-                output.innerHTML = "Sunlight filters through the windows and casts dusty beams of light through the small interior of the shrine. <span><button onclick='spanClick(\"inspect bell\")'>golden bell</button></span> hangs above a <span><button onclick='spanClick(\"inspect dias\")'>wooden dias.</button></span>, glowing faintly in the dim light.";
+                output.innerHTML = "Sunlight filters through the windows and casts dusty beams of light through the small interior of the shrine. <span><button onclick='spanClick(\"inspect bell\")'>golden bell</button></span> hangs above a <span><button onclick='spanClick(\"inspect dias\")'>wooden dias</button></span>, glowing faintly in the dim light.";
                 break;
             case roomNum === 18 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('bell')||inp('gold') ):
-                output.innerHTML = "";
+                output.innerHTML = "The bell's golden surface is perfectly smooth. It catches the light from the windows, and almost seems to magnify it.";
                 bellZoom();
                 break;
-            case roomNum === 18 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('dias')||inp('table')||inp('platform') ):
-                output.innerHTML = "";
+            case roomNum === 18 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   && ( ( inp('dias')||inp('table')||inp('platform')||inp('stair') ) || (inp('wood')&&(inp('part')||inp('thing')))):
+                output.innerHTML = "The dias is made of wood, and is positioned directly underneath the <span><button onclick='spanClick(\"inspect bell\")'>golden bell</button></span>. It looks like something used to rest here.";
                 bellZoom();
                 break;
-               
+            case roomNum === 18 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&   inp('window') :
+                output.innerHTML = "You can see the lake outside the dusty windows.";
+                break;
+            case roomNum === 18 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('ceiling')||inp('roof')||inp('rafter'))  :
+                output.innerHTML = "The shrine is old, but the roof is well made and seems weatherproof.<br><br>You search the rafters, but you don't find anything.";
+                break;
+                // ringing the bell
+            case roomNum === 18 &&   (inp('ring')||inp('use')||inp('hit')||inp('strike')||inp('play')||inp('rock')||inp('hammer'))   &&  ( inp('bell')||inp('gold') ):
+                output.innerHTML = "You strike the bell. It emits a clear tone.";
+                bellZoom();
+                break;
+
 
 
             // RELEASE FIREFLIES
@@ -3846,16 +3858,16 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "There is a wide variety of trees in the forest - oaks, sycamore, pines trees, cyrpress, even some eucalyptus.<br><br>You search around the trees, but don't fund anything particularly useful.";
                 break;
                 // search
-            case ((roomNum !== 4) || marbleDown === true) &&   (inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('behind')||inp('under')||inp('what'))   &&    (inp('tree')||inp('branch'))     :
+            case ((roomNum !== 4 && roomNum !== 7  && roomNum !== 13  && roomNum !== 17 && roomNum !== 18) || marbleDown === true) &&   (inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('behind')||inp('under')||inp('what'))   &&    (inp('tree')||inp('branch'))     :
                 output.innerHTML = "You search around the trees, but don't find anything.";
                 break;
             case (inp('hug')||inp('love'))  && inp('tree')   :
                 output.innerHTML = "Ya hippie :)<br><br>+5 points";
                 break;
-            case inp('tree')   :
+            case inp('tree')  && (roomNum !== 4 && roomNum !== 7  && roomNum !== 13  && roomNum !== 17 && roomNum !== 18) :
                 output.innerHTML = "There are a lot of different kinds of trees around you - oaks, sycamore, pines trees, cyrpress, even some eucalyptus. Their leaves cover the ground.<br><br>You search around the trees for a bit, but don't find anything.";
                 break;
-            case (inp('shake') ||inp('push') ||inp('jostle')) && inp('tree')   :
+            case (inp('shake') ||inp('push') ||inp('jostle')) && inp('tree')  && (roomNum !== 4 && roomNum !== 7  && roomNum !== 13  && roomNum !== 17 && roomNum !== 18) :
                 catDiscovered = true;
                 output.innerHTML = "You give a few trees a good shake, but nothing happens.";
                 break;
@@ -3905,7 +3917,7 @@ const spanClick = (whatToDo) => {
             case (inp('under')||inp('search')||inp('check'))   &&    (inp('rock')||inp('stone')||inp('pebble')) &&  roomNum !== 17  :
                 output.innerHTML = "You search under some of the rocks, but don't find anything other than some very confused bugs.";
                 break;
-            case haveRock === true && (inp('inspect')||inp('examine')||inp('see ')||inp('look'))   &&    (inp('rock')||inp('stone')||inp('pebble'))    :
+            case haveRock === true && (inp('inspect')||inp('examine')||inp('see ')||inp('look'))   &&    (inp('rock')||inp('stone')||inp('pebble'))  && !inp('rocks')  :
                 output.innerHTML = "The rock is round and about the size of your fist. It's a nice rock.";
                 break;
             case (inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('under')||inp('behind'))   &&    (inp('rock')||inp('stone')||inp('pebble'))   &&  roomNum !== 17   :
@@ -3935,7 +3947,10 @@ const spanClick = (whatToDo) => {
             case (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get'))   &&    inp('grass')    :
                 output.innerHTML = "You won't need that.";
                 break;
-            case (inp('search')||inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    inp('grass')    :
+            case roomNum === 17  &&   (inp('search')||inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    inp('grass')    :
+                output.innerHTML = "There isn't any grass within reach.";
+                break;
+            case  (inp('search')||inp('inspect')||inp('examine')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    inp('grass')    :
                 output.innerHTML = "You search the grass, but don't find anything.";
                 break;
             case inp('touch')  &&    inp('grass')    :
