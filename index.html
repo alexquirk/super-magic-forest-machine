@@ -58,7 +58,7 @@
                     </video>
                 </div>
                 <div id= "map">
-                    <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png"><img class="room" id="room16" src="./roomimages/smfmroom16a.png"><img class="room" id="room17" src="./roomimages/smfmroom17.png"><img class="room" id="room18" src="./roomimages/smfmroom18.png">
+                    <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png"><img class="room" id="room16" src="./roomimages/smfmroom16a.png"><img class="room" id="room17" src=""><img class="room" id="room18" src=""><img class="room" id="extraroom" src="">
                 </div>       
             </div>     
             <img id= "inventory1" src="">
@@ -177,6 +177,7 @@ document.onkeydown = e => {
         // "well fall"
         // "swimming"
         // "basket"
+        // "riding basket "
         
     let currentCutscene = "intro";
 
@@ -314,6 +315,14 @@ document.onkeydown = e => {
                 cutsceneViewer.style.display = "flex";
                 //set source to correct video file
                 cutsceneVideo.src="./cutscenes/basketcutscene.mp4";
+                break;
+
+            // basket ride
+            case currentCutscene === "riding basket":
+            //     //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+            //     //set source to correct video file
+                cutsceneVideo.src="./cutscenes/basketridecutscene.mp4";
                 break;
 
             }
@@ -476,6 +485,7 @@ document.onkeydown = e => {
     let haveRock = false;
     let haveFlower = false;
     let bellRung = false;
+    let basketRidden = false;
     let discoveringLadder = false;
     let haveStick = false;
     let boxUnlocked = false;
@@ -578,8 +588,8 @@ const stumpUnZoom = () => {
 };
 const boatZoom = () => {
     document.getElementById("room6").style.width = "210%";
-    document.getElementById("room6").style.bottom = "-47%";
-    document.getElementById("room6").style.left = "-103%";
+    document.getElementById("room6").style.bottom = "-25%";
+    document.getElementById("room6").style.left = "-46%";
 };
 const watermillZoom = () => {
     document.getElementById("room16").style.width = "180%";
@@ -650,9 +660,9 @@ const bellUnZoom = () => {
                 inventoryText.push(" " + inventory[i] + ",");
             };
             if (inventory.length > 1) {
-                inventoryText.push(" and " + inventory[inventory.length -1]+ " in your pocket.")
+                inventoryText.push(" and " + inventory[inventory.length -1]+ " in your pocket.<br><br><span><button onclick='spanClick(\"\")'>DONE</button></span>")
             } else {
-                inventoryText.push(" " + inventory[inventory.length -1]+ " in your pocket.")
+                inventoryText.push(" " + inventory[inventory.length -1]+ " in your pocket.<br><br><span><button onclick='spanClick(\"\")'>DONE</button></span>")
             };
             return inventoryText.join('');
         };
@@ -1359,8 +1369,9 @@ const room15 = document.getElementById("room15");
 const room16 = document.getElementById("room16");
 const room17 = document.getElementById("room17");
 const room18 = document.getElementById("room18");
+const extraRoom = document.getElementById("extraroom");
 
-allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15, room16, room17, room18]
+allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15, room16, room17, room18, extraRoom]
 
     const moveAllRoomsBack = () => {
         allRooms[roomNum-1].style.zIndex = "-2";
@@ -1419,6 +1430,14 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         setTimeout( 
             function() {map.classList.remove('entershrine')}, 
             1000
+        )
+    };
+
+    const takeBoatFromShrineAnimation = () => {
+        map.classList.add('takeboatfromshrine');
+        setTimeout( 
+            function() {map.classList.remove('takeboatfromshrine')}, 
+            3000
         )
     };
 
@@ -1545,17 +1564,19 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room6Switch = () => {
         if (ropeTaken === false && boatFixed === false && roomNum === 5)
-                {output.innerHTML = "You travel east along the lake shore until you arrive at a wooded point, where a half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring.<br><br>The forest grows darker and denser to the <span><button onclick='spanClick(\"go north\")'>north.</button></span>"}
+                {output.innerHTML = "You travel east along the lake shore until you arrive at the wooded point where your half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring.<br><br>The forest grows darker and denser to the <span><button onclick='spanClick(\"go north\")'>north.</button></span>"}
             else if (ropeTaken === false && boatFixed === false && roomNum === 3)
-                {output.innerHTML = "You travel south through the forest until you arrive at a wooded shoreline, where a half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
+                {output.innerHTML = "You travel south through the forest until you arrive at the wooded shoreline where you half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
+            else if (roomNum === 17) 
+                {output.innerHTML = "You allow the lake's gentle current to guide the boat to a nearby shore.<br><br>As you step out of the boat, the bottom of the boat strikes a rock and begins to leak.<br><br>You have to find a way to patch the hole before you can use the boat again."}
             else if (boatFixed === false && ropeTaken === false)
-                {output.innerHTML = "You arrive at the wooded point where the half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
+                {output.innerHTML = "You arrive at the wooded point where your half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
             else if (boatFixed === false && ropeTaken === true)
-                {output.innerHTML = "You arrive at the wooded point where the half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> sits in the water."}
+                {output.innerHTML = "You arrive at the wooded point where your half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> sits in the water."}
             else if (boatFixed === true && ropeTaken === false)
-                {output.innerHTML = "You arrive at the wooded point where the <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
+                {output.innerHTML = "You arrive at the wooded point where your <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to a mooring."}
             else
-                {output.innerHTML = "You arrive at the wooded point where the <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> sits in the water."};
+                {output.innerHTML = "You arrive at the wooded point where your <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> sits in the water."};
         roomVisited[6] = true;
         mapArrow.style.top = "73%";
         mapArrow.style.left = "55.3%";
@@ -1716,9 +1737,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
 
     const room12Switch = () => {
-        if (newGame === true) {
-                output.innerHTML = "You travel east along the narrow path until you arrive at a <span><button onclick='spanClick(\"look lake\")'>lake shore</button></span>, where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying against a large willow tree.<br><br>The lake shore stretches to the <span><button onclick='spanClick(\"go east\")'>east</button></span>, and a stony path leads deeper into the forest to the <span><button onclick='spanClick(\"go north\")'>north.</button></span>"
-        } else if (robotAwake === false) {
+        if (robotAwake === false) {
             if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
                 output.innerHTML = "You travel west along the lakeshore until you arrive at at a large willow tree where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying.";
             } else if (roomNum === 14) { 
@@ -1822,15 +1841,19 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
 
     const room16Switch = () => { 
+        // what to say
         if (roomNum === 17) {
             output.innerHTML = "You ride the basket back down the side of the dam and return to the watermill.";
         } else  {
-            output.innerHTML = "You hop the fence and cimb down a shallow berm. Soon, you arrive at the edge of a creek with a large stone <span><button onclick='spanClick(\"inspect dam\")'>dam</button></span> looming over a wooden <span><button onclick='spanClick(\"inspect water mill\")'>watermill.</button></span>";
+            output.innerHTML = "You hop the fence and cimb down a shallow berm.<br><br>Soon, you arrive at the edge of a creek with a large stone <span><button onclick='spanClick(\"inspect dam\")'>dam</button></span> looming over a wooden <span><button onclick='spanClick(\"inspect water mill\")'>watermill.</button></span>";
         };
+        // mark that the room has been visited
         roomVisited[16] = true;
+        // get the next room ready
+        document.getElementById("room17").src="./roomimages/smfmroom17.png";
+        // display the right stuff
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
-        document.getElementById("room17").src="./roomimages/smfmroom17.png";
         setTimeout(  ()=> {
             moveAllRoomsBack();
             if (millSwitchOn === false && haveStick === false) {room16.src="./roomimages/smfmroom16a.png"}
@@ -1854,13 +1877,18 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
 
     const room17Switch = () => { 
-        document.getElementById("room17").src="./roomimages/smfmroom17.png";
+        // what to say
+        if (basketRidden === false) {
+            currentCutscene = "riding basket";
+            playCutscene();
+            basketRidden = true;
+        };
         if (roomNum === 16 && bellRung === false) {
             output.innerHTML = "You ride the basket up the side of the dam, and arrive at a platform at the top.<br><br>An elevated wooden walkway leads over the lake to an <span><button onclick='spanClick(\"inspect shrine\")'>old shrine.</button></span> Light shines from within the shrine's windows.";
         } else if (discoveringLadder === true && roomNum === 18) {
-            output.innerHTML = "You exit the shrine.<br><br>You notice a <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine that you didn't see before.";
+            output.innerHTML = "You exit the shrine.<br><br>You notice a <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine leading down into the water.";
         } else if (discoveringLadder === true && roomNum === 16) {
-            output.innerHTML = "You ride the basket up the side of the dam, and arrive at a platform at the top.<br><br>An elevated wooden walkway leads over the lake to an <span><button onclick='spanClick(\"inspect shrine\")'>old shrine.</button></span> Light shines from within the shrine's windows.<br><br>You notice a <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine that you didn't see before.";
+            output.innerHTML = "You ride the basket up the side of the dam, and arrive at a platform at the top.<br><br>An elevated wooden walkway leads over the lake to an <span><button onclick='spanClick(\"inspect shrine\")'>old shrine.</button></span> Light shines from within the shrine's windows.<br><br>You notice a <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine.";
         } else if (roomNum === 16 && bellRung === true) {
             output.innerHTML = "You ride the basket up the side of the dam, and arrive at a platform at the top.<br><br>An elevated wooden walkway leads over the lake to an <span><button onclick='spanClick(\"inspect shrine\")'>old shrine.</button></span> Light shines from within the shrine's windows.<br><br>A <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine leads down to the water.";
         } else if (roomNum === 18 && bellRung === true) {
@@ -1868,7 +1896,12 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         } else {
             output.innerHTML = "You exit the shrine.";
         };
+        // mark the room visited
         roomVisited[17] = true;
+        // get the next rooms ready
+        document.getElementById("extraroom").src="./roomimages/smfmroom17x.png";
+        document.getElementById("room18").src="./roomimages/smfmroom18.png";
+        // display the stuff
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
         setTimeout(  ()=> {
@@ -1885,8 +1918,13 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
 
     const room18Switch = () => { 
+        // what to say
         output.innerHTML = "You enter the shrine.<br><br>The inside of the shrine is dimly lit. In the center, a large <span><button onclick='spanClick(\"inspect bell\")'>golden bell</button></span> hangs above a <span><button onclick='spanClick(\"inspect dias\")'>wooden dias.</button></span>";
+        // mark room visited
         roomVisited[18] = true;
+        // get the next rooms ready
+        document.getElementById("room6").src="./roomimages/smfmroom6a.png";
+        // display the stuff
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
         setTimeout(  ()=> {
@@ -2059,6 +2097,10 @@ const spanClick = (whatToDo) => {
         //clear map
         document.getElementById('maptiles').style.zIndex = "-2";
         map.classList.remove('darken');
+
+        // hide extra room
+        extraRoom.style.zIndex = "-2";
+
 
         // not being asked
         readingAsk = false;
@@ -2316,8 +2358,8 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "The forest is too dense to go any further east.";
                         break;
                     case 6:
-                        output.innerHTML = "The forest is too dense to go any further east.";
-                        break;
+                        room5Switch();
+                        goEastAnimation();
                     case 16:
                         if (millSwitchOn === false)
                             {output.innerHTML = "The dam is too steep to climb."}
@@ -2347,12 +2389,15 @@ const spanClick = (whatToDo) => {
                         goEastAnimation();
                         break;
                     case 12:
-                        room5Switch();
-                        goEastAnimation();
+                        output.innerHTML = "The forest is too dense to go any further east.";
                         break;
                     case 17:
-                        room18Switch();
-                        enterShrineAnimation();
+                        if (bellRung === false) {
+                            room18Switch();
+                            enterShrineAnimation();
+                        } else {
+                            extraRoom.style.zIndex = "1";
+                        }
                         break;
                     case 7:
                         if (firefliesReleased === false) {
@@ -2392,11 +2437,11 @@ const spanClick = (whatToDo) => {
                         goNorthAnimation();
                         break;
                     case 6:
-                        room3Switch();
+                        room10Switch();
                         goNorthAnimation();
                         break;
                     case 12:
-                        room10Switch();
+                        room3Switch();
                         goNorthAnimation();
                         break;
                     case 10:
@@ -2443,9 +2488,8 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "The forest is too dense to go any further west.";
                         break;
                     case 12:
-                        room14Switch();
+                        room5Switch();
                         goWestAnimation();
-                        output.innerHTML = "You travel west and return to the glade where you awoke.";
                         break;
                     case 3:
                         room1Switch();
@@ -2456,8 +2500,10 @@ const spanClick = (whatToDo) => {
                         goWestAnimation();
                         break;
                     case 6:
-                        room5Switch();
-                        goWestAnimation();
+                        // room14Switch();
+                        // goWestAnimation();
+                        // output.innerHTML = "You travel west and return to the glade where you awoke.";
+                        output.innerHTML = "The forest is too dense to go any futher west."
                         break;
                     case 9:
                         room2Switch();
@@ -2605,7 +2651,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "The door is locked.";
                 doorZoom();
                 break;
-            case roomNum === 1   &&  doorUnlocked === false  && haveBoxKey === true && triedKeyOnDoor === false&&    (inp('unlock')||inp('key')||inp('open')||inp('try')||inp('use'))   &&    (inp('door')||inp('handle')||inp('knob'))  :
+            case roomNum === 1   &&  doorUnlocked === false  && haveBoxKey === true && triedKeyOnDoor === false &&    (inp('unlock')||inp('key')||inp('open')||inp('try')||inp('use'))   &&    (inp('door')||inp('handle')||inp('knob'))  :
                 output.innerHTML = "You try to unlock the door with the key you found down by the lake...<br><br>but it doesn't fit the lock.<br><br>Maybe this key fits something else.";
                 triedKeyOnDoor = true;
                 doorZoom();
@@ -3646,7 +3692,7 @@ const spanClick = (whatToDo) => {
                 break;
 
                 // fixing the thing
-            case roomNum === 16   && millSwitchOn === false && (((inp('stick')||inp('branch')||inp('tree'))   &&    (inp('mill')||inp('machine')||inp('contraption')||inp('thing')||inp('paddle')||inp('switch')||inp('mechanism')||inp('lever')||inp('fix')||inp('use')))  ):
+            case roomNum === 16   && millSwitchOn === false && (((inp('stick')||inp('branch')||inp('tree'))   &&    (inp('mill')||inp('machine')||inp('contraption')||inp('thing')||inp('paddle')||inp('switch')||inp('mechanism')||inp('lever')||inp('fix')||inp('use ')||inp('with')))  ) && !inp('pipe')&& !inp('drain')  &&!inp('spout'):
                 millSwitchOn = true;
                 room16Switch();
                 currentCutscene = "basket";
@@ -3669,7 +3715,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "The rope is securely fastened to the <span><button onclick='spanClick(\"inspect basket\")'>basket.</button></span>";
                 break;
                 // ride the basket
-            case roomNum === 16   && millSwitchOn === true && (inp('ride')||inp('go up')||inp('take')||inp('climb')||inp('get in')||inp('basket'))     :
+            case roomNum === 16   && millSwitchOn === true && (inp('ride')||inp('go up')||inp('climb')||inp('get in')||inp('basket'))     :
                 room17Switch();
                 climbUpAnimation();
                 break;
@@ -3677,17 +3723,21 @@ const spanClick = (whatToDo) => {
             // ROOM 17 
             case roomNum === 17 &&  bellRung === true  &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&   inp('around') :
                 output.innerHTML = "You're standing on a wooden platform at the top of the dam. A wooden pier extends over the crystal clear water of a lake towards an <span><button onclick='spanClick(\"inspect shrine\")'>old shrine.</button></span> A dim light glows through the shrine's windows from within.<br><br>A <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine leads down to the water.";
-                document.getElementById("room17").src="./roomimages/smfmroom17.png";
                 break;
             case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&   inp('around') :
                 output.innerHTML = "You're standing on a wooden platform at the top of the dam. A wooden pier extends over the crystal clear water of a lake towards an <span><button onclick='spanClick(\"inspect shrine\")'>old shrine.</button></span> A dim light glows through the shrine's windows from within.";
                 break;
             case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('crane')||inp('basket')||inp('hoist')||inp('winch')||inp('machine')) :
                 output.innerHTML = "The mechanism must be powered by the watermill below. The basket is waiting to take you <span><button onclick='spanClick(\"ride basket\")'>back down.</button></span>";
-                document.getElementById("room17").src="./roomimages/smfmroom17.png";
+                break;
+            case roomNum === 17 && bellRung === true &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&   (inp('shrine')||inp('shack')||inp('building')) :
+                output.innerHTML = "The shrine is standing on wooden pilings above the lake. It looks old.<br><br> A <span><button onclick='spanClick(\"open door\")'>door</button></span> leads inside. A <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine leads down to the water.";
                 break;
             case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&   (inp('shrine')||inp('shack')||inp('building')) :
                 output.innerHTML = "The shrine is standing on wooden pilings above the lake. It looks old.<br><br> A <span><button onclick='spanClick(\"open door\")'>door</button></span> leads inside.";
+                break;
+            case roomNum === 17 && bellRung === true &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('pier')||inp('walkway')||inp('wood')||inp('platform')) :
+                output.innerHTML = "The pier leads from the top of the dam to the <span><button onclick='spanClick(\"inspect shrine\")'>shrine.</button></span><br><br>A <span><button onclick='spanClick(\"inspect ladder\")'>ladder</button></span> behind the shrine leads down to the water.";
                 break;
             case roomNum === 17 &&   (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('pier')||inp('walkway')||inp('wood')||inp('platform')) :
                 output.innerHTML = "The pier leads from the top of the dam to the <span><button onclick='spanClick(\"inspect shrine\")'>shrine.</button></span><br><br>You search the pier, but don't find anything useful.";
@@ -3702,14 +3752,13 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "The lakewater is crystal clear. You peer into the depths, but don't find anything particularly useful.";
                 break;
             case roomNum === 17   &&  (inp('rope'))     :
-                document.getElementById("room17").src="./roomimages/smfmroom17.png";
                 output.innerHTML = "The rope is securely fastened to the <span><button onclick='spanClick(\"inspect basket\")'>basket.</button></span>";
                 break;
             case roomNum === 17   &&   ( ( (inp('jump')||inp('go ')||inp('leap'))&&( inp('water')||inp('lake') ) )||  inp('dive') || inp('swim'))   :
                 output.innerHTML = "There's no way to climb back out of the water.";
                 break;
-            case roomNum === 17   &&   inp('jump')  :
-                output.innerHTML = "It would be unsafe to jump from this height.";
+            case roomNum === 17   &&   inp('jump') && (inp('off')||inp('dam')||inp('wall')) :
+                output.innerHTML = "It would be unsafe to jump into the water from this height.";
                 break;
             case roomNum === 17   &&  ( inp('lamp')||inp('lantern')||inp('light')) && ((inp('take')||inp('remove'))  ) :
                 output.innerHTML = "The lantern is securely attached to a wooden post.";
@@ -3718,11 +3767,9 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "The lantern's dull glow reflects off the surface of the lake and the shrine's dusty windows.";
                 break;
             case roomNum === 17   &&  inp('knock')  :
-                document.getElementById("room17").src="./roomimages/smfmroom17.png";
                 output.innerHTML = "You knock on the door, but there is no response.";
                 break;
             case roomNum === 17   && ( inp('dam')||inp('wall') ) && (inp('along')||inp('walk')) :
-                document.getElementById("room17").src="./roomimages/smfmroom17.png";
                 output.innerHTML = "The top of the dam is too narrow to walk on.";
                 break;
             case roomNum === 17   && ( inp('window') ||(inp('look')   && inp('in ')  && (inp('shrine')||inp('shack')||inp('building')))  ) :
@@ -3732,22 +3779,36 @@ const spanClick = (whatToDo) => {
                 room18Switch();
                 enterShrineAnimation();
                 break;
-            case roomNum === 17  && (inp('ride')||inp('down')||inp('take')||inp('climb')||inp('get in')||inp('basket'))     :
+            case roomNum === 17  && (inp('ride')&&(inp('basket')||inp('down')))  || ((inp('take')||inp('climb')||inp('get in'))&&inp('basket') )    :
                 room16Switch();
                 climbDownAnimation();
                 break;
-                // ladder
-            case roomNum === 17  && bellRung === true && (inp('ladder')||inp('behind'))  :
-                document.getElementById("room17").src="./roomimages/smfmroom17b.png";
-                output.innerHTML = "The ladder leads down to a wooden boat.";
+                // interacting with the boat (bell has to be rung, but not currently discovering the ladder)
+                    // case roomNum === 17  && bellRung === true && discoveringLadder === false &&
+            case roomNum === 17  && bellRung === true && discoveringLadder === false && ( inp('ride')||inp('get in')||inp('climb in')|| ((inp('take')||inp('hop')||inp('jump')||inp('into'))&&inp('boat') )) && !inp('basket')&& !inp('wall')&& !inp('dam') :
+                extraRoom.style.zIndex = "1";
+                setTimeout( function(){extraRoom.style.zIndex = "-2"}, 1200);
+                room6Switch();
+                takeBoatFromShrineAnimation();
+                break;
+                // discovering the ladder and boat
+            case roomNum === 17  && bellRung === true && (inp('ladder')||inp('behind')||inp('boat')||(inp('around')&&(inp('shrine')||inp('go ')||inp('walk'))))  :
+                extraRoom.style.zIndex = "1";
+                output.innerHTML = "There's a wooden boat tied to the ladder.";
                 discoveringLadder = false;
                 break;
 
-
-                
-            case inp('shrine test')   :
-                enterShrineAnimation();
+            case inp('skip intro')   :
+                document.getElementById("room6").src="./roomimages/smfmroom6a.png";
+                millSwitchOn = true;
+                fenceJumped = true;
+                basketRidden = true; 
+                bellRung = true;
+                newGame = false;
+                room6Switch();
                 break;
+            
+
 
             // ROOM 18
                 // looking around
@@ -3781,9 +3842,12 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You place a rock on the dias, but nothing happens.";
                 bellZoom();
                 break;
-
+            case roomNum === 18 &&  ( inp('take')||inp('pocket')||inp('get')||inp('grab')||inp('put'))  && (  inp('bell')||inp('gold') ) :
+                output.innerHTML = "The bell is hung from a wood beam by a thick metal chain.";
+                bellZoom();
+                break;
                 // ringing the bell
-            case roomNum === 18 &&  bellRung === false && (inp('ring')||inp('use')||inp('hit')||inp('strike')||inp('play')||inp('rock')||inp('hammer'))   &&  ( inp('bell')||inp('gold') ):
+            case roomNum === 18 &&  bellRung === false && ( inp('ring')  ||   (inp('use')||inp('hit')||inp('strike')||inp('play')||inp('rock')||inp('hammer'))   &&  ( inp('bell')||inp('gold') )):
                 output.innerHTML = "You strike the bell. It emits a clear tone.";
                 bellRung = true;
                 discoveringLadder = true;
@@ -3834,7 +3898,7 @@ const spanClick = (whatToDo) => {
                 if (haveBoxKey === true) {
                     output.innerHTML = "You climb onto a nearby rock, and jump into the water.<br><br>The water is crip and refreshing.";
                 } else {
-                    output.innerHTML = "You climb onto a nearby rock, and jump into the water.<br><br>Your foot touches something smooth. You reach down and bring up a <span><button onclick='spanClick(\"inspect key\")'>silver key.</button></span>";
+                    output.innerHTML = "You climb onto a nearby rock, and jump into the water.<br><br>Your foot touches something strange! You reach down and bring up a <span><button onclick='spanClick(\"inspect key\")'>silver key.</button></span>";
                     haveBoxKey = true;
                     inventory.push("a <span><button onclick='spanClick(\"inspect key\")'>silver key</button></span>");
                 };
@@ -3869,7 +3933,7 @@ const spanClick = (whatToDo) => {
                 if (haveBoxKey === true) {
                     output.innerHTML = "You climb onto a nearby rock, and jump into the water.<br><br>The water is crisp and refreshing.";
                 } else {
-                    output.innerHTML = "You climb onto a nearby rock, and jump into the water.<br><br>Your foot touches smooth, so you reach down and bring up a <span><button onclick='spanClick(\"inspect key\")'>silver key.</button></span>";
+                    output.innerHTML = "You climb onto a nearby rock, and jump into the water.<br><br>Your foot touches something strange! You reach down and bring up a <span><button onclick='spanClick(\"inspect key\")'>silver key.</button></span>";
                     haveBoxKey = true;
                     inventory.push("a <span><button onclick='spanClick(\"inspect key\")'>silver key</button></span>");
                 };
