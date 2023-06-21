@@ -31,6 +31,21 @@ body {
     animation-fill-mode: forwards; */
 }
 
+#sparkles {
+    position: absolute;
+    z-index: 1000;
+    left: 50%;
+    transform: translateX(-50%);  
+    width: 100vw;
+    overflow: hidden;
+    max-width: 720px;
+    min-width: 320px;
+    height: 100vh;  
+    object-fit: cover;
+    opacity: 50%;
+    mix-blend-mode: lighten;
+}
+
 /* @keyframes titleCardFadeIn {
     0% {
         filter: brightness(0) blur(2px)
@@ -88,6 +103,12 @@ body {
 
 .fadeout { 
     animation: fadeOut 1s; 
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+}
+
+.longfadeout { 
+    animation: fadeOut 2s; 
     animation-timing-function: ease-in;
     animation-iteration-count: 1;
 }
