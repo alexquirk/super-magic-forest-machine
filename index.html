@@ -61,7 +61,7 @@
                     </video>
                 </div>
                 <div id= "map">
-                    <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png"><img class="room" id="room16" src="./roomimages/smfmroom16a.png"><img class="room" id="room17" src=""><img class="room" id="room18" src=""><img class="room" id="extraroom" src="">
+                    <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5a.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png"><img class="room" id="room16" src="./roomimages/smfmroom16a.png"><img class="room" id="room17" src=""><img class="room" id="room18" src=""><img class="room" id="extraroom" src="">
                 </div>       
             </div>     
             <img id= "inventory1" src="">
@@ -151,7 +151,7 @@ const startGame = () => {
     titleCard.classList.add('fadeout');
     setTimeout(function() {titleCard.style.display = "none"}, 1000);
     sparkles.classList.add('longfadeout');
-    setTimeout(function() {sparkles.style.display = "none"}, 2000);
+    setTimeout(function() {sparkles.style.display = "none"}, 2500);
     // make the machine appear
     theMachine.style.display = "flex";
     // play the cutscene
@@ -364,12 +364,12 @@ document.onkeydown = e => {
             viewbox.style.transform = "translate(0, 0%)";
             viewbox.classList.add('movetheviewbox');
             // fade the 'e' in
-            document.getElementById('easttriangle').style.display = "none";
-            document.getElementById('easttriangle').classList.add('textfadein');
-            setTimeout(function() {
-                document.getElementById('easttriangle').classList.remove('textfadein');
-                document.getElementById('easttriangle').style.display = "inline";
-                }, 2000)
+            // document.getElementById('easttriangle').style.display = "none";
+            // document.getElementById('easttriangle').classList.add('textfadein');
+            // setTimeout(function() {
+            //     document.getElementById('easttriangle').classList.remove('textfadein');
+            //     document.getElementById('easttriangle').style.display = "inline";
+            //     }, 2000)
             // get the game started
             room14Switch();
             room14.style.zIndex = "0";
@@ -499,7 +499,6 @@ document.onkeydown = e => {
     let catDiscovered = false;
     let marbleDown = false;
     let marbleReunited = false;
-    let fenceJumped = false;
     let ropeTaken = false;
     let haveRope = false;
     let ropeSet = false;
@@ -1480,7 +1479,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             room2.style.zIndex = "0";
             document.getElementById("room2tile").src="./maptiles/room2tile.png";
             roomNum = 2;
-            northTriangle.style.opacity = "16%";
+            northTriangle.style.opacity = "4%";
             southTriangle.style.opacity = "75%";
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "75%";
@@ -1508,7 +1507,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             roomNum = 3;
             northTriangle.style.opacity = "75%";
             southTriangle.style.opacity = "75%";
-            eastTriangle.style.opacity = "16%";
+            eastTriangle.style.opacity = "4%";
             westTriangle.style.opacity = "75%";
             },
             400
@@ -1535,7 +1534,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             room4.style.zIndex = "0";
             document.getElementById("room4tile").src="./maptiles/room4tile.png";
             roomNum = 4;
-            northTriangle.style.opacity = "16%";
+            northTriangle.style.opacity = "4%";
             southTriangle.style.opacity = "75%";
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "75%";
@@ -1562,9 +1561,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             document.getElementById("room5tile").src="./maptiles/room5tile.png";
             roomNum = 5;
             northTriangle.style.opacity = "75%";
-            southTriangle.style.opacity = "16%";
+            southTriangle.style.opacity = "4%";
             eastTriangle.style.opacity = "75%";
-            westTriangle.style.opacity = "75%";
+            westTriangle.style.opacity = "4%";
             },
             400
         );
@@ -1602,9 +1601,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             document.getElementById("room6tile").src="./maptiles/room6tile.png";
             roomNum = 6;
             northTriangle.style.opacity = "75%";
-            southTriangle.style.opacity = "16%";
-            eastTriangle.style.opacity = "16%";
-            westTriangle.style.opacity = "75%";
+            southTriangle.style.opacity = "4%";
+            eastTriangle.style.opacity = "75%";
+            westTriangle.style.opacity = "4%";
             },
             400
         );
@@ -1625,17 +1624,17 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             if (firefliesReleased === false) {
                 room7.src="./roomimages/smfmroom7a.png"
                 document.getElementById("room7tile").src="./maptiles/room7tiledark.png";
-                northTriangle.style.opacity = "16%";
+                northTriangle.style.opacity = "4%";
                 southTriangle.style.opacity = "75%";
-                eastTriangle.style.opacity = "16%";
-                westTriangle.style.opacity = "16%";
+                eastTriangle.style.opacity = "4%";
+                westTriangle.style.opacity = "4%";
             }
             else {
                 room7.src="./roomimages/smfmroom7b.png";
                 document.getElementById("room7tile").src="./maptiles/room7tile.png";
-                northTriangle.style.opacity = "16%";
+                northTriangle.style.opacity = "4%";
                 southTriangle.style.opacity = "75%";
-                eastTriangle.style.opacity = "16%";
+                eastTriangle.style.opacity = "4%";
                 westTriangle.style.opacity = "75%";
             }
             },
@@ -1656,10 +1655,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             room8.style.zIndex = "0";
             document.getElementById("room8tile").src="./maptiles/room8tile.png";
             roomNum = 8;   
-            northTriangle.style.opacity = "16%";
-            southTriangle.style.opacity = "16%";
+            northTriangle.style.opacity = "4%";
+            southTriangle.style.opacity = "4%";
             eastTriangle.style.opacity = "75%";
-            westTriangle.style.opacity = "16%";
+            westTriangle.style.opacity = "4%";
             },
             400
         );
@@ -1680,9 +1679,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             room9.style.zIndex = "0";
             document.getElementById("room9tile").src="./maptiles/room9tile.png";
             roomNum = 9;
-            northTriangle.style.opacity = "16%";
-            southTriangle.style.opacity = "16%";
-            eastTriangle.style.opacity = "16%";
+            northTriangle.style.opacity = "4%";
+            southTriangle.style.opacity = "4%";
+            eastTriangle.style.opacity = "4%";
             westTriangle.style.opacity = "75%";
             },
             400
@@ -1712,8 +1711,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             roomNum = 10;
             northTriangle.style.opacity = "75%";
             southTriangle.style.opacity = "75%";
-            eastTriangle.style.opacity = "75%";
-            westTriangle.style.opacity = "16%";
+            eastTriangle.style.opacity = "4%";
+            westTriangle.style.opacity = "75%";
             },
             400
         );
@@ -1737,7 +1736,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             northTriangle.style.opacity = "75%";
             southTriangle.style.opacity = "75%";
             eastTriangle.style.opacity = "75%";
-            westTriangle.style.opacity = "16%";
+            westTriangle.style.opacity = "4%";
             },
             400
         );
@@ -1772,8 +1771,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
                 document.getElementById("room12tile").src="./maptiles/room12tile.png";
                 roomNum = 12;
                 northTriangle.style.opacity = "75%";
-            southTriangle.style.opacity = "16%";
-            eastTriangle.style.opacity = "75%";
+            southTriangle.style.opacity = "4%";
+            eastTriangle.style.opacity = "4%";
             westTriangle.style.opacity = "75%";
             },
             400
@@ -1789,10 +1788,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             else {room13.src="./roomimages/smfmroom13b.png"};
             room13.style.zIndex = "0";
             roomNum = 13;
-            northTriangle.style.opacity = "16%";
-            southTriangle.style.opacity = "16%";
-            eastTriangle.style.opacity = "16%";
-            westTriangle.style.opacity = "16%";
+            northTriangle.style.opacity = "4%";
+            southTriangle.style.opacity = "4%";
+            eastTriangle.style.opacity = "4%";
+            westTriangle.style.opacity = "4%";
             },
             400
         );
@@ -1813,14 +1812,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             room14.style.zIndex = "0";
             document.getElementById("room14tile").src="./maptiles/room14tile.png";
             roomNum = 14;
-            northTriangle.style.opacity = "16%";
-            if (fenceJumped === false) {
-                southTriangle.style.opacity = "16%";
-            } else {
-                southTriangle.style.opacity = "75%";
-            };
-            eastTriangle.style.opacity = "75%";
-            westTriangle.style.opacity = "16%";
+            northTriangle.style.opacity = "4%";
+            southTriangle.style.opacity = "75%";
+            eastTriangle.style.opacity = "4%";
+            westTriangle.style.opacity = "4%";
             },
             400
         );
@@ -1838,10 +1833,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             room15.style.zIndex = "0";
             document.getElementById("room15tile").src="./maptiles/room15tile.png";
             roomNum = 15;
-            northTriangle.style.opacity = "16%";
-            southTriangle.style.opacity = "16%";
-            eastTriangle.style.opacity = "16%";
-            westTriangle.style.opacity = "16%";
+            northTriangle.style.opacity = "4%";
+            southTriangle.style.opacity = "4%";
+            eastTriangle.style.opacity = "4%";
+            westTriangle.style.opacity = "4%";
             },
             400
         );
@@ -1870,13 +1865,13 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             document.getElementById("room14tile").src="./maptiles/room14tile.png";
             roomNum = 16;
             northTriangle.style.opacity = "75%";
-            southTriangle.style.opacity = "16%";
+            southTriangle.style.opacity = "4%";
             if (millSwitchOn === false) {
-                eastTriangle.style.opacity = "16%";
+                eastTriangle.style.opacity = "4%";
             } else {
                 eastTriangle.style.opacity = "75%";
             };
-            westTriangle.style.opacity = "16%";
+            westTriangle.style.opacity = "4%";
             },
             400
         );
@@ -1915,8 +1910,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             moveAllRoomsBack();
             room17.style.zIndex = "0";
             roomNum = 17;
-            northTriangle.style.opacity = "16%";
-            southTriangle.style.opacity = "16%";
+            northTriangle.style.opacity = "4%";
+            southTriangle.style.opacity = "4%";
             eastTriangle.style.opacity = "75%";
             westTriangle.style.opacity = "75%";
             },
@@ -1938,9 +1933,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             moveAllRoomsBack();
             room18.style.zIndex = "0";
             roomNum = 18;
-            northTriangle.style.opacity = "16%";
-            southTriangle.style.opacity = "16%";
-            eastTriangle.style.opacity = "16%";
+            northTriangle.style.opacity = "4%";
+            southTriangle.style.opacity = "4%";
+            eastTriangle.style.opacity = "4%";
             westTriangle.style.opacity = "75%";
             },
             400
@@ -2358,14 +2353,14 @@ const spanClick = (whatToDo) => {
                         goEastAnimation();
                         break;
                     case 5:
-                        room6Switch();
+                        room12Switch();
                         goEastAnimation();
                         break;
                     case 3:
                         output.innerHTML = "The forest is too dense to go any further east.";
                         break;
                     case 6:
-                        room5Switch();
+                        room10Switch();
                         goEastAnimation();
                     case 16:
                         if (millSwitchOn === false)
@@ -2384,12 +2379,10 @@ const spanClick = (whatToDo) => {
                         goEastAnimation();
                         break;
                     case 10:
-                        room1Switch();
-                        goEastAnimation();
+                        output.innerHTML = "The forest is too dense to go any further east.";
                         break;
                     case 14:
-                        room12Switch();
-                        goEastAnimation();
+                        output.innerHTML = "The forest is too dense to go any further east.";
                         break;
                     case 2:
                         room9Switch();
@@ -2424,7 +2417,7 @@ const spanClick = (whatToDo) => {
                         goNorthAnimation();
                         break;
                     case 5:
-                        room1Switch();
+                        room10Switch();
                         goNorthAnimation();
                         break;
                     case 4:
@@ -2444,7 +2437,7 @@ const spanClick = (whatToDo) => {
                         goNorthAnimation();
                         break;
                     case 6:
-                        room10Switch();
+                        room3Switch();
                         goNorthAnimation();
                         break;
                     case 12:
@@ -2452,7 +2445,7 @@ const spanClick = (whatToDo) => {
                         goNorthAnimation();
                         break;
                     case 10:
-                        room11Switch();
+                        room14Switch();
                         goNorthAnimation();
                         break;
                     case 7:
@@ -2486,7 +2479,8 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "The forest is too dense to go any further west.";
                         break;
                     case 10:
-                        output.innerHTML = "The forest is too dense to go any further west.";
+                        room6Switch();
+                        goWestAnimation();
                         break;
                     case 13:
                         output.innerHTML = "There's nowhere to go!";
@@ -2510,7 +2504,7 @@ const spanClick = (whatToDo) => {
                         // room14Switch();
                         // goWestAnimation();
                         // output.innerHTML = "You travel west and return to the glade where you awoke.";
-                        output.innerHTML = "The forest is too dense to go any futher west."
+                        output.innerHTML = "You can't go any futher west."
                         break;
                     case 9:
                         room2Switch();
@@ -2525,8 +2519,7 @@ const spanClick = (whatToDo) => {
                         goWestAnimation();
                         break;
                     case 5:
-                        room12Switch();
-                        goWestAnimation();
+                        output.innerHTML = "You can't go any futher west."
                         break;
                     case 17:
                         room16Switch();
@@ -2574,12 +2567,8 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "You can't go any farther south.";
                         break;
                     case 14:
-                        if (fenceJumped === false) {
-                            output.innerHTML = "There is a fence blocking the way south.";
-                        } else {
-                            room16Switch();
-                            goSouthAnimation();
-                        };
+                        room10Switch();
+                        goSouthAnimation();
                         break;
                     case 13:
                         output.innerHTML = "There's nowhere to go!";
@@ -2612,7 +2601,7 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 10 && ((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    (inp('down')))  || inp('south')  :
                 goSouthAnimation();
-                room12Switch();
+                room5Switch();
                 break;
 
             // SPECIAL CASE FOR ROOM 13
@@ -2638,7 +2627,6 @@ const spanClick = (whatToDo) => {
                 // output.innerHTML = "You start to jump the fence, but you suddenly realize that there's literally nothing on the other side, because nothing was programmed there, and you would simply float through a spaceless void for eternity.<br><br>You decide to stay on this side of the fence.";
                 room16Switch();
                 goSouthAnimation();
-                fenceJumped = true;
                 break;
 
             // ROOM 1
@@ -3808,7 +3796,6 @@ const spanClick = (whatToDo) => {
             case inp('skip intro')   :
                 document.getElementById("room6").src="./roomimages/smfmroom6a.png";
                 millSwitchOn = true;
-                fenceJumped = true;
                 basketRidden = true; 
                 bellRung = true;
                 newGame = false;

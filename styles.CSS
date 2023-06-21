@@ -108,8 +108,8 @@ body {
 }
 
 .longfadeout { 
-    animation: fadeOut 2s; 
-    animation-timing-function: ease-in;
+    animation: fadeOut 2.5s; 
+    animation-timing-function: ease-in-out;
     animation-iteration-count: 1;
 }
 
@@ -502,6 +502,7 @@ body {
     height: 24%;
     max-height: 90px;
     display: inline;
+    mix-blend-mode: luminosity;
 }
 
 /* .compasstriangles:hover, #enterbutton:hover {
@@ -511,7 +512,7 @@ body {
 #southtriangle {
     bottom: 0;
     right: 0;
-    opacity: 0%;
+    opacity: 75%;
 }
 
 #northtriangle {
@@ -525,7 +526,7 @@ body {
 
 #easttriangle {
     right: 0;
-    opacity: 90%;
+    opacity: 0%;
 }
 
 #book {
