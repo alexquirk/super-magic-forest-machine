@@ -29,6 +29,7 @@
 </video>
 
 
+
 <!-- <div id="loadingscreen">
     <div>
         <div id="loadingword">Loading...</div>
@@ -45,7 +46,7 @@
     <div id="viewbox">
 
         <!-- border 1 -->
-        <img class="border1" src="./roomimages/border 1.png">
+        <img id="border1" src="./roomimages/border 1.png">
 
         <div class="viewer">
             <!-- black background -->
@@ -85,11 +86,12 @@
             <div id= "maptiles">
                 <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" onclick="room1Switch()"><img class="roomtile" id="room2tile" onclick="room2Switch()"><img class="roomtile" id="room3tile" onclick="room3Switch()"><img class="roomtile" id="room4tile" onclick="room4Switch()"><img class="roomtile" id="room5tile" onclick="room5Switch()"><img class="roomtile" id="room6tile" onclick="room6Switch()"><img class="roomtile" id="room7tile" onclick="room7Switch()"><img class="roomtile" id="room8tile" onclick="room8Switch()"><img class="roomtile" id="room9tile" onclick="room9Switch()"><img class="roomtile" id="room10tile" onclick="room10Switch()"><img class="roomtile" id="room11tile" onclick="room11Switch()"><img class="roomtile" id="room12tile" onclick="room12Switch()"><img class="roomtile" id="room14tile" onclick="room14Switch()"><img class="roomtile" id="room15tile" onclick="room15Switch()">
             </div>   
+            <div id="scoreindicator"></div>
         
         </div>
 
         <!-- border 2 -->
-        <img class="border2" src="./roomimages/border 2.png">
+        <img id="border2" src="./roomimages/border 2.png">
     </div>
 
     <!-- OUTPUT AREA -->
@@ -150,10 +152,13 @@ const startGame = () => {
     // hide the title card
     titleCard.classList.add('fadeout');
     setTimeout(function() {titleCard.style.display = "none"}, 1000);
-    sparkles.classList.add('longfadeout');
-    setTimeout(function() {sparkles.style.display = "none"}, 2500);
+    sparkles.classList.add('fadeout');
+    setTimeout(function() {sparkles.style.display = "none"}, 1000);
     // make the machine appear
     theMachine.style.display = "flex";
+    theMachine.classList.add('machinefadein');
+    document.getElementById('border1').style.opacity= "0";
+    document.getElementById('border2').style.opacity= "0";
     // play the cutscene
     playCutscene();
     // how much time after pressing space on the title card must pass before pressing space again will skip the first cutscene?
@@ -363,13 +368,16 @@ document.onkeydown = e => {
             viewbox.style.top = "0%";
             viewbox.style.transform = "translate(0, 0%)";
             viewbox.classList.add('movetheviewbox');
-            // fade the 'e' in
-            // document.getElementById('easttriangle').style.display = "none";
-            // document.getElementById('easttriangle').classList.add('textfadein');
-            // setTimeout(function() {
-            //     document.getElementById('easttriangle').classList.remove('textfadein');
-            //     document.getElementById('easttriangle').style.display = "inline";
-            //     }, 2000)
+            // make borders visible
+            document.getElementById('border1').classList.add('machinefadein');
+            document.getElementById('border2').classList.add('machinefadein');
+            // fade the 's' in
+            // document.getElementById('southtriangle').style.display = "none";
+            document.getElementById('southtriangle').classList.add('textfadein');
+            setTimeout(function() {
+                document.getElementById('southtriangle').classList.remove('textfadein');
+                // document.getElementById('southtriangle').style.display = "inline";
+                }, 2000)
             // get the game started
             room14Switch();
             room14.style.zIndex = "0";
@@ -1537,7 +1545,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             northTriangle.style.opacity = "4%";
             southTriangle.style.opacity = "75%";
             eastTriangle.style.opacity = "75%";
-            westTriangle.style.opacity = "75%";
+            westTriangle.style.opacity = "4%";
             },
             400
         );
@@ -2441,7 +2449,7 @@ const spanClick = (whatToDo) => {
                         goNorthAnimation();
                         break;
                     case 12:
-                        room3Switch();
+                        room4Switch();
                         goNorthAnimation();
                         break;
                     case 10:
@@ -2556,7 +2564,7 @@ const spanClick = (whatToDo) => {
                         goSouthAnimation();
                         break;
                     case 4:
-                        room1Switch();
+                        room12Switch();
                         goSouthAnimation();
                         break;
                     case 3:

@@ -120,7 +120,7 @@ body {
     }
     100% { 
         opacity: 0; 
-        filter: blur(2px)
+        filter: blur(10px);
     }
   }
 
@@ -923,6 +923,13 @@ span > button:active {
 .textfadein {
     animation: fadeIn 1.6s ease-in;
     animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.machinefadein {
+    animation: fadeIn 1s ease-in;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
 
 @keyframes fadeIn {
