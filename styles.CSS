@@ -378,15 +378,41 @@ body {
     max-height: 55%;
 }
 
-.viewer {
+#viewer {
     aspect-ratio: 3/2;
-    max-width: 500px;
-    border: 1px solid white;
+    max-width: 600px;
+    border: 1px solid transparent;
     display: grid;
     align-content: center;
     justify-content: center;
     overflow: hidden;
     position: relative;
+}
+
+.vieweradjustmaxwidth {
+    animation: viewerAdjustMaxWidth 3s ease-in-out forwards ;
+}
+
+@keyframes viewerAdjustMaxWidth {
+    0% {
+        max-width: 800px;
+    }
+    100% {
+        max-width: 500px;
+    }
+}
+
+.viewerborderfadein {
+    animation: viewerBorderFadeIn 1s ease-in forwards;
+}
+
+@keyframes viewerBorderFadeIn {
+    0% {
+        border: 1px solid transparent;
+    }
+    100% {
+        border: 1px solid white;
+    }
 }
 
 #blackbackground {
