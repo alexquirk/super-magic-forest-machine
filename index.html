@@ -1705,7 +1705,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             roomNum = 9;
             northTriangle.style.opacity = "4%";
             southTriangle.style.opacity = "4%";
-            eastTriangle.style.opacity = "4%";
+            if (ghostGivenMug === true || ghostDiscovered === false) {
+                eastTriangle.style.opacity = "75%";
+            } else {
+                eastTriangle.style.opacity = "16%";
+            };
             westTriangle.style.opacity = "75%";
             },
             400
@@ -2364,7 +2368,20 @@ const spanClick = (whatToDo) => {
             case ((inp("walk")||inp('go ')||inp('travel')||(inp('take')&&inp('me')))   &&    inp('right'))  || inp('east') :
                 switch (roomNum) {
                     case 9:
-                        output.innerHTML = "The forest is too dark and dense to go any further east.";
+                        if (ghostDiscovered === false) {
+                            currentCutscene = "ghost appearing";
+                            playCutscene();
+                            ghostDiscovered = true;
+                            room9Switch();
+                            ghostZoom();
+                            output.innerHTML = "You start to walk past the mushrooms...<br><br>but a <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> appears!!";
+                        } else if (ghostDiscovered === true && ghostGivenMug === false) {
+                            ghostZoom();
+                            output.innerHTML = "You start to walk past the mushrooms, but the <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> is blocking the path.";
+                        } else {
+                            goEastAnimation();
+                            room11Switch();
+                        }
                         break;
                     case 1:
                         room3Switch();
@@ -3317,8 +3334,8 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = 'The ghost seems to blush...<br><br><span class="journal">"Sorry... I don\'t like you like that.</span>"';
                 ghostZoom();
                 break;
-            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  inp('flower') && (inp('give')||inp('offer')||inp('hand')) :
-                output.innerHTML = 'You offer the ghost a flower.<br><br><span class="journal">"Pretty... keep it."';
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  && haveFlower === true && inp('flower') && (inp('give')||inp('offer')||inp('hand')) :
+                output.innerHTML = 'You offer the ghost a flower.<br><br><span class="journal">"Pretty..."';
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  inp('boo') || inp('scare') ||  inp('frighten') ||  inp('shoo') ||  inp('curse') :
@@ -3373,6 +3390,7 @@ const spanClick = (whatToDo) => {
                 // catch-all for ghosts and mushrooms
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false && inp('ghost') :
                 output.innerHTML = "The ghost hovers eerily over the mushrooms.";
+                ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug && inp('ghost') :
                 output.innerHTML = "The ghost is gone, and all that's left in its place is a lingering feeling of gratitude.";
@@ -4638,10 +4656,10 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "Type commands below to explore and escape the forest.<br><br>You can move around quicker by tapping the corners of the screen above.<br><br>Some objects around you can be interacted with. You can type <span><button onclick='spanClick(\"check pockets\")'>pockets</button></span> to see what you have with you.<br><br>Don't forget to <span><button onclick='spanClick(\"look around\")'>look around</button></span> when you enter a new area.";
                 break;
             case inp('what') && inp('is') && inp('this'):
-                output.innerHTML = "Try <span><button onclick='spanClick(\"look around\")'>looking around</button></span> to get your bearings.";
+                output.innerHTML = "\"Maybe I should try <span><button onclick='spanClick(\"look around\")'>looking around</button></span> to get my bearings,\" you think to yourself.";
                 break;
             case inp('what') :
-                output.innerHTML = "Try <span><button onclick='spanClick(\"look around\")'>looking around.</button></span>";
+                output.innerHTML = "\"Maybe I should try <span><button onclick='spanClick(\"look around\")'>looking around</button></span> a bit,\" you think to yourself.";
                 break;
             case inp('where') :
                 output.innerHTML = "Try looking around.";
