@@ -474,16 +474,16 @@ body {
     max-width: 100%;
     grid-row: 1;
     grid-column: 1;
-    min-width: 350px;
+    /* min-width: 350px; */
 }
 
-#scoreindicator {
+/* #scoreindicator {
     height: 10%;
     position: relative;
     left: 60%;
-    top: 92%;
+    top: 90%;
     color: white;
-}
+} */
 
 #map {
     display: grid;
@@ -534,8 +534,8 @@ body {
 }
 
 .room {
-    /* position: absolute; */
-    position: relative;
+    position: absolute;
+    /* position: relative; */
     grid-row: 1;
     grid-column: 1;
     width: 100%;
