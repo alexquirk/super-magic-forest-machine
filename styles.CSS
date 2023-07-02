@@ -469,12 +469,20 @@ body {
     z-index: -1;
 }
 
-#map, #mapbox, #cutsceneviewer, .inventorybutton, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8, #book, #maptiles, #blackbackground {
+#map, #mapbox, #cutsceneviewer, .inventorybutton, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8, #book, #maptiles, #blackbackground, #scoreindicator {
     max-height: 100%;
     max-width: 100%;
     grid-row: 1;
     grid-column: 1;
     min-width: 350px;
+}
+
+#scoreindicator {
+    height: 10%;
+    position: relative;
+    left: 60%;
+    top: 92%;
+    color: white;
 }
 
 #map {
@@ -526,8 +534,8 @@ body {
 }
 
 .room {
-    position: absolute;
-    /* position: relative; */
+    /* position: absolute; */
+    position: relative;
     grid-row: 1;
     grid-column: 1;
     width: 100%;
