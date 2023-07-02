@@ -164,6 +164,16 @@ body {
     animation-iteration-count: 1;
 }
 
+.goeastthensouth {
+    animation: goEastThenSouth 1s ease-out;
+    animation-iteration-count: 1;
+}
+
+.gonorththenwest {
+    animation: goNorthThenWest 1s ease-out;
+    animation-iteration-count: 1;
+}
+
 @keyframes goEast {
     0% { 
         opacity: 1;
@@ -299,6 +309,45 @@ body {
     }
 }
 
+@keyframes goEastThenSouth {
+    0% { 
+        opacity: 1;
+    }
+    40% {
+        opacity: 0;
+        transform: translate(-16.7%, 10%); 
+        filter: blur(2px);
+    }
+    41% {
+        opacity: 0;
+        transform: translate(16.7%, 10%); 
+        filter: blur(0px);
+    }
+    100% { 
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes goNorthThenWest {
+    0% { 
+        opacity: 1;
+    }
+    40% {
+        opacity: 0;
+        transform: translate(16.7%, 10%);
+        filter: blur(2px);
+    }
+    41% {
+        opacity: 0;
+        transform: translate(-16.7%, 10%); 
+        filter: blur(0px);
+    }
+    100% { 
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
 
 /* CUTSCENE VIEWER */
 
