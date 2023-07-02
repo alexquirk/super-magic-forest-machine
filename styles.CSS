@@ -315,12 +315,12 @@ body {
     }
     40% {
         opacity: 0;
-        transform: translate(-16.7%, 10%); 
+        transform: translate(-8.35%, 5%); 
         filter: blur(2px);
     }
     41% {
         opacity: 0;
-        transform: translate(16.7%, 10%); 
+        transform: translate(8.35%, 5%); 
         filter: blur(0px);
     }
     100% { 
@@ -335,12 +335,12 @@ body {
     }
     40% {
         opacity: 0;
-        transform: translate(16.7%, 10%);
+        transform: translate(8.35%, 5%);
         filter: blur(2px);
     }
     41% {
         opacity: 0;
-        transform: translate(-16.7%, 10%); 
+        transform: translate(-8.35%, 5%); 
         filter: blur(0px);
     }
     100% { 

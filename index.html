@@ -3495,7 +3495,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 10 &&  (inp('throw')||inp('drop')||inp('toss'))  &&  inp('mug') && haveMug === true   :
                 output.innerHTML = "You just brought the mug up! Better not drop it again.";
                 break;
-            case roomNum === 10 &&  (inp('jump')||inp('down')||inp('fall')||inp('go ')||(inp('get')&&inp('well')))   &&    (inp('well'))     :
+            case roomNum === 10 &&  (inp('jump')||inp('down')||inp('fall')||inp('go ')||(inp('get')&&inp('well')))   &&    (inp('well'))  && ropeSet === false   :
                 output.innerHTML = "...you climb into the well...";
                 currentCutscene = "well fall";
                 playCutscene();
@@ -3776,9 +3776,6 @@ const spanClick = (whatToDo) => {
             case roomNum === 16   && inp('rope') && millSwitchOn === false && haveRope === false  :
                 output.innerHTML = "You don't have a rope.";
                 break;
-            case roomNum === 16   && inp('fix') && millSwitchOn === false :
-                output.innerHTML = "Maybe there is something nearby you can fix the mill with.";
-                break;
 
                 // fixing the thing
             case roomNum === 16   && millSwitchOn === false && (((inp('stick')||inp('branch')||inp('tree'))   &&    (inp('mill')||inp('machine')||inp('contraption')||inp('thing')||inp('paddle')||inp('switch')||inp('mechanism')||inp('lever')||inp('fix')||inp('use ')||inp('with')))  ) && !inp('pipe')&& !inp('drain')  &&!inp('spout'):
@@ -3807,6 +3804,11 @@ const spanClick = (whatToDo) => {
             case roomNum === 16   && millSwitchOn === true && (inp('ride')||inp('go up')||inp('climb')||inp('get in')||inp('basket'))     :
                 room17Switch();
                 climbUpAnimation();
+                break;
+
+                // default
+            case roomNum === 16   && inp('fix') && millSwitchOn === false  :
+                output.innerHTML = "Maybe there is something nearby you can fix the mill with.";
                 break;
 
             // ROOM 17 
