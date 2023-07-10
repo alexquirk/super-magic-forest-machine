@@ -469,7 +469,7 @@ body {
     z-index: -1;
 }
 
-#map, #mapbox, #cutsceneviewer, .inventorybutton, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8, #book, #maptiles, #blackbackground, #scoreindicator {
+#map, #mapbox, #cutsceneviewer, #closeinventory, .inventorybutton, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8, #book, #maptiles, #blackbackground, #scoreindicator {
     max-height: 100%;
     max-width: 100%;
     grid-row: 1;
@@ -577,6 +577,17 @@ body {
 #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8 {
     position: relative;
     z-index: -2;
+}
+
+#closeinventory {
+    cursor: default;
+    color: white;
+    border: white 1px solid;
+    position: absolute;
+    z-index: -2;
+    right: 2%;
+    padding: 3px 19px 4px;
+    bottom: 2%;
 }
 
 .compasstriangles {
