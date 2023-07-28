@@ -537,6 +537,7 @@ document.onkeydown = e => {
     let mugTaken = false;
     let haveMug = false;
     let millSwitchOn = false;
+    let ghostGivenFlower = false;
     let ghostGivenMug = false;
     let robotAwake = false;
     let haveCrystal = false;
@@ -1017,6 +1018,18 @@ const bellUnZoom = () => {
         southTriangle.style.zIndex = "50";
         eastTriangle.style.zIndex = "50";
         westTriangle.style.zIndex = "50";
+        // focus
+        if (!( 
+                   navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                )) {
+            userInput.focus(); 
+                } 
     };
 
     // Finding Things Animations
@@ -1777,6 +1790,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         setTimeout(  ()=> {
             moveAllRoomsBack();
             if (ghostGivenMug === true || ghostDiscovered === false ) {room9.src="./roomimages/smfmroom9b.png"}
+            else if (ghostGivenFlower === true) {room9.src="./roomimages/smfmroom9c.png"}
             else {room9.src="./roomimages/smfmroom9a.png"};
             room9.style.zIndex = "0";
             document.getElementById("room9tile").src="./maptiles/room9tile.png";
@@ -3413,8 +3427,10 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = 'The ghost seems to blush...<br><br><span class="journal">"Sorry... I don\'t like you like that.</span>"';
                 ghostZoom();
                 break;
-            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  && haveFlower === true && inp('flower') && (inp('give')||inp('offer')||inp('hand')) :
-                output.innerHTML = 'You offer the ghost a flower.<br><br><span class="journal">"Pretty..."';
+            case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  && haveFlower === true && ghostGivenFlower === false && inp('flower') && (inp('give')||inp('offer')||inp('hand')) :
+                ghostGivenFlower = true;
+                room9Switch();
+                output.innerHTML = 'You offer the ghost a flower. Maybe it\'s just a trick of the light, but the ghost seems to blush<br><br><span class="journal">"...Thanks..."<br><br>But the ghost doesn\'t move.';
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  inp('boo') || inp('scare') ||  inp('frighten') ||  inp('shoo') ||  inp('curse') :
