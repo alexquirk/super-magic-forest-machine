@@ -698,9 +698,9 @@ const bellUnZoom = () => {
                 inventoryText.push(" " + inventory[i] + ",");
             };
             if (inventory.length > 1) {
-                inventoryText.push(" and " + inventory[inventory.length -1]+ " in your pocket.<br><br><span><button onclick='spanClick(\"\")'>DONE</button></span>")
+                inventoryText.push(" and " + inventory[inventory.length -1]+ " in your pocket.")
             } else {
-                inventoryText.push(" " + inventory[inventory.length -1]+ " in your pocket.<br><br><span><button onclick='spanClick(\"\")'>DONE</button></span>")
+                inventoryText.push(" " + inventory[inventory.length -1]+ " in your pocket.")
             };
             return inventoryText.join('');
         };
@@ -1008,6 +1008,7 @@ const bellUnZoom = () => {
 
     // close inventory
     const closeInventory = () => {
+        output.innerHTML = "";
         document.getElementById("closeinventory").style.zIndex = "-2";
         document.getElementById('map').classList.remove('blur');
         document.getElementById("inventory1").style.zIndex = "-2";document.getElementById("inventory2").style.zIndex = "-2";document.getElementById("inventory3").style.zIndex = "-2";document.getElementById("inventory4").style.zIndex = "-2";document.getElementById("inventory5").style.zIndex = "-2";document.getElementById("inventory6").style.zIndex = "-2";document.getElementById("inventory7").style.zIndex = "-2";document.getElementById("inventory8").style.zIndex = "-2";
@@ -1763,8 +1764,12 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             output.innerHTML = "A narrow path leads you east through the forest. The air grows stale as dried and rotting tree branches grab at your clothes.<br><br>You arrive at a murky hollow and a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms</button></span>";
         } else if (ghostDiscovered === true && ghostGivenMug === false) {
             output.innerHTML = "A narrow path leads you east through the forest.<br><br>You arrive at the murky hollow, where a <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> hovers eerily over a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms.</button></span>";
-        } else {
+        } else if (roomNum = 5) {
             output.innerHTML = "A narrow path leads you east through the forest.<br><br>You arrive at a murky hollow and a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms.</button></span>";
+        } else if (roomNum = 11) {
+            output.innerHTML = "A narrow path leads you west through the forest.<br><br>You arrive at a murky hollow and a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms.</button></span>";
+        } else {
+            output.innerHTML = "A narrow path leads you through the forest.<br><br>You arrive at a murky hollow and a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms.</button></span>";
         };
         roomVisited[9] = true;
         mapArrow.style.top = "32%";
@@ -1790,6 +1795,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     }; 
     const room10Switch = () => {
         if (newGame === true) {
+            // wellZoom();
             output.innerHTML = "You travel south along the narrow path. Soon, you find yourself standing in front of an old <span><button onclick='spanClick(\"inspect well\")'>stone well.</button></span>";
         } else if (roomNum === 6) {
             output.innerHTML = "You travel north and find a <span><button onclick='spanClick(\"inspect well\")'>stone well.</button></span>";
@@ -2404,11 +2410,11 @@ const spanClick = (whatToDo) => {
         // MAP CHECKING
             case inp('map') :
                 if (haveMap === true) {
-                    output.innerHTML = "You open your map.<br><br>Press 'ENTER' to return."
-                    userInput.value = "";
                     endCutscene();
                     closeInventory();
                     checkMap();
+                    output.innerHTML = "You open your map.<br><br>Press 'ENTER' to return."
+                    userInput.value = "";
                     break;
                 } else {
                     output.innerHTML = "Don't have a map."
@@ -3489,6 +3495,7 @@ const spanClick = (whatToDo) => {
                 room10Switch();
                 switchChestRopeImage();
                 output.innerHTML = "You tie the rope to the top of the well. It seems pretty secure...";
+                wellZoom();
                 break;
             case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "You find yourself standing in front of a stone <span><button onclick='spanClick(\"inspect well\")'>well</button></span> in the middle of a clearing. From here, a rocky path leads <span><button onclick='spanClick(\"go north\")'>north.</button></span> You can hear the sound of water to the <span><button onclick='spanClick(\"go south\")'>south.</button></span>";
