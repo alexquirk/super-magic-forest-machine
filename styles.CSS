@@ -31,9 +31,33 @@ body {
     animation-fill-mode: forwards; */
 }
 
+#titlecardtext {
+    position: absolute;
+    z-index: 1002;
+    left: 50%;
+    transform: translateX(-50%);  
+    width: 100vw;
+    overflow: hidden;
+    max-width: 720px;
+    min-width: 320px;
+    height: 100vh;  
+    /* height: -webkit-fill-available; */
+    object-fit: cover;
+    /* animation: titleCardFadeIn 4s ease-out;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards; */
+    filter: drop-shadow(2px 4px 6px black);
+    transition: .3s;
+}
+
+#titlecardtext:hover {
+    filter: drop-shadow(1px 2px 3px rgb(79, 79, 79));
+    transform: translateY(.2%) translateX(-50%);
+}
+
 #sparkles {
     position: absolute;
-    z-index: 1000;
+    z-index: 1001;
     left: 50%;
     transform: translateX(-50%);  
     width: 100vw;
@@ -108,7 +132,7 @@ body {
 }
 
 .longfadeout { 
-    animation: fadeOut 2.5s; 
+    animation: fadeOut 1.5s; 
     animation-timing-function: ease-in-out;
     animation-iteration-count: 1;
 }
@@ -120,7 +144,7 @@ body {
     }
     100% { 
         opacity: 0; 
-        filter: blur(10px);
+        filter: blur(1px);
     }
   }
 
@@ -580,7 +604,7 @@ body {
 }
 
 #closeinventory {
-    cursor: default;
+    cursor: pointer;
     color: white;
     border: white 1px solid;
     position: absolute;
@@ -599,9 +623,9 @@ body {
     mix-blend-mode: luminosity;
 }
 
-/* .compasstriangles:hover, #enterbutton:hover {
+.compasstriangles:hover, #enterbutton:hover {
     cursor: pointer;
-} */
+}
 
 #southtriangle {
     bottom: 0;
@@ -622,6 +646,14 @@ body {
     right: 0;
     opacity: 0%;
 }
+
+/* #uptriangle, #downtriangle {
+    left: 50%;
+    transform: translateX(-50%);  
+    top: 2%;
+    height: 18%;
+    z-index: -2;
+} */
 
 #book {
     z-index: 9;
@@ -880,13 +912,13 @@ body {
 @keyframes findObject {
     0% {
         opacity: 0;
-        filter: blur(10px);
+        filter: blur(10px) drop-shadow();
         transform: translate(0, 10%);
 
     }
     20% {
         opacity: 1;
-        filter: blur(0px);
+        filter: blur(0px) drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.5));
         transform: translate(0, 0);
     }
     65% {
@@ -894,6 +926,7 @@ body {
     }
     100% {
         transform: translate(0, 100%);
+        filter: drop-shadow();
     }
 }
 
@@ -924,7 +957,7 @@ body {
 @keyframes moveTheViewbox {
     0% {
         top: 50%;
-        transform: translate(0, -50%)
+        transform: translate(0, -50%);
     }
     100% {
         top: 0%;
@@ -962,9 +995,10 @@ span > button:active {
     padding: 0;
 }
 
-/* span > button:hover {
+span > button:hover {
     cursor: pointer;
-} */
+    color: rgb(255, 188, 188);
+}
 
 #output > .journal {
     color: rgb(201, 255, 212);
@@ -1137,7 +1171,7 @@ span > button:active {
 @keyframes triangleBrightFade {
     0% { 
         filter: brightness(2);
-        opacity: 75%;
+        opacity: 80%;
     }
     100% { 
         filter: brightness(1);
