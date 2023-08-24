@@ -70,6 +70,23 @@ body {
     mix-blend-mode: lighten;
 }
 
+#largecutsceneviewer {
+    display: none;
+    position: absolute;
+    z-index: 1001;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);  
+    width: 100vw;
+    overflow: hidden;
+    max-width: 720px;
+    min-width: 320px;
+    height: 100vh;  
+    object-fit: cover;
+    max-height: 500px;
+    border: 1px solid white;
+}
+
 /* @keyframes titleCardFadeIn {
     0% {
         filter: brightness(0) blur(2px)
@@ -406,6 +423,14 @@ body {
     transform: translateX(-50%);
 }
 
+#largecutscenevideo {
+    z-index: 999;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 #cutscene {
     height: 100%;
     position: absolute;
@@ -630,7 +655,7 @@ body {
 #southtriangle {
     bottom: 0;
     right: 0;
-    opacity: 75%;
+    opacity: 0%;
 }
 
 #northtriangle {

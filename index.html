@@ -30,6 +30,11 @@
 </video>
 
 
+<div id="largecutsceneviewer">
+    <video poster="./cutscenes/loadingleaf.gif"  id="largecutscenevideo" autoplay="autoplay" muted playsinline>
+        <source src="./cutscenes/introcutscene.mp4" type="video/mp4" control="none">
+    </video>
+</div>
 
 <!-- <div id="loadingscreen">
     <div>
@@ -42,11 +47,11 @@
 </div> -->
 
 <article id="themachine">
-    
+
     <!-- VIEWER -->
     <div id="viewbox">
 
-        <!-- border 1 -->
+        <!-- border -->
         <img id="border1" src="./roomimages/border 1.png">
 
         <div id="viewer">
@@ -59,7 +64,7 @@
             <div id="mapbox">
                 <div id="cutsceneviewer">
                     <video poster="./cutscenes/loadingleaf.gif"  id="cutscenevideo" autoplay="autoplay" muted playsinline>
-                        <source src="./cutscenes/introcutscene.mp4" type="video/mp4" control="none">
+                        <source src="./cutscenes/transitioncutscene.mp4" type="video/mp4" control="none">
                     </video>
                 </div>
                 <div id= "map">
@@ -161,7 +166,8 @@ const startGame = () => {
     // make the machine appear
     setTimeout(function() {
         theMachine.style.display = "flex";
-        theMachine.classList.add('machinefadein');
+        // theMachine.classList.add('machinefadein');
+        largeCutsceneViewer.classList.add('machinefadein');
         document.getElementById('border1').style.opacity= "0";
         document.getElementById('border2').style.opacity= "0";
         // play the cutscene
@@ -184,6 +190,7 @@ document.onkeydown = e => {
 
     // list of cutscenes:
         // "intro"
+        // "transition"
         // "robot waking"
         // "robot scanning"
         // "riding boat"
@@ -204,6 +211,12 @@ document.onkeydown = e => {
 
     const cutsceneViewer = document.getElementById('cutsceneviewer');
 
+    const largeCutsceneVideo = document.getElementById("largecutscenevideo");
+
+    const largeCutsceneViewer = document.getElementById('largecutsceneviewer');
+
+
+
     //skip cutscene if spacebar is pressed
     document.addEventListener('keyup', event => {
         if (event.code === 'Space' 
@@ -219,6 +232,11 @@ document.onkeydown = e => {
         endCutscene();
         });
 
+        // hide the video when its ended
+    largeCutsceneVideo.addEventListener('ended', ()=> {
+        endCutscene();
+        });
+
     // play the cutscene
     const playCutscene = () => {
         inCutscene = true;
@@ -227,27 +245,33 @@ document.onkeydown = e => {
             //intro cutscene
             case currentCutscene === "intro":
                 //make cutscene visible
-                cutsceneViewer.style.display = "flex";
+                largeCutsceneViewer.style.display = "flex";
                 // put it in the middle
                 viewbox.style.top = "50%";
                 viewbox.style.transform = "translate(0, -50%)";
                 //set source to correct video file
-                cutsceneVideo.src="./cutscenes/introcutscene.mp4";
+                largeCutsceneVideo.src="./cutscenes/introcutscene.mp4";
                 // pause it to let it load
-                cutsceneVideo.pause();
+                largeCutsceneVideo.pause();
                 // test user's wifi
                 setTimeout(function() { 
                     
                     }, 26*1000 );
                 // unpause after 2.5 seconds
                 setTimeout(()=> {
-                    cutsceneVideo.play();
+                    largeCutsceneVideo.play();
                     },
                     2500
                     );
 
+                break;
 
-                    
+            // transition cutscene
+            case currentCutscene === "transition":
+                //make cutscene visible
+                cutsceneViewer.style.display = "flex";
+                //set source to correct video file
+                cutsceneVideo.src="./cutscenes/transitioncutscene.mp4";
                 break;
 
             // robot waking
@@ -362,7 +386,16 @@ document.onkeydown = e => {
         switch (true) {
         //intro cutscene
         case currentCutscene === "intro":
-            //move the input and output around
+            inCutscene = true;
+            largeCutsceneViewer.style.display = "none";
+            cutsceneViewer.style.display = "flex";
+            currentCutscene = "transition";
+            playCutscene();
+            break;
+
+        // transition
+        case currentCutscene === "transition":
+        //move the input and output around
             outputArea.classList.add('boxfadein');
             inputArea.classList.add('textfadein');
             outputArea.style.display = "block";
@@ -449,7 +482,7 @@ document.onkeydown = e => {
         // ghost given mug
         case currentCutscene === "ghost given mug":
                 
-                break;
+            break;
     
         // well fall
         case currentCutscene === "well fall":
@@ -458,13 +491,13 @@ document.onkeydown = e => {
             break;
 
         }       
-        //generic
-        setTimeout(function(){
-            cutsceneViewer.style.display = "none";
-            }, 
-            100);
-        theMachine.style.display = "flex";
-        currentCutscene = "";
+        //generic XXXXXX what was this for?
+        // setTimeout(function(){
+        //     cutsceneViewer.style.display = "none";
+        //     }, 
+        //     100);
+        // theMachine.style.display = "flex";
+        // currentCutscene = "";
         
     }
 
