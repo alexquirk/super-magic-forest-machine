@@ -972,7 +972,23 @@ body {
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
     text-align: center;
-} 
+    /* .shadow {
+        bottom:0;      
+        left:0;
+        pointer-events:none;
+        position:absolute;
+        right:0;
+        top:0;
+        transition:all .2s ease-out;
+      } */
+    }
+    
+        
+/* .shadow-bottom {
+    box-shadow:0 -1em 1em -1em white inset;
+}
+     */
+
 
 .movetheviewbox {
     animation: moveTheViewbox 2s ease-in-out;
@@ -1031,6 +1047,10 @@ span > button:hover {
 
 #output > .robot {
     color: rgb(148, 200, 255);
+}
+
+#output > .points {
+    color: #fef2cc
 }
 
 .dialoguearea > input, .dialoguearea > button {

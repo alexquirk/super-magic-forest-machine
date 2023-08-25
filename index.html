@@ -103,7 +103,7 @@
 
     <!-- OUTPUT AREA -->
     <div id="outputarea" onclick="clearMap()">
-        <div id="output">
+        <div id="output" >
 
                 <!-- READ THIS :) -->
 
@@ -114,6 +114,7 @@
             <button type="button" id="leavebutton" class="dialogue" onclick="whiteButtonFlash(leaveButton)">leave conversation</button>
             <input type="button" id="bookbutton" class="dialogue" value="> Read Journal" onclick="whiteButtonFlash(bookButton)">
         </div>
+        <div class="shadow shadow-bottom" aria-hidden="true"></div>
         </div>
     </div>
     
@@ -140,6 +141,33 @@
 
 <!-- SCRIPT -->
 <script>
+
+// SCROLLING SHADOWS via https://css-tricks.com/thats-just-how-i-scroll/
+
+
+const outputArea = document.getElementById('outputarea');
+const output = document.getElementById('output');
+
+// let example3IsScrolling = false;
+
+// function setShadows(event) {
+//   if (!example3IsScrolling) {
+//     window.requestAnimationFrame(function() {
+//       if (event.target.scrollTop < 160) {
+//         outputArea.classList.add('shadow-bottom');
+//       }
+//       else {
+//         outputArea.classList.remove('shadow-bottom');
+//       }
+//       example3IsScrolling = false;
+//     });
+//     example3IsScrolling = true;
+//   }
+// }
+
+// output.addEventListener('scroll', setShadows);
+
+
 
 // PRESS ANY KEY TO CONTINUE
 
@@ -554,8 +582,7 @@ const introScreenShift = () => {
 
     const userInput = document.getElementById('userinput');
     const inputArea = document.getElementById('inputarea');
-    const outputArea = document.getElementById('outputarea');
-    const output = document.getElementById('output');
+    
     const enterButton = document.getElementById('enterbutton');
     const mapArrow = document.getElementById('maparrow');
     const d1 = document.getElementById("dialogue1");
@@ -767,7 +794,7 @@ const bellUnZoom = () => {
 
 const getPoints = (points) => {
     gamePoints = gamePoints + points;
-    return "<br><br>+" + points +"<br><br>Current score: " + gamePoints;
+    return "<span class = 'points'><br><br>+" + points +" points<br>current score: " + gamePoints + "</span>";
 }
 
 // INVENTORY
@@ -2441,7 +2468,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You can't see the moon from here.";
                 break;
             case inp('sun') || inp('sky') && roomNum !== 7 && roomNum !== 8 && roomNum !== 13:
-                output.innerHTML = "The sun is beginning to set over the forest.";
+                output.innerHTML = "The sun is beginning to set over the forest, painting the trees a shadowy hue.";
                 break;
             case inp('sun') || inp('sky') :
                 output.innerHTML = "You can't see the sky from here.";
@@ -4238,17 +4265,17 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "There aren't any trees large enough to climb nearby.";
                 break;
             case (inp('climb')|| (inp('rope')&&haveRope===true) )  &&    (inp('tree')||inp('branch'))  &&  ( roomNum === 5 || roomNum === 6 || roomNum === 12 )  :
-                output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch to look out over the forest.<br><br>Trees stretch as far as the eye can see.<br><br>You enjoy the view for a minute, then climb down.";
+                output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch to look out over the forest.<br><br>Trees stretch as far as the eye can see.<br><br>You enjoy the view for a minute, then climb down." + getPoints(10);
                 currentCutscene = "tree climb";
                 playCutscene();
                 break;
             case (inp('climb')|| (inp('rope')&&haveRope===true) )  &&    (inp('tree')||inp('branch'))  &&  ( roomNum === 5 || roomNum === 6 || roomNum === 12 )  :
-                output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch to look out over the forest.<br><br>Trees stretch as far as the eye can see.<br><br>You enjoy the view for a minute, then climb down.";
+                output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch to look out over the forest.<br><br>Trees stretch as far as the eye can see.<br><br>You enjoy the view for a minute, then climb down." + getPoints(10);
                 currentCutscene = "tree climb";
                 playCutscene();
                 break;
             case (inp('climb')|| (inp('rope')&&haveRope===true) )  &&    (inp('tree')||inp('branch')) && roomNum !== 9    :
-                output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch to look out over the forest.<br><br>There is a lake to the <span><button onclick='spanClick(\"go south\")'>south</button></span>, but besides that the trees stretch as far as the eye can see.<br><br>You enjoy the view for a minute, then climb down.";
+                output.innerHTML = "You carefully climb up the nearest tree. The branches are thin near the top, so you find a sturdy perch to look out over the forest.<br><br>There is a lake to the <span><button onclick='spanClick(\"go south\")'>south</button></span>, but besides that the trees stretch as far as the eye can see.<br><br>You enjoy the view for a minute, then climb down." + getPoints(10);
                 currentCutscene = "tree climb";
                 playCutscene();
                 break;
