@@ -472,7 +472,7 @@ body {
     justify-content: center;
     max-width: 600px;
     height: auto;
-    margin: 5px auto 10px;
+    margin: 8px auto 10px;
     max-height: 55%;
 }
 
@@ -972,23 +972,35 @@ body {
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
     text-align: center;
-    /* .shadow {
-        bottom:0;      
-        left:0;
-        pointer-events:none;
-        position:absolute;
-        right:0;
-        top:0;
-        transition:all .2s ease-out;
-      } */
-    }
-    
-        
-/* .shadow-bottom {
-    box-shadow:0 -1em 1em -1em white inset;
 }
-     */
 
+#scrollicon {
+    display: none;
+    border: solid 1em transparent;
+    border-top-color: white;
+    bottom: -0.7em;
+    color: white;
+    height: 0;
+    left: 50%;
+    opacity: .3;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    transform: translate(-50%, 0);
+    width: 0;
+    animation: flash 1.5s infinite linear;
+}
+
+@keyframes flash {
+    0%, 100% {
+      opacity:.5;
+    }
+    50% {
+      opacity:.3;
+      filter: blur(1px);
+    }
+  }
 
 .movetheviewbox {
     animation: moveTheViewbox 2s ease-in-out;

@@ -93,7 +93,6 @@
             <div id= "maptiles">
                 <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" onclick="room1Switch()"><img class="roomtile" id="room2tile" onclick="room2Switch()"><img class="roomtile" id="room3tile" onclick="room3Switch()"><img class="roomtile" id="room4tile" onclick="room4Switch()"><img class="roomtile" id="room5tile" onclick="room5Switch()"><img class="roomtile" id="room6tile" onclick="room6Switch()"><img class="roomtile" id="room7tile" onclick="room7Switch()"><img class="roomtile" id="room8tile" onclick="room8Switch()"><img class="roomtile" id="room9tile" onclick="room9Switch()"><img class="roomtile" id="room10tile" onclick="room10Switch()"><img class="roomtile" id="room11tile" onclick="room11Switch()"><img class="roomtile" id="room12tile" onclick="room12Switch()"><img class="roomtile" id="room14tile" onclick="room14Switch()"><img class="roomtile" id="room15tile" onclick="room15Switch()">
             </div>   
-            <!-- <div id="scoreindicator">Score: 0/100</div> -->
         
         </div>
 
@@ -114,8 +113,7 @@
             <button type="button" id="leavebutton" class="dialogue" onclick="whiteButtonFlash(leaveButton)">leave conversation</button>
             <input type="button" id="bookbutton" class="dialogue" value="> Read Journal" onclick="whiteButtonFlash(bookButton)">
         </div>
-        <div class="shadow shadow-bottom" aria-hidden="true"></div>
-        </div>
+        <div id = "scrollicon"></div>
     </div>
     
      <!-- INPUT AREA -->
@@ -144,30 +142,21 @@
 
 // SCROLLING SHADOWS via https://css-tricks.com/thats-just-how-i-scroll/
 
-
 const outputArea = document.getElementById('outputarea');
-const output = document.getElementById('output');
+const output = document.getElementById('output'); 
+const scrollicon = document.getElementById('scrollicon');
 
-// let example3IsScrolling = false;
+const makeScrollArrow = () => {
+    if (outputArea.offsetHeight < output.offsetHeight ) {
+        scrollicon.style.display = "block";
+    } else {
+        scrollicon.style.display = "none";
+    }
+};
 
-// function setShadows(event) {
-//   if (!example3IsScrolling) {
-//     window.requestAnimationFrame(function() {
-//       if (event.target.scrollTop < 160) {
-//         outputArea.classList.add('shadow-bottom');
-//       }
-//       else {
-//         outputArea.classList.remove('shadow-bottom');
-//       }
-//       example3IsScrolling = false;
-//     });
-//     example3IsScrolling = true;
-//   }
-// }
-
-// output.addEventListener('scroll', setShadows);
-
-
+outputArea.onscroll = function() {
+    scrollicon.style.display = "none";
+};
 
 // PRESS ANY KEY TO CONTINUE
 
@@ -524,7 +513,7 @@ const introScreenShift = () => {
 
         // ghost appearing
         case currentCutscene === "ghost appearing":
-             
+            output.innerHTML = "You start to walk past the mushrooms...<br><br>but a <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> appears!!"
             break;
 
         // fireflies emerging
@@ -1036,19 +1025,13 @@ const getPoints = (points) => {
             output.innerHTML = "You push the mug into the hole, but it's a bit too big and the handle is in the way. Maybe something else will fit better."
         };
         if (fixingBoat === true && haveMushy === true) {
-            if (haveBox === false ) {
-                haveBox = true;
-                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
-                output.innerHTML = "You push the mushroom into the hole, and it's a perfect fit. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a locked wooden box in the bottom of the boat, and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>"
-            };
             boatFixed = true;
             removeItem("a <span><button onclick='spanClick(\"inspect mushroom\")'>wild mushroom</button></span>");
             haveMushy = false;
             boatZoom();
-            switchChestRopeImage();
             room6Switch();
             closeInventory();
-            output.innerHTML = "You push the mushroom into the hole, and it's a perfect fit. You spend a few minutes bailing water out, and soon it starts to float again."
+            output.innerHTML = "You push the mushroom into the hole, and it's a perfect fit. After bailing out water for a few minutes, the boat starts to float again." + getPoints(10);
         };
         if (fixingMill === true && haveMug === true) {
             output.innerHTML = "You don't see how that's going to work."
@@ -1110,13 +1093,7 @@ const getPoints = (points) => {
             boatZoom();
             room6Switch();
             closeInventory();
-            output.innerHTML = "You plug the hole in the bottom of the boat with a rock. You spend a few minutes bailing water out, and soon it starts to float again.";
-            if (haveBox === false ) {
-                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
-                haveBox = true;
-                output.innerHTML = "You plug the hole in the bottom of the boat with a rock. You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span> in the bottom of the boat, and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
-                switchChestRopeImage();
-            };
+            output.innerHTML = "You plug the hole in the bottom of the boat with a rock. After bailing out water for a few minutes, the boat starts to float again." + getPoints(10);
         };
         if (fixingMill === true && haveRock === true) {
             output.innerHTML = "You try to unjam the mechanism with a rock, but without success. You'll need something longer to reach into where the lever has broken off.";
@@ -2382,6 +2359,9 @@ const spanClick = (whatToDo) => {
         switch (true) {
     
         // GLOBAL
+            case (inp('points')||inp('score')) && (inp('what')||inp('how'))  :
+                output.innerHTML =  "<span class = 'points'>current score: " + gamePoints + "</span>";
+                break;
             case inp('mushy test'):
                 takeMushy();
                 break;
@@ -2589,7 +2569,7 @@ const spanClick = (whatToDo) => {
                             ghostDiscovered = true;
                             room9Switch();
                             ghostZoom();
-                            output.innerHTML = "You start to walk past the mushrooms...<br><br>but a <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> appears!!";
+                            output.innerHTML = "You start to walk past the mushrooms...";
                         } else if (ghostDiscovered === true && ghostGivenMug === false) {
                             ghostZoom();
                             output.innerHTML = "The <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> is blocking the path.";
@@ -3347,6 +3327,13 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You push the boat out into the lake and hop in. Without paddles, you allow the tide to take you where it will.<br><br>Soon the boat lands on the shore of an island.";
                 break;
                 // Fixing The Boat
+            case roomNum === 6   && boatFixed === false && (inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug')||inp('use'))   &&  (inp('mud')||inp('clay')) :
+                boatFixed = true;
+                boatZoom();
+                room6Switch();
+                closeInventory();
+                output.innerHTML = "You dig into the mud for some wet clay and mould it into shape. You carefully plug the hole, spend a few minutes bailing water out, and soon the boat begins to float again." + getPoints(10);
+                break;
             case roomNum === 6   && boatFixed === false && inventory.length === 0 && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ) && !inp('rock'):
                 output.innerHTML = "You don't have anything in  your pockets to fix the boat with. Try looking around for something.";
                 break;
@@ -3357,28 +3344,14 @@ const spanClick = (whatToDo) => {
                 boatZoom();
                 room6Switch();
                 closeInventory();
-                output.innerHTML = "You plug the hole in the bottom of the boat with a rock. You spend a few minutes bailing water out, and soon it starts to float again.";
+                output.innerHTML = "You plug the hole in the bottom of the boat with a rock. After bailing out water for a few minutes, the boat starts to float again." + getPoints(10);
                 break;
             case roomNum === 6   && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
                 displayInventory();
                 fixingBoat = true;
                 output.innerHTML = "What do you want to use to fix the boat?";
                 break;
-            // case roomNum === 6    && haveBox === false  && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
-            //     haveBox = true;
-            //     boatFixed = true;
-            //     boatZoom();
-            //     switchChestRopeImage();
-            //     room6Switch();
-            //     output.innerHTML = "You plug the hole in the bottom of the <span>boat</span> with a <span><button onclick='spanClick(\"inspect rock\")'>rock.</button></span> You spend a few minutes bailing water out, and soon it starts to float again.<br><br>You find a <span>locked wooden box</span> in the bottom of the boat, and put it in your <span>pockets</span>.";
-            //     inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
-            //     break;
-            case roomNum === 6    && haveBox === true  && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ):
-                boatFixed = true;
-                boatZoom();
-                room6Switch();
-                output.innerHTML = "You plug the hole in the bottom of the boat with a rock. You spend a few minutes bailing water out, and soon it starts to float again.";
-                break;
+
                 // Searching The Boat
             case roomNum === 6   && ropeTaken === false  && boatFixed === false && (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what')||inp('bottom')||inp('behind')||inp('under')||inp('what'))  &&    (inp('boat')||inp('moor'))  :
                 boatZoom();
@@ -3519,7 +3492,7 @@ const spanClick = (whatToDo) => {
                 break;
                 // ghost interupts mushroom picking
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false  &&  (inp('search')||inp('take')||inp('grab')||inp('pocket')||inp('eat')||inp('gather')||inp('pick'))   &&    (inp('mushroom')||inp('circle'))  :
-                output.innerHTML = 'You take a step towards the mushrooms, but the ghostly figure gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br>"<span class="journal">Moon... cactus... down the well...</span>"';
+                output.innerHTML = 'You take a step towards the mushrooms, but the ghostly figure gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br>"<span class="journal">Moon... cactus... the well...</span>"';
                 ghostZoom();
                 break;
                 // look at mushrooms
@@ -3542,11 +3515,11 @@ const spanClick = (whatToDo) => {
                 break;
                 // interact with ghost
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('ask')||inp('question')):
-                output.innerHTML = 'You gather the courage to ask the ghost what it wants.<br><br>A voice whispers...<br><br><span class="journal">"Moon... cactus... down the well..."';
+                output.innerHTML = 'You gather the courage to ask the ghost what it wants.<br><br>A voice whispers...<br><br><span class="journal">"Moon... cactus... the well..."';
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('talk')||inp('chat')||inp('hello')||inp('say')||inp(' hi')||inp('listen')||inp('speak')):
-                output.innerHTML = 'A voice whispers...<br><br><span class="journal">"Moon... cactus...</span>"<br><br>What could that mean?';
+                output.innerHTML = 'A voice whispers...<br><br><span class="journal">"Moon... cactus... the well...</span>"<br><br>What could that mean?';
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('flirt')||inp('compliment')||inp('flatter')||inp('charm')) :
@@ -3556,7 +3529,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  && haveFlower === true && ghostGivenFlower === false && inp('flower') && (inp('give')||inp('offer')||inp('hand')) :
                 ghostGivenFlower = true;
                 room9Switch();
-                output.innerHTML = 'You offer the ghost a flower. Maybe it\'s just a trick of the light, but the ghost seems to blush.<br><br><span class="journal">"...Thanks..."</span><br><br>The ghost doesn\'t move from the path, but it does seem a bit cheerier.';
+                output.innerHTML = 'You offer the ghost a flower. Maybe it\'s just a trick of the light, but the ghost seems to blush.<br><br><span class="journal">"...Thanks..."</span><br><br>The ghost doesn\'t move from the path, but it does seem a bit cheerier.' + getPoints(25);
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  inp('boo') || inp('scare') ||  inp('frighten') ||  inp('shoo') ||  inp('curse') :
@@ -4675,20 +4648,10 @@ const spanClick = (whatToDo) => {
                 break;
 
             // TRAVEL TO LAKE
-            case roomNum !== 8 && roomNum !== 7 && roomNum !== 13  && (inp('travel')||inp('go')||inp('walk')||inp('find')||inp('look for')||inp('visit'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('pond')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')) :
-                if (roomNum === 11 || roomNum === 10) {
-                    room12Switch();
-                    userInput.value = "";
-                    roomNum = 12;
-                } else if (roomNum === 1 || roomNum === 4) {
-                    room5Switch();
-                    userInput.value = "";
-                    roomNum = 5;
-                } else {
-                    room6Switch();
-                    userInput.value = "";
-                    roomNum = 6;
-                };
+            case roomNum === 10  && (inp('travel')||inp('go')||inp('walk')||inp('find')||inp('look for')||inp('visit'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('pond')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')) && !inp('well') :
+                room6Switch();
+                userInput.value = "";
+                roomNum = 6;
                 break;
 
             // DEFAULT "GO"
@@ -4981,6 +4944,9 @@ const spanClick = (whatToDo) => {
         userInput.value = "";
         currentPage = 0;
         outputArea.scroll(0,0);
+
+        // make scroll arrow
+        makeScrollArrow();
     };
 
 // PRESSING ENTER 
