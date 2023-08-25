@@ -63,7 +63,7 @@
             
             <div id="mapbox">
                 <div id="cutsceneviewer">
-                    <video poster="./cutscenes/loadingleaf.gif"  id="cutscenevideo" autoplay="autoplay" muted playsinline>
+                    <video poster=""  id="cutscenevideo" autoplay="autoplay" muted playsinline>
                         <source src="./cutscenes/transitioncutscene.mp4" type="video/mp4" control="none">
                     </video>
                 </div>
@@ -185,6 +185,50 @@ document.onkeydown = e => {
         }
 };
 
+// big intro screen shift
+
+const introScreenShift = () => {
+        //move the input and output around
+        outputArea.classList.add('boxfadein');
+        inputArea.classList.add('textfadein');
+        outputArea.style.display = "block";
+        inputArea.style.display = "flex";
+        output.style.display = 'block';
+        output.style.opacity = "0";
+        outputArea.style.zIndex = "-1";
+        // bring the output back to the top (we pushed it to the back above because it looked weird over the viewbox while stuff was moving around)
+        setTimeout(function() { 
+            outputArea.style.zIndex = "0";
+            }, 
+            2000);
+            // how long till the text appears
+        setTimeout(function() { 
+            output.style.opacity = "1";
+            output.classList.add('textfadein'); 
+            }, 
+            1400);
+        // move the viewbox around
+        viewbox.style.top = "0%";
+        viewbox.style.transform = "translate(0, 0%)";
+        viewbox.classList.add('movetheviewbox');
+        document.getElementById('viewer').classList.add('vieweradjustmaxwidth');
+        // make borders visible
+        document.getElementById('border1').classList.add('machinefadein');
+        document.getElementById('border2').classList.add('machinefadein');
+        document.getElementById('viewer').classList.add('viewerborderfadein');
+        // document.getElementById('viewer').style.border = "1px solid white";
+        // document.getElementById('southtriangle').classList.add('textfadein');
+        // setTimeout(function() {
+        //     document.getElementById('southtriangle').classList.remove('southtrianglefadein');
+        //     // document.getElementById('southtriangle').style.display = "inline";
+        //     }, 1200)
+        // get the game started
+        room14Switch();
+        room14.style.zIndex = "0";
+        document.getElementById("room14tile").src="./maptiles/room14tile.png";
+        roomNum = 14;
+}
+
 
 // CUTSCENES
 
@@ -224,7 +268,25 @@ document.onkeydown = e => {
                 // && introCutsceneDonePlaying === true 
                 
                 ){
-            if (introCutscenePlayed === true) {endCutscene();}
+                // all this below is to make it so that both intro and transition cutscene are skipped together
+            if (introCutscenePlayed === true) 
+                    if (currentCutscene !== "intro" && currentCutscene !== "transition"){
+                        endCutscene();
+                    } else if (inCutscene === true){
+                        southTriangle.style.opacity = "75%";
+                        introCutsceneDonePlaying = true;
+
+                        cutsceneViewer.style.display = "none";
+                        largeCutsceneViewer.style.display = "none";
+                        currentCutscene = "";
+
+                        introScreenShift();
+
+                        // bring the leaf poster back
+                        document.getElementById('cutscenevideo').setAttribute('poster','./cutscenes/loadingleaf.gif');
+            
+                        introCutsceneDonePlaying = true;
+                    }
             }});
 
     // hide the video when its ended
@@ -391,51 +453,29 @@ document.onkeydown = e => {
             cutsceneViewer.style.display = "flex";
             currentCutscene = "transition";
             playCutscene();
+            
+            // do all the shit to get the game started
+            setTimeout(function(){
+
+                    introScreenShift();
+
+                    },
+                    2000)
+
             break;
 
         // transition
         case currentCutscene === "transition":
-        //move the input and output around
-            outputArea.classList.add('boxfadein');
-            inputArea.classList.add('textfadein');
-            outputArea.style.display = "block";
-            inputArea.style.display = "flex";
-            output.style.display = 'block';
-            output.style.opacity = "0";
-            outputArea.style.zIndex = "-1";
-            // bring the output back to the top (we pushed it to the back above because it looked weird over the viewbox while stuff was moving around)
-            setTimeout(function() { 
-                outputArea.style.zIndex = "0";
-                }, 
-                2000);
-                // how long till the text appears
-            setTimeout(function() { 
-                output.style.opacity = "1";
-                output.classList.add('textfadein'); 
-                }, 
-                1400);
-            // move the viewbox around
-            viewbox.style.top = "0%";
-            viewbox.style.transform = "translate(0, 0%)";
-            viewbox.classList.add('movetheviewbox');
-            document.getElementById('viewer').classList.add('vieweradjustmaxwidth');
-            // make borders visible
-            document.getElementById('border1').classList.add('machinefadein');
-            document.getElementById('border2').classList.add('machinefadein');
-            document.getElementById('viewer').classList.add('viewerborderfadein');
-            // document.getElementById('viewer').style.border = "1px solid white";
-            // fade the 's' in
-            // document.getElementById('southtriangle').style.display = "none";
-            document.getElementById('southtriangle').classList.add('textfadein');
-            setTimeout(function() {
-                document.getElementById('southtriangle').classList.remove('textfadein');
-                // document.getElementById('southtriangle').style.display = "inline";
-                }, 1200)
-            // get the game started
-            room14Switch();
-            room14.style.zIndex = "0";
-            document.getElementById("room14tile").src="./maptiles/room14tile.png";
-            roomNum = 14;
+            // bring the leaf poster back
+            document.getElementById('cutscenevideo').setAttribute('poster','./cutscenes/loadingleaf.gif');
+            cutsceneViewer.classList.add('longfadeout');
+            setTimeout(function(){
+                cutsceneViewer.classList.remove('longfadeout');
+                cutsceneViewer.style.display = "none";
+            },
+            1500
+            );
+            
             introCutsceneDonePlaying = true;
             break;
 
@@ -490,14 +530,17 @@ document.onkeydown = e => {
             output.innerHTML = "Oops...<br><br>You jump down the well and smash yourself up pretty good, which wasn't the smartest move, but pretty brave.<br><br>+5 points<br><br>Current score: " + gamePoints;
             break;
 
-        }       
-        //generic XXXXXX what was this for?
-        // setTimeout(function(){
-        //     cutsceneViewer.style.display = "none";
-        //     }, 
-        //     100);
-        // theMachine.style.display = "flex";
-        // currentCutscene = "";
+        }    
+        
+        // generic
+        if (currentCutscene !== 'transition') {
+        setTimeout(function(){
+            cutsceneViewer.style.display = "none";
+            currentCutscene = "";
+            }, 
+            10);
+        }
+        theMachine.style.display = "flex";
         
     }
 
@@ -3449,7 +3492,7 @@ const spanClick = (whatToDo) => {
                 break;
                 // ghost interupts mushroom picking
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false  &&  (inp('search')||inp('take')||inp('grab')||inp('pocket')||inp('eat')||inp('gather')||inp('pick'))   &&    (inp('mushroom')||inp('circle'))  :
-                output.innerHTML = 'You take a step towards the mushrooms, but the ghostly figure gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br>"<span class="journal">Moon... cactus...</span>"<br><br>What could that mean?';
+                output.innerHTML = 'You take a step towards the mushrooms, but the ghostly figure gives you an icy stare that freezes you in your tracks.<br><br>A voice whispers...<br><br>"<span class="journal">Moon... cactus... down the well...</span>"';
                 ghostZoom();
                 break;
                 // look at mushrooms
@@ -3472,7 +3515,7 @@ const spanClick = (whatToDo) => {
                 break;
                 // interact with ghost
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('ask')||inp('question')):
-                output.innerHTML = 'You gather the courage to ask the ghost what it wants.<br><br>A voice whispers...<br><br><span class="journal">"Moon... cactus... well...</span>"<br><br>What could that mean?';
+                output.innerHTML = 'You gather the courage to ask the ghost what it wants.<br><br>A voice whispers...<br><br><span class="journal">"Moon... cactus... down the well..."';
                 ghostZoom();
                 break;
             case roomNum === 9 && ghostDiscovered === true && ghostGivenMug === false  &&  (inp('talk')||inp('chat')||inp('hello')||inp('say')||inp(' hi')||inp('listen')||inp('speak')):
@@ -4220,7 +4263,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "That's a big ol' palm tree! Nothing much to do with it, though.";
                 break;
             case ((roomNum !== 4) || marbleDown === true) &&   (inp('look'))   &&    (inp('tree')||inp('branch'))     :
-                output.innerHTML = "There is a wide variety of trees in the forest - oaks, sycamore, pines trees, cyrpress, even some eucalyptus.<br><br>You search around the trees, but don't fund anything particularly useful.";
+                output.innerHTML = "There is a wide variety of trees in the forest - oaks, sycamore, pines trees, cyrpress, even some eucalyptus.<br><br>You search around the trees, but don't find anything particularly useful.";
                 break;
                 // search
             case ((roomNum !== 4) || marbleDown === true) &&   (inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('behind')||inp('under')||inp('what'))   &&    (inp('tree')||inp('branch'))     :

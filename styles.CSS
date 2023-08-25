@@ -47,7 +47,7 @@ body {
     animation-iteration-count: 1;
     animation-fill-mode: forwards; */
     filter: drop-shadow(2px 4px 6px black);
-    transition: .3s;
+    transition: .2s;
 }
 
 #titlecardtext:hover {
@@ -79,12 +79,12 @@ body {
     transform: translate(-50%, -50%);  
     width: 100vw;
     overflow: hidden;
-    max-width: 720px;
+    max-width: 800px;
     min-width: 320px;
     height: 100vh;  
     object-fit: cover;
-    max-height: 500px;
-    border: 1px solid white;
+    max-height: 520px;
+    /* border: 1px solid white; */
 }
 
 /* @keyframes titleCardFadeIn {
