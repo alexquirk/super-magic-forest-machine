@@ -544,7 +544,7 @@ const introScreenShift = () => {
         // well fall
         case currentCutscene === "well fall":
             gamePoints += 5;
-            output.innerHTML = "Oops...<br><br>You jump down the well and smash yourself up pretty good, which wasn't the smartest move, but pretty brave.<br><br>+5 points<br><br>Current score: " + gamePoints;
+            output.innerHTML = "Oops...<br><br>You find yourself standing in front of an old <span><button onclick='spanClick(\"inspect well\")'>stone well.</button></span>";
             break;
 
         }    
@@ -2575,7 +2575,7 @@ const spanClick = (whatToDo) => {
                             output.innerHTML = "The <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> is blocking the path.";
                         } else {
                             goEastAnimation();
-                            room11Switch();
+                            room5Switch();
                         }
                         break;
                     case 1:
@@ -2586,7 +2586,7 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "You can't go any futher east."
                         break;
                     case 5:
-                        room9Switch();
+                        room11Switch();
                         goEastAnimation();
                         break;
                     case 3:
@@ -2594,7 +2594,7 @@ const spanClick = (whatToDo) => {
                         goEastAnimation();
                         break;
                     case 6:
-                        room5Switch();
+                        room9Switch();
                         goEastAnimation();
                         break;
                     case 16:
@@ -2709,7 +2709,7 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "The forest is too dense to go west.";
                         break;
                     case 11:
-                        room9Switch();
+                        room5Switch();
                         goWestAnimation();
                         break;
                     case 10:
@@ -2739,7 +2739,7 @@ const spanClick = (whatToDo) => {
                         output.innerHTML = "You can't go any futher west."
                         break;
                     case 9:
-                        room5Switch();
+                        room6Switch();
                         goWestAnimation();
                         break;
                     case 4:
@@ -2750,7 +2750,7 @@ const spanClick = (whatToDo) => {
                         goWestAnimation();
                         break;
                     case 5:
-                        room6Switch();
+                        room9Switch();
                         goWestAnimation();
                         break;
                     case 17:
@@ -3190,7 +3190,6 @@ const spanClick = (whatToDo) => {
                     removeItem("a <span><button onclick='spanClick(\"inspect stick\")'>stick</button></span>")
                 };
                 haveStick = false;
-                gamePoints -= 999;
                 output.innerHTML = "You throw a stick at the cat like the big jerk you are. The cat dodges out of the way and hisses."+ getPoints(-999);
                 break;
             case roomNum === 4  && marbleDown === false &&  (inp('pull')||inp('grab')||inp('hit')||inp('ask')||inp('lure')||inp('tease')||inp('take')) && inp('cat')   :
@@ -3302,7 +3301,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such.";
                 break;
                 // Attempting to Ride The Boat
-            case roomNum === 6    && haveBox === false  &&  boatFixed === false && (inp('get')||inp('take')||inp('ride'))   &&    (inp('boat'))  :
+            case roomNum === 6    && haveBox === false  &&  boatFixed === false && (inp('get')||inp('take')||inp('ride')||inp('use'))   &&    (inp('boat'))  :
                 output.innerHTML = "The <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> has a fist-size hole in the bottom and is filled with water. Maybe you can find something to plug the hole with.";
                 boatZoom();
                 break;
@@ -3710,7 +3709,13 @@ const spanClick = (whatToDo) => {
             case roomNum === 10 && inp('bucket') :
                 output.innerHTML = "You don't see a bucket nearby.";
                 break;
-            case roomNum === 10 && inp('rope') && haveRope === false :
+            case roomNum === 10 && inp('water') && inp('well') :
+                output.innerHTML = "You don't have a bucket to draw water with. The well seems dry anyway.";
+                break;
+            case roomNum === 10 && inp('rope') && (inp('look')||inp('search')||inp('check'))  && haveRope === false && ropeSet === false :
+                output.innerHTML = "You don't see a rope nearby.";
+                break;
+            case roomNum === 10 && inp('rope') && haveRope === false && ropeSet === false :
                 output.innerHTML = "You don't have a rope.";
                 break;
             case roomNum === 10 && inp('rope') && inp('test') && ropeSet === true :
@@ -4270,7 +4275,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You search around the trees, but don't find anything.";
                 break;
             case (inp('hug')||inp('love'))  && inp('tree')  :
-                output.innerHTML = "Ya hippie :)" + getPoints(10);
+                output.innerHTML = "Ya hippie :)" + getPoints(2);
                 break;
             case inp('tree')  :
                 output.innerHTML = "There are a lot of different kinds of trees around you - oaks, sycamore, pines trees, cyrpress, even some eucalyptus. Their leaves cover the ground.<br><br>You search around the trees for a bit, but don't find anything.";
@@ -4289,7 +4294,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "It's a rather pretty blue flower :)";
                 break;
             case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15 || roomNum === 18)   &&    (inp('look')||inp('inspect')||inp('examine')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('flower'))     :
-                output.innerHTML = "You look at the flowers. Nice :)<br><br>+1 point";
+                output.innerHTML = "You look at the flowers. Nice :)";
                 break;
             case (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 4 || roomNum === 14 || roomNum === 12  || roomNum === 15 || roomNum === 18)   &&    (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put'))   &&    (inp('flower'))  && haveFlower === false   :
                 output.innerHTML = "You pick one of the blue flowers and carefully put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
@@ -4304,7 +4309,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "There aren't any flowers around here.";
                 break;
             case inp('smell') &&    (inp('flower')) &&  (roomNum === 1 || roomNum === 3 || roomNum === 5 || roomNum === 14 || roomNum === 12  || roomNum === 15 || roomNum === 18)   :
-                output.innerHTML = "Lovely :)" + getPoints(10);
+                output.innerHTML = "Lovely :)" + getPoints(1);
                 break;
             case  haveFlower === true &&    inp('flower') && (inp('drop')||inp('leave')||inp('throw')||inp('toss'))  :
                 removeItem("a <span><button onclick='spanClick(\"inspect flower\")'>blue flower</button></span>");
@@ -4427,9 +4432,6 @@ const spanClick = (whatToDo) => {
                 break;
             case  inp('aim') && inp("for") && inp('bush') :
                 output.innerHTML = "You thinkin what I'm thinkin?";
-                break;
-            case  inp('bush') :
-                output.innerHTML = "What about the bushes?";
                 break;
 
             // LEAVES
