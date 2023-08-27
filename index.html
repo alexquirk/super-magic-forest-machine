@@ -30,8 +30,8 @@
 </video>
 
 
-<div id="largecutsceneviewer">
-    <video poster="./cutscenes/loadingleaf.gif"  id="largecutscenevideo" autoplay="autoplay" muted playsinline>
+<div id="largecutsceneviewer" >
+    <video poster="./cutscenes/loadingleaf.gif"  id="largecutscenevideo" autoplay="autoplay" muted playsinline onclick="doubleTapSkip()">
         <source src="./cutscenes/introcutscene.mp4" type="video/mp4" control="none">
     </video>
 </div>
@@ -63,7 +63,7 @@
             
             <div id="mapbox">
                 <div id="cutsceneviewer">
-                    <video poster=""  id="cutscenevideo" autoplay="autoplay" muted playsinline>
+                    <video poster=""  id="cutscenevideo" autoplay="autoplay" muted playsinline onclick="doubleTapSkip()">
                         <source src="./cutscenes/transitioncutscene.mp4" type="video/mp4" control="none">
                     </video>
                 </div>
@@ -276,20 +276,12 @@ const introScreenShift = () => {
 
     const largeCutsceneViewer = document.getElementById('largecutsceneviewer');
 
-
-
-    //skip cutscene if spacebar is pressed
-    document.addEventListener('keyup', event => {
-        if (event.code === 'Space' 
-                // uncomment line below to make first cutscene unskippable?
-                // && introCutsceneDonePlaying === true 
-                
-                ){
-                // all this below is to make it so that both intro and transition cutscene are skipped together
-            if (introCutscenePlayed === true) 
+    // skipping cutscene function
+    const skipCutscene = () => {
+        if (introCutscenePlayed === true) // wait to let into cutscene load
                     if (currentCutscene !== "intro" && currentCutscene !== "transition"){
-                        endCutscene();
-                    } else if (inCutscene === true){
+                        endCutscene(); // ends most cutscenes
+                    } else if (inCutscene === true){ // ends into cutscenes together
                         southTriangle.style.opacity = "75%";
                         introCutsceneDonePlaying = true;
 
@@ -304,6 +296,26 @@ const introScreenShift = () => {
             
                         introCutsceneDonePlaying = true;
                     }
+    }
+
+    // skip cutscene if doubleclicked
+    let tappedOnce = false;
+
+    const doubleTapSkip = () => {
+        if (tappedOnce === true) {skipCutscene(); focusOnInputOnDesktop();};
+        tappedOnce = true;
+        setTimeout( function() { tappedOnce = false }, 300);
+    }
+
+    //skip cutscene if spacebar is pressed
+    document.addEventListener('keyup', event => {
+        if (event.code === 'Space'
+                // uncomment line below to make first cutscene unskippable?
+                // && introCutsceneDonePlaying === true 
+            )
+                {
+                // all this below is to make it so that both intro and transition cutscene are skipped together
+                    skipCutscene();
             }});
 
     // hide the video when its ended
@@ -2286,6 +2298,22 @@ const takeMushy = () => {
     document.getElementById('mapbox').classList.add('mushytaken');
     mushyTaken = true;
     mushyTimePassed = 7;
+}
+
+// FOCUS ON INPUT ON DESKTOP ONLY
+
+const focusOnInputOnDesktop = () => {
+    if (!( 
+                   navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                )) {
+            userInput.focus(); 
+                }   
 }
 
 // SPAN CLICK
