@@ -367,7 +367,7 @@ const introScreenShift = () => {
                 largeCutsceneVideo.pause();
                 // test user's wifi
                 setTimeout(function() { 
-                    if (videoLoaded === false) {
+                    if (videoLoaded === false && inCutscene === true) {
                         showWifiCard();
                     }
                     }, 
