@@ -70,6 +70,45 @@ body {
     mix-blend-mode: lighten;
 }
 
+#wificard {
+    cursor: default;
+    display: none;
+    color: white;
+    border: 1px white solid;
+    position: absolute;
+    z-index: 1000;
+    background: black;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* width: 100vw; */
+    padding: 5px 10px 9px;
+    /* overflow: hidden; */
+    /* max-width: 720px; */
+    /* min-width: 320px; */
+    /* height: 100vh; */
+    /* height: -webkit-fill-available; */
+    object-fit: cover;
+    text-align: center;
+}
+
+#wificard > button {
+    border: 1px white solid;
+    font-family: inherit;
+    font-size: inherit;
+    background-color: black;
+    color: white;
+    padding: 1px 5px 5px;
+    margin: 15px 0px;
+    box-shadow: gray 5px 5px 0px;
+}
+
+#wificard > button:active {
+    box-shadow: none;
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
 #largecutsceneviewer {
     display: none;
     position: absolute;
@@ -197,11 +236,6 @@ body {
 
 .entershrine {
     animation: enterShrine 1s ease-out;
-    animation-iteration-count: 1;
-}
-
-.takeboatfromshrine {
-    animation: enterShrine 3s ease-out;
     animation-iteration-count: 1;
 }
 
@@ -670,6 +704,19 @@ body {
 #easttriangle {
     right: 0;
     opacity: 0%;
+}
+
+#uptriangle {
+    right: 50%;
+    opacity: 0%;
+    transform: translateX(50%);
+}
+
+#downtriangle {
+    right: 50%;
+    bottom: 0;
+    opacity: 0%;    
+    transform: translateX(50%);
 }
 
 /* #uptriangle, #downtriangle {
