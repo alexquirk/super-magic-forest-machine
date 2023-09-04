@@ -81,7 +81,7 @@
                     </video>
                 </div>
                 <div id= "map">
-                    <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5a.png"><img class="room" id="room6" src="./roomimages/smfmroom6a.png"><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src="./roomimages/smfmroom9b.png"><img class="room" id="room10" src="./roomimages/smfmroom10a.png"><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src="./roomimages/smfmroom13a.png"><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src="./roomimages/smfmroom15a.png"><img class="room" id="room16" src="./roomimages/smfmroom16a.png"><img class="room" id="room17" src=""><img class="room" id="room18" src=""><img class="room" id="extraroom" src="">
+                    <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5a.png"><img class="room" id="room6" src=""><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src=""><img class="room" id="room10" src=""><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src=""><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src=""><img class="room" id="room16" src="./roomimages/smfmroom16a.png"><img class="room" id="room17" src=""><img class="room" id="room18" src=""><img class="room" id="extraroom" src="">
                 </div>       
             </div>     
             <div id="closeinventory" onclick="closeInventory()">back</div>
@@ -1850,6 +1850,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         );
     };
     const room6Switch = () => {
+        // load next room images
+        if (roomVisited[15] === false) {room15.src = "./roomimages/smfmroom15a.png"};
+        if (roomVisited[9] === false) {room9.src = "./roomimages/smfmroom9b.png"};
+
         if (ropeTaken === false && boatFixed === false && roomNum === 5)
                 {output.innerHTML = "You travel west along the lake shore until you arrive at the wooded point where the half-sunk <span><button onclick='spanClick(\"inspect boat\")'>boat</button></span> is tied to the mooring.<br><br>The path continues to the <span><button onclick='spanClick(\"go north\")'>north.</button></span>"}
             else if (ropeTaken === false && boatFixed === false && roomNum === 10)
@@ -1980,6 +1984,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         );
     }; 
     const room10Switch = () => {
+        // load next room images
+        if (roomVisited[6] === false) {room6.src="./roomimages/smfmroom6a.png"};
+        if (roomVisited[13] === false) {room13.src="./roomimages/smfmroom13a.png"};
+
         if (newGame === true) {
             // wellZoom();
             output.innerHTML = "You travel south along the narrow path. Soon, you find yourself standing in front of an old <span><button onclick='spanClick(\"inspect well\")'>stone well.</button></span>";
@@ -2091,6 +2099,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         );
     }; 
     const room14Switch = () => { 
+        if (roomVisited[10] === false) {room10.src="./roomimages/smfmroom10a.png"};
+
         if (newGame === false && roomNum === 10) {
             output.innerHTML = "You travel north and return to the glade where you awoke.";
         } else if (newGame === false ) {
