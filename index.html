@@ -44,9 +44,9 @@
     (not recommended, the cutscenes<br>
     are like the best part)
     <br><br>
-    <button type="button">continue without cutscenes</button>
+    <button type="button" onclick="disableCutscenes()">continue without cutscenes</button>
     <br>
-    <button type="button">continue with cutscenes</button>
+    <button type="button" onclick="hideWifiCard()">continue with cutscenes</button>
 </div>
 
 <!-- <div id="loadingscreen">
@@ -169,6 +169,8 @@ const viewbox = document.getElementById('viewbox');
 let introCutscenePlayed = false;
 let introCutsceneDonePlaying = false;
 
+let cutscenesEnabled = true;
+
 // show wificard
 
 const showWifiCard = () => {
@@ -186,6 +188,12 @@ const hideWifiCard = () => {
     setTimeout(function() {wifiCard.style.display = "none"}, 1000);
     largeCutsceneVideo.play();
     cutsceneVideo.play();
+}
+
+const disableCutscenes = () => {
+    cutscenesEnabled = false;
+    endCutscene();
+    hideWifiCard();
 }
 
 // const hideWifiCard = () =>
@@ -350,169 +358,173 @@ const introScreenShift = () => {
 
     // play the cutscene
     const playCutscene = () => {
-        videoLoaded = false;
-        inCutscene = true;
-        switch (true) {
 
-            //intro cutscene
-            case currentCutscene === "intro":
-                //make cutscene visible
-                largeCutsceneViewer.style.display = "flex";
-                // put it in the middle
-                viewbox.style.top = "50%";
-                viewbox.style.transform = "translate(0, -50%)";
-                //set source to correct video file
-                largeCutsceneVideo.src="./cutscenes/introcutscene.mp4";
-                // pause it to let it load
-                largeCutsceneVideo.pause();
-                // test user's wifi
-                setTimeout(function() { 
-                    if (videoLoaded === false && inCutscene === true) {
-                        showWifiCard();
-                    }
-                    }, 
-                    // this is how many seconds long the video is / 2
-                    10
-                    *
-                    1000 );
+        if (cutscenesEnabled === true) {
 
-                // unpause after 2.5 seconds
-                // setTimeout(()=> {
-                    // just play it vvv
-                    // largeCutsceneVideo.play();
+            videoLoaded = false;
+            inCutscene = true;
+            switch (true) {
 
-                // or wait till it can play through vvv
-                largeCutsceneVideo.addEventListener("canplaythrough", (event) => {
-                    largeCutsceneVideo.play();
-                    videoLoaded = true;
-                    }
-                    );
+                //intro cutscene
+                case currentCutscene === "intro":
+                    //make cutscene visible
+                    largeCutsceneViewer.style.display = "flex";
+                    // put it in the middle
+                    viewbox.style.top = "50%";
+                    viewbox.style.transform = "translate(0, -50%)";
+                    //set source to correct video file
+                    largeCutsceneVideo.src="./cutscenes/introcutscene.mp4";
+                    // pause it to let it load
+                    largeCutsceneVideo.pause();
+                    // test user's wifi
+                    setTimeout(function() { 
+                        if (videoLoaded === false && inCutscene === true) {
+                            showWifiCard();
+                        }
+                        }, 
+                        // this is how many seconds long the video is / 2
+                        10
+                        *
+                        1000 );
+
+                    // unpause after 2.5 seconds
+                    // setTimeout(()=> {
+                        // just play it vvv
+                        // largeCutsceneVideo.play();
+
+                    // or wait till it can play through vvv
+                    largeCutsceneVideo.addEventListener("canplaythrough", (event) => {
+                        largeCutsceneVideo.play();
+                        videoLoaded = true;
+                        }
+                        );
+
+                        
+                    
+                        //     },
+                        // 2500
+                        // );
 
                     
-                
-                    //     },
-                    // 2500
-                    // );
-
-                
-                break;
+                    break;
 
 
 
-            // transition cutscene
-            case currentCutscene === "transition":
-                //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-                //set source to correct video file
-                cutsceneVideo.src="./cutscenes/transitioncutscene.mp4";
-                break;
+                // transition cutscene
+                case currentCutscene === "transition":
+                    //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                    //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/transitioncutscene.mp4";
+                    break;
 
 
-            // robot waking
-            case currentCutscene === "robot waking":
-                //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-                //set source to correct video file
-                cutsceneVideo.src="./cutscenes/robotcutscene.mp4";
-                //change map image
-                room12.src="./roomimages/smfmroom12c.png";
-                break;
+                // robot waking
+                case currentCutscene === "robot waking":
+                    //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                    //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/robotcutscene.mp4";
+                    //change map image
+                    room12.src="./roomimages/smfmroom12c.png";
+                    break;
 
-            // robot scanning
-            case currentCutscene === "robot scanning":
-                //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-                //set source to correct video file
-                cutsceneVideo.src="./cutscenes/robotscanningcutscene.mp4";
-                break;
+                // robot scanning
+                case currentCutscene === "robot scanning":
+                    //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                    //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/robotscanningcutscene.mp4";
+                    break;
 
-            // ride the boat
-            case currentCutscene === "riding boat":
-                //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-                //set source to correct video file
-                cutsceneVideo.src="./cutscenes/boatcutscene.mp4";
-                break;
+                // ride the boat
+                case currentCutscene === "riding boat":
+                    //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                    //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/boatcutscene.mp4";
+                    break;
 
-            // ghost appearing
-            case currentCutscene === "ghost appearing":
-                //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-                //set source to correct video file
-                cutsceneVideo.src="./cutscenes/ghostcutscene.mp4";
-                break;
+                // ghost appearing
+                case currentCutscene === "ghost appearing":
+                    //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                    //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/ghostcutscene.mp4";
+                    break;
 
-            // fireflies emerging
-            case currentCutscene === "fireflies emerging":
-                //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-                //set source to correct video file
-                cutsceneVideo.src="./cutscenes/cavecutscene2.mp4";
-                break;
+                // fireflies emerging
+                case currentCutscene === "fireflies emerging":
+                    //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                    //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/cavecutscene2.mp4";
+                    break;
 
-            // cat jumping
-            case currentCutscene === "cat jumping":
-                //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-                //set source to correct video file
-                cutsceneVideo.src="./cutscenes/marblecutscene.mp4";
-                break;
+                // cat jumping
+                case currentCutscene === "cat jumping":
+                    //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                    //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/marblecutscene.mp4";
+                    break;
 
-            // tree climb
-            case currentCutscene === "tree climb":
-                //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-                //set source to correct video file
-                cutsceneVideo.src="./cutscenes/treeclimbcutscene.mp4";
-                break;
+                // tree climb
+                case currentCutscene === "tree climb":
+                    //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                    //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/treeclimbcutscene.mp4";
+                    break;
 
-            // swimming
-            case currentCutscene === "swimming":
-                //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-                //set source to correct video file
-                if (haveBoxKey === true) {
-                    cutsceneVideo.src="./cutscenes/swimmingcutscene.mp4";
-                } else {
-                    cutsceneVideo.src="./cutscenes/keycutscene.mp4";
-                }                
-                break;
+                // swimming
+                case currentCutscene === "swimming":
+                    //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                    //set source to correct video file
+                    if (haveBoxKey === true) {
+                        cutsceneVideo.src="./cutscenes/swimmingcutscene.mp4";
+                    } else {
+                        cutsceneVideo.src="./cutscenes/keycutscene.mp4";
+                    }                
+                    break;
 
 
-            // well fall
-            case currentCutscene === "well fall":
-                //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-                //set source to correct video file
-                cutsceneVideo.src="./cutscenes/welljumpcutscene.mp4";
-                break;
+                // well fall
+                case currentCutscene === "well fall":
+                    //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                    //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/welljumpcutscene.mp4";
+                    break;
 
-            // basket
-            case currentCutscene === "basket":
-                //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-                //set source to correct video file
-                cutsceneVideo.src="./cutscenes/basketcutscene.mp4";
-                break;
+                // basket
+                case currentCutscene === "basket":
+                    //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                    //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/basketcutscene.mp4";
+                    break;
 
-            // basket ride
-            case currentCutscene === "riding basket":
-            //     //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-            //     //set source to correct video file
-                cutsceneVideo.src="./cutscenes/basketridecutscene.mp4";
-                break;
+                // basket ride
+                case currentCutscene === "riding basket":
+                //     //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                //     //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/basketridecutscene.mp4";
+                    break;
 
-            // ghost given mug
-            case currentCutscene === "ghost given mug":
-            //     //make cutscene visible
-                cutsceneViewer.style.display = "flex";
-            //     //set source to correct video file
-                cutsceneVideo.src="./cutscenes/ghostmugcutscene.mp4";
-                break;
+                // ghost given mug
+                case currentCutscene === "ghost given mug":
+                //     //make cutscene visible
+                    cutsceneViewer.style.display = "flex";
+                //     //set source to correct video file
+                    cutsceneVideo.src="./cutscenes/ghostmugcutscene.mp4";
+                    break;
 
-            }
-        };
+                }
+            };
+        }
 
     // end the cutscene
     const endCutscene = () => {
