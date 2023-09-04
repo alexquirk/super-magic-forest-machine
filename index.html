@@ -371,8 +371,8 @@ const introScreenShift = () => {
                         showWifiCard();
                     }
                     }, 
-                    // this is how many seconds long the video is
-                    25
+                    // this is how many seconds long the video is / 2
+                    10
                     *
                     1000 );
 
@@ -380,12 +380,14 @@ const introScreenShift = () => {
                 // setTimeout(()=> {
                     // just play it vvv
                     // largeCutsceneVideo.play();
-                    // or wait till it can play through vvv
-                    largeCutsceneVideo.addEventListener("canplaythrough", (event) => {
-                        largeCutsceneVideo.play();
-                        videoLoaded = true;
-                        }
-                        );
+
+                // or wait till it can play through vvv
+                largeCutsceneVideo.addEventListener("canplaythrough", (event) => {
+                    largeCutsceneVideo.play();
+                    videoLoaded = true;
+                    }
+                    );
+
                     
                 
                     //     },
