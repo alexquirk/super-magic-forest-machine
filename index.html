@@ -81,7 +81,7 @@
                     </video>
                 </div>
                 <div id= "map">
-                    <img class="room" id="room1" src="./roomimages/smfmroom1.png"><img class="room" id="room2" src="./roomimages/smfmroom2.png"><img class="room" id="room3" src="./roomimages/smfmroom3.png"><img class="room" id="room4" src="./roomimages/smfmroom4a.png"><img class="room" id="room5" src="./roomimages/smfmroom5a.png"><img class="room" id="room6" src=""><img class="room" id="room7" src="./roomimages/smfmroom7a.png"><img class="room" id="room8" src="./roomimages/smfmroom8.png"><img class="room" id="room9" src=""><img class="room" id="room10" src=""><img class="room" id="room11" src="./roomimages/smfmroom11.png"><img class="room" id="room12" src="./roomimages/smfmroom12a.png"><img class="room" id="room13" src=""><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src=""><img class="room" id="room16" src="./roomimages/smfmroom16a.png"><img class="room" id="room17" src=""><img class="room" id="room18" src=""><img class="room" id="extraroom" src="">
+                    <img class="room" id="room1"><img class="room" id="room2"><img class="room" id="room3"><img class="room" id="room4"><img class="room" id="room5"><img class="room" id="room6" src=""><img class="room" id="room7"><img class="room" id="room8"><img class="room" id="room9"><img class="room" id="room10"><img class="room" id="room11"><img class="room" id="room12"><img class="room" id="room13" src=""><img class="room" id="room14" src="./roomimages/smfmroom14.png"><img class="room" id="room15" src=""><img class="room" id="room16"><img class="room" id="room17"><img class="room" id="room18"><img class="room" id="extraroom">
                 </div>       
             </div>     
             <div id="closeinventory" onclick="closeInventory()">back</div>
@@ -929,6 +929,16 @@ outputArea.onscroll = function() {
                 // blur the backfground
                 map.classList.add('blur');
             };
+            // bring buttons forward
+            document.getElementById("chestbutton").zIndex = "200";   
+            document.getElementById("ropebutton").zIndex = "201"; 
+            document.getElementById("ribbonbutton").zIndex = "202"; 
+            document.getElementById("mugbutton").zIndex = "203"; 
+            document.getElementById("keybutton").zIndex = "204"; 
+            document.getElementById("crystalbutton").zIndex = "205"; 
+            document.getElementById("flowerbutton").zIndex = "206"; 
+            document.getElementById("rockbutton").zIndex = "207"; 
+            document.getElementById("stickbutton").zIndex = "208";     
             // display stuff by bringing it forward
             document.getElementById("closeinventory").style.zIndex = "200";
             if (haveFlower === true) {
@@ -1198,6 +1208,16 @@ outputArea.onscroll = function() {
         southTriangle.style.zIndex = "50";
         eastTriangle.style.zIndex = "50";
         westTriangle.style.zIndex = "50";
+        // move buttons back
+        document.getElementById("chestbutton").zIndex = "-2";   
+        document.getElementById("ropebutton").zIndex = "-2"; 
+        document.getElementById("ribbonbutton").zIndex = "-2"; 
+        document.getElementById("mugbutton").zIndex = "-2"; 
+        document.getElementById("keybutton").zIndex = "-2"; 
+        document.getElementById("crystalbutton").zIndex = "-2"; 
+        document.getElementById("flowerbutton").zIndex = "-2"; 
+        document.getElementById("rockbutton").zIndex = "-2"; 
+        document.getElementById("stickbutton").zIndex = "-2";     
         // focus
         if (!( 
                    navigator.userAgent.match(/Android/i)
@@ -1751,6 +1771,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         );
     };
     const room3Switch = () => {
+        if (roomVisited[12] === false) {room12.src = "./roomimages/smfmroom12a.png"};
+
         if (roomVisited[3] === false) { 
             if (roomNum === 1 || roomNum === 6) {
                 output.innerHTML = "The trees grow more dense as you travel through the forest.<br><br>You arrive at a shady knoll with an old <span><button onclick='spanClick(\"inspect stump\")'>stump</button></span> in the middle.";
@@ -1949,6 +1971,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         );
     };
     const room9Switch = () => {
+        // load next room images
+        if (roomVisited[5] === false) {room5.src = "./roomimages/smfmroom5a.png"};
+
         if (roomVisited[9] === false) {
             output.innerHTML = "A narrow path leads you east through the forest. The air grows stale as dried and rotting tree branches grab at your clothes.<br><br>You arrive at a murky hollow and a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms</button></span>";
         } else if (ghostDiscovered === true && ghostGivenMug === false) {
@@ -2021,6 +2046,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 
     }; 
     const room11Switch = () => {
+        // get next rooms ready
+        if (roomVisited[2] === false) {room2.src = "./roomimages/smfmroom2.png"};
+        if (roomVisited[3] === false) {room3.src = "./roomimages/smfmroom3.png"};
+        if (roomVisited[7] === false) {room7.src = "./roomimages/smfmroom7a.png"};
+
         if (roomVisited[11] === false) {
             output.innerHTML = "You find yourself at the mouth of a large <span><button onclick='spanClick(\"inspect cave\")'>cave.</button></span>";
         } else if (roomNum === 7) {
