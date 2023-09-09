@@ -4847,29 +4847,29 @@ const spanClick = (whatToDo) => {
                 roomNum = 6;
                 break;
 
-            // DEFAULT "GO"
-            case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')) && (roomNum === 8 || roomNum === 7):
-                room11Switch();
-                break;
-            case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')||inp('firefl')) && (roomNum === 9):
-                room2Switch();
-                break;
-            case (inp("walk")||inp('go')||inp('travel')) && inp('firefl') && roomVisited[2] === true:
-                room2Switch();
-                break;
-            case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')) && roomNum === 12 :
-                room10Switch();
-                break;
-            case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')) && roomNum === 5 :
-                room1Switch();
-                break;
-            case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')) && roomNum === 6 :
-                room3Switch();
-                break;
-            case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')||inp(' up')) && roomNum === 13 :
-                climbUpAnimation();
-                room10Switch();
-                break;
+            // DEFAULT "GO" xxxxxxxxxxxxxxxxx
+            // case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')) && (roomNum === 8 || roomNum === 7):
+            //     room11Switch();
+            //     break;
+            // case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')||inp('firefl')) && (roomNum === 9):
+            //     room2Switch();
+            //     break;
+            // case (inp("walk")||inp('go')||inp('travel')) && inp('firefl') && roomVisited[2] === true:
+            //     room2Switch();
+            //     break;
+            // case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')) && roomNum === 12 :
+            //     room10Switch();
+            //     break;
+            // case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')) && roomNum === 5 :
+            //     room1Switch();
+            //     break;
+            // case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')) && roomNum === 6 :
+            //     room3Switch();
+            //     break;
+            // case (inp("walk")||inp('go')||inp('travel')) && (inp('forest')||inp('back')||inp(' up')) && roomNum === 13 :
+            //     climbUpAnimation();
+            //     room10Switch();
+            //     break;
 
             // ABOUT THE GAME
             case inp('game')  :
