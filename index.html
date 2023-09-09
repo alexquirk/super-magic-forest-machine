@@ -102,6 +102,8 @@
                 <button class="inventorybutton" id= "rockbutton" onclick="rockClick()" ></button>
             <img id= "inventory8" src="./inventoryimages/stick.png">
                 <button class="inventorybutton" id= "stickbutton" onclick="stickClick()"></button>
+            <img id= "inventory9" src="./inventoryimages/battery.png">
+                <button class="inventorybutton" id= "batterybutton" onclick="batteryClick()"></button>
             <img id= "book">
             <div id= "maptiles">
                 <img class="roomtile" id="maparrow" src="./maptiles/maparrow.png"><img class="roomtile" id="room1tile" onclick="room1Switch()"><img class="roomtile" id="room2tile" onclick="room2Switch()"><img class="roomtile" id="room3tile" onclick="room3Switch()"><img class="roomtile" id="room4tile" onclick="room4Switch()"><img class="roomtile" id="room5tile" onclick="room5Switch()"><img class="roomtile" id="room6tile" onclick="room6Switch()"><img class="roomtile" id="room7tile" onclick="room7Switch()"><img class="roomtile" id="room8tile" onclick="room8Switch()"><img class="roomtile" id="room9tile" onclick="room9Switch()"><img class="roomtile" id="room10tile" onclick="room10Switch()"><img class="roomtile" id="room11tile" onclick="room11Switch()"><img class="roomtile" id="room12tile" onclick="room12Switch()"><img class="roomtile" id="room14tile" onclick="room14Switch()"><img class="roomtile" id="room15tile" onclick="room15Switch()">
@@ -344,13 +346,15 @@ const introScreenShift = () => {
             )
 
                 {
-                    if (spaceHitOnce === true) {skipCutscene(); focusOnInputOnDesktop();};
-                    spaceHitOnce = true;
-                    setTimeout( function() { spaceHitOnce = false }, 400);
+                    // if (spaceHitOnce === true) {
+                        skipCutscene(); 
+                        // focusOnInputOnDesktop();
+                    // };
+                    // spaceHitOnce = true;
+                    // setTimeout( function() { spaceHitOnce = false }, 400);
             }});
 
             
-
     // hide the video when its ended
     cutsceneVideo.addEventListener('ended', ()=> {
         endCutscene();
@@ -708,6 +712,7 @@ const introScreenShift = () => {
     let bellRung = false;
     let basketRidden = false;
     let haveStick = false;
+    let haveBattery = false;
     let boxUnlocked = false;
     let catDiscovered = false;
     let marbleDown = false;
@@ -902,6 +907,8 @@ outputArea.onscroll = function() {
             document.getElementById("inventory6").classList.remove('findobject');
             document.getElementById("inventory7").classList.remove('findobject');
             document.getElementById("inventory8").classList.remove('findobject');
+            document.getElementById("inventory9").classList.remove('findobject');
+
             // display text
             let inventoryText = ["You have "];
             for (var i = 0; i < inventory.length - 1; i++) {
@@ -937,11 +944,13 @@ outputArea.onscroll = function() {
     };
 
     const displayInventory = () => {
-            // if still in the animatio to find, it removes it
+            // if still in the animation to find, it removes it
             document.getElementById("inventory5").classList.remove('findobject');
             document.getElementById("inventory6").classList.remove('findobject');
             document.getElementById("inventory7").classList.remove('findobject');
             document.getElementById("inventory8").classList.remove('findobject');
+            document.getElementById("inventory9").classList.remove('findobject');
+
             if (inventory.length > 0) {
                 checkingInventory = true;
                 inventoryAsk = true;
@@ -957,7 +966,9 @@ outputArea.onscroll = function() {
             document.getElementById("crystalbutton").zIndex = "205"; 
             document.getElementById("flowerbutton").zIndex = "206"; 
             document.getElementById("rockbutton").zIndex = "207"; 
-            document.getElementById("stickbutton").zIndex = "208";     
+            document.getElementById("stickbutton").zIndex = "208";    
+            document.getElementById("batterybutton").zIndex = "200";     
+ 
             // display stuff by bringing it forward
             document.getElementById("closeinventory").style.zIndex = "200";
             if (haveFlower === true) {
@@ -978,6 +989,9 @@ outputArea.onscroll = function() {
             if (haveRock === true) {
                     document.getElementById("inventory7").style.zIndex = "107";
             };
+            if (haveBattery === true) {
+                    document.getElementById("inventory9").style.zIndex = "101";
+            };
             if (haveBox === true || haveRope === true) {
                     document.getElementById("inventory1").style.zIndex = "101";
             };
@@ -990,6 +1004,8 @@ outputArea.onscroll = function() {
             };
             // move stuff around when inventory is small
             if (inventory.length === 1) {
+                // move mug
+                document.getElementById("inventory3").style.left = "-26%";
                 // move rock
                 document.getElementById("inventory7").style.bottom = "20%"; 
                 document.getElementById("inventory7").style.left = "28%";
@@ -1091,6 +1107,8 @@ outputArea.onscroll = function() {
                 document.getElementById("stickbutton").style.left = "57%";
                 document.getElementById("stickbutton").style.zIndex = "208";
             } else {
+                // move mug
+                document.getElementById("inventory3").style.left = "0%";
                 // move rock
                 document.getElementById("inventory7").style.bottom = "0%";
                 document.getElementById("inventory7").style.left = "0%";
@@ -1213,6 +1231,14 @@ outputArea.onscroll = function() {
             output.innerHTML = "You try to unjam the mechanism with a rock, but without success. You'll need something longer to reach into where the lever has broken off.";
         };
     };
+    const batteryClick = () => {
+        if (fixingBoat === true && haveBattery === true) {
+            output.innerHTML = "You try to plug the hole with the battery, but it's too smooth and pops right out."
+        };
+        if (fixingMill === true && haveRibbon === true) {
+            output.innerHTML = "The mill is mechanical and doesn't need a battery."
+        };
+    };
 
     // close inventory
     const closeInventory = () => {
@@ -1221,7 +1247,7 @@ outputArea.onscroll = function() {
         // output.innerHTML = "";
         document.getElementById("closeinventory").style.zIndex = "-2";
         document.getElementById('map').classList.remove('blur');
-        document.getElementById("inventory1").style.zIndex = "-2";document.getElementById("inventory2").style.zIndex = "-2";document.getElementById("inventory3").style.zIndex = "-2";document.getElementById("inventory4").style.zIndex = "-2";document.getElementById("inventory5").style.zIndex = "-2";document.getElementById("inventory6").style.zIndex = "-2";document.getElementById("inventory7").style.zIndex = "-2";document.getElementById("inventory8").style.zIndex = "-2";
+        document.getElementById("inventory1").style.zIndex = "-2";document.getElementById("inventory2").style.zIndex = "-2";document.getElementById("inventory3").style.zIndex = "-2";document.getElementById("inventory4").style.zIndex = "-2";document.getElementById("inventory5").style.zIndex = "-2";document.getElementById("inventory6").style.zIndex = "-2";document.getElementById("inventory7").style.zIndex = "-2";document.getElementById("inventory8").style.zIndex = "-2";document.getElementById("inventory9").style.zIndex = "-2";
         // move triangles back
         northTriangle.style.zIndex = "50";
         southTriangle.style.zIndex = "50";
@@ -1849,6 +1875,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         );
     };
     const room5Switch = () => { 
+        // get next rooms ready
+        if (roomVisited[4] === false) {room4.src="./roomimages/smfmroom4a.png"};
+        if (roomVisited[11] === false) {room11.src="./roomimages/smfmroom11.png"};
+
         if (haveBox === true) {
             if (roomNum === 9) {
                 output.innerHTML = "You travel west into a clearing. The path continues to the <span><button onclick='spanClick(\"go south\")'>south.</button></span> To the <span><button onclick='spanClick(\"go east\")'>east,</button></span> a gap in the trees leads to a dark wooded hollow.";
@@ -1892,7 +1922,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room6Switch = () => {
         // load next room images
-        if (roomVisited[15] === false) {room15.src = "./roomimages/smfmroom15a.png"};
+        if (roomVisited[15] === false) {room15.src = "./roomimages/smfmroom15.png"};
         if (roomVisited[9] === false) {room9.src = "./roomimages/smfmroom9b.png"};
 
         if (ropeTaken === false && boatFixed === false && roomNum === 5)
@@ -2181,8 +2211,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         mapArrow.style.left = "74.5%";
         setTimeout(  ()=> {
             moveAllRoomsBack();
-            if (haveHook === true) {room15.src="./roomimages/smfmroom15b.png"}
-            else {room15.src="./roomimages/smfmroom15a.png"};
+            room15.src="./roomimages/smfmroom15.png";
             room15.style.zIndex = "0";
             document.getElementById("room15tile").src="./maptiles/room15tile.png";
             roomNum = 15;
@@ -3405,14 +3434,16 @@ const spanClick = (whatToDo) => {
             case roomNum === 5 && haveBox === false && haveBoxKey === true && (inp('box')||inp('chest')) :
                 haveBox = true;
                 haveRibbon = true;
+                haveBattery = true;
                 boxUnlocked = true;
                 thingsTriedSinceLastBigThing = 0;
+                inventory.push("a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
                 switchChestRopeImage();
                 room5Switch();
                 displayInventory();
-                output.innerHTML = "You use the silver key to open the box. There is a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span> inside.<br><br>You put the box and the ribbon in your pocket." ;
+                output.innerHTML = "You use the silver key to open the box. There is a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span> and a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span> inside.<br><br>You put the box, ribbon, and battery in your pocket." ;
                 break;
             case roomNum === 5  &&  haveBox === false && (  ( haveBoxKey === false && (inp('open')||inp('pry'))) || (inp('search')||inp('examine')||inp('tell me about')||inp('look')||inp('inspect')||inp('search')||inp('check')) && (inp('box')||inp('chest')) )  :
                 haveBox = true;
@@ -3459,7 +3490,7 @@ const spanClick = (whatToDo) => {
                 currentCutscene = "riding boat";
                 playCutscene();
                 room15Switch();
-                output.innerHTML = "You untie the rope and put it in your pockets, then push the boat out into the lake and hop in. Without paddles, you allow the tide to take you where it will.<br><br>Soon, the boat lands on the shore of an island.";
+                output.innerHTML = "You untie the rope and put it in your pocket, then push the boat out into the lake and hop in. Without paddles, you allow the tide to take you where it will.<br><br>Soon, the boat lands on the shore of an island.";
                 break;
             case roomNum === 6   && boatFixed === true  && ropeTaken === true && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
                 currentCutscene = "riding boat";
@@ -3476,7 +3507,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You dig into the mud for some wet clay and mould it into shape. You carefully plug the hole, spend a few minutes bailing water out, and soon the boat begins to float again." + getPoints(10);
                 break;
             case roomNum === 6   && boatFixed === false && inventory.length === 0 && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug'))   &&    (inp('boat')||inp('hole')||inp('bottom'))) ||  (inp('rock') &&  (inp('hole')||inp('plug'))) ) && !inp('rock'):
-                output.innerHTML = "You don't have anything in  your pockets to fix the boat with. Try looking around for something.";
+                output.innerHTML = "How do you want to fix the boat?";
                 break;
             case roomNum === 6   && boatFixed === false && (((inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug')||inp('boat')||inp('hole')||inp('bottom')||inp('with'))) &&  (inp('rock') )):
                 output.innerHTML = "You plug the hole in the bottom of the boat with a rock. After bailing out water for a few minutes, the boat starts to float again." + getPoints(10, boatFixed);
@@ -3922,12 +3953,18 @@ const spanClick = (whatToDo) => {
 
             // ROOM 12
                 // wake up robot
-            case roomNum === 12  && robotAwake === false &&   (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('tree')||inp('speak')) :
-                currentCutscene = "robot waking"
+            case roomNum === 12  && robotAwake === false &&  haveBattery === false && (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('speak')) :
+                output.innerHTML = "The robot is turned off, or sleeping.<br><br>There's a spot where a battery could go, but it's empty.";
+                robotZoom();
+                break;
+            case roomNum === 12  && robotAwake === false && haveBattery === true &&  (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('tree')||inp('speak')||inp('battery')) :
+                currentCutscene = "robot waking";
+                removeItem("a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>");
+                haveBattery = false;
                 playCutscene();
                 robotAwake = true;
                 room12Switch();
-                output.innerHTML = "...";
+                output.innerHTML = "You carefully put the battery in the robot...";
                 // createRobotConversation();
                 break;
                 // talk to the robot
@@ -4586,11 +4623,13 @@ const spanClick = (whatToDo) => {
             case (inp('unlock')||inp('open')||inp('key'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveBoxKey === true && boxUnlocked === false   :
                 boxUnlocked = true;
                 haveRibbon = true;
+                haveBattery = true;
                 thingsTriedSinceLastBigThing = 0;
+                inventory.push("a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span>");
                 switchChestRopeImage();
                 displayInventory();
-                output.innerHTML = "You use the silver key, and the box opens with a satisfying click.<br><br>Inside the box you find a red ribbon. You put the ribbon in your pocket.";
+                output.innerHTML = "You use the silver key, and the box opens with a satisfying click.<br><br>Inside the box you find a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span> and a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>. You put them in your pocket.";
                 break;
             case (inp('unlock')||inp('open')||inp('key'))   &&  !(inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force')||inp('bust')||inp('bash'))  && (inp('box')||inp('chest'))  && haveBox === true && haveBoxKey === false  :
                 output.innerHTML = "The box is securely locked, and you don't have a key." ;
@@ -4633,13 +4672,15 @@ const spanClick = (whatToDo) => {
                 boxUnlocked = true;
                 thingsTriedSinceLastBigThing = 0;
                 haveRibbon = true;
+                haveBattery = true;
                 boxSmashed = 4;
                 removeItem("a <span>wooden box</span");
+                inventory.push("a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>smashed-up box</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span>");
                 switchChestRopeImage();
                 displayInventory();
-                output.innerHTML = "Okay fine!!! You smash the box and diamonds and jewels pour out! Are you happy now??<br><br>Just kidding. There's a red ribbon inside. Good luck smashing that around you jerk." ;
+                output.innerHTML = "Okay fine!!! You smash the box and diamonds and jewels pour out! Are you happy now??<br><br>Just kidding. There's a red ribbon inside and a battery inside. Good luck smashing those around you jerk." ;
                 break;
             case inp('smash') && inp('ribbon') && haveRibbon === true:
                 output.innerHTML = "Nothing happened.<br><br>Jerk."
@@ -4728,6 +4769,11 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You toss the rope over the nearest branch, tie it up, and let-er-rip. Best thing ever :)" + getPoints(20, ropeSwing);
                 ropeSwing = true;
                 break;
+                // battery
+            case (inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    (inp('battery'))  && haveBattery === true  :
+                output.innerHTML = "The battery is pretty hefty and a bit rusted. I wonder if it still works?";
+                break;
+
 
                 // crystal
             case (inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('look')||inp('check')||inp('what'))   &&    (inp('crystal')||inp('gem'))  && haveCrystal === true  :

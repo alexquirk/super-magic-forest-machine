@@ -552,7 +552,7 @@ body {
     z-index: -1;
 }
 
-#map, #mapbox, #cutsceneviewer, #closeinventory, .inventorybutton, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8, #book, #maptiles, #blackbackground, #scoreindicator {
+#map, #mapbox, #cutsceneviewer, #closeinventory, .inventorybutton, #inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8, #inventory9, #book, #maptiles, #blackbackground, #scoreindicator {
     max-height: 100%;
     max-width: 100%;
     grid-row: 1;
@@ -657,7 +657,7 @@ body {
     filter: brightness(40%);
 }
 
-#inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8 {
+#inventory1, #inventory2, #inventory3, #inventory4, #inventory5, #inventory6, #inventory7, #inventory8, #inventory9 {
     position: relative;
     z-index: -2;
 }
