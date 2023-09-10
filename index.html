@@ -177,12 +177,12 @@ let cutscenesEnabled = true;
 
 const showWifiCard = () => {
     // show wificard
-    setTimeout(function() {
+    // setTimeout(function() {
         wifiCard.style.display = "table";
         wifiCard.classList.add('machinefadein');
         largeCutsceneVideo.pause();
         cutsceneVideo.pause();
-    }, 1000)
+    // }, 1000)
 }
 
 const hideWifiCard = () => {
@@ -333,7 +333,10 @@ const introScreenShift = () => {
     let spaceHitOnce = false;
 
     const doubleTapSkip = () => {
-        if (tappedOnce === true) {skipCutscene(); focusOnInputOnDesktop();};
+        if (tappedOnce === true) {
+            skipCutscene(); 
+            focusOnInputOnDesktop();
+        };
         tappedOnce = true;
         setTimeout( function() { tappedOnce = false }, 300);
     }
