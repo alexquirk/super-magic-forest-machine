@@ -2164,6 +2164,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         );
     }; 
     const room13Switch = () => {
+        // get next room ready
+        room16.src="./roomimages/smfmroom16a.png";
+
         output.innerHTML = "You carefully climb down the rope to the bottom of the well.";
         roomVisited[13] = true;
         setTimeout(  ()=> {
