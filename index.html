@@ -1752,7 +1752,6 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 
     const moveAllRoomsBack = () => {
         allRooms[roomNum-1].style.zIndex = "-2";
-        // room6.style.zIndex = "-2";
         };
 
     const goEastAnimation = () => {
@@ -4324,8 +4323,10 @@ const spanClick = (whatToDo) => {
                 ghostDiscovered = true;
                 ghostGivenMug = true;
                 mugTaken = true;
-                haveMushy = true;
                 roomNum = 9
+                introCutsceneDonePlaying = true;
+                introCutsceneFirstHalfDonePlaying = true;
+                introCutscenePlayed = true;
                 goEastAnimation();
                 room11Switch();
                 break;
