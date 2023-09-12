@@ -122,6 +122,9 @@
                 <!-- READ THIS :) -->
 
         </div>
+        <div id="extraoutput" >
+
+        </div>
         <div class="dialoguearea">
             <button type="button" id="dialogue1" class="dialogue" onclick="whiteButtonFlash(d1)">Option 1</button>
             <button type="button" id="dialogue2" class="dialogue" onclick="whiteButtonFlash(d2)">Option 2</button>
@@ -892,16 +895,22 @@ const getPoints = (points, condition) => {
             return "<span class = 'points'><br><br>+" + points +" points<br>current score: " + gamePoints + "</span>";
         };
     } else { return "" }
-}
+};
+
+const feelBad = () => {
+    extraoutput.style.display = "block";
+    extraoutput.innerHTML = "You feel bad about being mean to the cat." + getPoints(-10, false);
+};
 
 // SCROLLING SHADOWS via https://css-tricks.com/thats-just-how-i-scroll/
 
 const outputArea = document.getElementById('outputarea');
 const output = document.getElementById('output'); 
+const extraoutput = document.getElementById('extraoutput');
 const scrollicon = document.getElementById('scrollicon');
 
 const makeScrollArrow = () => {
-    if (outputArea.offsetHeight < output.offsetHeight ) {
+    if (outputArea.offsetHeight < (output.offsetHeight + extraoutput.offsetHeight) ) {
         scrollicon.style.display = "block";
     } else {
         scrollicon.style.display = "none";
@@ -918,6 +927,7 @@ outputArea.onscroll = function() {
             return "You don't have anything in your pockets.<br><br>Maybe there is something useful nearby you can take with you."
         } else {
             // undo finding objects animations
+            document.getElementById("inventory1").classList.remove('findobject');
             document.getElementById("inventory3").classList.remove('findobject');
             document.getElementById("inventory4").classList.remove('findkey');
             document.getElementById("inventory5").classList.remove('findobject');
@@ -963,6 +973,7 @@ outputArea.onscroll = function() {
     const displayInventory = () => {
             // if still in the animation to find, it removes it
             document.getElementById("inventory5").classList.remove('findobject');
+            document.getElementById("inventory1").classList.remove('findobject');
             document.getElementById("inventory6").classList.remove('findobject');
             document.getElementById("inventory7").classList.remove('findobject');
             document.getElementById("inventory8").classList.remove('findobject');
@@ -1387,14 +1398,14 @@ outputArea.onscroll = function() {
         )}
         if (objectFound === "rope") {
             document.getElementById("inventory1").style.zIndex = "105";
-            document.getElementById("inventory1").style.top = "15%"; 
+            document.getElementById("inventory1").style.bottom = "-15%"; 
             document.getElementById("inventory1").style.left = "23%";
             document.getElementById("inventory1").style.height = "65%";
             document.getElementById("inventory1").classList.add('findobject');
             setTimeout(function() {
                 if (!checkingInventory && !inventoryAsk) {
                 document.getElementById("inventory1").style.zIndex = "-2";
-                document.getElementById("inventory1").style.top = "0%"; 
+                document.getElementById("inventory1").style.bottom = "0%"; 
                 document.getElementById("inventory1").style.left = "0%";
                 document.getElementById("inventory1").style.height = "100%";
                 document.getElementById("inventory1").classList.remove('findobject');}
@@ -1403,14 +1414,14 @@ outputArea.onscroll = function() {
         )}
         if (objectFound === "box" && haveRope === false) {
             document.getElementById("inventory1").style.zIndex = "105";
-            document.getElementById("inventory1").style.top = "18%"; 
+            document.getElementById("inventory1").style.bottom = "-18%"; 
             document.getElementById("inventory1").style.left = "20%";
             document.getElementById("inventory1").style.height = "70%";
             document.getElementById("inventory1").classList.add('findobject');
             setTimeout(function() {
                 if (!checkingInventory && !inventoryAsk) {
                 document.getElementById("inventory1").style.zIndex = "-2";
-                document.getElementById("inventory1").style.top = "0%"; 
+                document.getElementById("inventory1").style.bottom = "0%"; 
                 document.getElementById("inventory1").style.left = "0%";
                 document.getElementById("inventory1").style.height = "100%";
                 document.getElementById("inventory1").classList.remove('findobject');}
@@ -2586,6 +2597,9 @@ const spanClick = (whatToDo) => {
         watermillUnZoom();
         bellUnZoom();
 
+        // feel bad?
+        if (marbleGone === true) {feelBad()};
+
         // GET INPUT
         switch (true) {
     
@@ -3336,7 +3350,7 @@ const spanClick = (whatToDo) => {
                 room4Switch();
                 currentCutscene = "cat jumping";
                 playCutscene();
-                output.innerHTML = "The moment you pull the red ribbon out of your pocket, the cat perks up.<br><br>You start to wave the ribbon around, and the cat leaps from the tree!" + getPoints(50, marbleDown);
+                output.innerHTML = "You pull the red ribbon out of your pocket, and the cat perks up.<br><br>You wave the ribbon around, and the cat leaps from the tree!" + getPoints(50, marbleDown);
                 marbleDown = true;
                 break;
             case ( (roomNum === 4 && marbleDown === true) || ( roomNum === 12 && marbleReunited === true ) ) &&  (   inp('play')  ||  (inp('cat')||inp('use')) && inp('ribbon')   ) :
@@ -4318,7 +4332,11 @@ const spanClick = (whatToDo) => {
                 document.getElementById("room11").src="./roomimages/smfmroom11.png";
                 ropeTaken = true;
                 haveRope = true;
-                inventory.push("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>")
+                haveBox = true;
+                haveBoxKey = true;
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect key\")'>silver key</button></span>");
                 switchChestRopeImage();
                 ghostDiscovered = true;
                 ghostGivenMug = true;

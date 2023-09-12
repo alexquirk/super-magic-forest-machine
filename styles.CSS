@@ -1057,10 +1057,14 @@ body {
     }
 }
 
-#output {
+#output, #extraoutput {
     padding-bottom: 5px;
     display: none;
     cursor: default;
+}
+
+#extraoutput {
+    margin-top: 0.8em;
 }
 
 #output > span {
@@ -1100,7 +1104,7 @@ span > button:hover {
     color: rgb(148, 200, 255);
 }
 
-#output > .points {
+#output > .points, #extraoutput > .points {
     color: #fef2cc
 }
 
