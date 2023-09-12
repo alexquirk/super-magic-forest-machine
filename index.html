@@ -759,6 +759,11 @@ const introScreenShift = () => {
     let boatFixed = false;
     let haveHook = false;
     let mushyTaken = false;
+
+    // taking the first mushroom sets the mushy-time-passed to 10. So, if mushy taken when mushy value is <1, set the time pass
+    // taking any mushroom increased mushy value by 9
+    // if, when mushy time passed = 0, mushy value is greater than 1, activate mushy!
+    let mushyValue = 0;
     let mushyTimePassed = 0;
 
     let currentlyMoving = false;
@@ -2508,12 +2513,16 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 
 // TAKE MUSHROOM
 
+// taking the first mushroom sets the mushy-time-passed to 10. So, if mushy taken when mushy value is <1, set the time pass
+// taking any mushroom increased mushy value by 9
+// if, when mushy time passed = 0, mushy value is greater than 1, activate mushy!
 const takeMushy = () => {
-    document.getElementById('mapbox').classList.add('mushytaken');
     mushyTaken = true;
-    mushyTimePassed = 7;
-}
 
+    if (mushyValue < 1) { mushyTimePassed = 10};
+
+    mushyValue = mushyValue + 9;
+}
 // FOCUS ON INPUT ON DESKTOP ONLY
 
 const focusOnInputOnDesktop = () => {
@@ -2609,6 +2618,10 @@ const spanClick = (whatToDo) => {
                 break;
             case inp('mushy test'):
                 takeMushy();
+                output.innerHTML = "on mushys? " + mushyTaken + "<br><br>Mushy time passed: " + mushyTimePassed + "<br><br>Mushy value: " +mushyValue;
+                break;
+            case inp('mushy check'):
+                output.innerHTML = "on mushys? " + mushyTaken + "<br><br>Mushy time passed: " + mushyTimePassed + "<br><br>Mushy value: " +mushyValue;
                 break;
             case inp('get inventory length'):
                 output.innerHTML = inventory.length;
@@ -3743,7 +3756,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You reach for a mushroom...<br><br>but a <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> appears!!";
                 break;
                 // take mushrooms after ghost given mug
-            case roomNum === 9 && ghostGivenMug === true && haveMushy === false  &&  ( (inp('take')||inp('grab')||inp('pocket')||inp('gather')||inp('pick'))|inp('eat')   )  &&    (inp('mushroom')||inp('circle'))  :
+            case roomNum === 9 && ghostGivenMug === true && haveMushy === false  &&  ( (inp('take')||inp('grab')||inp('pocket')||inp('gather')||inp('pick'))   )  &&    (inp('mushroom')||inp('circle'))  :
                 output.innerHTML = "You pick a nice looking mushroom and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
                 haveMushy = true;
                 inventory.push("a <span><button onclick='spanClick(\"inspect mushroom\")'>wild mushroom</button></span>");
@@ -3856,10 +3869,7 @@ const spanClick = (whatToDo) => {
                 ghostZoom();
                 output.innerHTML = "You reach for a mushroom...<br><br>but a <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> appears!!<br><br>It seems like it's guarding the mushrooms.";
                 break;
-            case roomNum === 9 &&  inp('mushroom') :
-                output.innerHTML = "The circle of mushrooms looks rather enticing.";
-                ghostZoom();
-                break;
+        
 
             // ROOM 10
             case roomNum === 10 &&  (inp('use')||inp('tie')||inp('attach')||inp('set')||inp('throw')||inp('drop')||inp('toss'))   &&    (inp('rope')||inp('well'))   &&  haveRope === true  && ropeSet === false :
@@ -4646,11 +4656,27 @@ const spanClick = (whatToDo) => {
             case roomNum !== 9 && haveMushy === false && inp('mushroom')  :
                 output.innerHTML = "There aren't any mushrooms around.";
                 break;
-            case  haveMushy === true && inp('mush') && (inp('eat')||inp('consume')||inp('swallow') ) :
-                output.innerHTML = "You eat one of the mushrooms...";
+            case  (haveMushy === true || roomNum === 9) && inp('mush') && (inp('eat')||inp('consume')||inp('swallow') ) && mushyValue < 1 :
+                output.innerHTML = "You eat one of the mushrooms...<br><br>Yuck!";
                 haveMushy = false;
                 removeItem("a <span><button onclick='spanClick(\"inspect mushroom\")'>wild mushroom</button></span>");
                 takeMushy();
+                break;
+            case  (haveMushy === true || roomNum === 9) && inp('mush') && (inp('eat')||inp('consume')||inp('swallow') ) && mushyValue > 10 :
+                output.innerHTML = "You eat ANOTHER mushroom...<br><br>...Is this a good idea?";
+                haveMushy = false;
+                removeItem("a <span><button onclick='spanClick(\"inspect mushroom\")'>wild mushroom</button></span>");
+                takeMushy();
+                break;
+            case  (haveMushy === true || roomNum === 9) && inp('mush') && (inp('eat')||inp('consume')||inp('swallow') ) :
+                output.innerHTML = "You eat another mushroom...<br><br>Gross!";
+                haveMushy = false;
+                removeItem("a <span><button onclick='spanClick(\"inspect mushroom\")'>wild mushroom</button></span>");
+                takeMushy();
+                break;
+            case roomNum === 9 &&  inp('mushroom') :
+                output.innerHTML = "The mushrooms look rather enticing.";
+                ghostZoom();
                 break;
 
             // STICKS
@@ -5230,10 +5256,21 @@ const spanClick = (whatToDo) => {
 
         // subtract mushy count, remove mushy thing if less than 1
         mushyTimePassed = mushyTimePassed - 1;
-                if (mushyTimePassed < 1) {
-                    setTimeout( function(){document.getElementById('mapbox').classList.remove('mushytaken')}, 400);
-                    mushyTaken = false;
-                }
+        if (mushyValue > 0) {
+            mushyValue = mushyValue - 1;
+        }
+
+        if (mushyTimePassed < 1 && mushyValue > 1) {
+            document.getElementById('mapbox').classList.add('mushytaken');
+            if (mushyValue > 5) {
+                output.innerHTML = "...you're feeling a bit... funny..."
+            }
+        };
+
+        if (mushyValue < 1) {
+            setTimeout( function(){document.getElementById('mapbox').classList.remove('mushytaken')}, 400);
+            mushyTaken = false;
+        };
 
         // INCREASE "THINGS TRIED"
         thingsTriedSinceLastBigThing++; // resets when the box is unlocked, fireflies released, and robot awakened.
@@ -5246,6 +5283,7 @@ const spanClick = (whatToDo) => {
 
         // make scroll arrow
         makeScrollArrow();
+ 
     };
 
 // PRESSING ENTER 
