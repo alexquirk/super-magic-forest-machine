@@ -932,7 +932,7 @@ outputArea.onscroll = function() {
             return "You don't have anything in your pockets.<br><br>Maybe there is something useful nearby you can take with you."
         } else {
             // undo finding objects animations
-            document.getElementById("inventory1").classList.remove('findobject');
+            // document.getElementById("inventory1").classList.remove('findobject');
             document.getElementById("inventory3").classList.remove('findobject');
             document.getElementById("inventory4").classList.remove('findkey');
             document.getElementById("inventory5").classList.remove('findobject');
@@ -977,8 +977,10 @@ outputArea.onscroll = function() {
 
     const displayInventory = () => {
             // if still in the animation to find, it removes it
+            // document.getElementById("inventory1").classList.remove('findobject');
+            document.getElementById("inventory3").classList.remove('findobject');
+            document.getElementById("inventory4").classList.remove('findkey');
             document.getElementById("inventory5").classList.remove('findobject');
-            document.getElementById("inventory1").classList.remove('findobject');
             document.getElementById("inventory6").classList.remove('findobject');
             document.getElementById("inventory7").classList.remove('findobject');
             document.getElementById("inventory8").classList.remove('findobject');
@@ -1342,7 +1344,7 @@ outputArea.onscroll = function() {
                     document.getElementById("inventory7").classList.remove('findobject');}
                 },
                     2500
-        )}
+        )};
         if (objectFound === "stick") {
             document.getElementById("inventory8").style.zIndex = "108";
             document.getElementById("inventory8").style.bottom = "25%"; 
@@ -1356,7 +1358,7 @@ outputArea.onscroll = function() {
                 document.getElementById("inventory8").classList.remove('findobject');}
             },
                 2500
-        )}
+        )};
         if (objectFound === "flower") {
             document.getElementById("inventory6").style.zIndex = "106";
             document.getElementById("inventory6").style.bottom = "10%"; 
@@ -1370,7 +1372,7 @@ outputArea.onscroll = function() {
                 document.getElementById("inventory6").classList.remove('findobject');}
             },
                 2500
-        )}
+        )};
         if (objectFound === "mug") {
             document.getElementById("inventory3").style.zIndex = "106";
             document.getElementById("inventory3").style.bottom = "-10%"; 
@@ -1386,7 +1388,7 @@ outputArea.onscroll = function() {
                 document.getElementById("inventory3").classList.remove('findobject');}
             },
                 2500
-        )}
+        )};
         if (objectFound === "crystal") {
             document.getElementById("inventory5").style.zIndex = "105";
             document.getElementById("inventory5").style.bottom = "18%"; 
@@ -1400,39 +1402,39 @@ outputArea.onscroll = function() {
                 document.getElementById("inventory5").classList.remove('findobject');}
             },
                 2500
-        )}
-        if (objectFound === "rope") {
-            document.getElementById("inventory1").style.zIndex = "105";
-            document.getElementById("inventory1").style.bottom = "-15%"; 
-            document.getElementById("inventory1").style.left = "23%";
-            document.getElementById("inventory1").style.height = "65%";
-            document.getElementById("inventory1").classList.add('findobject');
-            setTimeout(function() {
-                if (!checkingInventory && !inventoryAsk) {
-                document.getElementById("inventory1").style.zIndex = "-2";
-                document.getElementById("inventory1").style.bottom = "0%"; 
-                document.getElementById("inventory1").style.left = "0%";
-                document.getElementById("inventory1").style.height = "100%";
-                document.getElementById("inventory1").classList.remove('findobject');}
-            },
-                2500
-        )}
-        if (objectFound === "box" && haveRope === false) {
-            document.getElementById("inventory1").style.zIndex = "105";
-            document.getElementById("inventory1").style.bottom = "-18%"; 
-            document.getElementById("inventory1").style.left = "20%";
-            document.getElementById("inventory1").style.height = "70%";
-            document.getElementById("inventory1").classList.add('findobject');
-            setTimeout(function() {
-                if (!checkingInventory && !inventoryAsk) {
-                document.getElementById("inventory1").style.zIndex = "-2";
-                document.getElementById("inventory1").style.bottom = "0%"; 
-                document.getElementById("inventory1").style.left = "0%";
-                document.getElementById("inventory1").style.height = "100%";
-                document.getElementById("inventory1").classList.remove('findobject');}
-            },
-                2500
-        )}
+        )};
+        // if (objectFound === "rope") {
+        //     document.getElementById("inventory1").style.zIndex = "105";
+        //     document.getElementById("inventory1").style.bottom = "-15%"; 
+        //     document.getElementById("inventory1").style.left = "23%";
+        //     document.getElementById("inventory1").style.height = "65%";
+        //     document.getElementById("inventory1").classList.add('findobject');
+        //     setTimeout(function() {
+        //         if (!checkingInventory && !inventoryAsk) {
+        //         document.getElementById("inventory1").style.zIndex = "-2";
+        //         document.getElementById("inventory1").style.bottom = "0%"; 
+        //         document.getElementById("inventory1").style.left = "0%";
+        //         document.getElementById("inventory1").style.height = "100%";
+        //         document.getElementById("inventory1").classList.remove('findobject');}
+        //     },
+        //         2500
+        // )};
+        // if (objectFound === "box" && haveRope === false) {
+        //     document.getElementById("inventory1").style.zIndex = "105";
+        //     document.getElementById("inventory1").style.bottom = "-18%"; 
+        //     document.getElementById("inventory1").style.left = "20%";
+        //     document.getElementById("inventory1").style.height = "70%";
+        //     document.getElementById("inventory1").classList.add('findobject');
+        //     setTimeout(function() {
+        //         if (!checkingInventory && !inventoryAsk) {
+        //         document.getElementById("inventory1").style.zIndex = "-2";
+        //         document.getElementById("inventory1").style.bottom = "0%"; 
+        //         document.getElementById("inventory1").style.left = "0%";
+        //         document.getElementById("inventory1").style.height = "100%";
+        //         document.getElementById("inventory1").classList.remove('findobject');}
+        //     },
+        //         2500
+        // )}
         };
 
 
@@ -3522,7 +3524,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 5  && haveBox === false && (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put')||inp('carry')) && (inp('box')||inp('chest'))   :
                 haveBox = true;
                 switchChestRopeImage();
-                findObject("box");
+                // findObject("box");
                 room5Switch();
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
                 output.innerHTML = "You put the <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span> in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
@@ -3533,7 +3535,7 @@ const spanClick = (whatToDo) => {
                 haveBattery = true;
                 boxUnlocked = true;
                 switchChestRopeImage();
-                findObject("box");
+                // findObject("box");
                 thingsTriedSinceLastBigThing = 0;
                 inventory.push("a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span>");
@@ -3544,7 +3546,7 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 5  &&  haveBox === false && (  ( haveBoxKey === false && (inp('open')||inp('pry'))) || (inp('search')||inp('examine')||inp('tell me about')||inp('look')||inp('inspect')||inp('search')||inp('check')) && (inp('box')||inp('chest')) )  :
                 haveBox = true;
-                findObject("box");
+                // findObject("box");
                 switchChestRopeImage();
                 room5Switch();
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");    
@@ -3584,7 +3586,7 @@ const spanClick = (whatToDo) => {
                 ropeTaken = true;
                 haveRope = true;
                 switchChestRopeImage();
-                findObject("rope");
+                // findObject("rope");
                 inventory.push("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>")
                 currentCutscene = "riding boat";
                 playCutscene();
@@ -3654,7 +3656,7 @@ const spanClick = (whatToDo) => {
                 haveRope = true;
                 ropeTaken = true;
                 switchChestRopeImage();
-                findObject("rope");
+                // findObject("rope");
                 inventory.push("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>")
                 room6Switch();
                 boatZoom();
