@@ -3521,30 +3521,30 @@ const spanClick = (whatToDo) => {
             // ROOM 5
             case roomNum === 5  && haveBox === false && (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put')||inp('carry')) && (inp('box')||inp('chest'))   :
                 haveBox = true;
-                findObject("box");
                 switchChestRopeImage();
+                findObject("box");
                 room5Switch();
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
                 output.innerHTML = "You put the <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span> in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
                 break;
             case roomNum === 5 && haveBox === false && haveBoxKey === true && (inp('box')||inp('chest')) :
-                findObject("box");
                 haveBox = true;
                 haveRibbon = true;
                 haveBattery = true;
                 boxUnlocked = true;
+                switchChestRopeImage();
+                findObject("box");
                 thingsTriedSinceLastBigThing = 0;
                 inventory.push("a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
-                switchChestRopeImage();
                 room5Switch();
                 displayInventory();
                 output.innerHTML = "You use the silver key to open the box. There is a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span> and a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span> inside.<br><br>You put the box, ribbon, and battery in your pocket." ;
                 break;
             case roomNum === 5  &&  haveBox === false && (  ( haveBoxKey === false && (inp('open')||inp('pry'))) || (inp('search')||inp('examine')||inp('tell me about')||inp('look')||inp('inspect')||inp('search')||inp('check')) && (inp('box')||inp('chest')) )  :
-                findObject("box");
                 haveBox = true;
+                findObject("box");
                 switchChestRopeImage();
                 room5Switch();
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");    
@@ -3582,10 +3582,10 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 6   && boatFixed === true  && ropeTaken === false && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
                 ropeTaken = true;
-                findObject("rope");
                 haveRope = true;
-                inventory.push("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>")
                 switchChestRopeImage();
+                findObject("rope");
+                inventory.push("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>")
                 currentCutscene = "riding boat";
                 playCutscene();
                 room15Switch();
@@ -3653,11 +3653,11 @@ const spanClick = (whatToDo) => {
             case roomNum === 6    && ropeTaken === false && (    ((inp('take')||inp('grab')||inp('pocket')||inp('remove')||inp('get')||inp('use')||inp('tie'))   &&    (inp('rope')))  ||  (inp('tie') &&  inp('boat'))  ):
                 haveRope = true;
                 ropeTaken = true;
+                switchChestRopeImage();
                 findObject("rope");
                 inventory.push("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>")
                 room6Switch();
                 boatZoom();
-                switchChestRopeImage();
                 output.innerHTML = "You untie the rope and put it in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
                 break;
             case roomNum === 6 && ropeSet === true   &&  (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('rope'))     :
