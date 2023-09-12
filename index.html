@@ -729,6 +729,7 @@ const introScreenShift = () => {
     let catDiscovered = false;
     let marbleDown = false;
     let marbleReunited = false;
+    let marbleGone = false;
     let ropeTaken = false;
     let haveRope = false;
     let ropeSet = false;
@@ -884,8 +885,12 @@ const bellUnZoom = () => {
 
 const getPoints = (points, condition) => {
     if (condition === false) {
-    gamePoints = gamePoints + points;
-    return "<span class = 'points'><br><br>+" + points +" points<br>current score: " + gamePoints + "</span>";
+        gamePoints = gamePoints + points;
+        if (points < 0) {
+            return "<span class = 'points'><br><br>" + points +" points<br>current score: " + gamePoints + "</span>";
+        } else {
+            return "<span class = 'points'><br><br>+" + points +" points<br>current score: " + gamePoints + "</span>";
+        };
     } else { return "" }
 }
 
@@ -1378,6 +1383,38 @@ outputArea.onscroll = function() {
             },
                 2500
         )}
+        if (objectFound === "rope") {
+            document.getElementById("inventory1").style.zIndex = "105";
+            document.getElementById("inventory1").style.top = "15%"; 
+            document.getElementById("inventory1").style.left = "23%";
+            document.getElementById("inventory1").style.height = "65%";
+            document.getElementById("inventory1").classList.add('findobject');
+            setTimeout(function() {
+                if (!checkingInventory && !inventoryAsk) {
+                document.getElementById("inventory1").style.zIndex = "-2";
+                document.getElementById("inventory1").style.top = "0%"; 
+                document.getElementById("inventory1").style.left = "0%";
+                document.getElementById("inventory1").style.height = "100%";
+                document.getElementById("inventory1").classList.remove('findobject');}
+            },
+                2500
+        )}
+        if (objectFound === "box" && haveRope === false) {
+            document.getElementById("inventory1").style.zIndex = "105";
+            document.getElementById("inventory1").style.top = "18%"; 
+            document.getElementById("inventory1").style.left = "20%";
+            document.getElementById("inventory1").style.height = "70%";
+            document.getElementById("inventory1").classList.add('findobject');
+            setTimeout(function() {
+                if (!checkingInventory && !inventoryAsk) {
+                document.getElementById("inventory1").style.zIndex = "-2";
+                document.getElementById("inventory1").style.top = "0%"; 
+                document.getElementById("inventory1").style.left = "0%";
+                document.getElementById("inventory1").style.height = "100%";
+                document.getElementById("inventory1").classList.remove('findobject');}
+            },
+                2500
+        )}
         };
 
 
@@ -1864,8 +1901,10 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             output.innerHTML = "You arrive at a glade with a large tree in the middle.<br><br>A <span><button onclick='spanClick(\"inspect cat\")'>cat</button></span> is rustling around up in the tree's branches...";
         } else if (marbleDown === false ) {
             output.innerHTML = "You arrive at a glade with a large tree in the middle.<br><br><span><button onclick='spanClick(\"inspect tree\")'>Something</button></span> is rustling around up in the tree's branches...";
-        } else if (marbleDown === true) {
+        } else if (marbleDown === true && marbleReunited === false && marbleGone === false ) {
             output.innerHTML = "You arrive at the glade with a large tree in the middle. The <span><button onclick='spanClick(\"inspect cat\")'>cat</button></span> is playing with the ribbon near the base of the tree.";
+        } else {
+            output.innerHTML = "You arrive at the glade with a large tree in the middle. The cat is gone.";
         };
         roomVisited[4] = true;
         mapArrow.style.top = "32%";
@@ -1873,7 +1912,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         setTimeout(  ()=> {
             moveAllRoomsBack();
             if (marbleDown === false) {room4.src="./roomimages/smfmroom4a.png"}
-            else if (marbleReunited !== true) {room4.src="./roomimages/smfmroom4b.png"}
+            else if (marbleReunited === false && marbleGone === false) {room4.src="./roomimages/smfmroom4b.png"}
             else {room4.src="./roomimages/smfmroom4c.png"};
             room4.style.zIndex = "0";
             document.getElementById("room4tile").src="./maptiles/room4tile.png";
@@ -3287,20 +3326,29 @@ const spanClick = (whatToDo) => {
                 // ribbon and play
             case roomNum === 4  && marbleDown === false && haveRibbon === true &&    (inp('play')|| ( ( inp('cat')||inp('use')||inp('give')||inp('wave')) && inp('ribbon')) ):
                 catDiscovered = true;
-                marbleDown = true;
                 haveRibbon = false;
                 removeItem("a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span>");
                 room4Switch();
                 currentCutscene = "cat jumping";
                 playCutscene();
-                output.innerHTML = "The moment you pull the red ribbon out of your pocket, the cat perks up.<br><br>You start to wave the ribbon around, and the cat leaps from the tree!";
+                output.innerHTML = "The moment you pull the red ribbon out of your pocket, the cat perks up.<br><br>You start to wave the ribbon around, and the cat leaps from the tree!" + getPoints(50, marbleDown);
+                marbleDown = true;
                 break;
             case ( (roomNum === 4 && marbleDown === true) || ( roomNum === 12 && marbleReunited === true ) ) &&  (   inp('play')  ||  (inp('cat')||inp('use')) && inp('ribbon')   ) :
                 output.innerHTML = "You grab the ribbon and wave it around for the cat. Is there anything better than this?";
                 break;
             case roomNum === 4 && marbleDown === true && marbleReunited === false && (inp('pet')||inp('stroke')||inp('purr')||inp('scratch')||inp('rub')||inp('scritch'))  :
-                output.innerHTML = "The cat leans up against you leg and begins to purr." + getPoints(40, catPet);
+                output.innerHTML = "The cat leans up against you leg and begins to purr." + getPoints(10, catPet);
                 catPet = true;
+                break;
+            case roomNum === 4 && marbleDown === true && marbleReunited === false && inp('talk') && inp('cat') :
+                output.innerHTML = "Meow!"
+                break;
+            case roomNum === 4  && marbleDown === true &&  marbleReunited === false && marbleGone === false && (inp('throw')||inp('kick')||inp('punch')||inp('slap')||inp('hit')||inp('kill'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
+                marbleGone = true;
+                room4Switch();
+                output.innerHTML = "The cat hisses at you and darts away!" + getPoints(-999, catAttacked);
+                catAttacked = true;
                 break;
                 // attempts at play
             case roomNum === 4  && marbleDown === false && haveFlower === true  &&    (inp('play')||inp('cat') )  &&    inp('flower')   :
@@ -3441,12 +3489,14 @@ const spanClick = (whatToDo) => {
             // ROOM 5
             case roomNum === 5  && haveBox === false && (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put')||inp('carry')) && (inp('box')||inp('chest'))   :
                 haveBox = true;
+                findObject("box");
                 switchChestRopeImage();
                 room5Switch();
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
                 output.innerHTML = "You put the <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span> in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
                 break;
             case roomNum === 5 && haveBox === false && haveBoxKey === true && (inp('box')||inp('chest')) :
+                findObject("box");
                 haveBox = true;
                 haveRibbon = true;
                 haveBattery = true;
@@ -3461,6 +3511,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You use the silver key to open the box. There is a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span> and a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span> inside.<br><br>You put the box, ribbon, and battery in your pocket." ;
                 break;
             case roomNum === 5  &&  haveBox === false && (  ( haveBoxKey === false && (inp('open')||inp('pry'))) || (inp('search')||inp('examine')||inp('tell me about')||inp('look')||inp('inspect')||inp('search')||inp('check')) && (inp('box')||inp('chest')) )  :
+                findObject("box");
                 haveBox = true;
                 switchChestRopeImage();
                 room5Switch();
@@ -3499,6 +3550,7 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 6   && boatFixed === true  && ropeTaken === false && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
                 ropeTaken = true;
+                findObject("rope");
                 haveRope = true;
                 inventory.push("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>")
                 switchChestRopeImage();
@@ -3569,6 +3621,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 6    && ropeTaken === false && (    ((inp('take')||inp('grab')||inp('pocket')||inp('remove')||inp('get')||inp('use')||inp('tie'))   &&    (inp('rope')))  ||  (inp('tie') &&  inp('boat'))  ):
                 haveRope = true;
                 ropeTaken = true;
+                findObject("rope");
                 inventory.push("a <span><button onclick='spanClick(\"inspect rope\")'>rope</button></span>")
                 room6Switch();
                 boatZoom();
@@ -3885,10 +3938,6 @@ const spanClick = (whatToDo) => {
                 break;
             case roomNum === 10 &&    (inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
-                break;
-                // default rope
-            case roomNum === 10 && haveRope === true && inp('rope') :
-                output.innerHTML = "How do you want to use the rope?";
                 break;
                 // default well
             case roomNum === 10 && inp('in ') && inp('well') :
@@ -4647,10 +4696,12 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You use the silver key, and the box opens with a satisfying click.<br><br>Inside the box you find a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span> and a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>. You put them in your pocket.";
                 break;
             case (inp('unlock')||inp('open')||inp('key'))   &&  !(inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force')||inp('bust')||inp('bash'))  && (inp('box')||inp('chest'))  && haveBox === true && haveBoxKey === false  :
+                if (checkInventory === true) {displayInventory};
                 output.innerHTML = "The box is securely locked, and you don't have a key." ;
                 break;
             case (inp('shake')||inp('rattle'))   &&    (inp('box')||inp('chest'))  && haveBox === true && boxUnlocked === false  :
-                output.innerHTML = "You shake the box box. There's something light and soft inside it." ;
+                if (checkInventory === true) {displayInventory};
+                output.innerHTML = "You shake the box box. There's definitely something inside." ;
                 break;
             case (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('check')||inp('search')||inp('what'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveFireflies === false  :
                 output.innerHTML = "The box is made of hard wood and reinforced with metal banding and a silver lock." ;
@@ -4780,7 +4831,7 @@ const spanClick = (whatToDo) => {
             case (inp('where')  || inp('how') || inp('what') ) && inp('rope')   :
                 output.innerHTML = "The rope could be helpful reaching a new place.";
                 break;
-            case inp('swing') && haveRope === true &&  roomNum !== 7 && roomNum !== 8 && roomNum !== 13   :   // XXX I could animate this
+            case inp('swing') && haveRope === true &&  roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && roomNum !== 18 && roomNum !== 17 :   // XXX I could animate this
                 output.innerHTML = "You toss the rope over the nearest branch, tie it up, and let-er-rip. Best thing ever :)" + getPoints(20, ropeSwing);
                 ropeSwing = true;
                 break;
