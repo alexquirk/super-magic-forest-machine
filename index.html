@@ -3280,7 +3280,7 @@ const spanClick = (whatToDo) => {
                 };
                 break;
             case roomNum === 2 && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
-                output.innerHTML = 'You catch a firefly, and very carefully put it in your box and close the lid.<br><br>You catch another, and another... and pretty soon the box is full of fireflies!';
+                output.innerHTML = 'You catch a firefly, and very carefully put it in your <span><button onclick=\'spanClick(\"inspect box\")\'>wooden box</button></span> and close the lid.<br><br>You catch another, and another... and pretty soon the box is full of fireflies!';
                 removeItem("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
                 removeItem("a <span><button onclick='spanClick(\"inspect box\")'>smashed-up box</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>box of fireflies</button></span>");
@@ -3297,7 +3297,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = 'After a couple attempts, you catch a firefly in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"If only I had somewhere to keep it," you think.';
                 break;
             case roomNum === 2 && (inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get')||inp('grab'))   &&    inp('fire')  && haveBox === true  :
-                output.innerHTML = 'After a couple attempts, you catch a firefly in you hands. You cup it gently and its soft glow illuminates your fingers. After a few moments, you release it to join the others.<br><br>"I bet I could keep some of them in this box if I get it open," you think.';
+                output.innerHTML = 'You catch a firefly in you hands, and its soft glow illuminates your fingers.<br><br>"I bet I could keep some of them in this <span><button onclick=\'spanClick(\"inspect box\")\'>wooden box</button></span> if I can get it open," you think.';
                 break;
             case roomNum === 2 &&    (inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass with scattered rocks and such. You don't find anything of use.";
@@ -3379,7 +3379,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 4  && marbleDown === true &&  marbleReunited === false && marbleGone === false && (inp('throw')||inp('kick')||inp('punch')||inp('slap')||inp('hit')||inp('kill'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
                 marbleGone = true;
                 room4Switch();
-                output.innerHTML = "The cat hisses at you and darts away!" + getPoints(-999, catAttacked);
+                output.innerHTML = "The cat hisses at you and darts away!" + getPoints(-200, catAttacked);
                 catAttacked = true;
                 break;
                 // attempts at play
@@ -3718,7 +3718,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You already have a crystal in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
                 break;
             case roomNum === 7 && firefliesReleased===true && (inp('box')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  boxUnlocked === true  && haveFireflies === false :
-                output.innerHTML = 'You catch a firefly, and very carefully put it in the box and close the lid.<br><br>You catch another, and another, and pretty soon the box is full of fireflies!';
+                output.innerHTML = 'You catch a firefly, and very carefully put it in the <span><button onclick=\'spanClick(\"inspect box\")\'>wooden box</button></span> and close the lid.<br><br>You catch another, and another, and pretty soon the box is full of fireflies!';
                 removeItem("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
                 removeItem("a <span><button onclick='spanClick(\"inspect box\")'>smashed-up box</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>box of fireflies</button></span>");
@@ -4759,7 +4759,7 @@ const spanClick = (whatToDo) => {
                 displayInventory();
                 break;
             case (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('check')||inp('search')||inp('what'))   &&    (inp('box')||inp('chest'))  && haveBox === true && haveFireflies === true  :
-                output.innerHTML = "The box is made of hard wood and reinforced with metal banding and a silver lock. You can see the glow from the fireflies through the crack in the lid." ;
+                output.innerHTML = "You can see the  fireflies glow through the crack in the lid." ;
                 displayInventory();
                 break;
             case (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('force')||inp('bust')||inp('bash'))   &&    (inp('box')||inp('chest'))  && (haveBox === true ||roomNum === 5) && boxSmashed === 0 && boxUnlocked === false    :
@@ -5263,7 +5263,7 @@ const spanClick = (whatToDo) => {
         if (mushyTimePassed < 1 && mushyValue > 1) {
             document.getElementById('mapbox').classList.add('mushytaken');
             if (mushyValue > 5) {
-                output.innerHTML = "...you're feeling a bit... funny..."
+                output.innerHTML = "...you feel a bit... funny..."
             }
         };
 
