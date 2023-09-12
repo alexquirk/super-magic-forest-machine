@@ -915,7 +915,7 @@ outputArea.onscroll = function() {
 // INVENTORY
     const checkInventory = () => {
         if (inventory.length === 0) {
-            return "You don't have anything in your pockets yet.<br><br>Maybe there is something useful nearby you can take with you."
+            return "You don't have anything in your pockets.<br><br>Maybe there is something useful nearby you can take with you."
         } else {
             // undo finding objects animations
             document.getElementById("inventory3").classList.remove('findobject');
@@ -987,7 +987,9 @@ outputArea.onscroll = function() {
             document.getElementById("batterybutton").zIndex = "200";     
  
             // display stuff by bringing it forward
-            document.getElementById("closeinventory").style.zIndex = "200";
+            if (inventory.length > 0) {
+                document.getElementById("closeinventory").style.zIndex = "200";
+            };
             if (haveFlower === true) {
                     document.getElementById("inventory6").style.zIndex = "106";
             };
@@ -1750,6 +1752,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 
     const moveAllRoomsBack = () => {
         allRooms[roomNum-1].style.zIndex = "-2";
+        // room6.style.zIndex = "-2";
         };
 
     const goEastAnimation = () => {
@@ -2078,9 +2081,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             output.innerHTML = "A narrow path leads you east through the forest. The air grows stale as dried and rotting tree branches grab at your clothes.<br><br>You arrive at a murky hollow and a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms</button></span>";
         } else if (ghostDiscovered === true && ghostGivenMug === false) {
             output.innerHTML = "A narrow path leads you east through the forest.<br><br>You arrive at the murky hollow, where a <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> hovers eerily over a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms.</button></span>";
-        } else if (roomNum = 5) {
+        } else if (roomNum === 5) {
             output.innerHTML = "A narrow path leads you east through the forest.<br><br>You arrive at a murky hollow and a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms.</button></span>";
-        } else if (roomNum = 11) {
+        } else if (roomNum === 11) {
             output.innerHTML = "A narrow path leads you west through the forest.<br><br>You arrive at a murky hollow and a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms.</button></span>";
         } else {
             output.innerHTML = "A narrow path leads you through the forest.<br><br>You arrive at a murky hollow and a circle of <span><button onclick='spanClick(\"inspect mushrooms\")'>mushrooms.</button></span>";
@@ -2090,11 +2093,14 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         mapArrow.style.left = "68%";
         setTimeout(  ()=> {
             moveAllRoomsBack();
-            roomNum = 9;
-            if (ghostGivenMug === true || ghostDiscovered === false ) {room9.src="./roomimages/smfmroom9b.png"}
-            else if (ghostGivenFlower === true) {room9.src="./roomimages/smfmroom9c.png"}
-            else {room9.src="./roomimages/smfmroom9a.png"};
             room9.style.zIndex = "0";
+            roomNum = 9;
+            if (ghostGivenMug === true || ghostDiscovered === false ) 
+                {room9.src="./roomimages/smfmroom9b.png"}
+            else if (ghostGivenFlower === true) 
+                {room9.src="./roomimages/smfmroom9c.png"}
+            else
+                 {room9.src="./roomimages/smfmroom9a.png"};
             document.getElementById("room9tile").src="./maptiles/room9tile.png";
             northTriangle.style.opacity = "4%";
             southTriangle.style.opacity = "4%";
@@ -2800,9 +2806,9 @@ const spanClick = (whatToDo) => {
                             ghostZoom();
                             output.innerHTML = "The <span><button onclick='spanClick(\"inspect ghost\")'>ghost</button></span> is blocking the path.";
                         } else {
-                            goEastAnimation();
                             room5Switch();
-                        }
+                            goEastAnimation();
+                        };
                         break;
                     case 1:
                         room3Switch();
@@ -3047,13 +3053,13 @@ const spanClick = (whatToDo) => {
 
             // SPECIAL CASE FOR ROOM 10 BECAUSE OF GOING "DOWN" THE WELL
             case roomNum === 10 && inp("go")   &&    inp('down')  && ropeSet === true  :
-                climbDownAnimation();
                 room13Switch();
+                climbDownAnimation();
                 output.innerHTML = "You test the rope, and then carefully lower yourself into the well...<br><br>The bottom of the well is dry, and littered with some rocks and other objects that have fallen down throughout the years.<br><br>A <span><button onclick='spanClick(\"enter tunnel\")'>tunnel</button></span> in the stone wall leads deeper into the darkness.";
                 break;
             case roomNum === 10 && (((inp("walk")||inp('go')||inp('travel')||(inp('take')&&inp('me')))   &&    (inp('down')))  || inp('south') ) && !inp("well") :
-                goSouthAnimation();
                 room6Switch();
+                goSouthAnimation();
                 break;
 
             // SPECIAL CASE FOR ROOM 13
@@ -4828,9 +4834,9 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "There aren't any cactuses around.";
                 break;
                 // rope
-            case (inp('where')  || inp('how') || inp('what') ) && inp('rope')   :
-                output.innerHTML = "The rope could be helpful reaching a new place.";
-                break;
+            // case (inp('where')  || inp('how') || inp('what') ) && inp('rope')   :
+            //     output.innerHTML = "The rope could be helpful reaching a new place.";
+            //     break;
             case inp('swing') && haveRope === true &&  roomNum !== 7 && roomNum !== 8 && roomNum !== 13 && roomNum !== 18 && roomNum !== 17 :   // XXX I could animate this
                 output.innerHTML = "You toss the rope over the nearest branch, tie it up, and let-er-rip. Best thing ever :)" + getPoints(20, ropeSwing);
                 ropeSwing = true;
@@ -4909,8 +4915,7 @@ const spanClick = (whatToDo) => {
             // TRAVEL TO LAKE
             case roomNum === 10  && (inp('travel')||inp('go')||inp('walk')||inp('find')||inp('look for')||inp('visit'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('pond')||inp('stream')||inp('ocean')||inp('bank')||inp('beach')) && !inp('well') :
                 room6Switch();
-                userInput.value = "";
-                roomNum = 6;
+                goSouthAnimation();
                 break;
 
             // DEFAULT "GO" xxxxxxxxxxxxxxxxx
