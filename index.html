@@ -170,6 +170,7 @@ const viewbox = document.getElementById('viewbox');
 
 let introCutscenePlayed = false;
 let introCutsceneDonePlaying = false;
+let introCutsceneFirstHalfDonePlaying = false;
 
 let cutscenesEnabled = true;
 
@@ -180,8 +181,7 @@ const showWifiCard = () => {
     // setTimeout(function() {
         wifiCard.style.display = "table";
         wifiCard.classList.add('machinefadein');
-        largeCutsceneVideo.pause();
-        cutsceneVideo.pause();
+        largeCutsceneVideo.classList.add('blur');
     // }, 1000)
 }
 
@@ -189,7 +189,9 @@ const hideWifiCard = () => {
     wifiCard.classList.add('fadeout');
     setTimeout(function() {wifiCard.style.display = "none"}, 1000);
     largeCutsceneVideo.play();
-    cutsceneVideo.play();
+    largeCutsceneVideo.classList.remove('blur');
+
+    // cutsceneVideo.play();
 }
 
 const disableCutscenes = () => {
@@ -312,6 +314,7 @@ const introScreenShift = () => {
                     if (currentCutscene !== "intro" && currentCutscene !== "transition"){
                         endCutscene(); // ends most cutscenes
                         introCutsceneDonePlaying = true;
+                        introCutsceneFirstHalfDonePlaying = true;
                     } else if (inCutscene === true){ // ends intro cutscenes together
                         southTriangle.style.opacity = "75%";
 
@@ -325,6 +328,7 @@ const introScreenShift = () => {
                         document.getElementById('cutscenevideo').setAttribute('poster','./cutscenes/loadingleaf.gif');
             
                         introCutsceneDonePlaying = true;
+                        introCutsceneFirstHalfDonePlaying = true;
                     }
     }
 
@@ -390,11 +394,13 @@ const introScreenShift = () => {
                     largeCutsceneVideo.pause();
                     // test user's wifi
                     setTimeout(function() { 
-                        if (videoLoaded === false && inCutscene === true && introCutsceneDonePlaying === false) {
+                        if (videoLoaded === false && inCutscene === true && introCutsceneFirstHalfDonePlaying === false) {
                             showWifiCard();
+                            largeCutsceneVideo.pause();
+                            cutsceneVideo.pause();
                         }
                         }, 
-                        // this is how many seconds long the video is / 2
+                        // this is how many seconds to load before showing wifi card / 2
                         10
                         *
                         1000 );
@@ -557,7 +563,9 @@ const introScreenShift = () => {
                     introScreenShift();
 
                     },
-                    2000)
+                    2000);
+
+            introCutsceneFirstHalfDonePlaying = true;
 
             break;
 
@@ -574,6 +582,7 @@ const introScreenShift = () => {
             );
             
             introCutsceneDonePlaying = true;
+            introCutsceneFirstHalfDonePlaying = true;
             break;
 
         // robot waking
