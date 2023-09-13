@@ -477,7 +477,7 @@ const introScreenShift = () => {
                     //make cutscene visible
                     cutsceneViewer.style.display = "flex";
                     //set source to correct video file
-                    cutsceneVideo.src="./cutscenes/cavecutscene2.mp4";
+                    cutsceneVideo.src="./cutscenes/fireflycutscene.mp4";
                     break;
 
                 // cat jumping
@@ -738,6 +738,7 @@ const introScreenShift = () => {
     let haveBoxKey = false;
     let mugTaken = false;
     let haveMug = false;
+    let crystalPlaced = false;
     let millSwitchOn = false;
     let ghostGivenFlower = false;
     let ghostGivenMug = false;
@@ -2046,21 +2047,17 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             moveAllRoomsBack();
             room7.style.zIndex = "0";
             roomNum = 7;
-            if (firefliesReleased === false) {
-                room7.src="./roomimages/smfmroom7a.png"
-                document.getElementById("room7tile").src="./maptiles/room7tiledark.png";
-                northTriangle.style.opacity = "4%";
+            northTriangle.style.opacity = "4%";
                 southTriangle.style.opacity = "75%";
                 eastTriangle.style.opacity = "4%";
                 westTriangle.style.opacity = "4%";
+            if (firefliesReleased === false) {
+                room7.src="./roomimages/smfmroom7a.png"
+                document.getElementById("room7tile").src="./maptiles/room7tiledark.png";
             }
             else {
                 room7.src="./roomimages/smfmroom7b.png";
                 document.getElementById("room7tile").src="./maptiles/room7tile.png";
-                northTriangle.style.opacity = "4%";
-                southTriangle.style.opacity = "75%";
-                eastTriangle.style.opacity = "4%";
-                westTriangle.style.opacity = "75%";
             }
             },
             400
@@ -2354,12 +2351,14 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         // mark the room visited
         roomVisited[17] = true;
         // get the next rooms ready
-        document.getElementById("room18").src="./roomimages/smfmroom18.png";
+        document.getElementById("room18").src="./roomimages/smfmroom18a.png";
         // display the stuff
         mapArrow.style.top = "73%";
         mapArrow.style.left = "16.9%";
         setTimeout(  ()=> {
             moveAllRoomsBack();
+            if (crystalPlaced === true) {room18.src = "./roomimages/smfmroom18a.png"}
+            else {room18.src = "./roomimages/smfmroom18b.png"};
             room17.style.zIndex = "0";
             roomNum = 17;
             northTriangle.style.opacity = "4%";
@@ -3019,8 +3018,7 @@ const spanClick = (whatToDo) => {
                         if (firefliesReleased === false) {
                             output.innerHTML = "If you go any further you'll get lost in the darkness."
                         } else {
-                            room8Switch();
-                            goWestAnimation();
+                            output.innerHTML = "There's nowhere to go that way."
                         }
                         break;
                 };
@@ -3709,9 +3707,9 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "There are abudnances of <span><button onclick='spanClick(\"take crystal\")'>crystals</button></span> in every corner of the cave.";
                 break;
             case (roomNum === 7 || roomNum === 8) &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true :
-                output.innerHTML = "You pick up a small piece of crystal off the ground. Your fingers tingle when you touch it, and it's surprisingly warm in your hand. It seems to magnify the light from the fireflies.<br><br>You put the crystal in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
+                output.innerHTML = "You pick up a small piece of crystal. It's surprisingly warm in your hand, and seems to magnify the light from the fireflies.<br><br>You put the crystal in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
                 inventory.push("a <span><button onclick='spanClick(\"inspect crystal\")'>strange crystal</button></span>");
-                objectFound("crystal");
+                findObject("crystal");
                 haveCrystal = true;
                 break;
             case (roomNum === 7 || roomNum === 8) &&  (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab'))  && (inp('crystal')||inp('gem')||inp('diamonds')) && firefliesReleased === true  && haveCrystal === true  :
@@ -4389,6 +4387,14 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You place a flower on the dias, but nothing happens.";
                 bellZoom();
                 break;
+            case roomNum === 18 && haveBox === true &&  ( inp('box')||inp('chest') ) && (  inp('dias')||inp('table')||inp('platform')||inp('stair') ) :
+                output.innerHTML = "You place the box on the dias, but nothing happens.";
+                bellZoom();
+                break;
+            case roomNum === 18 && haveBattery === true && inp('battery')  && (  inp('dias')||inp('table')||inp('platform')||inp('stair') ) :
+                output.innerHTML = "You place the battery on the dias, but nothing happens.";
+                bellZoom();
+                break;
             case roomNum === 18 &&   inp('rock')  && (  inp('dias')||inp('table')||inp('platform')||inp('stair') ) :
                 output.innerHTML = "You place a rock on the dias, but nothing happens.";
                 bellZoom();
@@ -4402,6 +4408,13 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You strike the bell. It emits a clear tone.";
                 bellRung = true;
                 bellZoom();
+                break;
+                // placing the crystal
+            case roomNum === 18 && haveBattery === true && (inp('crystal')||inp('gem'))  && (  inp('dias')||inp('table')||inp('platform')||inp('stair') ) :
+                output.innerHTML = "You place the crystal on the dias...";
+                bellZoom();
+                crystalPlaced = true;
+                room18Switch();
                 break;
 
 
@@ -4425,7 +4438,8 @@ const spanClick = (whatToDo) => {
                 firefliesReleased = true;
                 haveFireflies = false;
                 switchChestRopeImage();
-                playCaveCutscene2();
+                currentCutscene = "fireflies emerging";
+                playCutscene();
                 document.getElementById("room7").src="./roomimages/smfmroom7a.png";
                 removeItem("a <span><button onclick='spanClick(\"inspect box\")'>box of fireflies</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
@@ -4657,7 +4671,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "There aren't any mushrooms around.";
                 break;
             case  (haveMushy === true || roomNum === 9) && inp('mush') && (inp('eat')||inp('consume')||inp('swallow') ) && mushyValue < 1 :
-                output.innerHTML = "You eat one of the mushrooms...<br><br>Yuck!";
+                output.innerHTML = "You eat one of the mushrooms...<br><br>Yuck! I probably shouldn't do that again.";
                 haveMushy = false;
                 removeItem("a <span><button onclick='spanClick(\"inspect mushroom\")'>wild mushroom</button></span>");
                 takeMushy();
