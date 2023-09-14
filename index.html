@@ -296,6 +296,7 @@ const introScreenShift = () => {
         // "basket"
         // "riding basket"
         // "ghost given mug"
+        // "crystal break"
         
     let currentCutscene = "intro";
 
@@ -756,7 +757,6 @@ const introScreenShift = () => {
     let firefliesSeen = false;
     let waterSearchedOnce = false;
     let boatFixed = false;
-    let haveHook = false;
     let mushyTaken = false;
 
     // taking the first mushroom sets the mushy-time-passed to 10. So, if mushy taken when mushy value is <1, set the time pass
@@ -2626,7 +2626,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = inventory.length;
                 break;
             case inp('var status'):
-                output.innerHTML = "robotConversationMap: " + robotConversationMap + "<br><br>haveMap: " + haveMap + "<br><br>haveHook: " + haveHook + "<br><br>boatFixed: " + boatFixed + "<br><br>ropeTaken: " + ropeTaken + "<br><br>haveBox: " + haveBox
+                output.innerHTML = "robotConversationMap: " + robotConversationMap + "<br><br>haveMap: " + haveMap + "<br><br>boatFixed: " + boatFixed + "<br><br>ropeTaken: " + ropeTaken + "<br><br>haveBox: " + haveBox
                 break;
             case inp('talk test'):
                 output.innerHTML = "";
@@ -3886,7 +3886,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You peer down into the well, but it's too deep to see the bottom.<br><br>It seems old and out of use. You look around for a bucket or rope, but don't find one.";
                 wellZoom();
                 break;
-            case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('peer')||inp('behind')||inp('what'))   &&    (inp('well'))     :
+            case roomNum === 10 &&  (inp('look')||inp('inspect')||inp('reach')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('peer')||inp('behind')||inp('what'))   &&    (inp('well'))     :
                 output.innerHTML = "You peer down into the well, but it's too deep to see the bottom.<br><br>It seems old and out of use. You look around for a bucket, but don't find one.";
                 wellZoom();
                 break;
@@ -4081,17 +4081,11 @@ const spanClick = (whatToDo) => {
 
             // ROOM 15
                 // looking around and inspecting things
-            case roomNum === 15  && haveHook === false && (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    inp('around') :
-                output.innerHTML = "You're on a island! That's pretty cool.<br><br>There's a large palm tree, a few rocks, and a big thing washed up on the shore that looks like the wing of an aircraft.<br><br>There's an old <span><button onclick='spanClick(\"take hook\")'>pirate's hook</button></span> on the ground next to the big wing thing.";
-                break;
-            case roomNum === 15  && haveHook === true && (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    inp('around') :
+            case roomNum === 15  && (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    inp('around') :
                 output.innerHTML = "You're on a island! That's pretty cool.<br><br>There's a large palm tree, a few rocks, and a big thing washed up on the shore that looks like the wing of an aircraft.";
                 break;
             case roomNum === 15  &&  (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('grab')||inp('take')||inp('pocket')||inp('get')||inp('under')||inp('behind')||inp('what'))  &&  (  inp('wing')||inp('turbine')||inp('blade')||inp('fan')||inp('white')||inp('gray')||inp('grey')||inp('thing')  ):
                 output.innerHTML = "The object looks like the wing of an airplane, but on closer inspection, you realize it's actually more like the blade of a giant fan. It's wedged in the rocks on the shore. Grasses and sea vegetation have grown around it."
-                break;
-            case (roomNum === 15  || haveHook === true  )&& (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('what'))  &&   inp('hook') :
-                output.innerHTML = "It's a pirate's hook made of metal and leather. Seems pretty sturdy!"
                 break;
                 // ride boat back
             case roomNum === 15 &&  (   (   (inp('get')||inp('take')||inp('ride'))   &&   (inp('boat'))   )  ||  (   ( inp('go')||inp('travel')) && (inp('forest')||inp('back'))  )  ||  (   inp('leave') && inp('island')   )  )  :
@@ -4101,16 +4095,6 @@ const spanClick = (whatToDo) => {
             case roomNum === 15 && (  inp('somewhere else')  || inp('other island')  || inp('different island') || inp('other place') || inp('differnt place') || inp('new place')  || inp('new island'))   :
                 output.innerHTML = "This is the only island in the lake.";
                 break;       
-                // take hook
-            case roomNum === 15 && haveHook === false && (inp('take')||inp('grab')||inp('pocket')||inp('get'))  && inp('hook')   :
-                inventory.push("a <span>pirate's hook</span>");
-                haveHook = true;
-                room15Switch();
-                output.innerHTML = "You put the pirate's hook in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
-                break;
-            case roomNum === 15 && (inp('take')||inp('grab')||inp('pocket')||inp('get'))  && inp('hook')   :
-                output.innerHTML = "You already put the pirate's hook in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
-                break;
 
             // ROOM 13
             case roomNum === 13 &&  (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('well')||inp('around')||inp('ground')||inp('floor')||inp('dirt'))  && mugTaken === false  :
@@ -4410,12 +4394,18 @@ const spanClick = (whatToDo) => {
                 bellZoom();
                 break;
                 // placing the crystal
-            case roomNum === 18 && haveBattery === true && (inp('crystal')||inp('gem'))  && (  inp('dias')||inp('table')||inp('platform')||inp('stair') ) :
+            case roomNum === 18 && haveCrystal === true && (inp('crystal')||inp('gem'))  && (  inp('dias')||inp('table')||inp('platform')||inp('stair') ) :
                 output.innerHTML = "You place the crystal on the dias...";
                 bellZoom();
+                haveCrystal = false;
+                removeItem("a <span><button onclick='spanClick(\"inspect crystal\")'>strange crystal</button></span>");
                 crystalPlaced = true;
                 room18Switch();
+                currentCutscene = "crystal break";
+                playCutscene();
                 break;
+                // ringing the bell
+
 
 
             // RELEASE FIREFLIES
