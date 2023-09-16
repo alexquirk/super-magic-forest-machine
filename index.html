@@ -2011,7 +2011,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         mapArrow.style.left = "42.6%";
         setTimeout(  ()=> {
             moveAllRoomsBack();
-            if (haveBox === false ) 
+            if (robotAwake === false ) 
                 {room5.src="./roomimages/smfmroom5a.png"}
             else
                 {room5.src="./roomimages/smfmroom5b.png"}
@@ -2230,7 +2230,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
 
     const room12Switch = () => {
-        if (robotAwake === false) {
+        if (haveBox === false) {
             if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
                 output.innerHTML = "You travel west along the lakeshore until you arrive at at a large willow tree where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying.";
             } else if (roomNum === 14) { 
@@ -2252,7 +2252,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         mapArrow.style.left = "29.8%";
         setTimeout(  ()=> {
                 moveAllRoomsBack();
-                if (robotAwake === false) {room12.src="./roomimages/smfmroom12a.png"}
+                if (haveBox === false) {room12.src="./roomimages/smfmroom12a.png"}
                 else {room12.src="./roomimages/smfmroom12b.png"};
                 room12.style.zIndex = "0";
                 document.getElementById("room12tile").src="./maptiles/room12tile.png";
@@ -3553,36 +3553,40 @@ const spanClick = (whatToDo) => {
                 break;
 
             // ROOM 5
-            case roomNum === 5  && haveBox === false && (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put')||inp('carry')) && (inp('box')||inp('chest'))   :
-                haveBox = true;
-                switchChestRopeImage();
-                // findObject("box");
-                room5Switch();
-                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
-                output.innerHTML = "You put the <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span> in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
+                // wake up robot
+            case roomNum === 5  && robotAwake === false &&  haveBattery === false && (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('speak')) :
+                output.innerHTML = "The robot is turned off, or sleeping.<br><br>There's a spot where a battery could go, but it's empty.";
+                robotZoom();
                 break;
-            case roomNum === 5 && haveBox === false && haveBoxKey === true && (inp('box')||inp('chest')) :
-                haveBox = true;
-                haveRibbon = true;
-                haveBattery = true;
-                boxUnlocked = true;
-                switchChestRopeImage();
-                // findObject("box");
-                thingsTriedSinceLastBigThing = 0;
-                inventory.push("a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>");
-                inventory.push("a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span>");
-                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
-                room5Switch();
-                displayInventory();
-                output.innerHTML = "You use the silver key to open the box. There is a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span> and a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span> inside.<br><br>You put the box, ribbon, and battery in your pocket." ;
+            case roomNum === 5  && robotAwake === false && haveBattery === true &&  (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('tree')||inp('speak')||inp('battery')) :
+                currentCutscene = "robot waking";
+                removeItem("a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>");
+                haveBattery = false;
+                playCutscene();
+                robotAwake = true;
+                room12Switch();
+                output.innerHTML = "You carefully put the battery in the robot...";
+                // createRobotConversation();
                 break;
-            case roomNum === 5  &&  haveBox === false && (  ( haveBoxKey === false && (inp('open')||inp('pry'))) || (inp('search')||inp('examine')||inp('tell me about')||inp('look')||inp('inspect')||inp('search')||inp('check')) && (inp('box')||inp('chest')) )  :
-                haveBox = true;
-                // findObject("box");
-                switchChestRopeImage();
-                room5Switch();
-                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");    
-                output.innerHTML = "The wooden box is locked, and you don't have a key.<br><br>You put the box in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span> for later.";
+                // talk to the robot
+            case roomNum === 5 && robotAwake === true  &&  (inp('talk')||inp('inquire')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('speak'))  :
+                createRobotConversation();
+                break;
+                // looking around
+            case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what')) && robotAwake === false  &&    (inp('forest')||inp('around'))     :
+                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is lying under a tree by the lake shore.<br><br>To the <span><button onclick='spanClick(\"go west\")'>west</button></span>, a narrow path leads back the the glade where you awoke. To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, a wooded path cuts into the forest.";
+                break;
+            case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what')) && robotAwake === true  &&    (inp('forest')||inp('around'))     :
+                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a tree by the lake shore. <br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, a wooded trail leads into the forest. The lake shore continues <span><button onclick='spanClick(\"go east\")'>eastward.</button></span>";
+                break;
+            case roomNum === 5  && robotAwake === false &&     (inp('tree')||inp('branch'))     :
+                output.innerHTML = "There's a <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> lying under a tree by the lake shore. It looks like it's sleeping, or powered down.";
+                break;
+            case roomNum === 5 &&    (inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
+                output.innerHTML = "The ground is covered in grass with scattered <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> and such. You don't find anything of use.";
+                break;
+            case roomNum === 5  &&  robotAwake === false  &&  (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('pond')||inp('stream')||inp('ocean')||inp('bank')||inp('shore'))     :
+                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.<br><br>The <span><button onclick='spanClick(\"talk robot\")'>strange metallic figure</button></span> resting under the tree catches your eye.";
                 break;
 
             // ROOM 6
@@ -3650,6 +3654,9 @@ const spanClick = (whatToDo) => {
                 room6Switch();
                 closeInventory();
                 output.innerHTML = "You plug the hole in the bottom of the boat with a rock. After bailing out water for a few minutes, the boat starts to float again." + getPoints(10, boatFixed);
+                break;
+            case roomNum === 6   && boatFixed === false && (inp(' tool')||inp('hammer')||inp('glue') )  &&  (inp('look')||inp('search')||inp('find')):
+                output.innerHTML = "You don't see any tools around.";
                 break;
             case roomNum === 6   && boatFixed === false && (inp(' tool')||inp('hammer')||inp('glue')) :
                 output.innerHTML = "You don't have any tools to fix the boat with.";
@@ -4086,40 +4093,37 @@ const spanClick = (whatToDo) => {
                 break;
 
             // ROOM 12
-                // wake up robot
-            case roomNum === 12  && robotAwake === false &&  haveBattery === false && (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('speak')) :
-                output.innerHTML = "The robot is turned off, or sleeping.<br><br>There's a spot where a battery could go, but it's empty.";
-                robotZoom();
-                break;
-            case roomNum === 12  && robotAwake === false && haveBattery === true &&  (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('tree')||inp('speak')||inp('battery')) :
-                currentCutscene = "robot waking";
-                removeItem("a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>");
-                haveBattery = false;
-                playCutscene();
-                robotAwake = true;
+                // chest stuff
+                case roomNum === 12  && haveBox === false && (inp('pick')||inp('take')||inp('gather')||inp('pocket')||inp('get')||inp('grab')||inp('put')||inp('carry')) && (inp('box')||inp('chest'))   :
+                haveBox = true;
+                switchChestRopeImage();
+                // findObject("box");
                 room12Switch();
-                output.innerHTML = "You carefully put the battery in the robot...";
-                // createRobotConversation();
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
+                output.innerHTML = "You put the <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span> in your <span><button onclick='spanClick(\"check pockets\")'>pocket.</button></span>";
                 break;
-                // talk to the robot
-            case roomNum === 12 && robotAwake === true  &&  (inp('talk')||inp('inquire')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('speak'))  :
-                createRobotConversation();
+            case roomNum === 12 && haveBox === false && haveBoxKey === true && (inp('box')||inp('chest')) :
+                haveBox = true;
+                haveRibbon = true;
+                haveBattery = true;
+                boxUnlocked = true;
+                switchChestRopeImage();
+                // findObject("box");
+                thingsTriedSinceLastBigThing = 0;
+                inventory.push("a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span>");
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");
+                room12Switch();
+                displayInventory();
+                output.innerHTML = "You use the silver key to open the box. There is a <span><button onclick='spanClick(\"inspect ribbon\")'>red ribbon</button></span> and a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span> inside.<br><br>You put the box, ribbon, and battery in your pocket." ;
                 break;
-                // looking around
-            case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what')) && robotAwake === false  &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is lying under a tree by the lake shore.<br><br>To the <span><button onclick='spanClick(\"go west\")'>west</button></span>, a narrow path leads back the the glade where you awoke. To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, a wooded path cuts into the forest.";
-                break;
-            case roomNum === 12 &&    (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what')) && robotAwake === true  &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a tree by the lake shore. <br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, a wooded trail leads into the forest. The lake shore continues <span><button onclick='spanClick(\"go east\")'>eastward.</button></span>";
-                break;
-            case roomNum === 12  && robotAwake === false &&     (inp('tree')||inp('branch'))     :
-                output.innerHTML = "There's a <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> lying under a tree by the lake shore. It looks like it's sleeping, or powered down.";
-                break;
-            case roomNum === 12 &&    (inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
-                output.innerHTML = "The ground is covered in grass with scattered <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> and such. You don't find anything of use.";
-                break;
-            case roomNum === 12  &&  robotAwake === false  &&  (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('pond')||inp('stream')||inp('ocean')||inp('bank')||inp('shore'))     :
-                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.<br><br>The <span><button onclick='spanClick(\"talk robot\")'>strange metallic figure</button></span> resting under the tree catches your eye.";
+            case roomNum === 12  &&  haveBox === false && (  ( haveBoxKey === false && (inp('open')||inp('pry'))) || (inp('search')||inp('examine')||inp('tell me about')||inp('look')||inp('inspect')||inp('search')||inp('check')) && (inp('box')||inp('chest')) )  :
+                haveBox = true;
+                // findObject("box");
+                switchChestRopeImage();
+                room12Switch();
+                inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>wooden box</button></span>");    
+                output.innerHTML = "The wooden box is locked, and you don't have a key.<br><br>You put the box in your <span><button onclick='spanClick(\"check pockets\")'>pocket</button></span> for later.";
                 break;
 
             // ROOM 15
