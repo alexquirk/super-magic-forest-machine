@@ -70,7 +70,7 @@ body {
     mix-blend-mode: lighten;
 }
 
-#wificard {
+#wificard, #errorcard {
     cursor: default;
     display: none;
     color: white;
@@ -682,7 +682,7 @@ body {
     mix-blend-mode: luminosity;
 }
 
-.compasstriangles:hover, #enterbutton:hover {
+.compasstriangles:hover, #enterbutton:hover, #errorenterbutton:hover {
     cursor: pointer;
 }
 
@@ -1192,14 +1192,21 @@ span > button:hover {
 
 #inputarea {
     display: none;
-    /* border: 1px solid pink; */
     justify-content: center;
     flex-wrap: nowrap;
     padding: 0px 8px;
     margin-bottom: 5px;
 }
 
-#inputarea > input {
+#errorinputarea {
+    display: block;
+    justify-content: center;
+    flex-wrap: nowrap;
+    padding: 0px 8px;
+    margin-bottom: 5px;
+}
+
+#inputarea > input, #errorinputarea > input {
     font-family: inherit;
     font-size: inherit;
     background-color: black;
@@ -1208,7 +1215,7 @@ span > button:hover {
     margin-top: 10px;
   }
 
-#userinput {
+#userinput, #erroruserinput {
     max-width: 280px;
     flex-direction: row;
     flex-grow: 10;
@@ -1220,7 +1227,7 @@ span > button:hover {
     border-radius: 0px;
 }
 
-#userinput:focus { 
+#userinput:focus, #erroruserinput:focus { 
     outline: 2px solid gray;
     /* justify-self: center; */
     -webkit-appearance: none;
@@ -1229,7 +1236,11 @@ span > button:hover {
     border-radius: 0;
 }  
 
-#enterbutton {
+#erroruserinput {
+    text-align: center;
+}
+
+#enterbutton, #errorenterbutton {
     width: 100px;
     padding: 5px;
     margin-left: 10px;
@@ -1239,7 +1250,7 @@ span > button:hover {
     border-radius: 0px;
 }
 
-#enterbutton:focus { 
+#enterbutton:focus, #errorenterbutton:focus { 
     outline: none;
     /* justify-self: center; */
     -webkit-appearance: none;
