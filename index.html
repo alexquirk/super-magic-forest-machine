@@ -1985,7 +1985,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         if (roomVisited[4] === false) {room4.src="./roomimages/smfmroom4a.png"};
         if (roomVisited[11] === false) {room11.src="./roomimages/smfmroom11.png"};
 
-        if (haveBox === true) {
+        if (robotAwake === true) {
             if (roomNum === 9) {
                 output.innerHTML = "You travel west into a clearing. The path continues to the <span><button onclick='spanClick(\"go south\")'>south.</button></span> To the <span><button onclick='spanClick(\"go east\")'>east,</button></span> a gap in the trees leads to a dark wooded hollow.";
             } else if (roomNum === 6) {
@@ -2230,23 +2230,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
 
     const room12Switch = () => {
-        if (haveBox === false) {
-            if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
-                output.innerHTML = "You travel west along the lakeshore until you arrive at at a large willow tree where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying.";
-            } else if (roomNum === 14) { 
-                output.innerHTML = "You walk east and arrive at a <span><button onclick='spanClick(\"look lake\")'>lake shore</button></span>, where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying against a large willow tree." 
-            } else {
-                output.innerHTML = "You walk south until you arrive at a <span><button onclick='spanClick(\"look lake\")'>lake shore</button></span>, where a <span><button onclick='spanClick(\"talk robot\")'>strange figure</button></span> is laying against a large willo tree.";
-            }
-        } else {
-            if (roomNum === 5 || roomNum === 6 || roomNum === 3) {
-                output.innerHTML = "You travel west along the lakeshore until you arrive at the lakeshore, where the <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a large willow tree.";
-            } else if (roomNum === 14) { 
-                output.innerHTML = "You travel east and  you arrive at the lakeshore, where the <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a large willow tree." 
-            } else {
-                output.innerHTML = "You walk south and arrive at the lakeshore, where the <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a large willow tree.";
-            }
-        };
+        output.innerHTML = "You travel east along the lakeshore and arrive at a wooded point.";
         roomVisited[12] = true;
         mapArrow.style.top = "73%";
         mapArrow.style.left = "29.8%";
