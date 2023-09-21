@@ -694,6 +694,7 @@ const showErrorCard = () => {
     
     const enterButton = document.getElementById('enterbutton');
     const mapArrow = document.getElementById('maparrow');
+    const dialogueArea = document.getElementById('dialoguearea');
     const d1 = document.getElementById("dialogue1");
     const d2 = document.getElementById("dialogue2");
     const leaveButton = document.getElementById("leavebutton");
@@ -830,6 +831,16 @@ const robotUnZoom = () => {
     document.getElementById("room5").style.bottom = "0%";
     document.getElementById("room5").style.left = "0%";
 };
+const turtleZoom = () => {
+    document.getElementById("room19").style.width = "250%";
+    document.getElementById("room19").style.bottom = "-70%";
+    document.getElementById("room19").style.left = "-80%";
+};
+const turtleUnZoom = () => {
+    document.getElementById("room19").style.width = "100%";
+    document.getElementById("room19").style.bottom = "0%";
+    document.getElementById("room19").style.left = "0%";
+};
 const wellZoom = () => {
     document.getElementById("room10").style.width = "180%";
     document.getElementById("room10").style.bottom = "-38%";
@@ -949,7 +960,7 @@ const extraoutput = document.getElementById('extraoutput');
 const scrollicon = document.getElementById('scrollicon');
 
 const makeScrollArrow = () => {
-    if (outputArea.offsetHeight < (output.offsetHeight + extraoutput.offsetHeight + d1.offsetHeight + d2.offsetHeight + leaveButton.offsetHeight) ) {
+    if (outputArea.offsetHeight < (output.offsetHeight + extraoutput.offsetHeight + dialogueArea.offsetHeight) ) {
         scrollicon.style.display = "block";
     } else {
         scrollicon.style.display = "none";
@@ -2287,9 +2298,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             room19.style.zIndex = "0";
             roomNum = 19;
             northTriangle.style.opacity = "4%";
-            southTriangle.style.opacity = "75%";
+            southTriangle.style.opacity = "4%";
             eastTriangle.style.opacity = "75%";
-            westTriangle.style.opacity = "4%";
+            westTriangle.style.opacity = "75%";
             },
             400
         );
@@ -2649,6 +2660,7 @@ const spanClick = (whatToDo) => {
         catTreeUnZoom();
         watermillUnZoom();
         bellUnZoom();
+        turtleUnZoom();
 
         // feel bad?
         if (marbleGone === true) {feelBad()};
@@ -4571,18 +4583,21 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You sit down at one of the tables. It's nice to just relax for a minute :)" + getPoints(5, sitAtTable);
                 sitAtTable = true;
                 break;
-            case roomNum === 19 &&   (inp('order')||inp('buy')||  ( (inp('get ')||inp('drink')||inp('eat ')||inp('get')) && (inp('coffee')||inp('drink')||inp('bev')||inp('food')||inp('snack')||inp('tea')||inp('treat') )  )    )  :
+            case roomNum === 19 &&   (inp('order')||inp('buy')||  ( (inp('get ')||inp('drink')||inp('eat ')) && (inp('coffee')||inp('drink')||inp('bev')||inp('food')||inp('snack')||inp('tea')||inp('treat')||inp('mug')||inp('cup') )  )    )  :
                 output.innerHTML = "You pull out your pockets... looks like you forgot your wallet.";
                 break;
                 // trying to take a jar
-            case roomNum === 19 && turtleGone === false &&  (inp('take')||inp('steal')||inp('borrow')||inp('grab')||inp('pocket')||inp('sneak'))   &&  ( inp('jar')||inp('coffee')||inp('tea')||inp('treat')||inp('snack')||inp('drink')||inp('bev')||inp('food')||inp('container')||inp('glass')||inp('cup')):
+            case roomNum === 19 && turtleGone === false &&  (inp('take')||inp('steal')||inp('borrow')||inp('grab')||inp('pocket')||inp('sneak'))   &&  ( inp('jar')||inp('coffee')||inp('tea')||inp('treat')||inp('snack')||inp('drink')||inp('bev')||inp('food')||inp('container')||inp('mug')||inp('glass')||inp('cup')):
                 output.innerHTML = "The turtle looks up from it's work.<br><br><span class = 'character'>Sorry, that belongs to the cafe.</span>";
+                turtleZoom();
                 break;
             case roomNum === 19 && turtleGone === false && (inp('attack')||inp('hit')||inp('punch')||inp('kick')||inp('smack')||inp('knock out'))   &&  ( inp('turtle')||inp('barista')||inp('tender')) :
-                output.innerHTML = "The turtle looks kinda tough with that shell... better not bother them.";
+                output.innerHTML = "The turtle looks kinda tough with that shell... better not bother it.";
+                turtleZoom();
                 break;
             case roomNum === 19 && turtleGone === false && (inp('sneak')||inp('stealth')) :
                 output.innerHTML = "The turtle is standing in the middle of the bar and there's no sneaking around them.";
+                turtleZoom();
                 break;
 
 
@@ -5477,7 +5492,7 @@ const spanClick = (whatToDo) => {
         whiteButtonFlash(enterButton);
         let fem = document.getElementById('userinput').value;
         if ((reading === true || readingAsk === true) && (fem ==""||inp("read"))) {
-            showBookText();
+            // showBookText();
             //document.getElementById("book").src="./inventoryimages/book.png";
         } else {
             processInput();
