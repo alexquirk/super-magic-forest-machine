@@ -816,14 +816,14 @@ const showErrorCard = () => {
 // ZOOM FUNCTIONS
 
 const robotZoom = () => {
-    document.getElementById("room12").style.width = "200%";
-    document.getElementById("room12").style.bottom = "-42%";
-    document.getElementById("room12").style.left = "-15%";
+    document.getElementById("room5").style.width = "200%";
+    document.getElementById("room5").style.bottom = "-50%";
+    document.getElementById("room5").style.left = "-22%";
 };
 const robotUnZoom = () => {
-    document.getElementById("room12").style.width = "100%";
-    document.getElementById("room12").style.bottom = "0%";
-    document.getElementById("room12").style.left = "0%";
+    document.getElementById("room5").style.width = "100%";
+    document.getElementById("room5").style.bottom = "0%";
+    document.getElementById("room5").style.left = "0%";
 };
 const wellZoom = () => {
     document.getElementById("room10").style.width = "180%";
@@ -1982,21 +1982,21 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 
         if (robotAwake === true) {
             if (roomNum === 9) {
-                output.innerHTML = "You travel east into a clearing. The path branches to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
+                output.innerHTML = "You travel east into a clearing. the path continues to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
             } else if (roomNum === 11) {
-                output.innerHTML = "You travel west into a clearing. The path branches to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go west\")'>east</button></span>.";
+                output.innerHTML = "You travel west into a clearing. the path continues to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go west\")'>east</button></span>.";
             } else if (roomNum === 4 ) {
-                output.innerHTML = "You travel north into a clearing. The path branches to the <span><button onclick='spanClick(\"go west\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
+                output.innerHTML = "You travel north into a clearing. the path continues to the <span><button onclick='spanClick(\"go west\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
             } else {
                 output.innerHTML = "You arrive at a clearing.";
             };
         } else {
             if (roomNum === 9) {
-                output.innerHTML = "You travel east into a clearing and discover a <span><button onclick='spanClick(\"inspect robot\")'>robot</button></span> lying under a tree.<br><br>The path branches to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
+                output.innerHTML = "You travel east into a clearing and find a <span><button onclick='spanClick(\"inspect robot\")'>robot</button></span> lying under a tree.<br><br>the path continues to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
             } else if (roomNum === 11) {
-                output.innerHTML = "You travel west into a clearing and discover a <span><button onclick='spanClick(\"inspect robot\")'>robot</button></span> lying under a tree.<br><br>The path branches to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go west\")'>east</button></span>.";
+                output.innerHTML = "You travel west into a clearing and find a <span><button onclick='spanClick(\"inspect robot\")'>robot</button></span> lying under a tree.<br><br>the path continues to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go west\")'>east</button></span>.";
             } else if (roomNum === 4 ) {
-                output.innerHTML = "You travel north into a clearing and discover a <span><button onclick='spanClick(\"inspect robot\")'>robot</button></span> lying under a tree.<br><br>The path branches to the <span><button onclick='spanClick(\"go west\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
+                output.innerHTML = "You travel north into a clearing and find a <span><button onclick='spanClick(\"inspect robot\")'>robot</button></span> lying under a tree.<br><br>the path continues to the <span><button onclick='spanClick(\"go west\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
             } else {
                 output.innerHTML = "You arrive at a clearing and discover a <span><button onclick='spanClick(\"inspect robot\")'>robot</button></span> lying under a tree.";
             };
@@ -2067,7 +2067,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     }; 
     const room7Switch = () => {
         if (firefliesReleased === false) {
-            output.innerHTML = "You make your way inside the cave. The light slowly fades behind you until you find yourself in almost complete darkness.<br><br>Soon you can barely see your hands in front of you.";
+            output.innerHTML = "You make your way inside the cave. It's so dark you can barely see your hands in front of you!";
         } else {
             output.innerHTML = "The cave is filled with the light of countless fireflies. The strange <span><button onclick='spanClick(\"inspect crystals\")'>crystals</button></span> glow faintly.";
         };
@@ -2636,8 +2636,7 @@ const spanClick = (whatToDo) => {
         leaveButton.style.display = "none";
         
         // clear zoom / unzoon
-        // robotUnZoom();
-        if (inDialogue === false && robotAwake === true) {room12.src="./roomimages/smfmroom12b.png";}
+        robotUnZoom();
         wellUnZoom();
         doorUnZoom();
         stumpUnZoom();
@@ -3581,7 +3580,7 @@ const spanClick = (whatToDo) => {
                 break;
                 // looking around
             case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what')) && robotAwake === false  &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is lying under a tall white tree.<br><br>The path branches to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
+                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is lying under a tall white tree.<br><br>the path continues to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
                 break;
             case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what')) && robotAwake === true  &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a tree. <br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, a wooded trail leads into the forest. The lake shore continues <span><button onclick='spanClick(\"go east\")'>eastward.</button></span>";
@@ -3592,8 +3591,8 @@ const spanClick = (whatToDo) => {
             case roomNum === 5 &&    (inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
                 output.innerHTML = "The ground is covered in grass with scattered <span><button onclick='spanClick(\"take rock\")'>rocks</button></span> and such. You don't find anything of use.";
                 break;
-            case roomNum === 5  &&  robotAwake === false  &&  (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    (inp('water')||inp('creek')||inp('river')||inp('lake')||inp('pond')||inp('stream')||inp('ocean')||inp('bank')||inp('shore'))     :
-                output.innerHTML = "The water is cool and clear, and a few fish drift lazily along. You search around the banks, but don't find anything particularly useful.<br><br>The <span><button onclick='spanClick(\"talk robot\")'>strange metallic figure</button></span> resting under the tree catches your eye.";
+            case roomNum === 5  &&  robotAwake === false  &&  (inp('look')||inp('search')||inp('check')||inp('what'))   &&    (inp('battery')||inp('power'))     :
+                output.innerHTML = "You look around for the battery, but don't find anything.";
                 break;
 
             // ROOM 6
@@ -4196,7 +4195,7 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You knock on the door.<br><br>Someone answers from within:<br><br><span class = 'character'>\"Sorry, we're closed! Come back in a bit!\"</span><br><br>They sound flustered.";
                 break;
             case roomNum === 13 && cafeOpen === false && (   inp("note")||inp('read')||inp('sign')) :
-                output.innerHTML = "There is a hand-written sign on that door it that reads: <br><br><span class= 'character'>  \"Temporarily closed! Come back later.\"</span>";
+                output.innerHTML = "A hand-written sign on the door reads: <br><br><span class= 'character'>  \"Temporarily closed! Come back later.\"</span>";
                 break;
             case roomNum === 13 && cafeOpen === false && (((   inp("behind")||inp('side')) && inp('door') )||  inp('listen')) :
                 output.innerHTML = "You can hear someone or something rummaging arround on the other side of the door." ;
