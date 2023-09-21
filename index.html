@@ -747,6 +747,7 @@ const showErrorCard = () => {
     let ropeSwing = false;
     let triedToThrowBox = false;
     let catAttacked = false;
+    let sitAtTable = false;
     let decorateBox1 = false;
     let decorateBox2 = false;
     let decorateBox3 = false;
@@ -775,6 +776,8 @@ const showErrorCard = () => {
     let robotAwake = false;
     let haveCrystal = false;
     let haveFireflies = false;
+    let firefliesInBox = false;
+    let firefliesInJar = false;
     let firefliesReleased = false;
     let electroVineTaken = false;
     let haveRibbon = false;
@@ -2279,8 +2282,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     const room19Switch = () => {
         // get next room ready
         room16.src="./roomimages/smfmroom16a.png";
-
-        output.innerHTML = "You enter a quaint underground cafe lit by flickering lamps. A turtle is standing behind the coffee bar, hard at work cleaning.";
+        if (turtleGone === false) {
+            output.innerHTML = "You enter a quaint underground cafe lit by flickering lamps. A turtle is standing behind the coffee bar, hard at work.";
+        } else {
+            output.innerHTML = "You reeturn to the underground cafe. The turtle that was working behind the bar is gone.";
+        };
         roomVisited[19] = true;
         setTimeout(  ()=> {
             moveAllRoomsBack();
@@ -2294,8 +2300,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             roomNum = 19;
             northTriangle.style.opacity = "4%";
             southTriangle.style.opacity = "75%";
-            eastTriangle.style.opacity = "4%";
-            westTriangle.style.opacity = "75%";
+            eastTriangle.style.opacity = "75%";
+            westTriangle.style.opacity = "4%";
             },
             400
         );
@@ -2921,6 +2927,10 @@ const spanClick = (whatToDo) => {
                         room7Switch();
                         goEastAnimation();
                         break;
+                    case 19:
+                        room16Switch();
+                        goEastThenSouthAnimation();
+                        break;
                     case 10:
                         output.innerHTML = "The forest is too dense to go any further east.";
                         break;
@@ -2967,6 +2977,9 @@ const spanClick = (whatToDo) => {
                     case 14:
                         output.innerHTML = "The forest is too dense to go north.";
                         break;
+                    case 19:
+                        output.innerHTML = "There's nowhere to go that way.";
+                        break;
                     case 9:
                         output.innerHTML = "The forest is too dark and dense to go any further north.";
                         break;
@@ -2998,7 +3011,7 @@ const spanClick = (whatToDo) => {
                         break;
                     case 16:
                         room19Switch();
-                        goNorthAnimation();
+                        goNorthThenWestAnimation();
                         break;
                     case 17:
                         output.innerHTML = "There's nowhere to go that direction.";
@@ -3049,6 +3062,10 @@ const spanClick = (whatToDo) => {
                     case 4:
                         output.innerHTML = "You can't go any further west.";
                         break;
+                    case 19:
+                        room13Switch();
+                        goWestAnimation();
+                        break;
                     case 1:
                         room10Switch();
                         goWestAnimation();
@@ -3091,6 +3108,9 @@ const spanClick = (whatToDo) => {
                         break;
                     case 4:
                         output.innerHTML = "You can't go any further south.";
+                        break;
+                    case 19:
+                        output.innerHTML = "There's nowhere to go that way.";
                         break;
                     case 3:
                         output.innerHTML = "The forest is too dense to go any further south.";
@@ -3334,6 +3354,7 @@ const spanClick = (whatToDo) => {
                 removeItem("a <span><button onclick='spanClick(\"inspect box\")'>smashed-up box</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>box of fireflies</button></span>");
                 haveFireflies = true;
+                firefliesInBox = true;
                 switchChestRopeImage();
                 break;
             case roomNum === 2 && (inp('box')||inp('chest')||inp('catch')||inp('take')||inp('gather')||inp('grab')||inp('get'))   &&    inp('fire')  &&  haveFireflies === true :
@@ -3782,6 +3803,7 @@ const spanClick = (whatToDo) => {
                 removeItem("a <span><button onclick='spanClick(\"inspect box\")'>smashed-up box</button></span>");
                 inventory.push("a <span><button onclick='spanClick(\"inspect box\")'>box of fireflies</button></span>");
                 haveFireflies = true;
+                firefliesInBox = true;
                 switchChestRopeImage();
                 break;
             case roomNum === 7 &&  firefliesReleased===true &&  (inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && (inp('ground')||inp('floor')||inp('dirt')) :
@@ -4478,8 +4500,6 @@ const spanClick = (whatToDo) => {
                 goEastAnimation();
                 room18Switch();
                 break;
-            
-
 
             // ROOM 18
                 // looking around
@@ -4544,6 +4564,38 @@ const spanClick = (whatToDo) => {
                 break;
                 // ringing the bell
 
+            // ROOM 19
+                    // look around, basic stuff
+            case roomNum === 19   && ((inp('exit')||inp('leave')||inp('go back')||inp('outside') ) || inp('go out'))  :
+                room13Switch();
+                goWestAnimation();
+                break;
+            case roomNum === 19 &&   (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what'))   &&   inp('around') :
+                output.innerHTML = "The underground cafe is a bit dingy, but comfy and smells like coffee and baked goods. Tree roots wind down the dirt walls, which are lined with a few tables and chairs.<br><br>A turtle is hard at work behind the coffee bar.";
+                break;
+            case roomNum === 19 &&   (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('bar')||inp('shelv')||inp('shelf')||inp('cabinet')||inp('storage')||inp('wall')||inp('mantel')||inp('mantle') ):
+                output.innerHTML = "A few shelves on the walls serve as storage for various cafe things - cups, jars, and other containers and equipment.";
+                break;
+            case roomNum === 19 &&   (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('table')||inp('chair')):
+                output.innerHTML = "The tables and chairs are a bit worn, but look inviting.";
+                break;
+            case roomNum === 19 &&   (inp('sit')||inp('relax')||inp('take a seat')||inp('at a table')||inp('pull up'))  :
+                output.innerHTML = "You sit down at one of the tables. It's nice to just relax for a minute :)" + getPoints(5, sitAtTable);
+                sitAtTable = true;
+                break;
+            case roomNum === 19 &&   (inp('order')||inp('buy')||  ( (inp('get ')||inp('drink')||inp('eat ')||inp('get')) && (inp('coffee')||inp('drink')||inp('bev')||inp('food')||inp('snack')||inp('tea')||inp('treat') )  )    )  :
+                output.innerHTML = "You pull out your pockets... looks like you forgot your wallet.";
+                break;
+                // trying to take a jar
+            case roomNum === 19 && turtleGone === false &&  (inp('take')||inp('steal')||inp('borrow')||inp('grab')||inp('pocket')||inp('sneak'))   &&  ( inp('jar')||inp('coffee')||inp('tea')||inp('treat')||inp('snack')||inp('drink')||inp('bev')||inp('food')||inp('container')||inp('glass')||inp('cup')):
+                output.innerHTML = "The turtle looks up from it's work.<br><br><span class = 'character'>Sorry, that belongs to the cafe.</span>";
+                break;
+            case roomNum === 19 && turtleGone === false && (inp('attack')||inp('hit')||inp('punch')||inp('kick')||inp('smack')||inp('knock out'))   &&  ( inp('turtle')||inp('barista')||inp('tender')) :
+                output.innerHTML = "The turtle looks kinda tough with that shell... better not bother them.";
+                break;
+            case roomNum === 19 && turtleGone === false && (inp('sneak')||inp('stealth')) :
+                output.innerHTML = "The turtle is standing in the middle of the bar and there's no sneaking around them.";
+                break;
 
 
             // RELEASE FIREFLIES

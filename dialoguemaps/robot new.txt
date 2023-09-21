@@ -9,29 +9,98 @@ Who are you?
 	> Headliner?
 
 I think you ran out of battery.
-> Oh yeah? Well, nothing wrong with a nap before the show. Thanks for waking me up! Are you ready?
+> Oh yeah? Well, nothing wrong with a little nap before the show. Thanks for waking me up! So, are you ready?
 	> Ready for what?
 	> Who are you?
 
 Ready for what?
-> Wait, you're telling me you don't know? Dude! prepare to have your human mind flipping blown! Cause pretty soon this spot is about to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!! 
-	> That's kind of a 
+> Haha, good one! ... wait, you're really telling me you don't know? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!! 
+	> Woodland Wubfest? That's a weird name...
+	> Cool! When does it start?
 
 Headliner?
-> Wait, you really don't know who I am? Dude! Prepare to have your human mind flipping blown! cause pretty soon this spot is about to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!! 
+> Wait, you really don't know...? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!! 
+	> Woodland Wubfest? That's a weird name...
+	> Cool! When does it start?
 	
 I'm not sure actually, I'm lost.
-> Well, you came to the right place! Prepare to have your human mind flipping blown! Cause pretty soon this spot is about to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!! 
+> Well, you came to the right place! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!! 
+	> Woodland Wubfest? That's a weird name...
+	> Cool! When does it start?
+
+That's a weird name...
+> Huh? You don't like Woodland Wubfest? Well, I guess it's just a working title... Not too late for a re-brand! What would you call it? Full creative license. Don't be shy, let's hear it!
+	> *input*
+
+*normal response*
+'<festname>'... huh... I like that! It's catchy. Let's roll with it! <festname> is going to be the talk of the forest.
+	> Cool! When does it start?
+	> Actually, I changed my mind.
+
+Actually, I changed my mind.
+> Ok, no prob! Any other ideas?
+	> *input*
+
+*weird response*
+...<festname>... are you sure? Don't you think that's a little... I don't know... hah... look, I don't mean to second guess you here, but <festname> might not... rub people the right way... I mean! It's a little... but look, if you like it, I'm down to roll with it.
+	> Let's do it
+	> Actually, I changed my mind.
+
+Let's do it
+> Heck yeah, dude! So, we got the name figured out, we got the sound system, and we got the DJ (that's me), so I guess all we need to do now is get the word out. Say, you wouldn't want to help me invite some cool people, would you?
+	> Sure!
+	> Hey, I thought you were a famous headliner?
+
+When does it start?
+> Well, I'm not sure how long I was asleep, so it's hard to say. But we got the sound system, we got the DJ (that's me), so I guess all we need to do now is get the word out. Say, you wouldn't want to help me invite some cool people, would you?
+	> Sure!
+	> Hey, I thought you were a famous headliner?
+
+Sure!
+> Freaking awesome, dude! If you invite three people we'll get this party rolling. Once the music is blasting and the dance floor is shaking, word will get out, for sure!
+	> Three people? No problem.
+	> Where should I look for people?
+
+Three people? No problem.
+> Heck yeah, dude! If I were you, I'd start at the Underground Cafe. There's always some cool people hanging around there. Then I'd probably hit up the Party Owl. That dude really knows a lot. I'll be here finishing the setup and getting the tunes ready.
+	> Sounds good!
+
+here should I look for people?
+> I'd start at the Underground Cafe. There's always some cool people hanging around there. Then I'd probably hit up the Party Owl. That dude really knows a lot. I'll be here finishing the setup and getting the tunes ready.
+	> Sounds good!
+
+Sounds good!
+> Good luck!
+
+Hey, I thought you were a famous headliner?
+> Well, yeah! And every great DJ has their crew. I gotta stay here and finish up some tunes, and if you invite three people we'll get this party rolling. Once the music is blasting and the dance floor is shaking, word will get out, for sure!
+	> Three people? No problem.
+	> Where should I look for people?
+
+> Any luck with the promo?
+	> Not yet!
+	> I invited the turtle at the cafe.
+	> I invited the owl.
+	> I invited the bear.
+	> I invited the bear, the owl, and turtle!
+
+Not yet!
+> Keep at it! You got this dude!
+
+I invited the...
+> Nice dude! Keep it up! The sound system is almost ready to go, and my set is sounding sick so far. Almost ready!
+
+I invited the bear, the owl, and turtle!
+> No way! You know what that means...?? It's time to kick it off!
+	> Let's freaking do it!
+
+
+
 
 
 
 
 Sure, it doesn't look like much yet, but give it a few
-
-
-
-
-
 
 
 I think you ran out of battery.
