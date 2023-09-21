@@ -821,14 +821,14 @@ const showErrorCard = () => {
 // ZOOM FUNCTIONS
 
 const robotZoom = () => {
-    document.getElementById("room5").style.width = "200%";
-    document.getElementById("room5").style.bottom = "-55%";
-    document.getElementById("room5").style.left = "-21%";
+    document.getElementById("room5").style.width = "230%";
+    document.getElementById("room5").style.bottom = "-64%";
+    document.getElementById("room5").style.left = "-31%";
 };
 const robotUnZoom = () => {
-    document.getElementById("room12").style.width = "100%";
-    document.getElementById("room12").style.bottom = "0%";
-    document.getElementById("room12").style.left = "0%";
+    document.getElementById("room5").style.width = "100%";
+    document.getElementById("room5").style.bottom = "0%";
+    document.getElementById("room5").style.left = "0%";
 };
 const wellZoom = () => {
     document.getElementById("room10").style.width = "180%";
@@ -949,7 +949,7 @@ const extraoutput = document.getElementById('extraoutput');
 const scrollicon = document.getElementById('scrollicon');
 
 const makeScrollArrow = () => {
-    if (outputArea.offsetHeight < (output.offsetHeight + extraoutput.offsetHeight) ) {
+    if (outputArea.offsetHeight < (output.offsetHeight + extraoutput.offsetHeight + d1.offsetHeight + d2.offsetHeight + leaveButton.offsetHeight) ) {
         scrollicon.style.display = "block";
     } else {
         scrollicon.style.display = "none";
@@ -1573,18 +1573,18 @@ const robotDialogueButtonTexts = ["", //0
                              "> I think you ran out of battery.", //2
                              "> Ready for what?", //3
                              "> Headliner?", //4
-                             "> Woodland Wubfest? That's a weird name...", //5
-                             "> Let's do it!", //6
-                             "> <festival name>", //7
+                             "> I'm not sure actually. I'm lost.", //5
+                             "> Woodland Wubfest? That's a weird name...", //6
+                             "> *normal response*", //7
                              "> Actually, I changed my mind.", //8
-                             "> <festival name>", //9
+                             "> *weird response*", //9
                              "> Let's do it!", //10
                              "> When does it start?", //11
                              "> Sure!", //12
                              "> Three people? No problem.", //13
                              "> Where should I look for people?", //14
                              "> Sounds good!", //15
-                             "> Hey, I thought you were a famous headliner?", //16
+                             "> But I thought you were a famous headliner?", //16
                              "", //17
                              "> Not yet!", //18
                              "> I invited the <insert invited person>", //19
@@ -1593,10 +1593,10 @@ const robotDialogueButtonTexts = ["", //0
                             ];
     
     //robot responses
-    const robotDialogueTexts = ["You put the battery in the robot and it powers up! It stands and speaks in a metallic voice.<br><br><span class='robot'>Woah... I must have dozed off!</span>", //0
+    const robotDialogueTexts = ["You carelly put the battery in the robot...<br>The robot suddenly powers and speaks in a metallic voice.<br><br><span class='robot'>Woah... I must have dozed off!</span>", //0
                                 "<span class='robot'>Dude! Pretending like you don't know the headliner... classic! You're pretty funny, you know that? Where are you from?</span>", //1
                                 "<span class='robot'>Oh yeah? Well, nothing wrong with a little nap before the show. Thanks for waking me up! So, are you ready?</span>", //2
-                                "<span class='robot'>Haha, good one! ... wait, you're really telling me you don't know? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!!</span>", //3
+                                "<span class='robot'>Haha, good one! ...wait, you're really telling me you don't know who I am? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!!</span>", //3
                                 "<span class='robot'>Wait, you really don't know...? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!!</span>", //4
                                 "<span class='robot'>Well, you came to the right place! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!!</span>", //5
                                 "<span class='robot'>Huh? You don't like Woodland Wubfest? Well, I guess it's just a working title... Not too late for a re-brand! What would you call it? Full creative license. Don't be shy, let's hear it!</span>", //6
@@ -1606,8 +1606,8 @@ const robotDialogueButtonTexts = ["", //0
                                 "<span class='robot'>Heck yeah, dude! So, we got the name figured out, we got the sound system, and we got the DJ (that's me), so I guess all we need to do now is get the word out. Say, you wouldn't want to help me invite some cool people, would you?</span>", //10
                                 "<span class='robot'>Well, I'm not sure how long I was asleep, so it's hard to say. But we got the sound system, we got the DJ (that's me), so I guess all we need to do now is get the word out. Say, you wouldn't want to help me invite some cool people, would you?</span>", //11
                                 "<span class='robot'>Freaking awesome, dude! If you invite three people we'll get this party rolling. Once the music is blasting and the dance floor is shaking, word will get out, for sure!</span>", //12
-                                "<span class='robot'>Heck yeah, dude! If I were you, I'd start at the Underground Cafe. There's always some cool people hanging around there. Then I'd probably hit up the Party Owl. That dude really knows a lot. I'll be here finishing the setup and getting the tunes ready.</span>", //13
-                                "<span class='robot'>I'd start at the Underground Cafe. There's always some cool people hanging around there. Then I'd probably hit up the Party Owl. That dude really knows a lot. I'll be here finishing the setup and getting the tunes ready.</span>", //14
+                                "<span class='robot'>Heck yeah, dude! If I were you, I'd start at the Underground Cafe. There's always some cool people hanging around there. Then I'd probably hit up the Party Owl. That dude really knows a lot. I'll stay here to set up and get the tunes ready.</span>", //13
+                                "<span class='robot'>I'd start at the Underground Cafe. There's always some cool people hanging around there. Then I'd probably hit up the Party Owl. That dude really knows a lot. I'll stay here to set up and fishing getting the tunes ready.</span>", //14
                                 "<span class='robot'>Good luck!</span>", //15
                                 "<span class='robot'>Well, yeah! And every great DJ has their crew. I gotta stay here and finish up some tunes, and if you invite three people we'll get this party rolling. Once the music is blasting and the dance floor is shaking, word will get out, for sure!</span>", //16
                                 "<span class='robot'>What's up dude! Any luck with the promo?</span>", //17
@@ -1617,7 +1617,7 @@ const robotDialogueButtonTexts = ["", //0
                                 ];
     
                         //      0     1     2     3      4       5      6      7      8       9      10      11      12      13      14      15      16      17      18      19      20      21    
-const robotConversationMap = [[1,2],[5,4],[3,1],[6,11],[6,11],[6,11],[7, -1],[11,8],[7,-1],[10,8],[12,16],[12,16],[13,14],[15,-1],[15,-1],[-1,-1],[13,14],[18,19],[-1,-1],[-1,-1],[21,22],[21,-1]];                      
+const robotConversationMap = [[1,2],[5,4],[3,1],[6,11],[6,11],[6,11],[7, 9],[11,8],[7,9],[10,8],[12,16],[12,16],[13,14],[15,-1],[15,-1],[-1,-1],[13,14],[18,19],[-1,-1],[-1,-1],[21,22],[21,-1]];                      
 
 const createRobotConversation = () => {
     // zoom
@@ -1689,7 +1689,7 @@ leaveRobotConversation = () => {
     leaveButton.style.display = "none";
     output.innerHTML = "";
     setCurrentRobotConversation();
-    // robotUnZoom();
+    robotUnZoom();
     // room12.src="./roomimages/smfmroom12b.png";
     
 };

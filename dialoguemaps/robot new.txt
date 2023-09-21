@@ -28,9 +28,11 @@ I'm not sure actually, I'm lost.
 	> Woodland Wubfest? That's a weird name...
 	> Cool! When does it start?
 
-That's a weird name...
+Woodland Wubfest? That's a weird name...
 6 > Huh? You don't like Woodland Wubfest? Well, I guess it's just a working title... Not too late for a re-brand! What would you call it? Full creative license. Don't be shy, let's hear it!
-	> *input*
+	> *weird*
+	> *normal*
+
 
 *normal response*
 7 > '<festname>'... huh... I like that! It's catchy. Let's roll with it! <festname> is going to be the talk of the forest.
