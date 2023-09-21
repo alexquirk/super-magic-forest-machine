@@ -821,9 +821,9 @@ const showErrorCard = () => {
 // ZOOM FUNCTIONS
 
 const robotZoom = () => {
-    document.getElementById("room5").style.width = "230%";
-    document.getElementById("room5").style.bottom = "-64%";
-    document.getElementById("room5").style.left = "-31%";
+    document.getElementById("room5").style.width = "200%";
+    document.getElementById("room5").style.bottom = "-50%";
+    document.getElementById("room5").style.left = "-21%";
 };
 const robotUnZoom = () => {
     document.getElementById("room5").style.width = "100%";
@@ -1643,6 +1643,11 @@ const createRobotConversation = () => {
     //     currentCutscene = "robot scanning";
     //     playCutscene();
     // };
+
+    //open the cafe
+    if (currentRobotConversation === 3 || currentRobotConversation === 4 || currentRobotConversation === 5 ){
+        cafeOpen = true;
+    };
     
     // show the robot's speech
     output.innerHTML = robotDialogueTexts[currentRobotConversation];
@@ -2250,7 +2255,8 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         setTimeout(  ()=> {
             moveAllRoomsBack();
             if (mugTaken === false) {room13.src="./roomimages/smfmroom13a.png"}
-            else {room13.src="./roomimages/smfmroom13b.png"};
+            else if (cafeOpen === false) {room13.src="./roomimages/smfmroom13b.png"}
+            else {room13.src="./roomimages/smfmroom13c.png"};
             room13.style.zIndex = "0";
             roomNum = 13;
             northTriangle.style.opacity = "4%";
@@ -4216,7 +4222,7 @@ const spanClick = (whatToDo) => {
                 break;
             // inspecting the door
             case roomNum === 13 && cafeOpen === false && (  inp("door")||inp('open')||inp('unlock')||inp('latch')||inp('handle') ) :
-                output.innerHTML = "The door is latched shut from the inside. There is a sign on it that reads: <br><br><span class= 'character'> \"Temporarily closed! Comve back later.\"</span>";
+                output.innerHTML = "The door is latched shut from the inside. There is a sign on it that reads: <br><br><span class= 'character'> \"Temporarily closed! Come back later.\"</span>";
                 break;
             case roomNum === 13 && cafeOpen === false && (   inp("knock")||inp('ring')||inp('nok')) :
                 output.innerHTML = "You knock on the door.<br><br>Someone answers from within:<br><br><span class = 'character'>\"Sorry, we're closed! Come back in a bit!\"</span><br><br>They sound flustered.";
