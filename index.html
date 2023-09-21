@@ -37,14 +37,11 @@
 </div>
 
 <div id="wificard">
-    Slow internet detected!<br><br>
-    For the best experience wait<br>
-    for an improved connection or<br>
-    proceed with cutscenes disabled.<br>
+    Hmm... this is taking a while.<br><br>
+    A strong wifi connection is recommended<br>
+    for the best experience.<br>
     <br><br>
-    <button type="button" onclick="disableCutscenes()">continue without cutscenes</button>
-    <br>
-    <button type="button" onclick="hideWifiCard()">continue with cutscenes</button>
+    <button type="button" onclick="hideWifiCard()">continue anyway</button>
 </div>
 
 <div id="errorcard">
@@ -183,7 +180,7 @@ let introCutscenePlayed = false;
 let introCutsceneDonePlaying = false;
 let introCutsceneFirstHalfDonePlaying = false;
 
-let cutscenesEnabled = true;
+// let cutscenesEnabled = true;
 
 // show wificard
 
@@ -191,25 +188,21 @@ const showWifiCard = () => {
     // show wificard
     // setTimeout(function() {
         wifiCard.style.display = "table";
-        wifiCard.classList.add('machinefadein');
-        largeCutsceneVideo.classList.add('blur');
+        largeCutsceneVideo.pause();
     // }, 1000)
 }
 
 const hideWifiCard = () => {
-    wifiCard.classList.add('fadeout');
-    setTimeout(function() {wifiCard.style.display = "none"}, 1000);
+    wifiCard.style.display = "none";
     largeCutsceneVideo.play();
-    largeCutsceneVideo.classList.remove('blur');
-
     // cutsceneVideo.play();
 }
 
-const disableCutscenes = () => {
-    cutscenesEnabled = false;
-    endCutscene();
-    hideWifiCard();
-}
+// const disableCutscenes = () => {
+//     cutscenesEnabled = false;
+//     endCutscene();
+//     hideWifiCard();
+// }
 
 // const hideWifiCard = () =>
 
@@ -387,7 +380,7 @@ const introScreenShift = () => {
     // play the cutscene
     const playCutscene = () => {
 
-        if (cutscenesEnabled === true) {
+        // if (cutscenesEnabled === true) {
 
             videoLoaded = false;
             inCutscene = true;
@@ -455,8 +448,6 @@ const introScreenShift = () => {
                     cutsceneViewer.style.display = "flex";
                     //set source to correct video file
                     cutsceneVideo.src="./cutscenes/robotcutscene.mp4";
-                    //change map image
-                    room12.src="./roomimages/smfmroom12c.png";
                     break;
 
                 // robot scanning
@@ -562,7 +553,7 @@ const introScreenShift = () => {
 
                 }
             };
-        }
+        // }
 
     // end the cutscene
     const endCutscene = () => {
@@ -1991,23 +1982,23 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
 
         if (robotAwake === true) {
             if (roomNum === 9) {
-                output.innerHTML = "You travel west into a clearing. The path continues to the <span><button onclick='spanClick(\"go south\")'>south.</button></span> To the <span><button onclick='spanClick(\"go east\")'>east,</button></span> a gap in the trees leads to a dark wooded hollow.";
-            } else if (roomNum === 6) {
-                output.innerHTML = "You travel east into a clearing. The path continues to the <span><button onclick='spanClick(\"go south\")'>south.</button></span> To the <span><button onclick='spanClick(\"go east\")'>east,</button></span> a gap in the trees leads to a dark wooded hollow.";
+                output.innerHTML = "You travel east into a clearing. The path branches to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
+            } else if (roomNum === 11) {
+                output.innerHTML = "You travel west into a clearing. The path branches to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go west\")'>east</button></span>.";
             } else if (roomNum === 4 ) {
-                output.innerHTML = "You travel north into a clearing. The path continues to the <span><button onclick='spanClick(\"go south\")'>south.</button></span> To the <span><button onclick='spanClick(\"go east\")'>east,</button></span> a gap in the trees leads to a dark wooded hollow.";
+                output.innerHTML = "You travel north into a clearing. The path branches to the <span><button onclick='spanClick(\"go west\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
             } else {
-                output.innerHTML = "You arrive at a clearing. The path continues to the <span><button onclick='spanClick(\"go south\")'>south.</button></span> To the <span><button onclick='spanClick(\"go east\")'>east,</button></span> a gap in the trees leads to a dark wooded hollow.";
+                output.innerHTML = "You arrive at a clearing.";
             };
         } else {
             if (roomNum === 9) {
-                output.innerHTML = "You travel west into a clearing.<br><br>The path continues to the <span><button onclick='spanClick(\"go south\")'>south.</button></span> To the <span><button onclick='spanClick(\"go east\")'>east,</button></span> a gap in the trees leads to a dark wooded hollow.";
-            } else if (roomNum === 6) {
-                output.innerHTML = "You travel east into a clearing.<br><br>The path continues to the <span><button onclick='spanClick(\"go south\")'>south.</button></span> To the <span><button onclick='spanClick(\"go east\")'>east,</button></span> a gap in the trees leads to a dark wooded hollow.";
+                output.innerHTML = "You travel east into a clearing and discover a <span><button onclick='spanClick(\"inspect robot\")'>robot</button></span> lying under a tree.<br><br>The path branches to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
+            } else if (roomNum === 11) {
+                output.innerHTML = "You travel west into a clearing and discover a <span><button onclick='spanClick(\"inspect robot\")'>robot</button></span> lying under a tree.<br><br>The path branches to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go west\")'>east</button></span>.";
             } else if (roomNum === 4 ) {
-                output.innerHTML = "You travel north into a clearing.<br><br>The path continues to the <span><button onclick='spanClick(\"go south\")'>south.</button></span> To the <span><button onclick='spanClick(\"go east\")'>east,</button></span> a gap in the trees leads to a dark wooded hollow.";
+                output.innerHTML = "You travel north into a clearing and discover a <span><button onclick='spanClick(\"inspect robot\")'>robot</button></span> lying under a tree.<br><br>The path branches to the <span><button onclick='spanClick(\"go west\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
             } else {
-                output.innerHTML = "You arrive at a clearing.<br><br>The path continues to the <span><button onclick='spanClick(\"go south\")'>south.</button></span> To the <span><button onclick='spanClick(\"go east\")'>east,</button></span> a gap in the trees leads to a dark wooded hollow.";
+                output.innerHTML = "You arrive at a clearing and discover a <span><button onclick='spanClick(\"inspect robot\")'>robot</button></span> lying under a tree.";
             };
         };
         roomVisited[5] = true;
@@ -3575,9 +3566,9 @@ const spanClick = (whatToDo) => {
                 robotZoom();
                 break;
             case roomNum === 5  && robotAwake === false && haveBattery === true &&  (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('tree')||inp('speak')||inp('battery')) :
-                currentCutscene = "robot waking";
                 removeItem("a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>");
                 haveBattery = false;
+                currentCutscene = "robot waking";
                 playCutscene();
                 robotAwake = true;
                 room12Switch();
@@ -3590,7 +3581,7 @@ const spanClick = (whatToDo) => {
                 break;
                 // looking around
             case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what')) && robotAwake === false  &&    (inp('forest')||inp('around'))     :
-                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is lying under a tree.<br><br>To the <span><button onclick='spanClick(\"go west\")'>west</button></span>, a narrow path leads back the the glade where you awoke. To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, a wooded path cuts into the forest.";
+                output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is lying under a tall white tree.<br><br>The path branches to the <span><button onclick='spanClick(\"go south\")'>south</button></span> and to the <span><button onclick='spanClick(\"go east\")'>east</button></span>.";
                 break;
             case roomNum === 5 &&    (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what')) && robotAwake === true  &&    (inp('forest')||inp('around'))     :
                 output.innerHTML = "A <span><button onclick='spanClick(\"talk robot\")'>robot</button></span> is standing under a tree. <br><br>To the <span><button onclick='spanClick(\"go north\")'>north</button></span>, a wooded trail leads into the forest. The lake shore continues <span><button onclick='spanClick(\"go east\")'>eastward.</button></span>";
@@ -4204,14 +4195,18 @@ const spanClick = (whatToDo) => {
             case roomNum === 13 && cafeOpen === false && (   inp("knock")||inp('ring')||inp('nok')) :
                 output.innerHTML = "You knock on the door.<br><br>Someone answers from within:<br><br><span class = 'character'>\"Sorry, we're closed! Come back in a bit!\"</span><br><br>They sound flustered.";
                 break;
-            case roomNum === 13 && cafeOpen === false && (   inp("smash")||inp('hit')||inp('kick')) && inp('door'):
-                output.innerHTML = "You kick the door.<br><br><span class = 'character'>\"HEY!\"</span> someone shouts from inside.<span class = 'character'> \"We're closed! Can't you read the sign?\"</span>";
-                break;
             case roomNum === 13 && cafeOpen === false && (   inp("note")||inp('read')||inp('sign')) :
                 output.innerHTML = "There is a hand-written sign on that door it that reads: <br><br><span class= 'character'>  \"Temporarily closed! Come back later.\"</span>";
                 break;
             case roomNum === 13 && cafeOpen === false && (((   inp("behind")||inp('side')) && inp('door') )||  inp('listen')) :
                 output.innerHTML = "You can hear someone or something rummaging arround on the other side of the door." ;
+                break;
+            // attempts
+            case roomNum === 13 && cafeOpen === false && (   inp("smash")||inp('hit')||inp('kick')) && inp('door'):
+                output.innerHTML = "You kick the door.<br><br><span class = 'character'>\"HEY!\"</span> someone shouts from inside.<span class = 'character'> \"We're closed! Can't you read the sign?\"</span>";
+                break;
+            case roomNum === 13 && cafeOpen === false && haveBoxKey === true && (   inp("key")||inp('unlock')||inp('un lock')):
+                output.innerHTML = "You try the key on the door... but it doesn't fit.<br><br><span class = 'character'>\"We're still closed, sorry!\"</span> a voice shouts from inside. <span class = 'character'>\"We'll be open soon, promise!\"</span><br><br>Drat. This key must be for something else.";
                 break;
 
             // ROOM 16

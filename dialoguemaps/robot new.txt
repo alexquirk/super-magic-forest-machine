@@ -1,0 +1,252 @@
+
+> Woah... I must have dozed off!
+	> Who are you?
+	> I think you ran out of battery.
+
+Who are you?
+> Dude! Pretending like you don't know the headliner... classic! You're pretty funny, you know that? Where are you from?
+	> I'm not sure actually. I'm lost.
+	> Headliner?
+
+I think you ran out of battery.
+> Oh yeah? Well, nothing wrong with a nap before the show. Thanks for waking me up! Are you ready?
+	> Ready for what?
+	> Who are you?
+
+Ready for what?
+> Wait, you're telling me you don't know? Dude! prepare to have your human mind flipping blown! Cause pretty soon this spot is about to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!! 
+	> That's kind of a 
+
+Headliner?
+> Wait, you really don't know who I am? Dude! Prepare to have your human mind flipping blown! cause pretty soon this spot is about to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!! 
+	
+I'm not sure actually, I'm lost.
+> Well, you came to the right place! Prepare to have your human mind flipping blown! Cause pretty soon this spot is about to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!! 
+
+
+
+
+Sure, it doesn't look like much yet, but give it a few
+
+
+
+
+
+
+
+I think you ran out of battery.
+> Nothing wrong with a little nap before the show. Now, let's get this party started... where is everyone?
+	> I don't know, I just got here.
+	> What party?
+
+What are you doing out here in the forest?
+> We're throwing a party! Duh!
+	> Who is 'we'?
+	> What party?
+
+Headliner?
+> You really don't know who I am...? Well, you must not be from around here. I'm kind of a big deal.
+
+Headliner?
+> ...You mean you're really not here for the show? ...I really gotta start running more ads... Whatever! Since you're here, you want to help me promote the show?
+	> Uh... not really...
+	> Sure, why not.
+
+Uh... not really...
+> Fine! Whatever, your loss.
+
+I don't know, I just got here.
+> Well, we can't have a show without fans. Hey, want to help me get the word out about the show?
+	> Uh... not really...
+	> Sure, why not.
+
+
+Sorry, I didn't come here for a concert. I'm actually lost
+
+I'm lost. Do you know where we are?
+
+You're really gonna pretend like you've never heard of Roboto's Woodland Wub Ravefest?
+	> I can honestly say I have never heard of that.
+	> Maybe it rings a bell...
+
+> I can honestly say I have never heard of that.
+Whatever! You're here now and that's all that matters.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+INITIAL (don't have the map)
+
+currentConversation
+0: 1, 2
+1: 2, 3
+2: 3, 5
+3: 4, 5
+4: 5, 2
+5: 6, -1
+6: 7, -1
+7: 8, -1
+8: -1, -1
+
+Dialogue:
+
+0
+>
+Wow! How long was I asleep for?
+
+1
+> I’m not sure. I just got here.
+Oh. In that case, welcome! I must have been asleep for a while. Time is hard to tell around here.
+
+2
+> Where am I?
+Are you lost? …That’s not too surprising. A lot of lost things tend to end up here. This forest is a strange place.
+
+3
+> Who are you?
+My name is Analysis Robot TK421. But you can call me ‘Alys’ for short. A long time ago I helped the humans do some work in this forest.
+
+4
+> What were the humans doing?
+Oh, the same thing humans are always doing, I suppose. Industry. Building. Burning. Digging things out of the ground. Using Javascript. Humans are always so busy. I think they were here studying something, but I was asleep for a long time, and I can’t quite remember. 
+
+5
+> How do I get out of here?
+I’m not sure, but if you give me a second I can scan the area for a way out.
+
+6
+> Let’s do it!
+It’s so odd… this forest seems to go on forever. The lake too… But there’s some kind of anomaly to the north. A dark patch… a charged space… static. I can’t tell. You should check it out. Maybe there’s a clue there that can help me get my memory back, and help you find a way out of here.
+
+7
+> Sure, I’ll take a look.
+Here, take this map. It’ll help you navigate the forest. I’m guessing there’s a reason you’re here.
+
+8
+> Can you come with me?
+I’m pretty drained after conducting that analysis, to be honest. Besides, the static from the anomaly is really messing with me. I’d better stay here for now.
+
+
+
+
+
+EXPLORING (dependent on: whether cave has been explored and owl has been met, if you have the crystal, if the cave has been lit up)
+
+currentConversation
+9: -1 or 11(if owl has been met), 10 or 13(if cave has been explored) or 16(if you have the crystal)
+10: -1, -1
+11: 12, -1 or 13(if cave has been explored)
+12: 13, -1 or 11(if owl has been met)
+13: 14 or 16(if you have the crystal), -1
+14: 15, -1
+15: -1, -1
+16: 17. -1
+17: 18, -1
+18: 19, 20
+19: 20, 21
+20: 21, 22
+21: 22, -1
+22: 23, 25(if cave is still dark) or -1
+23: 24, 26
+24: 26, 25(if cave is still dark) or -1
+25: 15, 26
+26: -1, -1
+27: 28, -1
+28: -1, -1
+
+9
+>
+How’s it going? Did you find anything useful?
+
+10
+> Nothing yet!
+I can still sense an anomaly to the north... it think it's worth checking out!
+
+11
+> I met a rude owl.
+Oh yeah. That owl is a real jerk. Don’t pay them any mind.
+
+12
+> What’s the deal with that door?
+I think the humans who brought me here built the door... but I can’t really remember.
+
+13
+> I found a strange dark cave to the north.
+Really? I bet that’s the anomaly I discovered! Did you find anything in it?
+
+14
+> No, it was too dark.
+Hmm… there must be a way to light it up or explore it. Maybe there’s something in the forest that can help?
+
+15
+> Do you know how to light up the cave?
+No, unfortunately… the static energy coming from the cave is really messing with my system.
+
+16
+> I found a crystal in the cave!
+Woah! That’s really something …do you mind if I analyze it?
+
+17
+> Go ahead!
+This crystal is… how do I explain it… it’s… made of everything. And nothing. It shouldn’t exist. It’s some kind of… rounding error.
+
+18
+> Rounding error? What does that mean?
+Hmm… maybe I can explain it like this. Everything exists, right? And things that don’t exist, don’t exist. There’s something, and nothing. True, or false. Everything is either a 1, or a 0. Right? 1 can be added to 0 to get 1. That’s creation by definition. And 1 can be subtracted from 1 to make 0. That’s destruction by deletion. So in the end, everything is just a 1 or a 0.
+
+19
+> What about two? Or a half?
+Well, obviously, ‘2’ exists. Two apples, two inches, two seconds, two electrons. But, in another sense, you can’t REALLY add two apples together. They will always be just one apple, and another completely different apple next to it. Even at the sub-atomic level, particles can’t be superimposed or split without creating something new… I guess things get weird at the quantum level, but I’m a binary machine, and as far as I can tell, so are you.
+
+20
+> This is a bunch of nonsense.
+Yeah, kind of. What I’m trying to say is that this crystal isn’t like that. Not to brag, but I’m one of the most advanced analytical machines to ever exist. But this crystal… it has elements so complex, I can’t even tell if they exist or not. Its composition doesn’t fit the ‘0 or 1’ paradigm. its structure is a paradox.
+
+21
+> What does this have to do with this crystal?
+Well that’s just it… this crystal is composed of parts neither 1 nor 0. 
+
+22
+> Ok… so what does that mean for us?
+It means… it means… I’m not sure what it means… but I think your way out of here is somewhere in that cave. There must be a deeper part of the cave you haven’t explored yet.
+
+23
+> Really? That’s great!
+Yeah… I guess.
+
+24
+> Is everything alright?
+I’m not sure… I think so. Just… be careful, ok?
+
+25
+> The cave is too dark to see around.
+There has to be a way to bring a light source in there with you…
+
+26
+> I’m gonna check it out.
+Good luck!
+
+27
+> It's full of strange crystals!
+Crystals? Really? Do you think you could bring one back for me to analyze?
+
+28
+> Sure!
+Crystal... so strange...
+
