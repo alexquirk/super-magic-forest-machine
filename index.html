@@ -130,7 +130,7 @@
         <div id="extraoutput" >
 
         </div>
-        <div class="dialoguearea">
+        <div id="dialoguearea">
             <button type="button" id="dialogue1" class="dialogue" onclick="whiteButtonFlash(d1)">Option 1</button>
             <button type="button" id="dialogue2" class="dialogue" onclick="whiteButtonFlash(d2)">Option 2</button>
             <button type="button" id="leavebutton" class="dialogue" onclick="whiteButtonFlash(leaveButton)">leave conversation</button>
@@ -697,7 +697,6 @@ const showErrorCard = () => {
     
     const enterButton = document.getElementById('enterbutton');
     const mapArrow = document.getElementById('maparrow');
-    const dialogueArea = document.getElementById('dialoguearea');
     const d1 = document.getElementById("dialogue1");
     const d2 = document.getElementById("dialogue2");
     const leaveButton = document.getElementById("leavebutton");
@@ -805,6 +804,16 @@ const showErrorCard = () => {
     let mushyTimePassed = 0;
 
     let currentlyMoving = false;
+
+    let festivalName = "Woodland Wubfest";
+    let askingToSetFestivalName = false;
+    let settingFestivalName = false;
+    let robotTalkedTo = false;
+    let knowAboutFestival = false;
+    let invitingPeople = false;
+    let turtleInvited = false;
+    let owlInvitied = false;
+    let bearInvited = false;
 
     let haveMap = false; 
     let caveInspected = false;
@@ -951,27 +960,28 @@ const getPoints = (points, condition) => {
 };
 
 const feelBad = () => {
-    extraoutput.style.display = "block";
-    extraoutput.innerHTML = "You feel bad about being mean to the cat." + getPoints(-10, false);
+    extraOutput.style.display = "block";
+    extraOutput.innerHTML = "You feel bad about being mean to the cat." + getPoints(-10, false);
 };
 
 // SCROLLING SHADOWS via https://css-tricks.com/thats-just-how-i-scroll/
 
 const outputArea = document.getElementById('outputarea');
 const output = document.getElementById('output'); 
-const extraoutput = document.getElementById('extraoutput');
-const scrollicon = document.getElementById('scrollicon');
+const extraOutput = document.getElementById('extraoutput');
+const scrollIcon = document.getElementById('scrollicon');
+const dialogueArea = document.getElementById('dialoguearea');
 
 const makeScrollArrow = () => {
-    if (outputArea.offsetHeight < (output.offsetHeight + extraoutput.offsetHeight + dialogueArea.offsetHeight) ) {
-        scrollicon.style.display = "block";
+    if (outputArea.offsetHeight < (output.offsetHeight + extraOutput.offsetHeight + dialogueArea.offsetHeight) ) {
+        scrollIcon.style.display = "block";
     } else {
-        scrollicon.style.display = "none";
+        scrollIcon.style.display = "none";
     }
 };
 
 outputArea.onscroll = function() {
-    scrollicon.style.display = "none";
+    scrollIcon.style.display = "none";
 };
 
 // INVENTORY
@@ -1582,13 +1592,13 @@ leaveButton.addEventListener('click', leaveOwlConversation);
 
 // ROBOT DIALOGUE
     // your dialoge
-const robotDialogueButtonTexts = ["", //0
+let robotDialogueButtonTexts = ["", //0
                              "> Who are you?", //1
                              "> I think you ran out of battery.", //2
                              "> Ready for what?", //3
                              "> Headliner?", //4
-                             "> I'm not sure actually. I'm lost.", //5
-                             "> Woodland Wubfest? That's a weird name...", //6
+                             "> I'm lost...", //5
+                             "> " + festivalName + "? That's a weird name...", //6
                              "> *normal response*", //7
                              "> Actually, I changed my mind.", //8
                              "> *weird response*", //9
@@ -1607,35 +1617,40 @@ const robotDialogueButtonTexts = ["", //0
                             ];
     
     //robot responses
-    const robotDialogueTexts = ["You carelly put the battery in the robot...<br>The robot suddenly powers and speaks in a metallic voice.<br><br><span class='robot'>Woah... I must have dozed off!</span>", //0
+    let robotDialogueTexts = ["You carelly put the battery in the robot...<br>The robot suddenly powers and speaks in a metallic voice.<br><br><span class='robot'>Woah... I must have dozed off!</span>", //0
                                 "<span class='robot'>Dude! Pretending like you don't know the headliner... classic! You're pretty funny, you know that? Where are you from?</span>", //1
                                 "<span class='robot'>Oh yeah? Well, nothing wrong with a little nap before the show. Thanks for waking me up! So, are you ready?</span>", //2
-                                "<span class='robot'>Haha, good one! ...wait, you're really telling me you don't know who I am? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!!</span>", //3
-                                "<span class='robot'>Wait, you really don't know...? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!!</span>", //4
-                                "<span class='robot'>Well, you came to the right place! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's Woodland Wubfest!!</span>", //5
-                                "<span class='robot'>Huh? You don't like Woodland Wubfest? Well, I guess it's just a working title... Not too late for a re-brand! What would you call it? Full creative license. Don't be shy, let's hear it!</span>", //6
-                                "<span class='robot'>'<festname>'... huh... I like that! It's catchy. Let's roll with it! <festname> is going to be the talk of the forest.</span>", //7
-                                "<span class='robot'>Ok, no prob! Any other ideas?</span>", //8
-                                "<span class='robot'>...<festname>... are you sure? Don't you think that's a little... I don't know... hah... look, I don't mean to second guess you here, but <festname> might not... rub people the right way... I mean! It's a little... but look, if you like it, I'm down to roll with it.</span>", //9
+                                "<span class='robot'>Haha, good one! ...wait, you're really telling me you don't know who I am? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to " + festivalName + "!!</span>", //3
+                                "<span class='robot'>Wait, you really don't know...? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to " + festivalName + "!!</span>", //4
+                                "<span class='robot'>Well, you came to the right place! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to " + festivalName + "!!</span>", //5
+                                "<span class='robot'>Huh? You don't like " + festivalName + "? Well, I guess it's just a working title... Not too late for a re-brand! What would you call it? Full creative license. Don't be shy, let's hear it!</span><br><br>Type a festival name and press ENTER:", //6
+                                "<span class='robot'>" + festivalName + "... huh... I like that! It's catchy. Let's roll with it! " + festivalName + " is going to be the talk of the forest.</span>", //7
+                                "<span class='robot'>Ok, no prob! any other name ideas?</span><br><br>Type a festival name and press ENTER:", //8
+                                "<span class='robot'>..." + festivalName + "... are you sure? Don't you think that's a little... I don't know... hah... look, I don't mean to second guess you here, but " + festivalName + " might not... look, if you like it, I'm down to roll with it.</span>", //9
                                 "<span class='robot'>Heck yeah, dude! So, we got the name figured out, we got the sound system, and we got the DJ (that's me), so I guess all we need to do now is get the word out. Say, you wouldn't want to help me invite some cool people, would you?</span>", //10
                                 "<span class='robot'>Well, I'm not sure how long I was asleep, so it's hard to say. But we got the sound system, we got the DJ (that's me), so I guess all we need to do now is get the word out. Say, you wouldn't want to help me invite some cool people, would you?</span>", //11
-                                "<span class='robot'>Freaking awesome, dude! If you invite three people we'll get this party rolling. Once the music is blasting and the dance floor is shaking, word will get out, for sure!</span>", //12
+                                "<span class='robot'>Freaking awesome, dude! If you invite three people, we can this party rolling. Once the music is blasting and the dance floor is shaking, word will get out, for sure!</span>", //12
                                 "<span class='robot'>Heck yeah, dude! If I were you, I'd start at the Underground Cafe. There's always some cool people hanging around there. Then I'd probably hit up the Party Owl. That dude really knows a lot. I'll stay here to set up and get the tunes ready.</span>", //13
                                 "<span class='robot'>I'd start at the Underground Cafe. There's always some cool people hanging around there. Then I'd probably hit up the Party Owl. That dude really knows a lot. I'll stay here to set up and fishing getting the tunes ready.</span>", //14
                                 "<span class='robot'>Good luck!</span>", //15
-                                "<span class='robot'>Well, yeah! And every great DJ has their crew. I gotta stay here and finish up some tunes, and if you invite three people we'll get this party rolling. Once the music is blasting and the dance floor is shaking, word will get out, for sure!</span>", //16
+                                "<span class='robot'>Well, yeah! And every great DJ has their crew. I gotta stay here and finish up some tunes. If you invite three people, we can this party rolling. Once the music is blasting and the dance floor is shaking, word will get out, for sure!</span>", //16
                                 "<span class='robot'>What's up dude! Any luck with the promo?</span>", //17
                                 "<span class='robot'>Keep at it! You got this dude!</span>", //18
                                 "<span class='robot'>Nice dude! Keep it up! The sound system is almost ready to go, and the set is sounding sick so far. Almost ready!</span>", //19
                                 "<span class='robot'>No way! You know what that means...? It's time to kick it off! Are you ready??</span>", //20
+                                "", //21
+                                "<span class='robot'>What's up, dude!</span>", //22
+                                "<span class='robot'>Welcome to the future site of " + festivalName +"!! Pretty soon this spot is going to become a portal to another dimension. Prepare to have your human mind blown!</span>", //23
                                 ];
     
-                        //      0     1     2     3      4       5      6      7      8       9      10      11      12      13      14      15      16      17      18      19      20      21    
-const robotConversationMap = [[1,2],[5,4],[3,1],[6,11],[6,11],[6,11],[7, 9],[11,8],[7,9],[10,8],[12,16],[12,16],[13,14],[15,-1],[15,-1],[-1,-1],[13,14],[18,19],[-1,-1],[-1,-1],[21,22],[21,-1]];                      
+                        //      0     1     2     3      4       5      6       7      8       9      10      11      12      13      14      15      16      17      18      19      20      21     22    23
+const robotConversationMap = [[1,2],[5,4],[3,1],[6,11],[6,11],[6,11],[-1,-1],[11,8],[-1,-1],[10,8],[12,16],[12,16],[13,14],[15,-1],[15,-1],[-1,-1],[13,14],[18,19],[-1,-1],[-1,-1],[21,22],[21,-1],[1,5],[6,11] ];                      
 
 const createRobotConversation = () => {
     // zoom
     robotZoom();
+
+    let robotTalkedTo = true;
 
     // change image
     // room12.src="./roomimages/smfmroom12c.png";
@@ -1661,7 +1676,12 @@ const createRobotConversation = () => {
     //open the cafe
     if (currentRobotConversation === 3 || currentRobotConversation === 4 || currentRobotConversation === 5 ){
         cafeOpen = true;
-    };
+        knowAboutFestival = true;
+    } else if (currentRobotConversation === 6 || currentRobotConversation === 8 ){
+        askingToSetFestivalName = true;
+        focusOnInputOnDesktop();
+    } else if (currentRobotConversation === 10 || currentRobotConversation === 11 || currentRobotConversation === 12 )
+        invitingPeople = true;
     
     // show the robot's speech
     output.innerHTML = robotDialogueTexts[currentRobotConversation];
@@ -1672,7 +1692,11 @@ const createRobotConversation = () => {
     inDialogue = true;
 
     // make "leave" button visible
-    leaveButton.style.display = "block";
+    if (askingToSetFestivalName === false) {
+        leaveButton.style.display = "block";
+    } else {
+        leaveButton.style.display = "none";
+    };
 
     if (robotConversationMap[currentRobotConversation][0] > -1) {
         d1.innerHTML = robotDialogueButtonTexts[robotConversationMap[currentRobotConversation][0]];
@@ -1709,16 +1733,104 @@ leaveRobotConversation = () => {
     output.innerHTML = "";
     setCurrentRobotConversation();
     robotUnZoom();
+    focusOnInputOnDesktop();
     // room12.src="./roomimages/smfmroom12b.png";
     
 };
 
 setCurrentRobotConversation = () => {
-    if (haveMap === false) {currentRobotConversation = 0}
-    else (currentRobotConversation = 9);
+    if (knowAboutFestival === false && robotTalkedTo === true) {
+        currentRobotConversation = 22
+    } else if (knowAboutFestival === true && invitingPeople === false) {
+        currentRobotConversation = 23
+    } else if (invitingPeople === true) {
+        currentRobotConversation = 17
+    }
 };
 
 leaveButton.addEventListener('click', leaveRobotConversation);
+
+// get festival name
+
+const setFestivalName = () => {
+    // let the arrow keys still work
+    if (userInput.value !== "go north" && userInput.value !== "go south" && userInput.value !== "go east" && userInput.value !== "go west") {   
+        // assign fest name with proper casing
+        festivalName = userInput.value.trim();
+        let festNameWords = festivalName.split(" ");
+        for (let i = 0; i < festNameWords.length; i++) {
+            festNameWords[i] = festNameWords[i][0].toUpperCase() + festNameWords[i].substr(1);
+        };
+        festivalName = festNameWords.join(" ");
+
+        // this sucks reassigning the entire array, there is definitely a better way to do this
+        robotDialogueTexts = ["You carelly put the battery in the robot...<br>The robot suddenly powers and speaks in a metallic voice.<br><br><span class='robot'>Woah... I must have dozed off!</span>", //0
+                                "<span class='robot'>Dude! Pretending like you don't know the headliner... classic! You're pretty funny, you know that? Where are you from?</span>", //1
+                                "<span class='robot'>Oh yeah? Well, nothing wrong with a little nap before the show. Thanks for waking me up! So, are you ready?</span>", //2
+                                "<span class='robot'>Haha, good one! ...wait, you're really telling me you don't know who I am? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to " + festivalName + "!!</span>", //3
+                                "<span class='robot'>Wait, you really don't know...? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to " + festivalName + "!!</span>", //4
+                                "<span class='robot'>Well, you came to the right place! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to " + festivalName + "!!</span>", //5
+                                "<span class='robot'>Huh? You don't like " + festivalName + "? Well, I guess it's just a working title... Not too late for a re-brand! What would you call it? Full creative license. Don't be shy, let's hear it!</span><br><br>Type a festival name and press ENTER:", //6
+                                "<span class='robot'>" + festivalName + "... huh... I like that! It's catchy. Let's roll with it! " + festivalName + " is going to be the talk of the forest.</span>", //7
+                                "<span class='robot'>Ok, no prob! any other name ideas?</span><br><br>Type a festival name and press ENTER:", //8
+                                "<span class='robot'>..." + festivalName + "... are you sure? Don't you think that's a little... I don't know... hah... look, I don't mean to second guess you here, but " + festivalName + " might not... look, if you like it, I'm down to roll with it.</span>", //9
+                                "<span class='robot'>Heck yeah, dude! So, we got the name figured out, we got the sound system, and we got the DJ (that's me), so I guess all we need to do now is get the word out. Say, you wouldn't want to help me invite some cool people, would you?</span>", //10
+                                "<span class='robot'>Well, I'm not sure how long I was asleep, so it's hard to say. But we got the sound system, we got the DJ (that's me), so I guess all we need to do now is get the word out. Say, you wouldn't want to help me invite some cool people, would you?</span>", //11
+                                "<span class='robot'>Freaking awesome, dude! If you invite three people, we can this party rolling. Once the music is blasting and the dance floor is shaking, word will get out, for sure!</span>", //12
+                                "<span class='robot'>Heck yeah, dude! If I were you, I'd start at the Underground Cafe. There's always some cool people hanging around there. Then I'd probably hit up the Party Owl. That dude really knows a lot. I'll stay here to set up and get the tunes ready.</span>", //13
+                                "<span class='robot'>I'd start at the Underground Cafe. There's always some cool people hanging around there. Then I'd probably hit up the Party Owl. That dude really knows a lot. I'll stay here to set up and fishing getting the tunes ready.</span>", //14
+                                "<span class='robot'>Good luck!</span>", //15
+                                "<span class='robot'>Well, yeah! And every great DJ has their crew. I gotta stay here and finish up some tunes. If you invite three people, we can this party rolling. Once the music is blasting and the dance floor is shaking, word will get out, for sure!</span>", //16
+                                "<span class='robot'>What's up dude! Any luck with the promo?</span>", //17
+                                "<span class='robot'>Keep at it! You got this dude!</span>", //18
+                                "<span class='robot'>Nice dude! Keep it up! The sound system is almost ready to go, and the set is sounding sick so far. Almost ready!</span>", //19
+                                "<span class='robot'>No way! You know what that means...? It's time to kick it off! Are you ready??</span>", //20
+                                "", //21
+                                "<span class='robot'>What's up, dude!</span>", //22
+                                "<span class='robot'>Welcome to the future site of " + festivalName +"!! Pretty soon this spot is going to become a portal to another dimension. Prepare to have your human mind blown!</span>", //23
+                                ];
+
+        robotDialogueButtonTexts = ["", //0
+                             "> Who are you?", //1
+                             "> I think you ran out of battery.", //2
+                             "> Ready for what?", //3
+                             "> Headliner?", //4
+                             "> I'm lost...", //5
+                             "> " + festivalName + "? That's a weird name...", //6
+                             "> *normal response*", //7
+                             "> Actually, I changed my mind.", //8
+                             "> *weird response*", //9
+                             "> Let's do it!", //10
+                             "> When does it start?", //11
+                             "> Sure!", //12
+                             "> Three people? No problem.", //13
+                             "> Where should I look for people?", //14
+                             "> Sounds good!", //15
+                             "> But I thought you were a famous headliner?", //16
+                             "", //17
+                             "> Not yet!", //18
+                             "> I invited the <insert invited person>", //19
+                             "> I invited the bear, the owl, and turtle!", //20
+                             "> Let's freaking do it!", //21
+                            ];
+
+        //check for profanity
+        if (festivalName.toLowerCase().includes("poop")||festivalName.toLowerCase().includes("suck")||festivalName.toLowerCase().includes("fuck")||festivalName.toLowerCase().includes("butt")||festivalName.toLowerCase().includes("sex")||festivalName.toLowerCase().includes("slut")||festivalName.toLowerCase().includes("whore")||festivalName.toLowerCase().includes("shit")||festivalName.toLowerCase().includes("cunt")||festivalName.toLowerCase().includes("pussy")||festivalName.toLowerCase().includes("dick")||festivalName.toLowerCase().includes("penis")||festivalName.toLowerCase().includes("cock")||festivalName.toLowerCase().includes("boner")||festivalName.toLowerCase().includes("crap")||festivalName.toLowerCase().includes("wank")||festivalName.toLowerCase().includes("piss")||festivalName.toLowerCase().includes("shart")||festivalName.toLowerCase().includes("balls")||festivalName.toLowerCase().includes("vagina")||festivalName.toLowerCase().includes("gooch")||festivalName.toLowerCase().includes("retard")||festivalName.toLowerCase().includes("asshole")||festivalName.toLowerCase().includes("ass hole")||festivalName.toLowerCase().includes("bitch") ) {
+            currentRobotConversation = 9;
+            createRobotConversation();
+        } else {
+            currentRobotConversation = 7;
+            createRobotConversation();
+        } ;
+    // go directions if arrow buttons were clicked
+    } else {
+        settingFestivalName = false; 
+        askingToSetFestivalName = false;
+        processInput();
+    };
+};
+
+
 
 
 // BOOK BUTTONS
@@ -2633,8 +2745,12 @@ const spanClick = (whatToDo) => {
         // hide extra room
         document.getElementById('extraroom').style.zIndex = "-2";
 
-
         // not being asked
+        settingFestivalName = false;
+        if (askingToSetFestivalName === true) {
+            settingFestivalName = true;
+        };
+        askingToSetFestivalName = false;
         readingAsk = false;
         mapAsk = false;
         inventoryAsk = false;
@@ -2670,6 +2786,20 @@ const spanClick = (whatToDo) => {
 
         // GET INPUT
         switch (true) {
+
+        // get festival name
+            case settingFestivalName === true :
+                setFestivalName();
+                // output.innerHTML = "Festival Name: " + festivalName;
+                break;
+
+            case inp('set fest name') :
+                output.innerHTML = "Enter fest name:"
+                askingToSetFestivalName = true;
+                break;
+            case inp('get fest name') :
+                output.innerHTML = festivalName;
+                break;
     
         // GLOBAL
             case (inp('points')||inp('score')) && (inp('what')||inp('how'))  :
@@ -2728,7 +2858,7 @@ const spanClick = (whatToDo) => {
             case inp("sexy") :
                 output.innerHTML = ";)";
                 break;
-            case (inp('poop')||(inp('butt')&&!inp('butte')&&!inp('butto'))||inp("fuck")||inp("sex")||inp("shit")||inp("cunt")||inp("pussy")||inp("dick")||inp("penis"))||inp('cock')||inp('boner')||inp('crap')||inp('wank')||inp("piss")||inp('shart')||inp('balls')||inp('vagina')||inp('gooch')||inp('retard')||inp('asshole')||inp('ass hole')||inp('bitch')||inp('you die')||inp('hate')||(inp('flesh')&&inp('light'))  :
+            case (inp('poop')||(inp('butt')&&!inp('butte')&&!inp('butto'))||inp("fuck")||inp("sex")||inp("slut")||inp("whore")||inp("shit")||inp("cunt")||inp("pussy")||inp("dick")||inp("penis"))||inp('cock')||inp('boner')||inp('crap')||inp('wank')||inp("piss")||inp('shart')||inp('balls')||inp('vagina')||inp('gooch')||inp('retard')||inp('asshole')||inp('ass hole')||inp('bitch')||inp('you die')||inp('hate')||(inp('flesh')&&inp('light'))  :
                 if (profanityCounter < 21) {
                     output.innerHTML = profanityResponse[profanityCounter];
                     profanityCounter++;

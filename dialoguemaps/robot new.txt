@@ -96,6 +96,23 @@ I invited the bear, the owl, and turtle!
 20 > No way! You know what that means...? It's time to kick it off! Are you ready??
 	> Let's freaking do it!
 
+22 > What's up, dude! Almost ready?
+	> Ready for what?
+	> Who are you?
+
+23 > Dude! Welcome to DJ Beat-Bot's Woodland Wubfest!! 
+	> Woodland Wubfest? That's a weird name...
+	> Cool! When does it start?
+
+
+
+
+
+
+
+
+
+
 
 
 

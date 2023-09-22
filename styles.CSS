@@ -686,7 +686,7 @@ body {
     mix-blend-mode: luminosity;
 }
 
-.compasstriangles:hover, #enterbutton:hover, #errorenterbutton:hover {
+.compasstriangles:hover, #enterbutton:hover, #errorenterbutton:hover, #dialogue2:hover, #dialogue1:hover, #leavebutton:hover {
     cursor: pointer;
 }
 
@@ -1116,7 +1116,7 @@ span > button:hover {
     color: #fef2cc
 }
 
-.dialoguearea > input, .dialoguearea > button {
+#dialoguearea > input, #dialoguearea > button {
     font-family:inherit;
     font-size: inherit;
     background-color: black;
