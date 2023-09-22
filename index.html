@@ -429,8 +429,11 @@ const introScreenShift = () => {
                         //     },
                         // 2500
                         // );
-
                     
+                    // load and pause transition cutscene
+                    cutsceneVideo.src="./cutscenes/transitioncutscene.mp4";
+                    cutsceneVideo.play();
+                    cutsceneVideo.pause();
                     break;
 
 
@@ -3851,6 +3854,10 @@ const spanClick = (whatToDo) => {
                 // look at mushrooms
             case roomNum === 9 &&  (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('check')||inp('what'))   &&    (inp('mushroom')||inp('circle')) :
                 output.innerHTML = 'The mushrooms are red with white spots. You can\'t decide whether they look delicious, or deadly.';
+                break;
+                // inspect ghost
+            case roomNum === 9 && ghostDiscovered === true && (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('check')||inp('what'))   &&    (inp('ghost')||inp('figure')) :
+                output.innerHTML = 'The ghost looks like it\'s trying to say something...';
                 break;
                 // give ghost mug
             case roomNum === 9 && ghostDiscovered === true  && ghostGivenMug === false && haveMug === true  && ( (inp('give')||inp('hand')||inp('offer')||inp('return')||inp('show')||inp('use'))   &&   ( inp('mug')||inp('cup') ) ) ||  ( ( inp('mug')||inp('cup') ) && ( (inp('ghost')||inp('figure'))) ) :
