@@ -1,20 +1,20 @@
 ""
-1 > Hoooo!! Put that down! That's my diary!
+0 > Hoooo!! Put that down! That's my diary!
 	> Sorry, I didn't know it was yours.
 	> Some really corny stuff in there.
 
 Sorry, I didn't know it was yours.
-2 > You didn't read it, did you?? I mean, not that there's anything in it. I barely even use it.
+1 > You didn't read it, did you?? I mean, not that there's anything in it. I barely even use it.
 	> No, I just picked it up.
 	> Some really corny stuff in there.
 
 Some really corner stuff in there.
-3 > Wow! How about I read your private messages, and we'll see who's really corny?
+2 > Wow! How about I read your private messages, and we'll see who's really corny?
 	> Have you heard about the party?
 	> I'm lost in the forest
 
 No, I just picked it up.
-4 > Good! ...I mean, not that I care.
+3 > Good! ...I mean, not that I care.
 	> Have you heard about the party?
 	> I'm lost in this forest.
 
@@ -33,59 +33,59 @@ Those facts are questionable.
 	> Don't you like electronic music?
 
 Don't you like electronic music?
-7 > You might not know this, but I am an AUTHORITY on electronic music. They don't call me the Party Owl for nothing.
+7 > Buddy, but I am an AUTHORITY on electronic music. They don't call me the Party Owl for nothing.
 	> You should go. It's gonna be cool.
 
 You should go. It's gonna be cool.
-7 > Psh, you wouldn't know cool if it bit your beak. Listen, I'm the authority of what's cool in this forest. I toured with Ducky Dee, I've built entire sound systems out of pinecones and rabbit fur, I've been to Burning Bird eight years running, so I'll tell you what's cool or not. Is DJ Beat-Bot cool? Only I can say. Owl fact number three: objectively the best taste in music!
+8 > Psh, you wouldn't know cool if it bit your beak. Listen, I'm the authority of what's cool in this forest. I toured with Ducky Dee, I've built entire sound systems out of pinecones and rabbit fur, I've been to Burning Bird eight years running, so I'll tell you what's cool or not. Is DJ Beat-Bot cool? Only I can say. Owl fact number three: objectively the best taste in music!
 	> Owl fact four: cashew-sized brains.
 	> Whatever! I know what's cool. Try me!
 
 Owl fact four: cashew-sized brains.
-8 > It's not the size that matters!
+9 > It's not the size that matters!
 	> Whatever! I know what's cool. Try me.
 
 Whatever! I know what's cool. Try me.
-9 > It's on! I'll make a deal with you. If you can pass my test of essential forest music knowledge, I'll go to your party. I'll even go to the afterparty! I'll stay up till sunset if I have to. But, you won't pass my test. I'll make it easy, and you still won't pass it.
+10 > It's on! I'll make a deal with you. If you can pass my test of essential forest music knowledge, I'll go to your party. I'll even go to the afterparty! I'll stay up till sunset if I have to. But, you won't pass my test. I'll make it easy, and you still won't pass it.
 	> Deal!
 
 Deal!
-10 > First Question! We'll start with an easy one. Which bass music DJ created their entire 47 album discography entirely from the sound of water droplets?
+11 > First Question! We'll start with an easy one. Which bass music DJ created their entire 47 album discography entirely from the sound of water droplets?
 	> DJ Foxy Fox
 	> Lounge Lizard
 	> Willowbeats
 
 *any answer*
-11 > That's correct. Of course, everyone knows that. Here's your second question: amongst the truest fans, what is the only acceptable dance move during a drop?
+12 > That's correct. Of course, everyone knows that. Here's your second question: amongst the truest fans, what is the only acceptable dance move during a drop?
 	> The nod of superiority
 	> 'The shrug'
 	> No dancing - just a frown of approval
 
-12 > Ok, that one was too easy. Third question: which club is so underground, that you can only find it with echo-location?
+13 > Ok, that one was too easy. Third question: which club is so underground, that you can only find it with echo-location?
 	> Marble Manor
 	> Umbra Emporium
 	> The Batbox
 
 *any answer*
-13 > Psh, lucky guess! Ok, now here's a REAL question: how many layers of sonic resonance are required for proper subwoofer dispersion according to the Hitoshi Kihara Scale?
+14 > Psh, lucky guess! Ok, now here's a REAL question: how many layers of sonic resonance are required for proper subwoofer dispersion according to the Hitoshi Kihara Scale?
 	> 8
 	> 42
 	> none, resonance is for normies
 
 *any answer*
-14 > How??? Ok, time for a hard one! Only a true electronic music purist would know this. Which ancient civilization is rumored to have invented the earliest form of dubstep, using stone tablets as amplifiers?
+15 > How??? Ok, time for a hard one! Only a true electronic music purist would know this. Which ancient civilization is rumored to have invented the earliest form of dubstep, using stone tablets as amplifiers?
 	> Mysterion
 	> Obskuria
 	> Atlantaria
 
 *any answer*
-15 > ...Impossible...! Ok... last question. And there is absolutely NO WAY you're gonna know this. Ready? Which mythical dubplate, said to be the holy grail of bass, can only be heard by those who have achieved basslightenment?
+16 > ...Impossible...! Ok... last question. And there is absolutely NO WAY you're gonna know this. Ready? Which mythical dubplate, said to be the holy grail of bass, can only be heard by those who have achieved basslightenment?
 	> Mossy Melody feat. Penguino
 	> Doublevision (Capgrass Remix)
 	> Soundweaver pt. 3
 
 *any answer*
-16 > I can't believe it... ok, I guess you do know a bit about electronic music after all. I guess I'll go to your party. But the DJ better not play any Bovinecore. That stuff is soo played out.
+17 > I can't believe it... ok, I guess you do know a bit about electronic music after all. I guess I'll go to your party. But the DJ better not play any Bovinecore. That stuff is soo played out.
 
 
 

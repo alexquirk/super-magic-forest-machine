@@ -1136,7 +1136,7 @@ span > button:hover {
     /* color: rgb(255, 152, 152); */
 }
 
-#dialogue2 {
+#dialogue2, #dialogue3 {
     display: none;
     margin: 10px auto 0;
     max-width: 95%;
