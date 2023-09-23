@@ -735,6 +735,7 @@ const showErrorCard = () => {
     let mapAsk = false;
 
     let currentRobotConversation = 0;
+    let currentTurtleConversation = 0;
     let currentOwlConversation = 0; // needs to be 0
     let dialogueAsk = false;
     let inDialogue = false;
@@ -763,7 +764,7 @@ const showErrorCard = () => {
     let boxUnlocked = false;
     let catDiscovered = false;
     let marbleDown = false;
-    let marbleReunited = false;
+    let marbleAtTheParty = false;
     let marbleGone = false;
     let ropeTaken = false;
     let haveRope = false;
@@ -809,6 +810,7 @@ const showErrorCard = () => {
     let askingToSetFestivalName = false;
     let settingFestivalName = false;
     let robotTalkedTo = false;
+    let offeredToFixMill = true;
     let knowAboutFestival = false;
     let invitingPeople = false;
     let turtleInvited = false;
@@ -1587,6 +1589,106 @@ setCurrentOwlConversation = () => {
 leaveButton.addEventListener('click', leaveOwlConversation);
 
 
+// TURTLE DIALOGUE
+    // your dialogue
+let turtleDialogueButtonTexts = ["", //0
+                                "> What are you serving?", //1
+                                "> Have you heard about the party?", //2
+                                "> Wow, this is delicious!", //3
+                                "> I could try to fix the mill.", //4
+                                "> You should get out more.", //5
+                                "> Say no more!", //6
+                                "> I fixed the mill!", //7
+                                "> See you there!", //8
+                                ];
+    // turtle responses
+let turtleDialogueTexts = ["The turtle greets you warmly.<br><br><span class='character'>Weclome in! Let me know if I can get anything for you.</span>", //0
+                            "<span class='character'>Here, try a sample of our coconut beet-root chai. I make it myself.</span>", //1
+                            "<span class='character'>Thanks!</span>", //2
+                            "<span class='character'>Yeah, sounds like fun. I wish I could go, but there’s just so much to do around here. The watermill that powers the cafe has been acting funny, and I can’t seem to figure it out. Maybe if I got that fixed, I could step away for a bit.</span>", //3
+                            "<span class='character'>Really? That would be amazing. The watermill also powers the lift that takes you to the top of the dam, which is kinda fun.</span>", //4
+                            "<span class='character'>Wow, you are the best! I’ll be here if you need me.</span>", //5
+                            "<span class='character'>I like it here. This is my happy place. But yeah, maybe you’re right.</span>", //6
+                            "<span class='character'>How’s it going?</span>", //7
+                            "<span class='character'>Wait, really? No kidding! …You know, maybe I should go check out that party. This place will be here when I get back.</span>", //8
+                            "<span class='character'>Awesome! Thanks again.</span>", //9
+                            ];
+            //               0     1     2      3     4       5      6      7     8     9    
+const turtleDialogueMap = [[1,2],[3,2],[2,-1],[4,5],[6,-1],[-1,-1],[4,-1],[7,1],[8,1],[-1,-1]];
+
+const createTurtleConversation = () => {
+    // zoom
+    turtleZoom();
+
+
+    //open the cafe
+    if (currentTurtleConversation === 5  ){
+        offeredToFixMill = true;
+    }
+    
+    // show the robot's speech
+    output.innerHTML = turtleDialogueTexts[currentTurtleConversation];
+
+
+    // let the rest of the game know you're in dialogue
+    dialogueAsk = true;
+    inDialogue = true;
+
+    // make "leave" button visible
+
+    if (turtleConversationMap[currentTurtleConversation][0] > -1) {
+        d1.innerHTML = turtleDialogueButtonTexts[turtleConversationMap[currentTurtleConversation][0]];
+        d1.style.display = "block";
+    } else {d1.style.display = "none"};
+    if (turtleConversationMap[currentTurtleConversation][1] > -1) {
+        d2.innerHTML = turtleDialogueButtonTexts[turtleConversationMap[currentTurtleConversation][1]];
+        d2.style.display = "block";
+    } else {d2.style.display = "none"};
+    outputArea.scroll(0,0);
+};
+
+continueTurtleConversation1 = () => {
+    currentTurtleConversation = turtleConversationMap[currentTurtleConversation][0];
+    createTurtleConversation();
+};
+
+d1.addEventListener('click', continueTurtleConversation1);
+
+continueTurtleConversation2 = () => {
+    currentTurtleConversation = turtleConversationMap[currentTurtleConversation][1];
+    createTurtleConversation();
+};
+
+d2.addEventListener('click', continueTurtleConversation2);
+
+leaveTurtleConversation = () => {
+    dialogueAsk = false;
+    inDialogue = false;
+    d1.style.display = "none";
+    d2.style.display = "none";
+    leaveButton.style.display = "none";
+    output.innerHTML = "";
+    setCurrentTurtleConversation();
+    turtleUnZoom();
+    focusOnInputOnDesktop();
+    // room12.src="./roomimages/smfmroom12b.png";
+    
+};
+
+setCurrentTurtleConversation = () => {
+    if (offeredToFixMill === true ) {
+        currentRobotConversation = 7
+    } 
+};
+
+leaveButton.addEventListener('click', leaveTurtleConversation);
+
+
+
+
+
+
+
 
 
 
@@ -2075,7 +2177,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
             output.innerHTML = "You arrive at a glade with a large tree in the middle.<br><br>A <span><button onclick='spanClick(\"inspect cat\")'>cat</button></span> is rustling around up in the tree's branches...";
         } else if (marbleDown === false ) {
             output.innerHTML = "You arrive at a glade with a large tree in the middle.<br><br><span><button onclick='spanClick(\"inspect tree\")'>Something</button></span> is rustling around up in the tree's branches...";
-        } else if (marbleDown === true && marbleReunited === false && marbleGone === false ) {
+        } else if (marbleDown === true && marbleAtTheParty === false && marbleGone === false ) {
             output.innerHTML = "You arrive at the glade with a large tree in the middle. The <span><button onclick='spanClick(\"inspect cat\")'>cat</button></span> is playing with the ribbon near the base of the tree.";
         } else {
             output.innerHTML = "You arrive at the glade with a large tree in the middle. The cat is gone.";
@@ -2086,7 +2188,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         setTimeout(  ()=> {
             moveAllRoomsBack();
             if (marbleDown === false) {room4.src="./roomimages/smfmroom4a.png"}
-            else if (marbleReunited === false && marbleGone === false) {room4.src="./roomimages/smfmroom4b.png"}
+            else if (marbleAtTheParty === false && marbleGone === false) {room4.src="./roomimages/smfmroom4b.png"}
             else {room4.src="./roomimages/smfmroom4c.png"};
             room4.style.zIndex = "0";
             document.getElementById("room4tile").src="./maptiles/room4tile.png";
@@ -3520,7 +3622,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 4    && marbleDown === false    && (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))  :
                 output.innerHTML = "A big tree stands in the middle of a wooded glade on the shore of the lake. A <span><button onclick='spanClick(\"inspect cat\")'>cat</button></span> is perched on one of it's hightest branches.<br><br>A narrow path leads <span><button onclick='spanClick(\"go north\")'>north</button></span> into the woods.";
                 break;
-            case roomNum === 4 &&   marbleReunited === false &&   (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))   :
+            case roomNum === 4 &&   marbleAtTheParty === false &&   (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))   :
                 output.innerHTML = "The black and white cat is playing with the ribbon under the big tree.";
                 break;
             case roomNum === 4 &&    (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what'))   &&    (inp('forest')||inp('around'))   :
@@ -3569,17 +3671,17 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "You pull the red ribbon out of your pocket, and the cat perks up.<br><br>You wave the ribbon around, and the cat leaps from the tree!" + getPoints(50, marbleDown);
                 marbleDown = true;
                 break;
-            case ( (roomNum === 4 && marbleDown === true) || ( roomNum === 12 && marbleReunited === true ) ) &&  (   inp('play')  ||  (inp('cat')||inp('use')) && inp('ribbon')   ) :
+            case ( (roomNum === 4 && marbleDown === true) || ( roomNum === 12 && marbleAtTheParty === true ) ) &&  (   inp('play')  ||  (inp('cat')||inp('use')) && inp('ribbon')   ) :
                 output.innerHTML = "You grab the ribbon and wave it around for the cat. Is there anything better than this?";
                 break;
-            case roomNum === 4 && marbleDown === true && marbleReunited === false && (inp('pet')||inp('stroke')||inp('purr')||inp('scratch')||inp('rub')||inp('scritch'))  :
+            case roomNum === 4 && marbleDown === true && marbleAtTheParty === false && (inp('pet')||inp('stroke')||inp('purr')||inp('scratch')||inp('rub')||inp('scritch'))  :
                 output.innerHTML = "The cat leans up against you leg and begins to purr." + getPoints(10, catPet);
                 catPet = true;
                 break;
-            case roomNum === 4 && marbleDown === true && marbleReunited === false && inp('talk') && inp('cat') :
+            case roomNum === 4 && marbleDown === true && marbleAtTheParty === false && inp('talk') && inp('cat') :
                 output.innerHTML = "Meow!"
                 break;
-            case roomNum === 4  && marbleDown === true &&  marbleReunited === false && marbleGone === false && (inp('throw')||inp('kick')||inp('punch')||inp('slap')||inp('hit')||inp('kill'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
+            case roomNum === 4  && marbleDown === true &&  marbleAtTheParty === false && marbleGone === false && (inp('throw')||inp('kick')||inp('punch')||inp('slap')||inp('hit')||inp('kill'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
                 marbleGone = true;
                 room4Switch();
                 output.innerHTML = "The cat hisses at you and darts away!" + getPoints(-200, catAttacked);
@@ -3641,10 +3743,16 @@ const spanClick = (whatToDo) => {
                 catTreeZoom();
                 output.innerHTML = "You tip-toe towards the tree and, quietly as you can, start to climb, but your foot snaps a twig.<br><br>The cat swats at you and you lose your footing and come crashing down. Ouch!";
                 break;
-            case roomNum === 4 &&   marbleDown === false  && marbleReunited === false && inp('talk')  :
+            case roomNum === 4 &&   marbleDown === false  && marbleAtTheParty === false && (inp('talk')||inp('invite')||inp('convince'))  :
                 catDiscovered = true;
                 catTreeZoom();
                 output.innerHTML = "The cat doesn't really seem interested in talking.";
+                break;
+            case roomNum === 4 && invitingPeople === true &&  marbleDown === true  && marbleAtTheParty === false && marbleGone === false && (inp('talk')||inp('invite')||inp('convince')||inp('party')||inp('fest')||inp('robot')||inp('ask'))  :
+                output.innerHTML = "The cat seems more interested in playing with the ribbon than talking to you, but it's ears perk up a bit when you mention the party.<br><br>You're not sure if you can count on the cat to be there. Cats do as cats do, I suppose... you decide not to pester them further.";
+                break;
+            case roomNum === 4 &&   marbleDown === true  && marbleAtTheParty === false && marbleGone === false && (inp('talk')||inp('invite')||inp('convince')||inp('party')||inp('fest')||inp('robot')||inp('ask'))  :
+                output.innerHTML = "The cat seems more interested in playing with the ribbon than talking to you...";
                 break;
             case roomNum === 4  && marbleDown === false &&  (inp('throw')||inp('toss')||inp('hit')||inp('kill'))   ||    (inp('rock')||inp('pebble')||inp('stone')) && inp('cat')   :
                 catDiscovered = true;
@@ -3672,12 +3780,12 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "The cat gives you a look, like \"Come at me, bro.\".";
                 break;
                 // inspecting cat
-            case roomNum === 4   &&  marbleDown === false  && marbleReunited === false &&  (inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && inp('cat')  :
+            case roomNum === 4   &&  marbleDown === false  && marbleAtTheParty === false &&  (inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('look')||inp('search')||inp('check')||inp('what'))  && inp('cat')  :
                 catDiscovered = true;
                 catTreeZoom();
                 output.innerHTML = "The cat eyes you casually. It's relaxing on one of the tallest branches of the tree. It seems perfectly content where it is.";
                 break;
-            case roomNum === 4   &&  marbleDown === true  && marbleReunited === false &&  (inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('look')||inp('search')||inp('check'))  && inp('cat')  :
+            case roomNum === 4   &&  marbleDown === true  && marbleAtTheParty === false &&  (inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('look')||inp('search')||inp('check'))  && inp('cat')  :
                 catDiscovered = true;
                 output.innerHTML = "The black and white cat is preocuppied with the red ribbon.";
                 break;
@@ -3702,7 +3810,7 @@ const spanClick = (whatToDo) => {
                 catTreeZoom();
                 output.innerHTML = "The cat eyes you curiously...";
                 break;
-            case roomNum === 4  && marbleReunited === false &&  inp('psp')   :
+            case roomNum === 4  && marbleAtTheParty === false &&  inp('psp')   :
                 catDiscovered = true;
                 catTreeZoom();
                 output.innerHTML = "<span>Meow!!</span>";
@@ -3712,12 +3820,12 @@ const spanClick = (whatToDo) => {
                 output.innerHTML = "There's a tall tree in the center of the glade. It looks like a perfect home for an animal.";
                 break;
                 // catch-all for cat
-            case roomNum === 4  && inp('cat ')  && marbleReunited === false && catDiscovered === false :
+            case roomNum === 4  && inp('cat ')  && marbleAtTheParty === false && catDiscovered === false :
                 output.innerHTML = "There's a cat in the tree!";
                 catTreeZoom();
                 catDiscovered = true;
                 break;
-            case roomNum === 4  && inp('cat ')  && marbleReunited === false && catDiscovered === false :
+            case roomNum === 4  && inp('cat ')  && marbleAtTheParty === false && catDiscovered === false :
                 output.innerHTML = "The cat is black with white socks.";
                 break;
 
@@ -5201,7 +5309,7 @@ const spanClick = (whatToDo) => {
             case inp('ribbon') :
                 output.innerHTML = "";
                 break;
-            case roomNum === 12 && marbleReunited === false && robotAwake && inp('ribbon')    :
+            case roomNum === 12 && marbleAtTheParty === false && robotAwake && inp('ribbon')    :
                 output.innerHTML = "You show the ribbon to the robot.<br><br><span class='robot'>\"What a beatiful thing! I have a friend who would love a ribbon like that,\"</span>, the <spam>robot</span> says.";
                 break;
                 // mug
