@@ -1600,7 +1600,7 @@ let turtleDialogueButtonTexts = ["", //0
                                 "> You should get out more.", //6
                                 "", //7
                                 "> I fixed the mill!", // 8
-                                "> See you there!", //9
+                                "> See you at the party!", //9
                                 "> Still working on the mill.", //10
                                 ];
     // turtle responses
@@ -1612,10 +1612,10 @@ let turtleDialogueTexts = ["The turtle greets you warmly.<br><br><span class='ch
                             "<span class='character'>Wow, you are the best! I’ll be here if you need me.</span>", //5
                             "<span class='character'>I like it here. This is my happy place. But yeah, maybe you’re right.</span>", //6
                             "<span class='character'>How’s it going?</span>", //7
-                            "<span class='character'>Wait, really? No kidding! …You know, maybe I should go check out that party. This place will be here when I get back.</span>", //8
+                            "<span class='character'>Wait, really? No kidding! …You know, maybe I could step out for a minute. This place will be here when I get back.</span>", //8
                             "<span class='character'>Awesome! Thanks again.</span>", //9
                             ];
-            //                   0     1     2      3      4       5      6     7     8     9    
+            //                   0     1     2      3      4       5      6     7       8      9    
 const turtleConversationMap = [[1,2],[3,2],[4,6],[2,-1],[5,-1],[-1,-1],[4,-1],[10,1],[9,-1],[-1,-1]];
 
 const createTurtleConversation = () => {
@@ -1869,9 +1869,9 @@ const setFestivalName = () => {
         robotDialogueTexts = ["You carelly put the battery in the robot...<br>The robot suddenly powers and speaks in a metallic voice.<br><br><span class='robot'>Woah... I must have dozed off!</span>", //0
                                 "<span class='robot'>Dude! Pretending like you don't know the headliner... classic! You're pretty funny, you know that? Where are you from?</span>", //1
                                 "<span class='robot'>Oh yeah? Well, nothing wrong with a little nap before the show. Thanks for waking me up! So, are you ready?</span>", //2
-                                "<span class='robot'>Haha, good one! ...wait, you're really telling me you don't know who I am? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to " + festivalName + "!!</span>", //3
-                                "<span class='robot'>Wait, you really don't know...? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to " + festivalName + "!!</span>", //4
-                                "<span class='robot'>Well, you came to the right place! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to " + festivalName + "!!</span>", //5
+                                "<span class='robot'>Haha, good one! ...wait, you're really telling me you don't know who I am? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's " + festivalName + "!!</span>", //3
+                                "<span class='robot'>Wait, you really don't know...? Dude! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's " + festivalName + "!!</span>", //4
+                                "<span class='robot'>Well, you came to the right place! Prepare to have your human mind flipping blown! Pretty soon this spot is going to become a portal to another dimension! You know what I mean? You're gonna lose your marbles! There's nothing else like it. Welcome to DJ Beat-Bot's " + festivalName + "!!</span>", //5
                                 "<span class='robot'>Huh? You don't like " + festivalName + "? Well, I guess it's just a working title... Not too late for a re-brand! What would you call it? Full creative license. Don't be shy, let's hear it!</span><br><br>Type a festival name and press ENTER:", //6
                                 "<span class='robot'>" + festivalName + "... huh... I like that! It's catchy. Let's roll with it! " + festivalName + " is going to be the talk of the forest.</span>", //7
                                 "<span class='robot'>Ok, no prob! any other name ideas?</span><br><br>Type a festival name and press ENTER:", //8
@@ -2476,8 +2476,9 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     }; 
     const room13Switch = () => {
         // get next room ready
-        room19.src="./roomimages/smfmroom19a.png";
-
+        if (roomVisited[19]=== false) {
+            room19.src="./roomimages/smfmroom19a.png";
+        };
         output.innerHTML = "You carefully climb down the rope to the bottom of the well.";
         roomVisited[13] = true;
         setTimeout(  ()=> {
@@ -2497,11 +2498,13 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     }; 
     const room19Switch = () => {
         // get next room ready
-        room16.src="./roomimages/smfmroom16a.png";
+        if (roomVisited[16]=== false) {
+            room16.src="./roomimages/smfmroom16a.png";
+        };
         if (turtleGone === false) {
-            output.innerHTML = "You enter a quaint underground cafe lit by flickering lamps. A turtle is standing behind the coffee bar, hard at work.";
+            output.innerHTML = "You enter a quaint underground cafe lit by flickering lamps. A <span><button onclick='spanClick(\"talk to turtle\")'>turtle\"</button></span> is hard at work behind the coffee bar.<br><br>There's an <span><button onclick='spanClick(\"go east\")'>exit</button></span> out out the back of the cafe.";
         } else {
-            output.innerHTML = "You reeturn to the underground cafe. The turtle that was working behind the bar is gone.";
+            output.innerHTML = "You're back in the underground cafe. The turtle is gone.";
         };
         roomVisited[19] = true;
         setTimeout(  ()=> {
@@ -4818,12 +4821,16 @@ const spanClick = (whatToDo) => {
 
             // ROOM 19
                     // look around, basic stuff
-            case roomNum === 19   && ((inp('exit')||inp('leave')||inp('go back')||inp('outside') ) || inp('go out'))  :
+            case roomNum === 19   && ((inp('leave')||inp('go back')||inp('outside') ) || inp('go out'))  :
                 room13Switch();
                 goWestAnimation();
                 break;
-            case roomNum === 19 &&   (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what'))   &&   inp('around') :
-                output.innerHTML = "The underground cafe is a bit dingy, but comfy and smells like coffee and baked goods. Tree roots wind down the dirt walls, which are lined with a few tables and chairs.<br><br>A turtle is hard at work behind the coffee bar.";
+            case roomNum === 19   && ((inp('exit')||inp('the back')))  :
+                room16Switch();
+                goEastThenSouthAnimation();
+                break;
+            case roomNum === 19 &&   (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('around')||inp('cafe')||inp('shop')||inp('room')||inp('store') ):
+                output.innerHTML = "The underground cafe is a bit dingy, but comfy and smells like coffee and baked goods. Tree roots wind down the dirt walls, which are lined with a few tables and chairs.<br><br>A <span><button onclick='spanClick(\"talk to turtle\")'>turtle\"</button></span> is hard at work behind the coffee bar.<br><br>There's an <span><button onclick='spanClick(\"go east\")'>exit</button></span> out out the back of the cafe.";
                 break;
             case roomNum === 19 &&   (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('what'))   &&  ( inp('bar')||inp('shelv')||inp('shelf')||inp('cabinet')||inp('storage')||inp('wall')||inp('mantel')||inp('mantle') ):
                 output.innerHTML = "A few shelves on the walls serve as storage for various cafe things - cups, jars, and other containers and equipment.";
