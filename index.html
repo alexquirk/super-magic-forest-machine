@@ -1596,16 +1596,18 @@ let turtleDialogueButtonTexts = ["", //0
                                 "> Have you heard about the party?", //2
                                 "> Wow, this is delicious!", //3
                                 "> I could try to fix the mill.", //4
-                                "> You should get out more.", //5
-                                "> Say no more!", //6
-                                "> I fixed the mill!", //7
-                                "> See you there!", //8
+                                "> Say no more!", //5
+                                "> You should get out more.", //6
+                                "", //7
+                                "> I fixed the mill!", // 8
+                                "> See you there!", //9
+                                "> Still working on the mill.", //10
                                 ];
     // turtle responses
 let turtleDialogueTexts = ["The turtle greets you warmly.<br><br><span class='character'>Weclome in! Let me know if I can get anything for you.</span>", //0
                             "<span class='character'>Here, try a sample of our coconut beet-root chai. I make it myself.</span>", //1
-                            "<span class='character'>Thanks!</span>", //2
-                            "<span class='character'>Yeah, sounds like fun. I wish I could go, but there’s just so much to do around here. The watermill that powers the cafe has been acting funny, and I can’t seem to figure it out. Maybe if I got that fixed, I could step away for a bit.</span>", //3
+                            "<span class='character'>Yeah, sounds like fun. I wish I could go, but there’s just so much to do around here. The watermill that powers the cafe has been acting funny, and I can’t seem to figure it out. Maybe if I got that fixed, I could step away for a bit.</span>", //2
+                            "<span class='character'>Thanks!</span>", //3
                             "<span class='character'>Really? That would be amazing. The watermill also powers the lift that takes you to the top of the dam, which is kinda fun.</span>", //4
                             "<span class='character'>Wow, you are the best! I’ll be here if you need me.</span>", //5
                             "<span class='character'>I like it here. This is my happy place. But yeah, maybe you’re right.</span>", //6
@@ -1613,18 +1615,30 @@ let turtleDialogueTexts = ["The turtle greets you warmly.<br><br><span class='ch
                             "<span class='character'>Wait, really? No kidding! …You know, maybe I should go check out that party. This place will be here when I get back.</span>", //8
                             "<span class='character'>Awesome! Thanks again.</span>", //9
                             ];
-            //               0     1     2      3     4       5      6      7     8     9    
-const turtleDialogueMap = [[1,2],[3,2],[2,-1],[4,5],[6,-1],[-1,-1],[4,-1],[7,1],[8,1],[-1,-1]];
+            //                   0     1     2      3      4       5      6     7     8     9    
+const turtleConversationMap = [[1,2],[3,2],[4,6],[2,-1],[5,-1],[-1,-1],[4,-1],[10,1],[9,-1],[-1,-1]];
 
 const createTurtleConversation = () => {
     // zoom
     turtleZoom();
 
+    d1.addEventListener('click', continueTurtleConversation1);
+    d2.addEventListener('click', continueTurtleConversation2);
+    leaveButton.addEventListener('click', leaveTurtleConversation);
 
-    //open the cafe
+    // switch dialogue map if mill is fixed
+    if (millSwitchOn === true) {
+        turtleConversationMap[7][0] = 8;
+    };
+
+    // move the convo along if offered to fix mill
     if (currentTurtleConversation === 5  ){
         offeredToFixMill = true;
-    }
+    };
+    if (currentTurtleConversation === 8  ){
+        turtleGone = true;
+        turtleInvited = true;
+    };
     
     // show the robot's speech
     output.innerHTML = turtleDialogueTexts[currentTurtleConversation];
@@ -1635,7 +1649,7 @@ const createTurtleConversation = () => {
     inDialogue = true;
 
     // make "leave" button visible
-
+    leaveButton.style.display = "block";
     if (turtleConversationMap[currentTurtleConversation][0] > -1) {
         d1.innerHTML = turtleDialogueButtonTexts[turtleConversationMap[currentTurtleConversation][0]];
         d1.style.display = "block";
@@ -1652,14 +1666,10 @@ continueTurtleConversation1 = () => {
     createTurtleConversation();
 };
 
-d1.addEventListener('click', continueTurtleConversation1);
-
 continueTurtleConversation2 = () => {
     currentTurtleConversation = turtleConversationMap[currentTurtleConversation][1];
     createTurtleConversation();
 };
-
-d2.addEventListener('click', continueTurtleConversation2);
 
 leaveTurtleConversation = () => {
     dialogueAsk = false;
@@ -1677,16 +1687,9 @@ leaveTurtleConversation = () => {
 
 setCurrentTurtleConversation = () => {
     if (offeredToFixMill === true ) {
-        currentRobotConversation = 7
+        currentTurtleConversation = 7
     } 
 };
-
-leaveButton.addEventListener('click', leaveTurtleConversation);
-
-
-
-
-
 
 
 
@@ -1751,6 +1754,9 @@ const robotConversationMap = [[1,2],[5,4],[3,1],[6,11],[6,11],[6,11],[-1,-1],[11
 const createRobotConversation = () => {
     // zoom
     robotZoom();
+    d1.addEventListener('click', continueRobotConversation1);
+    d2.addEventListener('click', continueRobotConversation2);
+    leaveButton.addEventListener('click', leaveRobotConversation);
 
     let robotTalkedTo = true;
 
@@ -1817,14 +1823,10 @@ continueRobotConversation1 = () => {
     createRobotConversation();
 };
 
-d1.addEventListener('click', continueRobotConversation1);
-
 continueRobotConversation2 = () => {
     currentRobotConversation = robotConversationMap[currentRobotConversation][1];
     createRobotConversation();
 };
-
-d2.addEventListener('click', continueRobotConversation2);
 
 leaveRobotConversation = () => {
     dialogueAsk = false;
@@ -1849,8 +1851,6 @@ setCurrentRobotConversation = () => {
         currentRobotConversation = 17
     }
 };
-
-leaveButton.addEventListener('click', leaveRobotConversation);
 
 // get festival name
 
@@ -2920,9 +2920,16 @@ const spanClick = (whatToDo) => {
             case inp('var status'):
                 output.innerHTML = "robotConversationMap: " + robotConversationMap + "<br><br>haveMap: " + haveMap + "<br><br>boatFixed: " + boatFixed + "<br><br>ropeTaken: " + ropeTaken + "<br><br>haveBox: " + haveBox
                 break;
-            case inp('talk test'):
+            case inp('robot talk test'):
                 output.innerHTML = "";
                 createRobotConversation();
+                break;
+            case inp('turtle talk test'):
+                output.innerHTML = "";
+                createTurtleConversation();
+                break;
+            case inp('fix mill test'):
+                millSwitchOn = true;
                 break;
             case inp('get room num'):
                 output.innerHTML = roomNum;
@@ -3490,7 +3497,7 @@ const spanClick = (whatToDo) => {
             case roomNum === 1  && doorUnlocked === false&&    (inp('take')||inp('grab')||inp('pocket'))    &&    (inp('door')||inp('handle')||inp("knob"))    :
                 output.innerHTML = "You don't have magical pockets, just regular ones. so the door probably isn't going to fit. Besides, it's pretty solid and doesn't look like it's going to be easily moved.";
                 break;
-            case roomNum === 1  && doorUnlocked === false &&    (inp('hit')||inp('break')||inp('smash')||inp('rock')||inp('kick')||inp('ram ')||inp('bust')||inp('bash')||inp('punch'))    &&    (inp('door')||inp('handle')||inp("knob"))   :
+            case roomNum === 1  && doorUnlocked === false &&    (inp('hit')||inp('break')||inp('force')||inp('smash')||inp('rock')||inp('kick')||inp('ram ')||inp('bust')||inp('bash')||inp('punch'))    &&    (inp('door')||inp('handle')||inp("knob"))   :
                 output.innerHTML = "You pick up a rock and give the door a real good whack. Seriously, you wind up and really lean into it.<br><br>But the door doesn't budge. You didn't even really dent the wood. That's a bummer.<br><br>Can doors can be angry? This door seems angry.";
                 doorZoom();
                 break;
@@ -4463,7 +4470,7 @@ const spanClick = (whatToDo) => {
                 // roomNum = 10;
                 break;
             // attempts
-            case roomNum === 13 && cafeOpen === false && (   inp("smash")||inp('hit')||inp('kick')||inp('ram')||inp('bash')) && inp('door'):
+            case roomNum === 13 && cafeOpen === false && (   inp("smash")||inp('hit')||inp('kick')||inp('ram')||inp('bash')||inp('break')||inp('force')) && inp('door'):
                 output.innerHTML = "You kick the door.<br><br><span class = 'character'>\"HEY!\"</span> someone shouts from inside.<span class = 'character'> \"We're closed! Can't you read the sign?\"</span>";
                 break;
             case roomNum === 13 && cafeOpen === false && haveBoxKey === true && (   inp("key")||inp('unlock')||inp('un lock')):
@@ -4843,6 +4850,10 @@ const spanClick = (whatToDo) => {
             case roomNum === 19 && turtleGone === false && (inp('sneak')||inp('stealth')) :
                 output.innerHTML = "The turtle is standing in the middle of the bar and there's no sneaking around them.";
                 turtleZoom();
+                break;
+                // talking to the turtle
+            case roomNum === 19 && turtleGone === false && (inp('speak')||inp('talk')||inp('converse')||inp('ask')||inp('inquire')||inp('invite')||inp('chat')||inp('tell ')) :
+                createTurtleConversation();
                 break;
 
 
