@@ -686,7 +686,7 @@ body {
     mix-blend-mode: luminosity;
 }
 
-.compasstriangles:hover, #enterbutton:hover, #errorenterbutton:hover, #dialogue2:hover, #dialogue1:hover, #leavebutton:hover {
+.compasstriangles:hover, #enterbutton:hover, #errorenterbutton:hover, #dialogue2:hover, #dialogue1:hover, #dialogue3:hover, #leavebutton:hover {
     cursor: pointer;
 }
 
