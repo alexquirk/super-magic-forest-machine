@@ -739,6 +739,7 @@ const showErrorCard = () => {
     let currentRobotConversation = 0;
     let currentTurtleConversation = 0;
     let currentOwlConversation = 0;
+    let currentBearConversation = 0;
     let dialogueAsk = false;
     let inDialogue = false;
 
@@ -798,7 +799,6 @@ const showErrorCard = () => {
     let boatFixed = false;
     let mushyTaken = false;
     let cafeOpen = false;
-    let turtleGone = false;
     let jarStolen = false;
 
     // taking the first mushroom sets the mushy-time-passed to 10. So, if mushy taken when mushy value is <1, set the time pass
@@ -817,8 +817,11 @@ const showErrorCard = () => {
     let knowAboutFestival = false;
     let invitingPeople = false;
     let turtleInvited = false;
-    let owlInvitied = false;
+    let owlInvited = false;
     let bearInvited = false;
+    let turtleGone = false;
+    let owlGone = false;
+    let bearGone = false;
 
     let haveMap = false; 
     let caveInspected = false;
@@ -847,6 +850,16 @@ const robotUnZoom = () => {
     document.getElementById("room5").style.width = "100%";
     document.getElementById("room5").style.bottom = "0%";
     document.getElementById("room5").style.left = "0%";
+};
+const bearZoom = () => {
+    document.getElementById("room15").style.width = "170%";
+    document.getElementById("room15").style.bottom = "-25%";
+    document.getElementById("room15").style.left = "-50%";
+};
+const bearUnZoom = () => {
+    document.getElementById("room15").style.width = "100%";
+    document.getElementById("room15").style.bottom = "0%";
+    document.getElementById("room15").style.left = "0%";
 };
 const turtleZoom = () => {
     document.getElementById("room19").style.width = "250%";
@@ -1573,11 +1586,11 @@ let owlDialogueTexts = ["An owl suddently appears out of the trees.<br><br><span
                              "<span class='character'>...Impossible...! Ok... last question. And there is absolutely NO WAY you're gonna know this. Ready? Which mythical dubplate, said to be the holy grail of bass, can only be heard by those who have achieved basslightenment?</span>", //25
                              "<span class='character'>...Impossible...! Ok... last question. And there is absolutely NO WAY you're gonna know this. Ready? Which mythical dubplate, said to be the holy grail of bass, can only be heard by those who have achieved basslightenment?</span>", //26
                              "<span class='character'>I can't believe it... ok, I guess you do know a bit about electronic music after all. I guess I'll go to your party. But the DJ better not play any Bovinecore. That stuff is soo played out.</span>", //27
-                             "<span class='character'>I can't believe it... ok, I guess you do know a bit about electronic music after all. I guess I'll go to your party. But the DJ better not play any Bovinecore. That stuff is soo played out.</span>", //27
-                             "<span class='character'>I can't believe it... ok, I guess you do know a bit about electronic music after all. I guess I'll go to your party. But the DJ better not play any Bovinecore. That stuff is soo played out.</span>", //27
+                             "<span class='character'>I can't believe it... ok, I guess you do know a bit about electronic music after all. I guess I'll go to your party. But the DJ better not play any Bovinecore. That stuff is soo played out.</span>", //28
+                             "<span class='character'>I can't believe it... ok, I guess you do know a bit about electronic music after all. I guess I'll go to your party. But the DJ better not play any Bovinecore. That stuff is soo played out.</span>", //29
                             ];
-            //                 0        1        2        3         4         5        6        7        8           9          10        11         12         13         14         15         16         17
-const owlConversationMap = [[1,2,-1],[3,2,-1],[5,4,-1],[5,4,-1],[5,-1,-1],[6,7,-1],[9,10,-1],[8,6,-1],[6,-1,-1],[10,-1,-1],[11,-1,-1],[12,13,14],[15,16,17],[15,16,17],[15,16,17],[18,19,20],[18,19,20],[18,19,20],[21,22,23],[21,22,23],[21,22,23],[24,25,26],[24,25,26],[24,25,26],[27,28,29],[27,28,29],[27,28,29],[-1,-1,-1]];
+            //                 0        1        2        3         4         5        6        7        8           9          10        11         12         13         14         15         16         17          18        19          20        21         22         23         24         25         26         27        28          29
+const owlConversationMap = [[1,2,-1],[3,2,-1],[5,4,-1],[5,4,-1],[5,-1,-1],[6,7,-1],[9,10,-1],[8,6,-1],[6,-1,-1],[10,-1,-1],[11,-1,-1],[12,13,14],[15,16,17],[15,16,17],[15,16,17],[18,19,20],[18,19,20],[18,19,20],[21,22,23],[21,22,23],[21,22,23],[24,25,26],[24,25,26],[24,25,26],[27,28,29],[27,28,29],[27,28,29],[-1,-1,-1],[-1,-1,-1],[-1,-1,-1]];
 
 const createOwlConversation = () => {
     // zoom
@@ -1594,6 +1607,11 @@ const createOwlConversation = () => {
     // let the rest of the game know you're in dialogue
     dialogueAsk = true;
     inDialogue = true;
+
+    // change varialbes
+    if (currentOwlConversation === 27 ||  currentOwlConversation === 28 ||  currentOwlConversation === 29) {
+        owlInvited = true;
+    }
 
     // make "leave" button visible
     leaveButton.style.display = "block";
@@ -1653,6 +1671,117 @@ setCurrentOwlConversation = () => {
 
 
 
+
+// BEAR DIALOGUE
+    // your dialogue
+    let bearDialogueButtonTexts = ["", //0
+                                "> How's it going?", //1
+                                "> How'd you get out here?", //2
+                                "> Your team must have done well.", //3
+                                "> Have you heard about the party?", //4
+                                "> Wait... really? No test? No side quests?", //5
+                                "> Ok... see you there!", //6
+                                "> Are you hibernating?", //7
+                                "> I'm kinda lost in the forest.", // 8
+                                ];
+    // turtle responses
+let bearDialogueTexts = ["The bear looks super relaxed.", //0
+                            "<span class='character'>Oh, you know. Just chilling.</span>", //1
+                            "<span class='character'>I'm, like, a pretty good swimmer. I was on the water polo team in school.</span>", //2
+                            "<span class='character'>We weren't as good as the Dolphins, apparently.</span>", //3
+                            "<span class='character'>Party? I'm down.</span>", //4
+                            "<span class='character'>No, that's not really what I'm about. I'm just down for the party.</span>", //5
+                            "<span class='character'>You got it, bud</span><br><br>The polar bear appears to doze off.", //6
+                            "<span class='character'>Nope, just chillin like ice cream fillin.</span>", //7
+                            "<span class='character'>Yeah, that happens. The forest is a weird place. A bit spooky, if you ask me.</span>", //8
+                            ];
+            //                 0     1     2     3     4      5      6      7     8      
+const bearConversationMap = [[1,2],[7,2],[3,8],[4,8],[5,6],[6,-1],[-1,-1],[4,8],[4,2]];
+
+const createBearConversation = () => {
+    // zoom
+    bearZoom();
+
+    if (currentBearConversation === 4  ){
+        bearInvited = true;
+    };
+
+    d1.addEventListener('click', continueBearConversation1);
+    d2.addEventListener('click', continueBearConversation2);
+    leaveButton.addEventListener('click', leaveBearConversation);
+
+    // // switch dialogue map if mill is fixed
+    // if (millSwitchOn === true) {
+    //     turtleConversationMap[7][0] = 8;
+    // };
+
+    // // move the convo along if offered to fix mill
+    // if (currentTurtleConversation === 5  ){
+    //     offeredToFixMill = true;
+    // };
+    // if (currentTurtleConversation === 8  ){
+    //     turtleGone = true;
+    //     turtleInvited = true;
+    // };
+    
+    // show the robot's speech
+    output.innerHTML = bearDialogueTexts[currentBearConversation];
+
+
+    // let the rest of the game know you're in dialogue
+    dialogueAsk = true;
+    inDialogue = true;
+
+    // make "leave" button visible
+    leaveButton.style.display = "block";
+
+    if (bearConversationMap[currentBearConversation][0] > -1) {
+        d1.innerHTML = bearDialogueButtonTexts[bearConversationMap[currentBearConversation][0]];
+        d1.style.display = "block";
+    } else {d1.style.display = "none"};
+
+    if (bearConversationMap[currentBearConversation][1] > -1) {
+        d2.innerHTML = bearDialogueButtonTexts[bearConversationMap[currentBearConversation][1]];
+        d2.style.display = "block";
+    } else {d2.style.display = "none"};
+
+    outputArea.scroll(0,0);
+};
+
+continueBearConversation1 = () => {
+    currentBearConversation = bearConversationMap[currentBearConversation][0];
+    createBearConversation();
+};
+
+continueBearConversation2 = () => {
+    currentBearConversation = bearConversationMap[currentBearConversation][1];
+    createBearConversation();
+};
+
+leaveBearConversation = () => {
+    dialogueAsk = false;
+    inDialogue = false;
+    d1.style.display = "none";
+    d2.style.display = "none";
+    leaveButton.style.display = "none";
+    output.innerHTML = "";
+    setCurrentBearConversation();
+    bearUnZoom();
+    focusOnInputOnDesktop();
+    // if (turtleInvited === false) {currentTurtleConversation = 0};
+    // room12.src="./roomimages/smfmroom12b.png";
+    
+};
+
+setCurrentBearConversation = () => {
+    // if (offeredToFixMill === true ) {
+    //     currentTurtleConversation = 7
+    // } 
+};
+
+
+
+
 // TURTLE DIALOGUE
     // your dialogue
 let turtleDialogueButtonTexts = ["", //0
@@ -1674,7 +1803,7 @@ let turtleDialogueTexts = ["The turtle greets you warmly.<br><br><span class='ch
                             "<span class='character'>Thanks!</span><br><br><span class = 'points'>+5 points</span>" + getPoints(5, drinkTried), //3
                             "<span class='character'>Really? That would be amazing. The watermill also powers the lift that takes you to the top of the dam, which is kinda fun.</span>", //4
                             "<span class='character'>Wow, you are the best! I’ll be here if you need me.</span>", //5
-                            "<span class='character'>I like it here. This is my happy place. But yeah, maybe you’re right.</span>", //6
+                            "<span class='character'>I'd like to get our more. But do you have any idea how hard it is to run a coffee shop at the bottom of a well? Besides, I like it here. This is my happy place.</span>", //6
                             "<span class='character'>How’s it going?</span>", //7
                             "<span class='character'>Wait, really? No kidding! …You know, maybe I could step out for a minute. This place will be here when I get back.</span>", //8
                             "<span class='character'>Awesome! Thanks again.</span>", //9
@@ -2322,7 +2451,7 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
     };
     const room6Switch = () => {
         // load next room images
-        if (roomVisited[15] === false) {room15.src = "./roomimages/smfmroom15.png"};
+        if (roomVisited[15] === false) {room15.src = "./roomimages/smfmroom15a.png"};
         if (roomVisited[9] === false) {room9.src = "./roomimages/smfmroom9b.png"};
 
         if (ropeTaken === false && boatFixed === false && roomNum === 5)
@@ -2632,7 +2761,11 @@ allRooms = [room1, room2, room3, room4, room5, room6, room7, room8, room9, room1
         mapArrow.style.left = "74.5%";
         setTimeout(  ()=> {
             moveAllRoomsBack();
-            room15.src="./roomimages/smfmroom15.png";
+            if (bearGone === false) {
+                room15.src="./roomimages/smfmroom15a.png";
+            } else {
+                room15.src="./roomimages/smfmroom15b.png";
+            };
             room15.style.zIndex = "0";
             document.getElementById("room15tile").src="./maptiles/room15tile.png";
             roomNum = 15;
@@ -2949,6 +3082,7 @@ const spanClick = (whatToDo) => {
         robotUnZoom();
         // if (inDialogue === false && robotAwake === true) {room12.src="./roomimages/smfmroom12b.png";}
         wellUnZoom();
+        bearUnZoom();
         doorUnZoom();
         stumpUnZoom();
         boatUnZoom();
@@ -3003,6 +3137,10 @@ const spanClick = (whatToDo) => {
             case inp('turtle talk test'):
                 output.innerHTML = "";
                 createTurtleConversation();
+                break;
+            case inp('bear talk test'):
+                output.innerHTML = "";
+                createBearConversation();
                 break;
             case inp('owl talk test'):
                 output.innerHTML = "";
@@ -3918,11 +4056,11 @@ const spanClick = (whatToDo) => {
 
             // ROOM 5
                 // wake up robot
-            case roomNum === 5  && robotAwake === false &&  haveBattery === false && (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('speak')) :
+            case roomNum === 5  && robotAwake === false &&  haveBattery === false && (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('speak')||inp('chat')) :
                 output.innerHTML = "The robot is turned off, or sleeping.<br><br>There's an empty spot in the robot's side where a battery could go, but it's empty.";
                 robotZoom();
                 break;
-            case roomNum === 5  && robotAwake === false && haveBattery === true &&  (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('tree')||inp('speak')||inp('battery')) :
+            case roomNum === 5  && robotAwake === false && haveBattery === true &&  (inp('talk')||inp('inquire')||inp('strange')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('tree')||inp('speak')||inp('chat')||inp('battery')) :
                 removeItem("a <span><button onclick='spanClick(\"inspect battery\")'>battery</button></span>");
                 haveBattery = false;
                 currentCutscene = "robot waking";
@@ -3933,7 +4071,7 @@ const spanClick = (whatToDo) => {
                 // createRobotConversation();
                 break;
                 // talk to the robot
-            case roomNum === 5 && robotAwake === true  &&  (inp('talk')||inp('inquire')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('speak'))  :
+            case roomNum === 5 && robotAwake === true  &&  (inp('talk')||inp('chat')||inp('inquire')||inp('ask')||inp('question')||inp('converse')||inp('robot')||inp('turn on')||inp('switch')||inp('figure')||inp('person')||inp('thing')||inp('machine')||inp("button")||inp('activate')||inp('operate')||inp('speak'))  :
                 createRobotConversation();
                 break;
                 // looking around
@@ -3991,13 +4129,13 @@ const spanClick = (whatToDo) => {
                 currentCutscene = "riding boat";
                 playCutscene();
                 room15Switch();
-                output.innerHTML = "You untie the rope and put it in your pocket, then push the boat out into the lake and hop in. Without paddles, you allow the tide to take you where it will.<br><br>Soon, the boat lands on the shore of an island.";
+                output.innerHTML = "You untie the rope and put it in your pocket, then push the boat out into the lake and hop in. Without paddles, you allow the tide to take you where it will.<br><br>Soon, the boat lands on the shore of an island, where a <span><button onclick='spanClick(\"talk to bear\")'>polar bear</button></span> is lounging on a towel under an umbrella nearby.";
                 break;
             case roomNum === 6   && boatFixed === true  && ropeTaken === true && (inp('get')||inp('take')||inp('ride')||inp('go '))   &&    (inp('boat'))  :
                 currentCutscene = "riding boat";
                 playCutscene();
                 room15Switch();
-                output.innerHTML = "You push the boat out into the lake and hop in. Without paddles, you allow the tide to take you where it will.<br><br>Soon the boat lands on the shore of an island.";
+                output.innerHTML = "You push the boat out into the lake and hop in. Without paddles, you allow the tide to take you where it will.<br><br>Soon the boat lands on the shore of an island, where a <span><button onclick='spanClick(\"talk to bear\")'>polar bear</button></span> is lounging on a towel under an umbrella nearby.";
                 break;
                 // Fixing The Boat
             case roomNum === 6   && boatFixed === false && (inp('fix')||inp('repair')||inp('mend')||inp('patch')||inp('plug')||inp('use'))   &&  (inp('mud')||inp('clay')) :
@@ -4504,12 +4642,26 @@ const spanClick = (whatToDo) => {
 
             // ROOM 15
                 // looking around and inspecting things
-            case roomNum === 15  && (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&    inp('around') :
-                output.innerHTML = "You're on a island! That's pretty cool.<br><br>There's a large palm tree, a few rocks, and a big thing washed up on the shore that looks like the wing of an aircraft.";
+            case roomNum === 15  && (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('what'))   &&   ( inp('around')||inp('island')) :
+                output.innerHTML = "You're on a island! That's pretty cool.<br><br>There's a <span><button onclick='spanClick(\"talk to bear\")'>polar bear</button></span> lounging on a towel under an umbrella nearby.";
                 break;
-            case roomNum === 15  &&  (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('grab')||inp('take')||inp('pocket')||inp('get')||inp('under')||inp('behind')||inp('what'))  &&  (  inp('wing')||inp('turbine')||inp('blade')||inp('fan')||inp('white')||inp('gray')||inp('grey')||inp('thing')  ):
-                output.innerHTML = "The object looks like the wing of an airplane, but on closer inspection, you realize it's actually more like the blade of a giant fan. It's wedged in the rocks on the shore. Grasses and sea vegetation have grown around it."
+            case roomNum === 15  &&  bearGone === false &&   (inp('look')||inp('inspect')||inp('examine')||inp('tell me about')||inp('see ')||inp('search')||inp('check')||inp('what'))  &&  (  inp('bear')||inp('white')||inp('animal')||inp('person')||inp('thing')||inp('on the beach')||inp('under the umbrella')||inp('creature')  ):
+                output.innerHTML = "The <span><button onclick='spanClick(\"talk to bear\")'>polar bear</button></span> bear looks pretty comfy. You've heard that polar bears are super dangerous, and you wonder for a moment if you should be afraid, but it looks pretty chill under that umbrella."
+                bearZoom();
                 break;
+            case roomNum === 15  && bearGone === false && (inp('talk')||inp('ask')||inp('inquire')||inp('invite')||inp('party')||inp('fest')||inp('chat')||inp('what')||inp('tell ')||inp('speak'))  &&  (  inp('bear')||inp('white')||inp('animal')||inp('person')||inp('thing')||inp('on the beach')||inp('under the umbrella')||inp('creature')  ):
+                createBearConversation();
+                bearZoom();
+                break;
+            case roomNum === 15 && bearGone === false && (inp('attack')||inp('hit')||inp('punch')||inp('kick')||inp('smack')||inp('knock out'))   &&  ( inp('bear')||inp('white')||inp('animal')||inp('person')||inp('thing')||inp('on the beach')||inp('under the umbrella')||inp('creature')) :
+                output.innerHTML = "I wouldn't do that... The bear looks chill, but pretty tough."
+                bearZoom();
+                break;
+            case roomNum === 15 && bearGone === false && (inp('offer')||inp('give')||inp('flirt')||inp('kiss')||inp('trade'))   &&  ( inp('bear')||inp('white')||inp('animal')||inp('person')||inp('thing')||inp('on the beach')||inp('under the umbrella')||inp('creature')) :
+                output.innerHTML = "The bear doesn't seem interested."
+                bearZoom();
+                break;
+
                 // ride boat back
             case roomNum === 15 &&  (   (   (inp('get')||inp('take')||inp('ride'))   &&   (inp('boat'))   )  ||  (   ( inp('go')||inp('travel')) && (inp('forest')||inp('back'))  )  ||  (   inp('leave') && inp('island')   )  )  :
                 room6Switch();

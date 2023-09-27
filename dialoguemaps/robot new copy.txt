@@ -52,11 +52,14 @@ Let's do it
 10 > Heck yeah, dude! So, we got the name figured out, we got the sound system, and we got the DJ (that's me), so I guess all we need to do now is get the word out. Say, you wouldn't want to help me invite some cool people, would you?
 	> Sure!
 	> Hey, I thought you were a famous headliner?
+	> Can you help me find a way out of the forest?
 
 When does it start?
 11 > Well, I'm not sure how long I was asleep, so it's hard to say. But we got the sound system, we got the DJ (that's me), so I guess all we need to do now is get the word out. Say, you wouldn't want to help me invite some cool people, would you?
 	> Sure!
 	> Hey, I thought you were a famous headliner?
+	> Can you help me find a way out of the forest?
+
 
 Sure!
 12 > Freaking awesome, dude! If you invite three people we'll get this party rolling. Once the music is blasting and the dance floor is shaking, word will get out, for sure!
@@ -103,7 +106,6 @@ I invited the bear, the owl, and turtle!
 23 > Dude! Welcome to DJ Beat-Bot's Woodland Wubfest!! 
 	> Woodland Wubfest? That's a weird name...
 	> Cool! When does it start?
-
 
 
 

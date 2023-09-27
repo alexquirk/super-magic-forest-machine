@@ -1,0 +1,44 @@
+
+0 > The bear looks super relaxed.
+	> How's it going?
+	> Have you heard about the party?
+
+How's it going?
+1 > Oh, you know. Just chilling.
+	> Are you hibernating?
+	> How'd you get out here?
+
+How'd you get out here?
+2 > I'm, like, a pretty good swimmer. I was on the water polo team in high school.
+	> Your team must have done well.
+	> I'm kinda lost in this forest
+
+Your team must have done well.
+3 > We weren't as good as the Dolphins, apparently.
+	> Have you heard about the party?
+	> I'm kinda lost in the forest
+
+
+Have you heard about the party?
+4 > Party? I'm down.
+	> Wait... really? No test? No side quests?
+	> Ok... see you there?
+
+Wait... really? No test? No side quests?
+5 > No, that's not really what I'm about. I'm just down for the party.
+	> Ok... see you there!
+
+Ok... see you there?
+6 > The polar bear appears to doze off.
+
+Are you hibernating?
+7 > Nope, just chilling.
+	> Have you heard about the party?
+	> I'm kinda lost in the forest
+
+I'm kinda lost in the forest
+8 > Yeah, that happens. The forest is a weird place. A bit spooky, if you ask me.
+	> Have you heard about the party?
+	> How'd you get out here?
+
+
